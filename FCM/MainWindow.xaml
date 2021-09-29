@@ -437,7 +437,7 @@
                         ItemsSource="{Binding Items1}" FontSize="15"
                         Width="1100"
                         HorizontalAlignment="Center">
-                  
+
 
                         <ListView.View>
                             <GridView>
@@ -456,7 +456,7 @@
                                     Header="Đội 2" />
 
                                 <GridViewColumn
-                                    Width="180"
+                                    Width="160"
                                     DisplayMemberBinding="{Binding Stadium}"
                                     Header="Sân" />
 
