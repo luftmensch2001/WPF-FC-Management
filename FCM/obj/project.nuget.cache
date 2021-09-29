@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "S15AfhSmk4KuOKp8G0K7W5QxF1+86eKajvL3qrQiO/WShwPO/n2BrL0ybMAeN7JX0Xb6g63cD0yModLLxlKc2A==",
+  "success": true,
+  "projectFilePath": "G:\\Nam 3\\OOP\\Project\\FCM\\FCM\\FCM.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\phuon\\.nuget\\packages\\materialdesigncolors\\2.0.3\\materialdesigncolors.2.0.3.nupkg.sha512",
+    "C:\\Users\\phuon\\.nuget\\packages\\materialdesignthemes\\4.2.1\\materialdesignthemes.4.2.1.nupkg.sha512"
+  ],
+  "logs": []
+}
