@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FCM"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="Trang chủ" Height="850" Width="1500"
+        Title="Phần mềm quản lý giải bóng đá" Height="850" Width="1500"
         WindowStartupLocation="CenterOwner"
         ResizeMode="CanMinimize"
         x:Name="wdHome"
@@ -25,10 +26,24 @@
             <ColumnDefinition Width="1*"></ColumnDefinition>
             <ColumnDefinition Width="4*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
+
         
         <!--Menu side bar-->
         <Grid Grid.Column="0"
               Background="#282823">
+            <!--Stroke (+65 margin_top / item) -->
+            <Grid
+              x:Name="grdStroke"
+              Background="#52FF00"
+              Height="50"
+              Width="10"
+              Panel.ZIndex="1"
+              HorizontalAlignment="Left"
+              VerticalAlignment="Top"
+              Margin="0 230 0 0">
+
+            </Grid>
+
             <!--Software logo-->
             <Grid Height="150"
                   VerticalAlignment="Top"
@@ -53,10 +68,12 @@
                         Width="30"
                         VerticalAlignment="Center"
                         Margin="40 0 0 0"
-                        Foreground="#fff"/>
+                        Foreground="#52FF00"/>
                     <Button 
                             Content="TRANG CHỦ"
+                            Foreground="#52FF00"
                             x:Name="btnHome"
+                            Uid="0"
                             Height="60"
                             Width="295"
                             FontSize="20"                  
@@ -65,7 +82,18 @@
                             Padding="80 0 0 0"
                             HorizontalContentAlignment="Left"
                             VerticalContentAlignment="Center">
-                        
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseMove">
+                                <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btnHome}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
                     </Button>
                 </Grid>
 
@@ -87,6 +115,7 @@
                     <Button 
                             x:Name="btnLeagues"
                             Content="GIẢI ĐẤU"
+                            Uid="1"
                             Height="60"
                             Width="295"
                             FontSize="20"
@@ -94,7 +123,18 @@
                             BorderBrush="{x:Null}"
                             Padding="80 0 0 0"
                             HorizontalContentAlignment="Left"
-                            VerticalContentAlignment="Center"/>
+                            VerticalContentAlignment="Center">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseMove">
+                                <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btnLeagues}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
                 </Grid>
 
                 <!--Grid Schedule-->
@@ -116,12 +156,22 @@
                             Height="60"
                             Width="295"
                             FontSize="20"
-                            
+                            Uid="2"
                             Background="Transparent"
                             BorderBrush="{x:Null}"
                             Padding="80 0 0 0"
                             HorizontalContentAlignment="Left"
                             VerticalContentAlignment="Center">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseMove">
+                                <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btnSchedule}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
 
                     </Button>
                 </Grid>
@@ -145,12 +195,22 @@
                             Height="60"
                             Width="295"
                             FontSize="20"
-                            
+                            Uid="3"
                             Background="Transparent"
                             BorderBrush="{x:Null}"
                             Padding="80 0 0 0"
                             HorizontalContentAlignment="Left"
                             VerticalContentAlignment="Center">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseMove">
+                                <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btnTeams}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </Button>
                 </Grid>
 
@@ -172,13 +232,23 @@
                             Content="BẢNG XẾP HẠNG"
                             Height="60"
                             Width="295"
+                            Uid="4"
                             FontSize="20"
                             Background="Transparent"
                             BorderBrush="{x:Null}"
                             Padding="80 0 0 0"
                             HorizontalContentAlignment="Left"
                             VerticalContentAlignment="Center">
-
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseMove">
+                                <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btnStanding}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </Button>
                 </Grid>
 
@@ -201,13 +271,23 @@
                             Height="60"
                             Width="295"
                             FontSize="20"
-                            
+                            x:Name="btnStatistics"
+                            Uid="5"
                             Background="Transparent"
                             BorderBrush="{x:Null}"
                             Padding="80 0 0 0"
                             HorizontalContentAlignment="Left"
                             VerticalContentAlignment="Center">
-
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseMove">
+                                <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btnStatistics}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </Button>
                 </Grid>
 
@@ -230,13 +310,23 @@
                             Height="60"
                             Width="295"
                             FontSize="20"
-                            
+                            x:Name="btnSetting"
+                            Uid="6"
                             Background="Transparent"
                             BorderBrush="{x:Null}"
                             Padding="80 0 0 0"
                             HorizontalContentAlignment="Left"
                             VerticalContentAlignment="Center">
-
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseMove">
+                                <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btnSetting}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </Button>
                 </Grid>
 
@@ -259,17 +349,34 @@
                             Height="60"
                             Width="295"
                             FontSize="20"
-                            
+                            x:Name="btnHelp"
+                            Uid="7"
                             Background="Transparent"
                             BorderBrush="{x:Null}"
                             Padding="80 0 0 0"
                             HorizontalContentAlignment="Left"
                             VerticalContentAlignment="Center">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseMove">
+                                <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btnHelp}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
 
                     </Button>
                 </Grid>
 
             </StackPanel>
         </Grid>
+        <!--End Menu Side Bar-->
+
+        <Grid Grid.Column="1">
+            
+        </Grid>
+        
     </Grid>
 </Window>

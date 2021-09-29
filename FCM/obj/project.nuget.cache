@@ -1,11 +1,23 @@
 {
   "version": 2,
-  "dgSpecHash": "bZA8MlshY/fXpa+1AGK7MHyDq87GupPq6h0wTRfaYa2+ngGxAI593SK9xoiGKsi08RO6++4VJtaerSIpQKxBOw==",
+  "dgSpecHash": "Z+xcRCW5Jbjbiac6BpY+Ggj3BwQJ0uoLpIbdIufHdMdIk/ca1sGSu9EKw6ljJNfOExzBsy3WY7LUNzB5lPiv1Q==",
   "success": true,
   "projectFilePath": "G:\\Nam 3\\OOP\\Project\\WPF-FC-Management\\FCM\\FCM.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\phuon\\.nuget\\packages\\materialdesigncolors\\2.0.3\\materialdesigncolors.2.0.3.nupkg.sha512",
-    "C:\\Users\\phuon\\.nuget\\packages\\materialdesignthemes\\4.2.1\\materialdesignthemes.4.2.1.nupkg.sha512"
+    "C:\\Users\\phuon\\.nuget\\packages\\materialdesignthemes\\4.2.1\\materialdesignthemes.4.2.1.nupkg.sha512",
+    "C:\\Users\\phuon\\.nuget\\packages\\system.windows.interactivity.wpf\\2.0.20525\\system.windows.interactivity.wpf.2.0.20525.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.Windows.Interactivity.WPF 2.0.20525' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "System.Windows.Interactivity.WPF",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
 }

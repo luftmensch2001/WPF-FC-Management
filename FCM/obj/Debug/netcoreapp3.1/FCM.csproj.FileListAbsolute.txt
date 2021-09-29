@@ -50,3 +50,5 @@ G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.Co
 G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.dll
 G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.pdb
 G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.genruntimeconfig.cache
+G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Expression.Interactions.dll
+G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Windows.Interactivity.dll
