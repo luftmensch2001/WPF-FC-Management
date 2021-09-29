@@ -97,11 +97,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\Nam 3\\OOP\\Project\\FCM\\FCM\\FCM.csproj",
+      "projectUniqueName": "G:\\Nam 3\\OOP\\Project\\WPF-FC-Management\\FCM\\FCM.csproj",
       "projectName": "FCM",
-      "projectPath": "G:\\Nam 3\\OOP\\Project\\FCM\\FCM\\FCM.csproj",
+      "projectPath": "G:\\Nam 3\\OOP\\Project\\WPF-FC-Management\\FCM\\FCM.csproj",
       "packagesPath": "C:\\Users\\phuon\\.nuget\\packages\\",
-      "outputPath": "G:\\Nam 3\\OOP\\Project\\FCM\\FCM\\obj\\",
+      "outputPath": "G:\\Nam 3\\OOP\\Project\\WPF-FC-Management\\FCM\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\phuon\\AppData\\Roaming\\NuGet\\NuGet.Config",

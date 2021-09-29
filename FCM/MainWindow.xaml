@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FCM"
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="1500"
+        Title="Trang chủ" Height="850" Width="1500"
         WindowStartupLocation="CenterOwner"
+        ResizeMode="CanMinimize"
+        x:Name="wdHome"
+        DataContext="{StaticResource MainVM}"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -15,9 +18,258 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
-        DataContext="{StaticResource MainVM}">
+        FontFamily="{DynamicResource MaterialDesignFont}">
+
     <Grid>
-    
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <!--Menu side bar-->
+        <Grid Grid.Column="0"
+              Background="#282823">
+            <!--Software logo-->
+            <Grid Height="150"
+                  VerticalAlignment="Top"
+                  Margin="0 40 0 0">
+                <Image Source="/software-logo.png"/>
+            </Grid>      
+            
+            <!--Stack Panel Menu-->
+            <StackPanel x:Name="stpMenu"
+                        Margin="0 230 0 0">
+
+                <!--Grid Home-->
+                <Grid x:Name="grdHome"
+                      Height="60"
+                      Margin="0 0 0 0">
+                    
+                    
+                    <materialDesign:PackIcon 
+                        x:Name="icHome"
+                        Kind="Home"
+                        Height="30"
+                        Width="30"
+                        VerticalAlignment="Center"
+                        Margin="40 0 0 0"
+                        Foreground="#fff"/>
+                    <Button 
+                            Content="TRANG CHỦ"
+                            x:Name="btnHome"
+                            Height="60"
+                            Width="295"
+                            FontSize="20"                  
+                            Background="Transparent"
+                            BorderBrush="{x:Null}"
+                            Padding="80 0 0 0"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Center">
+                        
+                    </Button>
+                </Grid>
+
+
+                <!--Grid Leagues-->
+                <Grid x:Name="grdLeagues"
+                      Height="60"
+                      Margin="0 5 0 0">
+
+
+                    <materialDesign:PackIcon 
+                        x:Name="icLeagues"
+                        Kind="Security"
+                        Height="30"
+                        Width="30"
+                        VerticalAlignment="Center"
+                        Margin="40 0 0 0"
+                        Foreground="#fff"/>
+                    <Button 
+                            x:Name="btnLeagues"
+                            Content="GIẢI ĐẤU"
+                            Height="60"
+                            Width="295"
+                            FontSize="20"
+                            Background="Transparent"
+                            BorderBrush="{x:Null}"
+                            Padding="80 0 0 0"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Center"/>
+                </Grid>
+
+                <!--Grid Schedule-->
+                <Grid x:Name="grdSchedule"
+                      Height="60"
+                      Margin="0 5 0 0">
+
+
+                    <materialDesign:PackIcon 
+                        x:Name="icSchedule"
+                        Kind="CalendarMonth"
+                        Height="30"
+                        Width="30"
+                        VerticalAlignment="Center"
+                        Margin="40 0 0 0"
+                        Foreground="#fff"/>
+                    <Button x:Name="btnSchedule" 
+                            Content="LỊCH THI ĐẤU"
+                            Height="60"
+                            Width="295"
+                            FontSize="20"
+                            
+                            Background="Transparent"
+                            BorderBrush="{x:Null}"
+                            Padding="80 0 0 0"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Center">
+
+                    </Button>
+                </Grid>
+
+                <!--Grid Teams-->
+                <Grid x:Name="grdTeams"
+                      Height="60"
+                      Margin="0 5 0 0">
+
+
+                    <materialDesign:PackIcon 
+                        Kind="HumanCapacityDecrease"
+                        x:Name="icTeams"
+                        Height="30"
+                        Width="30"
+                        VerticalAlignment="Center"
+                        Margin="40 0 0 0"
+                        Foreground="#fff"/>
+                    <Button x:Name="btnTeams" 
+                            Content="ĐỘI BÓNG"
+                            Height="60"
+                            Width="295"
+                            FontSize="20"
+                            
+                            Background="Transparent"
+                            BorderBrush="{x:Null}"
+                            Padding="80 0 0 0"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Center">
+                    </Button>
+                </Grid>
+
+                <!--Grid Standing-->
+                <Grid x:Name="grdStanding"
+                      Height="60"
+                      Margin="0 5 0 0">
+
+
+                    <materialDesign:PackIcon 
+                        Kind="ChartBoxOutline"
+                        x:Name="icStanding"
+                        Height="30"
+                        Width="30"
+                        VerticalAlignment="Center"
+                        Margin="40 0 0 0"
+                        Foreground="#fff"/>
+                    <Button x:Name="btnStanding" 
+                            Content="BẢNG XẾP HẠNG"
+                            Height="60"
+                            Width="295"
+                            FontSize="20"
+                            Background="Transparent"
+                            BorderBrush="{x:Null}"
+                            Padding="80 0 0 0"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Center">
+
+                    </Button>
+                </Grid>
+
+                <!--Grid Statistics-->
+                <Grid x:Name="grdStatistics"
+                      Height="60"
+                      Margin="0 5 0 0">
+
+
+                    <materialDesign:PackIcon 
+                        Kind="ChartLine"
+                        x:Name="icStatistics"
+                        Height="30"
+                        Width="30"
+                        VerticalAlignment="Center"
+                        Margin="40 0 0 0"
+                        Foreground="#fff"/>
+                    <Button 
+                            Content="THỐNG KÊ"
+                            Height="60"
+                            Width="295"
+                            FontSize="20"
+                            
+                            Background="Transparent"
+                            BorderBrush="{x:Null}"
+                            Padding="80 0 0 0"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Center">
+
+                    </Button>
+                </Grid>
+
+                <!--Grid Setting-->
+                <Grid x:Name="grdSetting"
+                      Height="60"
+                      Margin="0 5 0 0">
+
+
+                    <materialDesign:PackIcon 
+                        Kind="CogOutline"
+                        x:Name="icSetting"
+                        Height="30"
+                        Width="30"
+                        VerticalAlignment="Center"
+                        Margin="40 0 0 0"
+                        Foreground="#fff"/>
+                    <Button 
+                            Content="QUY ĐỊNH"
+                            Height="60"
+                            Width="295"
+                            FontSize="20"
+                            
+                            Background="Transparent"
+                            BorderBrush="{x:Null}"
+                            Padding="80 0 0 0"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Center">
+
+                    </Button>
+                </Grid>
+
+                <!--Grid Help-->
+                <Grid x:Name="grdHelp"
+                      Height="60"
+                      Margin="0 5 0 0">
+
+
+                    <materialDesign:PackIcon 
+                        Kind="Help"
+                        x:Name="icHelp"
+                        Height="30"
+                        Width="30"
+                        VerticalAlignment="Center"
+                        Margin="40 0 0 0"
+                        Foreground="#fff"/>
+                    <Button 
+                            Content="TRỢ GIÚP"
+                            Height="60"
+                            Width="295"
+                            FontSize="20"
+                            
+                            Background="Transparent"
+                            BorderBrush="{x:Null}"
+                            Padding="80 0 0 0"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Center">
+
+                    </Button>
+                </Grid>
+
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
