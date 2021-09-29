@@ -25,11 +25,11 @@ namespace FCM.ViewModel
 
         public void SwitchTab(MainWindow parameter)
         {
-            int index = int.Parse(uid);
+            int index = int.Parse(uid); // tab index
             //Move Stroke Menu
             parameter.grdStroke.Margin = new Thickness(0, (230 + 65 * index), 0, 0);
-            //Reset Color items
 
+            //Reset Color items
             parameter.btnHome.Foreground = white;
             parameter.btnLeagues.Foreground = white;
             parameter.btnSchedule.Foreground = white;
@@ -48,6 +48,7 @@ namespace FCM.ViewModel
             parameter.icSetting.Foreground = white;
             parameter.icHelp.Foreground = white;
 
+            // Switch tab
             switch (index)
             {
                 case 0:

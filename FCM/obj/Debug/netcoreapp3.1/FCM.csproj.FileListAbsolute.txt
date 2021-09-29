@@ -40,7 +40,6 @@ G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM_MarkupCom
 G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM_MarkupCompile.lref
 G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\App.baml
 G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\MainWindow.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\ResourceXAML\MainResource.baml
 G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.g.resources
 G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.GeneratedMSBuildEditorConfig.editorconfig
 G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.AssemblyInfoInputs.cache
@@ -52,3 +51,4 @@ G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.pdb
 G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.genruntimeconfig.cache
 G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Expression.Interactions.dll
 G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Windows.Interactivity.dll
+G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\Resource\MainResource.baml

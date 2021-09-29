@@ -18,7 +18,7 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
+        Background="#fff"
         FontFamily="{DynamicResource MaterialDesignFont}">
 
     <Grid>
@@ -47,8 +47,9 @@
             <!--Software logo-->
             <Grid Height="150"
                   VerticalAlignment="Top"
-                  Margin="0 40 0 0">
-                <Image Source="/software-logo.png"/>
+                  Margin="0 40 0 0"
+                  Panel.ZIndex="2">
+                <Image Source="/Resource/Images/software-logo.png" Panel.ZIndex="2"/>
             </Grid>      
             
             <!--Stack Panel Menu-->
@@ -374,9 +375,117 @@
         </Grid>
         <!--End Menu Side Bar-->
 
-        <Grid Grid.Column="1">
-            
+        <!--BEGIN MAIN SCREEN-->
+        
+        <!--HOME-->
+        <Grid Grid.Column="1"
+              x:Name="grdHomeScreen">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <!--League information-->
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="220"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <!--League Logo-->
+                <Grid Grid.Row="0">
+                    <Image x:Name="HomeLeagueLogo"
+                       Height="200" 
+                       VerticalAlignment="Top" 
+                       Margin="0 20 0 0"
+                       Source="/Resource/Images/vleague.png"/>
+                </Grid>
+                <!--League Description-->
+                <Grid Grid.Row="1">
+                    <TextBlock Text="GIẢI BÓNG ĐÁ VÔ ĐỊCH QUỐC GIA VIỆT NAM"
+                               FontSize="30"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               FontWeight="Bold"/>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <TextBlock Text="Nhà tài trợ chính: LS Holding"
+                               FontSize="25"
+                               VerticalAlignment="Top"
+                               HorizontalAlignment="Center"
+                               FontWeight="Medium"/>
+                </Grid>
+            </Grid>
+            <!--Next Matches-->
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="4*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <TextBlock Text="Trận đấu sắp diễn ra" 
+                               FontSize="20"
+                               FontStyle="Italic"
+                               FontWeight="Bold"
+                               VerticalAlignment="Bottom"
+                               Margin="30 0 0 0"/>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <ListView
+                        x:Name="listViewNextMatches"
+                        ItemsSource="{Binding Items1}" FontSize="15"
+                        Width="1100"
+                        HorizontalAlignment="Center">
+                  
+
+                        <ListView.View>
+                            <GridView>
+                                
+                                <GridViewColumn 
+                                    Width="125"
+                                    DisplayMemberBinding="{Binding Index}"
+                                    Header="STT" />
+                                <GridViewColumn
+                                    Width="200"
+                                    DisplayMemberBinding="{Binding Team1}"
+                                    Header="Đội 1" />
+                                <GridViewColumn
+                                    Width="200"
+                                    DisplayMemberBinding="{Binding Team2}"
+                                    Header="Đội 2" />
+
+                                <GridViewColumn
+                                    Width="180"
+                                    DisplayMemberBinding="{Binding Stadium}"
+                                    Header="Sân" />
+
+                                <GridViewColumn
+                                    Width="125"
+                                    DisplayMemberBinding="{Binding Date}"
+                                    Header="Ngày" />
+
+                                <GridViewColumn
+                                    Width="125" 
+                                    DisplayMemberBinding="{Binding Time}"
+                                    Header="Giờ" />
+
+                                <GridViewColumn
+                                    Width="145"
+                                    DisplayMemberBinding="{Binding Round}"
+                                    Header="Vòng đấu" />
+
+                            </GridView>
+                        </ListView.View>
+                        
+                        <ListViewItem>
+                            
+                        </ListViewItem>
+                    </ListView>
+                </Grid>
+            </Grid>
         </Grid>
+        <!--END HOME-->
         
     </Grid>
 </Window>
