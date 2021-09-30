@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FCM"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:userControl="clr-namespace:FCM.UserControls"
         mc:Ignorable="d"
         Title="Phần mềm quản lý giải bóng đá" Height="850" Width="1400"
         WindowStartupLocation="CenterOwner"
@@ -422,10 +423,11 @@
 
         <Grid Grid.Column="1"
               x:Name="grdHomeScreen"
-              Visibility="Hidden">
+              Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="1"/>
+                <RowDefinition Height="110"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <!--League information-->
@@ -465,73 +467,128 @@
             <Grid Grid.Row="1" Background="#00A807"/>
 
             <!--Next Matches-->
+            <!--#region Header bar-->
             <Grid Grid.Row="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition Height="4*"></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <TextBlock Text="Trận đấu sắp diễn ra" 
-                               FontSize="20"
-                               FontStyle="Italic"
-                               FontWeight="Bold"
-                               VerticalAlignment="Bottom"
-                               Margin="30 0 0 0"/>
-                </Grid>
-
-                <Grid Grid.Row="1" Margin="0 0 0 10">
-                    <ListView
-                        x:Name="listViewNextMatches"
-                        ItemsSource="{Binding Items1}" FontSize="15"
+                <TextBlock Text="Trận sắp diễn ra" 
+                           FontSize="20"
+                           FontWeight="SemiBold"
+                           FontStyle="Italic"
+                           Margin="10 20"/>
+     
+                <Border CornerRadius="10" 
+                        Background="#00A807"
                         Width="1100"
-                        HorizontalAlignment="Center">
+                        Height="50"
+                        VerticalAlignment="Bottom"
+                        Margin="0">
+                    
+                    <Grid 
+                          Width="1100"
+                          Height="50"
+                          Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="2.5*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <TextBlock Text="STT" 
+                                       Foreground="#fff"
+                                       FontSize="16"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"/>
+                            <Rectangle Height="30" Width="1" Fill="White" HorizontalAlignment="Right"/>
+                        </Grid>
 
+                        <Grid Grid.Column="1">
+                            <TextBlock Text="Đội 1" 
+                                       Foreground="#fff"
+                                       FontSize="16"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"/>
+                            <Rectangle Height="30" Width="1" Fill="White" HorizontalAlignment="Right"/>
+                        </Grid>
 
-                        <ListView.View>
-                            <GridView>
-                                
-                                <GridViewColumn 
-                                    Width="125"
-                                    DisplayMemberBinding="{Binding Index}"
-                                    Header="STT" />
-                                <GridViewColumn
-                                    Width="200"
-                                    DisplayMemberBinding="{Binding Team1}"
-                                    Header="Đội 1" />
-                                <GridViewColumn
-                                    Width="200"
-                                    DisplayMemberBinding="{Binding Team2}"
-                                    Header="Đội 2" />
+                        <Grid Grid.Column="2">
+                            <TextBlock Text="Đội 2" 
+                                       Foreground="#fff"
+                                       FontSize="16"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"/>
+                            <Rectangle Height="30" Width="1" Fill="White" HorizontalAlignment="Right"/>
+                        </Grid>
 
-                                <GridViewColumn
-                                    Width="160"
-                                    DisplayMemberBinding="{Binding Stadium}"
-                                    Header="Sân" />
+                        <Grid Grid.Column="3">
+                            <TextBlock Text="Sân" 
+                                       Foreground="#fff"
+                                       FontSize="16"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"/>
+                            <Rectangle Height="30" Width="1" Fill="White" HorizontalAlignment="Right"/>
+                        </Grid>
 
-                                <GridViewColumn
-                                    Width="125"
-                                    DisplayMemberBinding="{Binding Date}"
-                                    Header="Ngày" />
+                        <Grid Grid.Column="4">
+                            <TextBlock Text="Giờ" 
+                                       Foreground="#fff"
+                                       FontSize="16"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"/>
+                            <Rectangle Height="30" Width="1" Fill="White" HorizontalAlignment="Right"/>
+                        </Grid>
 
-                                <GridViewColumn
-                                    Width="125" 
-                                    DisplayMemberBinding="{Binding Time}"
-                                    Header="Giờ" />
+                        <Grid Grid.Column="5">
+                            <TextBlock Text="Ngày" 
+                                       Foreground="#fff"
+                                       FontSize="16"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"/>
+                            <Rectangle Height="30" Width="1" Fill="White" HorizontalAlignment="Right"/>
+                        </Grid>
 
-                                <GridViewColumn
-                                    Width="145"
-                                    DisplayMemberBinding="{Binding Round}"
-                                    Header="Vòng đấu" />
-
-                            </GridView>
-                        </ListView.View>
-                        
-                        <ListViewItem>
-                            
-                        </ListViewItem>
-                    </ListView>
-                </Grid>
+                        <Grid Grid.Column="6">
+                            <TextBlock Text="Vòng đấu" 
+                                       Foreground="#fff"
+                                       FontSize="16"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontWeight="Medium"/>
+                        </Grid>
+                    </Grid>
+                </Border>
             </Grid>
+            <!--#endregion-->
+            <!--#region Matches detail-->
+            <Grid Grid.Row="3">
+                <Border CornerRadius="10" 
+                        Background="#282823"
+                        Width="1100"
+                        Height="310"
+                        VerticalAlignment="Top"
+                        Margin="0">
+                    <Grid>
+                        <!--Max 6 matches, no scroll-->
+                        <StackPanel x:Name="spnNextMatches">
+                            <userControl:ucMatchDetailNoEdit />
+                            <userControl:ucMatchDetailNoEdit />
+                            <userControl:ucMatchDetailNoEdit />
+                            <userControl:ucMatchDetailNoEdit />
+                            <userControl:ucMatchDetailNoEdit />
+                            <userControl:ucMatchDetailNoEdit />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+            <!--#endregion-->
         </Grid>
         <!--END HOME-->
         <!--#endregion-->
@@ -541,7 +598,7 @@
         <Grid
             x:Name="grdLeaguesScreen"
             Grid.Column="1"
-            Visibility="Visible">
+            Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
                 <RowDefinition/>

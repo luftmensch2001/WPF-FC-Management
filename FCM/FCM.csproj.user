@@ -10,6 +10,9 @@
     <Compile Update="LoginWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\ucMatchDetailNoEdit.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="LoginWindow.xaml">
@@ -19,6 +22,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Resource\MainResource.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\ucMatchDetailNoEdit.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
