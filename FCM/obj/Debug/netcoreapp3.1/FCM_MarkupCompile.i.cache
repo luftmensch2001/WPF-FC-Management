@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\
+G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\
 FCM
 none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\App.xaml
-2738133145
+G:\Nam 3\OOP\WPF-FC-Management\FCM\App.xaml
+3-885565671
 
-7603027050
+9790463981
 1961195365397
-MainWindow.xaml;Resource\MainResource.xaml;
+LoginWindow.xaml;MainWindow.xaml;Resource\MainResource.xaml;
 
 False
 

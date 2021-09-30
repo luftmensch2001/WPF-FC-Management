@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FCM"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="Phần mềm quản lý giải bóng đá" Height="850" Width="1500"
+        Title="Phần mềm quản lý giải bóng đá" Height="850" Width="1400"
         WindowStartupLocation="CenterOwner"
         ResizeMode="CanMinimize"
         x:Name="wdHome"
@@ -40,12 +40,12 @@
               Panel.ZIndex="1"
               HorizontalAlignment="Left"
               VerticalAlignment="Top"
-              Margin="0 230 0 0">
+              Margin="0 200 0 0">
 
             </Grid>
 
             <!--Software logo-->
-            <Grid Height="150"
+            <Grid Height="130"
                   VerticalAlignment="Top"
                   Margin="0 40 0 0"
                   Panel.ZIndex="2">
@@ -54,7 +54,7 @@
             
             <!--Stack Panel Menu-->
             <StackPanel x:Name="stpMenu"
-                        Margin="0 230 0 0">
+                        Margin="0 200 0 0">
 
                 <!--Grid Home-->
                 <Grid x:Name="grdHome"
@@ -365,6 +365,46 @@
                             <i:EventTrigger EventName="MouseMove">
                                 <i:InvokeCommandAction Command="{Binding GetUidCommand}"
                                                        CommandParameter="{Binding ElementName=btnHelp}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                    </Button>
+                </Grid>
+
+                <!--Grid Account-->
+                <Grid x:Name="grdAccount"
+                      Height="60"
+                      Margin="0 5 0 0">
+
+
+                    <materialDesign:PackIcon 
+                        Kind="Account"
+                        x:Name="icAccount"
+                        Height="30"
+                        Width="30"
+                        VerticalAlignment="Center"
+                        Margin="40 0 0 0"
+                        Foreground="#fff"/>
+                    <Button 
+                            Content="TÀI KHOẢN"
+                            Height="60"
+                            Width="295"
+                            FontSize="20"
+                            x:Name="btnAccount"
+                            Uid="8"
+                            Background="Transparent"
+                            BorderBrush="{x:Null}"
+                            Padding="80 0 0 0"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Center">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseMove">
+                                <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btnAccount}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
 

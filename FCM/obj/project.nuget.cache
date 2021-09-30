@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Z+xcRCW5Jbjbiac6BpY+Ggj3BwQJ0uoLpIbdIufHdMdIk/ca1sGSu9EKw6ljJNfOExzBsy3WY7LUNzB5lPiv1Q==",
+  "dgSpecHash": "LII32Yf6EPJ/MxJyx+sVIrNevROdXVt93/cBOOHvXtsSZnueveSxDMQyTPtlQt2CkLIXT4lSdpWpAFGz6qEGnQ==",
   "success": true,
-  "projectFilePath": "G:\\Nam 3\\OOP\\Project\\WPF-FC-Management\\FCM\\FCM.csproj",
+  "projectFilePath": "G:\\Nam 3\\OOP\\WPF-FC-Management\\FCM\\FCM.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\phuon\\.nuget\\packages\\materialdesigncolors\\2.0.3\\materialdesigncolors.2.0.3.nupkg.sha512",
     "C:\\Users\\phuon\\.nuget\\packages\\materialdesignthemes\\4.2.1\\materialdesignthemes.4.2.1.nupkg.sha512",

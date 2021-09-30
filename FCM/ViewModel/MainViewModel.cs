@@ -25,9 +25,12 @@ namespace FCM.ViewModel
 
         public void SwitchTab(MainWindow parameter)
         {
+            LoginWindow wd = new LoginWindow();
+            wd.ShowDialog();
+
             int index = int.Parse(uid); // tab index
             //Move Stroke Menu
-            parameter.grdStroke.Margin = new Thickness(0, (230 + 65 * index), 0, 0);
+            parameter.grdStroke.Margin = new Thickness(0, (200 + 65 * index), 0, 0);
 
             //Reset Color items
             parameter.btnHome.Foreground = white;
