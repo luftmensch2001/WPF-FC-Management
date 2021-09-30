@@ -27,7 +27,7 @@
             <ColumnDefinition Width="4*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        
+        <!--#region MENU-->
         <!--Menu side bar-->
         <Grid Grid.Column="0"
               Background="#282823">
@@ -414,15 +414,19 @@
             </StackPanel>
         </Grid>
         <!--End Menu Side Bar-->
-
-        <!--BEGIN MAIN SCREEN-->
+        <!--#endregion-->
         
-        <!--HOME-->
+        <!--BEGIN MAIN SCREEN-->   
+        
+        <!--#region HOME-->
+
         <Grid Grid.Column="1"
-              x:Name="grdHomeScreen">
+              x:Name="grdHomeScreen"
+              Visibility="Hidden">
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition/>
+                <RowDefinition Height="1"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             <!--League information-->
             <Grid Grid.Row="0">
@@ -456,6 +460,10 @@
                                FontWeight="Medium"/>
                 </Grid>
             </Grid>
+            
+            <!--Line break-->
+            <Grid Grid.Row="1" Background="#00A807"/>
+
             <!--Next Matches-->
             <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
@@ -471,7 +479,7 @@
                                Margin="30 0 0 0"/>
                 </Grid>
 
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="1" Margin="0 0 0 10">
                     <ListView
                         x:Name="listViewNextMatches"
                         ItemsSource="{Binding Items1}" FontSize="15"
@@ -526,6 +534,140 @@
             </Grid>
         </Grid>
         <!--END HOME-->
+        <!--#endregion-->
+        
+        <!--#region LEAGUES-->
+
+        <Grid
+            x:Name="grdLeaguesScreen"
+            Grid.Column="1"
+            Visibility="Visible">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+            
+            <!--#region League infor-->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <!--Logo-->
+                <Grid Grid.Column="0">
+                    <Image x:Name="imgLeagueLogo" 
+                           Source="/Resource/Images/vleague.png"
+                           Margin="10 0 0 0"/>
+                </Grid>
+                <!--Description-->
+                <Grid Grid.Column="1">
+                    <StackPanel Margin="30 20 0 0">
+                        <TextBlock
+                            x:Name="tblLeagueName"
+                            Text="GIẢI BÓNG ĐÁ VÔ ĐỊCH QUỐC GIA VIỆT NAM"
+                            FontSize="30"
+                            FontWeight="Bold"/>
+
+                        <TextBlock
+                            x:Name="tblSponsor"
+                            Text="Nhà tài trợ chính: LS Holding"
+                            FontSize="25"
+                            Margin="0 10 0 0"
+                            FontWeight="Medium"/>
+
+                        <TextBlock
+                            x:Name="tblLeagueTime"
+                            Text="Thời gian: 12/6/2021"
+                            FontSize="25"
+                            Margin="0 10 0 0"
+                            FontWeight="Medium"/>
+
+                        <TextBlock
+                            x:Name="tblLeagueStatus"
+                            Text="Đang diễn ra"
+                            FontSize="25"
+                            FontStyle="Italic"
+                            Margin="0 10 0 0"
+                            FontWeight="Medium"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <!--#endregion-->
+            
+            <!--#region HeaderBar League-->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                 
+                <!--Search bar-->
+                <Grid Grid.Column="0"
+                      Margin="50 0 0 0">
+                    <TextBox
+                        x:Name="tbSearchLeague"
+                        Width="300"
+                        FontSize="20"
+                        materialDesign:HintAssist.Hint="Nhập tên mùa giải"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Center" />
+                </Grid>
+                
+                <!--Button search-->
+                <Grid Grid.Column="1"
+                      Margin="30 0 0 0">
+                    <Button x:Name="btnSearchLeague"
+                            Width="120"
+                            Height="45"
+                            FontSize="15"
+                            Margin="0 12 0 0"
+                            HorizontalAlignment="Left">
+
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon 
+                                    Width="20"
+                                    Height="20"
+                                    Kind="Search" />
+                            <TextBlock Text="Tìm kiếm" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+
+                <!--Button create-->
+                <Grid Grid.Column="2"
+                      Margin="30 0 0 0">
+                    <Button x:Name="btnCreateLeague"
+                            Width="260"
+                            Height="45"
+                            FontSize="15"
+                            Margin="0 12 60 0"
+                            HorizontalAlignment="Right">
+
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon 
+                                    Width="20"
+                                    Height="20"
+                                    Kind="PlusBox"
+                                    Margin="0 0 8 0"/>
+                            <TextBlock Text="Tạo giải đấu mới" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Grid>
+            
+            <!--#endregion-->
+            
+            <!--#region Leagues List-->
+            <Grid Grid.Row="3">
+                
+            </Grid>
+            <!--#endregion-->
+            
+        </Grid>
+        
+        <!--#endregion-->
         
     </Grid>
 </Window>
