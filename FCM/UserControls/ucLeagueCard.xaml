@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FCM.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="300"
+             d:DesignHeight="210" d:DesignWidth="300"
              VerticalAlignment="Top"
              HorizontalAlignment="Left"
              Margin="0 20 20 0">
@@ -18,13 +18,13 @@
                     <RowDefinition Height="3*"/>
                     <RowDefinition />
                     <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition Height="1.2*" />
+                    <RowDefinition Height="1.4*"/>
                 </Grid.RowDefinitions>
                 <!--Logo-->
                 <Grid Grid.Row="0">
                     <Image x:Name="imgLeagueLogo"
-                       Margin="0 6 0 0"
+                       Margin="15 15 15 5"
+                       Width="210"
                        Source="/Resource/Images/vleague.png" />
                 </Grid>
                 <!--Detail-->
@@ -32,17 +32,17 @@
                     <TextBlock x:Name="tblLeagueName"
                            Text="Giải bóng đá ao làng"
                            Foreground="White"
-                           FontSize="14"
+                           FontSize="18"
                            FontWeight="SemiBold"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Center"/>
+                           VerticalAlignment="Bottom"/>
                 </Grid>
 
                 <Grid Grid.Row="2">
                     <TextBlock x:Name="tblLeagueTime"
                            Text="Thời gian: 12/3/2021"
                            Foreground="White"
-                           FontSize="12"
+                           FontSize="14"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"/>
                 </Grid>
@@ -51,46 +51,35 @@
                     <TextBlock x:Name="tblLeagueStatus"
                            Text="Đang diễn ra"
                            Foreground="White"
-                           FontSize="12"
+                           FontSize="14"
                            FontStyle="Italic"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Center"/>
-                </Grid>
+                           VerticalAlignment="Top"/>
 
-                <!--Button area-->
-                <Grid Grid.Row="4">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <TextBlock x:Name="tblLeagueTeamsCount"
+                    <TextBlock x:Name="tblLeagueTeamsCount"
                            Text="16 đội"
                            Foreground="White"
                            FontWeight="Regular"
-                           FontSize="12"
+                           FontSize="14"
                            FontStyle="Italic"
                            HorizontalAlignment="Left"
-                           Margin="20 0 0 0"
-                           VerticalAlignment="Center"/>
-                    </Grid>
+                           Margin="20 0 0 10"
+                           VerticalAlignment="Bottom"/>
 
-                    <Grid Grid.Column="1">
-                        <Button x:Name="btnLeagueDetail"
+                    <Button x:Name="btnLeagueDetail"
                             Style="{StaticResource MyGreenButtonStyle}"
                             Content="Đi tới"
                             MinWidth="20"
                             Width="60"
-                            Height="25"
-                            FontSize="10"
-                            FontWeight="SemiBold"
+                            Height="30"
+                            FontSize="14"
+                            FontWeight="Medium"
                             Padding="0"
                             Margin="0 0 20 6" 
-                            HorizontalAlignment="Right"/>
-
-
-                    </Grid>
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"/>
                 </Grid>
+     
             </Grid>
     </Border>
 

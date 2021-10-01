@@ -19,11 +19,12 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="#fff"
+        Icon="/Resource/Images/software-logo.png"
         FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
         <!--Background-->
         <Grid Grid.RowSpan="2" x:Name="background">
-            <Image Source="/Resource/Images/background3.jpg" Stretch="Fill"></Image>
+            <Image Source="/Resource/Images/LoginBackground.jpg" Stretch="Fill"></Image>
         </Grid>
 
         <!--Login Form-->

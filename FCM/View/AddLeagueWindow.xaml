@@ -11,6 +11,10 @@
         Title="Phần mềm quản lý giải bóng đá" Height="600" Width="800"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         DataContext="{StaticResource AddLeagueVM}"
+        Icon="/Resource/Images/software-logo.png"
+        BorderBrush="#fff"
+        BorderThickness="2"
+        materialDesign:ShadowAssist.ShadowDepth="Depth1"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -29,10 +33,13 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <TextBlock Text="TẠO GIẢI ĐẤU"
-                       Style="{StaticResource H1}"/>
+            <TextBlock 
+                        x:Name="tblTitle"
+                        Text="TẠO GIẢI ĐẤU"
+                        Style="{StaticResource H1}"/>
+            <Rectangle Fill="#ccc" Height="1" VerticalAlignment="Bottom" Margin="0 0 0 10"/>
         </Grid>
-
+        
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -147,8 +154,8 @@
                 VerticalAlignment="Top"/>
 
             <Button 
-                x:Name="btnExit"
-                Content="Thoát"
+                x:Name="btnCancel"
+                Content="Huỷ"
                 Style="{StaticResource MyRedButtonStyle}"
                 FontSize="15"
                 Width="100"
@@ -158,7 +165,7 @@
                 Margin="0 0 15 10">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
-                        <i:InvokeCommandAction Command="{Binding ExitAddLeagueCommand}"
+                        <i:InvokeCommandAction Command="{Binding CancelAddLeagueCommand}"
                                                        CommandParameter="{Binding ElementName=wdAddLeague}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>

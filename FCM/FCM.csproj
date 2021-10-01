@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <None Remove="background3.jpg" />
-    <None Remove="Resource\Images\background3.jpg" />
+    <None Remove="Resource\Images\LoginBackground.jpg" />
     <None Remove="Resource\Images\NoLogoSelected.png" />
     <None Remove="Resource\Images\software-logo.png" />
     <None Remove="Resource\Images\vleague.png" />
@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resource\Images\background3.jpg" />
+    <Resource Include="Resource\Images\LoginBackground.jpg" />
     <Resource Include="Resource\Images\NoLogoSelected.png" />
     <Resource Include="Resource\Images\software-logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

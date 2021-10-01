@@ -8,11 +8,11 @@ namespace FCM.ViewModel
 {
     public class AddLeagueViewModel : BaseViewModel
     {
-        public ICommand ExitAddLeagueCommand { get; set; }
+        public ICommand CancelAddLeagueCommand { get; set; }
 
         public AddLeagueViewModel()
         {
-            ExitAddLeagueCommand = new RelayCommand<AddLeagueWindow>((parameter) => true, (parameter) => parameter.Close());
+            CancelAddLeagueCommand = new RelayCommand<AddLeagueWindow>((parameter) => true, (parameter) => parameter.Close());
         }
     }
 }
