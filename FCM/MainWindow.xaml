@@ -423,7 +423,7 @@
 
         <Grid Grid.Column="1"
               x:Name="grdHomeScreen"
-              Visibility="Visible">
+              Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="1"/>
@@ -576,9 +576,8 @@
                         VerticalAlignment="Top"
                         Margin="0">
                     <Grid>
-                        <!--Max 6 matches, no scroll-->
+                        <!--Max 5 matches, no scroll-->
                         <StackPanel x:Name="spnNextMatches">
-                            <userControl:ucMatchDetailNoEdit />
                             <userControl:ucMatchDetailNoEdit />
                             <userControl:ucMatchDetailNoEdit />
                             <userControl:ucMatchDetailNoEdit />
@@ -598,7 +597,7 @@
         <Grid
             x:Name="grdLeaguesScreen"
             Grid.Column="1"
-            Visibility="Hidden">
+            Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
                 <RowDefinition/>
@@ -677,8 +676,8 @@
                       Margin="30 0 0 0">
                     <Button x:Name="btnSearchLeague"
                             Width="120"
+                            Style="{StaticResource MyGreenButtonStyle}"
                             Height="45"
-                            FontSize="15"
                             Margin="0 12 0 0"
                             HorizontalAlignment="Left">
 
@@ -696,9 +695,9 @@
                 <Grid Grid.Column="2"
                       Margin="30 0 0 0">
                     <Button x:Name="btnCreateLeague"
+                            Style="{StaticResource MyGreenButtonStyle}"
                             Width="260"
                             Height="45"
-                            FontSize="15"
                             Margin="0 12 60 0"
                             HorizontalAlignment="Right">
 

@@ -4,6 +4,6 @@
     <viewmodel:MainViewModel x:Key="MainVM"/>
     <viewmodel:LoginViewModel x:Key="LoginVM"/>
 
-    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#00A807"/>
+    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#333"/>
 
 </ResourceDictionary>

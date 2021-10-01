@@ -96,12 +96,10 @@
                     <Grid Grid.Column="0">
                         <Button x:Name="btnLogin" 
                                 Content="Đăng nhập" 
-                                Width="100" 
-                                Height="35"
+                                Style="{StaticResource MyGreenButtonStyle}"
                                 VerticalAlignment="Top"
                                 HorizontalAlignment="Right"
-                                Margin="0 0 5 0"
-                                Background="#00A807" >
+                                Margin="0 0 5 0">
                             <!--Check logic event here-->
                         </Button>
                     </Grid>
@@ -110,13 +108,10 @@
                     <Grid Grid.Column="1">
                         <Button x:Name="btnExit" 
                                 Content="Thoát" 
-                                Width="100" 
-                                Height="35"
+                                Style="{StaticResource MyRedButtonStyle}"
                                 VerticalAlignment="Top"
                                 HorizontalAlignment="Left"
-                                BorderBrush="Transparent"
-                                Margin="18 0 0 0"
-                                Background="#FF0000">
+                                Margin="18 0 0 0">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <i:InvokeCommandAction Command="{Binding ExitLoginCommand}"
