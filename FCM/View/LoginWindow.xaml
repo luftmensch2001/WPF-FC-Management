@@ -1,10 +1,10 @@
-﻿<Window x:Class="FCM.LoginWindow"
+﻿<Window x:Class="FCM.View.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:local="clr-namespace:FCM"
+        xmlns:local="clr-namespace:FCM.View"
         mc:Ignorable="d"
         Title="Phần mềm quản lý giải bóng đá" Height="600" Width="950"
         WindowStartupLocation="CenterScreen"
@@ -84,14 +84,14 @@
                         FontSize="15"
                         Margin="40 0 0 0"/>
                 </Grid>
-                
+
                 <!--Button Field-->
                 <Grid Grid.Row="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    
+
                     <!--Login Button-->
                     <Grid Grid.Column="0">
                         <Button x:Name="btnLogin" 
@@ -103,7 +103,7 @@
                             <!--Check logic event here-->
                         </Button>
                     </Grid>
-                    
+
                     <!--Exit Button-->
                     <Grid Grid.Column="1">
                         <Button x:Name="btnExit" 

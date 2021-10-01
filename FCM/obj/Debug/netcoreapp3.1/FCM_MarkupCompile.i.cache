@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
 G:\Nam 3\OOP\WPF-FC-Management\FCM\App.xaml
-5-446767387
+5-1446637147
 
-10-598578204
+10-155532176
 1961195365397
-LoginWindow.xaml;MainWindow.xaml;Resource\ButtonStyle.xaml;Resource\MainResource.xaml;UserControls\ucMatchDetailNoEdit.xaml;
+MainWindow.xaml;Resource\ButtonStyle.xaml;Resource\MainResource.xaml;UserControls\ucMatchDetailNoEdit.xaml;View\LoginWindow.xaml;
 
-False
+True
 
