@@ -6,7 +6,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:FCM.View"
         mc:Ignorable="d"
-        Title="Phần mềm quản lý giải bóng đá" Height="600" Width="950"
+        Title="Phần mềm quản lý giải bóng đá" Height="600" Width="1000"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize"
         x:Name="wdLogin"
@@ -23,7 +23,7 @@
     <Grid>
         <!--Background-->
         <Grid Grid.RowSpan="2" x:Name="background">
-            <Image Source="/background3.jpg" Stretch="Fill"></Image>
+            <Image Source="/Resource/Images/background3.jpg" Stretch="Fill"></Image>
         </Grid>
 
         <!--Login Form-->

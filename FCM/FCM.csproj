@@ -25,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="background3.jpg" />
     <Resource Include="Resource\Images\background3.jpg" />
     <Resource Include="Resource\Images\software-logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
