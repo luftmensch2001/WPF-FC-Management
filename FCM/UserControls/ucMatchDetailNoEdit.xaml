@@ -89,5 +89,6 @@
                     HorizontalAlignment="Center"
                     FontWeight="Medium"/>
         </Grid>
+        <Rectangle Grid.ColumnSpan="7" Fill="#ccc" Height="1" VerticalAlignment="Bottom" Margin="0 0 0 -10"/>
     </Grid>
 </UserControl>
