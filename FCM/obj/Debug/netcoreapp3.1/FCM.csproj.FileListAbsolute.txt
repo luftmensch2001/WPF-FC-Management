@@ -87,3 +87,4 @@ G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\LoginWindow.g.cs
 G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\LoginWindow.baml
 G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucLeagueCard.g.cs
 G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucLeagueCard.baml
+G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\Resource\ScrollBarStyle.baml

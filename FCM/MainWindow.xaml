@@ -723,19 +723,25 @@
                         CornerRadius="8">
                     <Grid Margin="20"
                           Background="Transparent">
-                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      Style="{StaticResource FavsScrollViewer}">
                             <WrapPanel x:Name="wpLeagueCards">
-                                <!--Remember to set width = 300-->
-                                <userControl:ucLeagueCard Width="300"/>
-                                <userControl:ucLeagueCard Width="300"/>
-                                <userControl:ucLeagueCard Width="300"/>
-                                <userControl:ucLeagueCard Width="300"/>
-                                <userControl:ucLeagueCard Width="300"/>
-                                <userControl:ucLeagueCard Width="300"/>
-                                <userControl:ucLeagueCard Width="300"/>
-                                <userControl:ucLeagueCard Width="300"/>
-                                <userControl:ucLeagueCard Width="300"/>
-                                <userControl:ucLeagueCard Width="300"/>
+                                <WrapPanel.Resources>
+                                    <Style TargetType="userControl:ucLeagueCard">
+                                        <Setter Property="Width" Value="300" />
+                                    </Style>
+                                </WrapPanel.Resources>
+                                <!--Add Cards here-->
+                                <userControl:ucLeagueCard />
+                                <userControl:ucLeagueCard />
+                                <userControl:ucLeagueCard />
+                                <userControl:ucLeagueCard />
+                                <userControl:ucLeagueCard />
+                                <userControl:ucLeagueCard />
+                                <userControl:ucLeagueCard />
+                                <userControl:ucLeagueCard />
+                                <userControl:ucLeagueCard />
+                                <userControl:ucLeagueCard />
                             </WrapPanel>
                         </ScrollViewer>
                     </Grid>
