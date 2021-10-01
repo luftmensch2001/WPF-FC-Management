@@ -67,11 +67,11 @@
                         <TextBlock x:Name="tblLeagueTeamsCount"
                            Text="16 đội"
                            Foreground="White"
-                           FontWeight="Thin"
+                           FontWeight="Regular"
                            FontSize="12"
                            FontStyle="Italic"
                            HorizontalAlignment="Left"
-                           Margin="20 0 0 8"
+                           Margin="20 0 0 0"
                            VerticalAlignment="Center"/>
                     </Grid>
 

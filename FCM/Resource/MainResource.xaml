@@ -3,7 +3,8 @@
                     xmlns:viewmodel="clr-namespace:FCM.ViewModel">
     <viewmodel:MainViewModel x:Key="MainVM"/>
     <viewmodel:LoginViewModel x:Key="LoginVM"/>
+    <viewmodel:AddLeagueViewModel x:Key="AddLeagueVM" />
 
-    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#333"/>
+    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#222"/>
 
 </ResourceDictionary>

@@ -26,7 +26,7 @@ namespace FCM.ViewModel
 
         public void SwitchTab(MainWindow parameter)
         {
-            LoginWindow wd = new LoginWindow();
+            AddLeagueWindow wd = new AddLeagueWindow();
             wd.ShowDialog();
 
             int index = int.Parse(uid); // tab index
