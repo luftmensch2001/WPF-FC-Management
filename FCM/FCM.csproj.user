@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="UserControls\ucLeagueCard.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\ucMatchDetailNoEdit.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -22,6 +25,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Resource\MainResource.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\ucLeagueCard.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControls\ucMatchDetailNoEdit.xaml">

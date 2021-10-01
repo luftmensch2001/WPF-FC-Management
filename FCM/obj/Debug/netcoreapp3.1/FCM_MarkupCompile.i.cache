@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
 G:\Nam 3\OOP\WPF-FC-Management\FCM\App.xaml
-5-1446637147
+6-1109418838
 
-10-155532176
+11-655316538
 1961195365397
-MainWindow.xaml;Resource\ButtonStyle.xaml;Resource\MainResource.xaml;UserControls\ucMatchDetailNoEdit.xaml;View\LoginWindow.xaml;
+MainWindow.xaml;Resource\ButtonStyle.xaml;Resource\MainResource.xaml;UserControls\ucLeagueCard.xaml;UserControls\ucMatchDetailNoEdit.xaml;View\LoginWindow.xaml;
 
 False
 

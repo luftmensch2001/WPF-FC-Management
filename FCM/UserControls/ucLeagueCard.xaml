@@ -1,0 +1,97 @@
+﻿<UserControl x:Class="FCM.UserControls.ucLeagueCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FCM.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="300"
+             VerticalAlignment="Top"
+             HorizontalAlignment="Left"
+             Margin="0 20 20 0">
+    <Border CornerRadius="8" 
+            Background="Transparent" 
+            BorderBrush="#fff"
+            BorderThickness="1" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition Height="1.2*" />
+                </Grid.RowDefinitions>
+                <!--Logo-->
+                <Grid Grid.Row="0">
+                    <Image x:Name="imgLeagueLogo"
+                       Margin="0 6 0 0"
+                       Source="/Resource/Images/vleague.png" />
+                </Grid>
+                <!--Detail-->
+                <Grid Grid.Row="1">
+                    <TextBlock x:Name="tblLeagueName"
+                           Text="Giải bóng đá ao làng"
+                           Foreground="White"
+                           FontSize="14"
+                           FontWeight="SemiBold"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <TextBlock x:Name="tblLeagueTime"
+                           Text="Thời gian: 12/3/2021"
+                           Foreground="White"
+                           FontSize="12"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+                </Grid>
+
+                <Grid Grid.Row="3">
+                    <TextBlock x:Name="tblLeagueStatus"
+                           Text="Đang diễn ra"
+                           Foreground="White"
+                           FontSize="12"
+                           FontStyle="Italic"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+                </Grid>
+
+                <!--Button area-->
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <TextBlock x:Name="tblLeagueTeamsCount"
+                           Text="16 đội"
+                           Foreground="White"
+                           FontWeight="Thin"
+                           FontSize="12"
+                           FontStyle="Italic"
+                           HorizontalAlignment="Left"
+                           Margin="20 0 0 8"
+                           VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+                        <Button x:Name="btnLeagueDetail"
+                            Style="{StaticResource MyGreenButtonStyle}"
+                            Content="Đi tới"
+                            MinWidth="20"
+                            Width="60"
+                            Height="25"
+                            FontSize="10"
+                            FontWeight="SemiBold"
+                            Padding="0"
+                            Margin="0 0 20 6" 
+                            HorizontalAlignment="Right"/>
+
+
+                    </Grid>
+                </Grid>
+            </Grid>
+    </Border>
+
+</UserControl>
