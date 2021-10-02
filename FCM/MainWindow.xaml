@@ -37,7 +37,7 @@
             <Grid
               x:Name="grdStroke"
               Background="#52FF00"
-              Height="50"
+              Height="55"
               Width="10"
               Panel.ZIndex="1"
               HorizontalAlignment="Left"
@@ -441,7 +441,7 @@
                 <!--League Logo-->
                 <Grid Grid.Row="0">
                     <Image x:Name="HomeLeagueLogo"
-                       Height="150" 
+                       Height="140" 
                        VerticalAlignment="Top" 
                        Margin="0 20 0 0"
                        Source="/Resource/Images/vleague.png"/>
@@ -942,7 +942,7 @@
                     <Border CornerRadius="10" 
                         Background="#282823"
                         Width="900"
-                        Height="450"
+                        Height="440"
                         VerticalAlignment="Top"
                         Margin="0">
                         <Grid>
@@ -952,7 +952,7 @@
                                     <WrapPanel.Resources>
                                         <Style TargetType="userControl:ucMatchDetail">
                                             <Setter Property="Width" Value="900" />
-                                            <Setter Property="Height" Value="50" />
+                                            <Setter Property="Height" Value="48" />
                                         </Style>
                                     </WrapPanel.Resources>
 
