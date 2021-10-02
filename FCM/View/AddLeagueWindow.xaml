@@ -8,7 +8,7 @@
         x:Name="wdAddLeague"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize"
-        Title="Phần mềm quản lý giải bóng đá" Height="600" Width="800"
+        Title="Tạo giải đấu" Height="600" Width="800"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         DataContext="{StaticResource AddLeagueVM}"
         Icon="/Resource/Images/software-logo.png"
@@ -158,11 +158,12 @@
                 Content="Huỷ"
                 Style="{StaticResource MyRedButtonStyle}"
                 FontSize="15"
-                Width="100"
-                Height="40"
-                HorizontalAlignment="Right"
+                MinWidth="0"
+                Width="80"
+                Height="35"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
-                Margin="0 0 15 10">
+                Margin="0 0 0 10">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Click">
                         <i:InvokeCommandAction Command="{Binding CancelAddLeagueCommand}"
