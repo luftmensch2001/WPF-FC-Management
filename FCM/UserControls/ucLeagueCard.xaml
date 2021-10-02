@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FCM.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="210" d:DesignWidth="300"
+             d:DesignHeight="190" d:DesignWidth="260"
              VerticalAlignment="Top"
              HorizontalAlignment="Left"
              Margin="0 20 20 0">
@@ -32,7 +32,7 @@
                     <TextBlock x:Name="tblLeagueName"
                            Text="Giải bóng đá ao làng"
                            Foreground="White"
-                           FontSize="18"
+                           FontSize="16"
                            FontWeight="SemiBold"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Bottom"/>
@@ -42,7 +42,7 @@
                     <TextBlock x:Name="tblLeagueTime"
                            Text="Thời gian: 12/3/2021"
                            Foreground="White"
-                           FontSize="14"
+                           FontSize="13"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"/>
                 </Grid>
@@ -51,7 +51,7 @@
                     <TextBlock x:Name="tblLeagueStatus"
                            Text="Đang diễn ra"
                            Foreground="White"
-                           FontSize="14"
+                           FontSize="13"
                            FontStyle="Italic"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Top"/>
@@ -75,7 +75,7 @@
                             FontSize="14"
                             FontWeight="Medium"
                             Padding="0"
-                            Margin="0 0 20 6" 
+                            Margin="0 0 10 5" 
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"/>
                 </Grid>

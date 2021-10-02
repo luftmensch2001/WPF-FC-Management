@@ -37,7 +37,7 @@ namespace FCM.ViewModel
         {         
             int index = int.Parse(uid); // tab index
             //Move Stroke Menu
-            parameter.grdStroke.Margin = new Thickness(0, (200 + 65 * index), 0, 0);
+            parameter.grdStroke.Margin = new Thickness(0, (150 + 60 * index), 0, 0);
 
             //Reset Color items
             parameter.btnHome.Foreground = white;
@@ -48,6 +48,7 @@ namespace FCM.ViewModel
             parameter.btnStatistics.Foreground = white;
             parameter.btnSetting.Foreground = white;
             parameter.btnHelp.Foreground = white;
+            parameter.btnAccount.Foreground = white;
 
             parameter.icHome.Foreground = white;
             parameter.icLeagues.Foreground = white;
@@ -57,6 +58,7 @@ namespace FCM.ViewModel
             parameter.icStatistics.Foreground = white;
             parameter.icSetting.Foreground = white;
             parameter.icHelp.Foreground = white;
+            parameter.icAccount.Foreground = white;
 
             // Disable all screen
             parameter.grdHomeScreen.Visibility = Visibility.Hidden;
@@ -100,6 +102,10 @@ namespace FCM.ViewModel
                 case 7:
                     parameter.btnHelp.Foreground = lightGreen;
                     parameter.icHelp.Foreground = lightGreen;
+                    break;
+                case 8:
+                    parameter.btnAccount.Foreground = lightGreen;
+                    parameter.icAccount.Foreground = lightGreen;
                     break;
 
                 default:

@@ -7,9 +7,8 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:userControl="clr-namespace:FCM.UserControls"
         mc:Ignorable="d"
-        Title="Phần mềm quản lý giải bóng đá" Height="850" Width="1400"
+        Title="Phần mềm quản lý giải bóng đá" Height="750" Width="1200"
         WindowStartupLocation="CenterOwner"
-        WindowState="Maximized"
         ResizeMode="CanMinimize"
         x:Name="wdHome"
         DataContext="{StaticResource MainVM}"
@@ -26,7 +25,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1.1*"></ColumnDefinition>
             <ColumnDefinition Width="4*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
@@ -43,25 +42,25 @@
               Panel.ZIndex="1"
               HorizontalAlignment="Left"
               VerticalAlignment="Top"
-              Margin="0 200 0 0">
+              Margin="0 150 0 0">
 
             </Grid>
 
             <!--Software logo-->
-            <Grid Height="130"
+            <Grid Height="110"
                   VerticalAlignment="Top"
-                  Margin="0 40 0 0"
+                  Margin="0 20 0 0"
                   Panel.ZIndex="2">
                 <Image Source="/Resource/Images/software-logo.png" Panel.ZIndex="2"/>
             </Grid>      
             
             <!--Stack Panel Menu-->
             <StackPanel x:Name="stpMenu"
-                        Margin="0 200 0 0">
+                        Margin="0 150 0 0">
 
                 <!--Grid Home-->
                 <Grid x:Name="grdHome"
-                      Height="60"
+                      Height="55"
                       Margin="0 0 0 0">
                     
                     
@@ -78,7 +77,7 @@
                             Foreground="#52FF00"
                             x:Name="btnHome"
                             Uid="0"
-                            Height="60"
+                            Height="55"
                             Width="295"
                             FontSize="20"                  
                             Background="Transparent"
@@ -104,7 +103,7 @@
 
                 <!--Grid Leagues-->
                 <Grid x:Name="grdLeagues"
-                      Height="60"
+                      Height="55"
                       Margin="0 5 0 0">
 
 
@@ -120,7 +119,7 @@
                             x:Name="btnLeagues"
                             Content="GIẢI ĐẤU"
                             Uid="1"
-                            Height="60"
+                            Height="55"
                             Width="295"
                             FontSize="20"
                             Background="Transparent"
@@ -143,7 +142,7 @@
 
                 <!--Grid Schedule-->
                 <Grid x:Name="grdSchedule"
-                      Height="60"
+                      Height="55"
                       Margin="0 5 0 0">
 
 
@@ -157,7 +156,7 @@
                         Foreground="#fff"/>
                     <Button x:Name="btnSchedule" 
                             Content="LỊCH THI ĐẤU"
-                            Height="60"
+                            Height="55"
                             Width="295"
                             FontSize="20"
                             Uid="2"
@@ -182,7 +181,7 @@
 
                 <!--Grid Teams-->
                 <Grid x:Name="grdTeams"
-                      Height="60"
+                      Height="55"
                       Margin="0 5 0 0">
 
 
@@ -196,7 +195,7 @@
                         Foreground="#fff"/>
                     <Button x:Name="btnTeams" 
                             Content="ĐỘI BÓNG"
-                            Height="60"
+                            Height="55"
                             Width="295"
                             FontSize="20"
                             Uid="3"
@@ -220,7 +219,7 @@
 
                 <!--Grid Standing-->
                 <Grid x:Name="grdStanding"
-                      Height="60"
+                      Height="55"
                       Margin="0 5 0 0">
 
 
@@ -234,7 +233,7 @@
                         Foreground="#fff"/>
                     <Button x:Name="btnStanding" 
                             Content="BẢNG XẾP HẠNG"
-                            Height="60"
+                            Height="55"
                             Width="295"
                             Uid="4"
                             FontSize="20"
@@ -258,7 +257,7 @@
 
                 <!--Grid Statistics-->
                 <Grid x:Name="grdStatistics"
-                      Height="60"
+                      Height="55"
                       Margin="0 5 0 0">
 
 
@@ -272,7 +271,7 @@
                         Foreground="#fff"/>
                     <Button 
                             Content="THỐNG KÊ"
-                            Height="60"
+                            Height="55"
                             Width="295"
                             FontSize="20"
                             x:Name="btnStatistics"
@@ -297,7 +296,7 @@
 
                 <!--Grid Setting-->
                 <Grid x:Name="grdSetting"
-                      Height="60"
+                      Height="55"
                       Margin="0 5 0 0">
 
 
@@ -311,7 +310,7 @@
                         Foreground="#fff"/>
                     <Button 
                             Content="QUY ĐỊNH"
-                            Height="60"
+                            Height="55"
                             Width="295"
                             FontSize="20"
                             x:Name="btnSetting"
@@ -336,7 +335,7 @@
 
                 <!--Grid Help-->
                 <Grid x:Name="grdHelp"
-                      Height="60"
+                      Height="55"
                       Margin="0 5 0 0">
 
 
@@ -350,7 +349,7 @@
                         Foreground="#fff"/>
                     <Button 
                             Content="TRỢ GIÚP"
-                            Height="60"
+                            Height="55"
                             Width="295"
                             FontSize="20"
                             x:Name="btnHelp"
@@ -376,7 +375,7 @@
 
                 <!--Grid Account-->
                 <Grid x:Name="grdAccount"
-                      Height="60"
+                      Height="55"
                       Margin="0 5 0 0">
 
 
@@ -390,7 +389,7 @@
                         Foreground="#fff"/>
                     <Button 
                             Content="TÀI KHOẢN"
-                            Height="60"
+                            Height="55"
                             Width="295"
                             FontSize="20"
                             x:Name="btnAccount"
@@ -427,22 +426,22 @@
               x:Name="grdHomeScreen"
               Visibility="Visible">
             <Grid.RowDefinitions>
-                <RowDefinition/>
+                <RowDefinition Height="260"/>
                 <RowDefinition Height="1"/>
-                <RowDefinition Height="110"/>
+                <RowDefinition Height="100"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <!--League information-->
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="220"></RowDefinition>
+                    <RowDefinition Height="160"></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <!--League Logo-->
                 <Grid Grid.Row="0">
                     <Image x:Name="HomeLeagueLogo"
-                       Height="200" 
+                       Height="150" 
                        VerticalAlignment="Top" 
                        Margin="0 20 0 0"
                        Source="/Resource/Images/vleague.png"/>
@@ -450,7 +449,7 @@
                 <!--League Description-->
                 <Grid Grid.Row="1">
                     <TextBlock Text="GIẢI BÓNG ĐÁ VÔ ĐỊCH QUỐC GIA VIỆT NAM"
-                               FontSize="30"
+                               FontSize="25"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
                                FontWeight="Bold"/>
@@ -458,7 +457,7 @@
 
                 <Grid Grid.Row="2">
                     <TextBlock Text="Nhà tài trợ chính: LS Holding"
-                               FontSize="25"
+                               FontSize="22"
                                VerticalAlignment="Top"
                                HorizontalAlignment="Center"
                                FontWeight="Medium"/>
@@ -484,17 +483,17 @@
                            FontSize="20"
                            FontWeight="SemiBold"
                            FontStyle="Italic"
-                           Margin="70 20 70 20"/>
+                           Margin="20 20 70 20"/>
      
                 <Border CornerRadius="10" 
                         Background="#00A807"
-                        Width="1100"
+                        Width="900"
                         Height="50"
                         VerticalAlignment="Bottom"
                         Margin="0">
                     
                     <Grid 
-                          Width="1100"
+                          Width="900"
                           Height="50"
                           Background="Transparent">
                         <Grid.ColumnDefinitions>
@@ -554,19 +553,19 @@
             <Grid Grid.Row="3">
                 <Border CornerRadius="10" 
                         Background="#282823"
-                        Width="1100"
-                        Height="335"
+                        Width="900"
+                        Height="340"
                         VerticalAlignment="Top"
                         Margin="0">
                     <Grid>
                         <StackPanel x:Name="spnNextMatches">
                             <StackPanel.Resources>
                                 <Style TargetType="userControl:ucMatchDetailNoEdit">
-                                    <Setter Property="Height" Value="40" />
+                                    <Setter Property="Height" Value="30" />
                                 </Style>
                             </StackPanel.Resources>
-                            <!--Max 5 matches, no scroll-->
-
+                            <!--Max 6 matches, no scroll-->
+                            <userControl:ucMatchDetailNoEdit />
                             <userControl:ucMatchDetailNoEdit />
                             <userControl:ucMatchDetailNoEdit />
                             <userControl:ucMatchDetailNoEdit />
@@ -603,7 +602,8 @@
                 <Grid Grid.Column="0">
                     <Image x:Name="imgLeagueLogo" 
                            Source="/Resource/Images/vleague.png"
-                           Margin="10 0 0 0"/>
+                           Margin="10 0 0 0"
+                           Width="260"/>
                 </Grid>
                 <!--Description-->
                 <Grid Grid.Column="1">
@@ -611,27 +611,27 @@
                         <TextBlock
                             x:Name="tblLeagueName"
                             Text="GIẢI BÓNG ĐÁ VÔ ĐỊCH QUỐC GIA VIỆT NAM"
-                            FontSize="30"
+                            FontSize="25"
                             FontWeight="Bold"/>
 
                         <TextBlock
                             x:Name="tblSponsor"
                             Text="Nhà tài trợ chính: LS Holding"
-                            FontSize="25"
+                            FontSize="20"
                             Margin="0 10 0 0"
                             FontWeight="Medium"/>
 
                         <TextBlock
                             x:Name="tblLeagueTime"
                             Text="Thời gian: 12/6/2021"
-                            FontSize="25"
+                            FontSize="20"
                             Margin="0 10 0 0"
                             FontWeight="Medium"/>
 
                         <TextBlock
                             x:Name="tblLeagueStatus"
                             Text="Đang diễn ra"
-                            FontSize="25"
+                            FontSize="20"
                             FontStyle="Italic"
                             Margin="0 10 0 0"
                             FontWeight="Medium"/>
@@ -654,7 +654,7 @@
                     <TextBox
                         x:Name="tbSearchLeague"
                         Width="300"
-                        FontSize="20"
+                        FontSize="18"
                         materialDesign:HintAssist.Hint="Nhập tên giải đấu"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                         VerticalAlignment="Center" />
@@ -666,7 +666,9 @@
                     <Button x:Name="btnSearchLeague"
                             Width="120"
                             Style="{StaticResource MyGreenButtonStyle}"
-                            Height="45"
+                            Height="35"
+                            FontSize="13"
+                            Padding="0"
                             Margin="0 12 0 0"
                             HorizontalAlignment="Left">
 
@@ -675,7 +677,7 @@
                                     Width="20"
                                     Height="20"
                                     Kind="Search" />
-                            <TextBlock Text="Tìm kiếm" />
+                            <TextBlock Text="Tìm kiếm" VerticalAlignment="Center"/>
                         </StackPanel>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
@@ -692,8 +694,8 @@
                     <Button x:Name="btnEditLeague"
                             Style="{StaticResource MyGreenButtonStyle}"
                             Width="150"
-                            Height="45"
-                            Margin="110 12 0 0"
+                            Height="35"
+                            Margin="60 12 0 0"
                             HorizontalAlignment="Left">
 
                         <StackPanel Orientation="Horizontal">
@@ -717,9 +719,10 @@
                       Margin="30 0 0 0">
                     <Button x:Name="btnCreateLeague"
                             Style="{StaticResource MyGreenButtonStyle}"
-                            Width="200"
-                            Height="45"
-                            Margin="0 12 50 0"
+                            Width="170"
+                            Height="35"
+                            Padding="0"
+                            Margin="0 12 30 0"
                             HorizontalAlignment="Right">
 
                         <StackPanel Orientation="Horizontal">
@@ -743,9 +746,9 @@
             
             <!--#region Leagues List-->
             <Grid Grid.Row="3">
-                <Border Width="1030"
+                <Border Width="900"
                         Background="#282823"
-                        Height="500"
+                        Height="440"
                         CornerRadius="8">
                     <Grid Margin="20 0 20 20"
                           Background="Transparent">
@@ -754,8 +757,8 @@
                             <WrapPanel x:Name="wpLeagueCards">
                                 <WrapPanel.Resources>
                                     <Style TargetType="userControl:ucLeagueCard">
-                                        <Setter Property="Width" Value="300" />
-                                        <Setter Property="Height" Value="210" />
+                                        <Setter Property="Width" Value="260" />
+                                        <Setter Property="Height" Value="190" />
                                     </Style>
                                 </WrapPanel.Resources>
                                 <!--Add Cards here-->
@@ -786,8 +789,7 @@
             Grid.Column="1"
             Visibility="Hidden">
             <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
-                <RowDefinition />
+                <RowDefinition Height="3*"/>
                 <RowDefinition Height="7*"/>
             </Grid.RowDefinitions>
 
@@ -811,6 +813,24 @@
                         Margin="0 20 0 0">
 
                     </Button>
+
+                    <ComboBox
+                        materialDesign:HintAssist.Hint="Chọn vòng đấu"
+                        Width="200"
+                        HorizontalAlignment="Center"
+                        Margin="0 30 0 0">
+
+                        <ComboBoxItem
+                            Content="Tất cả" />
+                        <ComboBoxItem
+                            Content="Vòng 1" />
+                        <ComboBoxItem
+                            Content="Vòng 2" />
+                        <ComboBoxItem
+                            Content="Vòng 3" />
+                        <ComboBoxItem
+                            Content="Vòng 4" />
+                    </ComboBox>
                 </StackPanel>
                 <Image 
                         Width="200" Height="200"
@@ -824,32 +844,7 @@
                         Source="/Resource/Images/football.png"
                         Margin="0 0 60 0"/>
             </Grid>
-            <!--#endregion-->
-            
-            <!--#region Header Bar-->
-            <Grid Grid.Row="1">
-                <StackPanel>
-                    <ComboBox
-                        materialDesign:HintAssist.Hint="Chọn vòng đấu"
-                        Width="200"
-                        HorizontalAlignment="Center"
-                        Margin="0 30 0 0">
-                        
-                        <ComboBoxItem
-                            Content="Tất cả" />
-                        <ComboBoxItem
-                            Content="Vòng 1" />
-                        <ComboBoxItem
-                            Content="Vòng 2" />
-                        <ComboBoxItem
-                            Content="Vòng 3" />
-                        <ComboBoxItem
-                            Content="Vòng 4" />
-                    </ComboBox>
-                </StackPanel>
-                
-            </Grid>
-            <!--#endregion-->
+            <!--#endregion-->     
             
             <!--#region Matches-->
             <Grid Grid.Row="2">
@@ -866,13 +861,13 @@
                     
                     <Border CornerRadius="10" 
                         Background="#00A807"
-                        Width="1100"
+                        Width="900"
                         Height="50"
                         VerticalAlignment="Bottom"
                         Margin="0">
 
                         <Grid 
-                          Width="1100"
+                          Width="900"
                           Height="50"
                           Background="Transparent">
                             <Grid.ColumnDefinitions>
@@ -946,8 +941,8 @@
                     <!--Matches list-->
                     <Border CornerRadius="10" 
                         Background="#282823"
-                        Width="1100"
-                        Height="510"
+                        Width="900"
+                        Height="450"
                         VerticalAlignment="Top"
                         Margin="0">
                         <Grid>
@@ -956,8 +951,8 @@
                                 <WrapPanel x:Name="wpSchedule">
                                     <WrapPanel.Resources>
                                         <Style TargetType="userControl:ucMatchDetail">
-                                            <Setter Property="Width" Value="1100" />
-                                            <Setter Property="Height" Value="60" />
+                                            <Setter Property="Width" Value="900" />
+                                            <Setter Property="Height" Value="50" />
                                         </Style>
                                     </WrapPanel.Resources>
 

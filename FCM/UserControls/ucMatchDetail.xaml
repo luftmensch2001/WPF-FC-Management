@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:FCM.UserControls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"      
              mc:Ignorable="d" 
-             d:DesignHeight="120" d:DesignWidth="1050"
+             d:DesignHeight="60" d:DesignWidth="900"
              Background="#282823"
              Foreground="White"
              VerticalAlignment="Top"
