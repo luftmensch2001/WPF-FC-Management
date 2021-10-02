@@ -35,7 +35,7 @@ namespace FCM.ViewModel
 
         public void SwitchTab(MainWindow parameter)
         {
-            AddGoalWindow wd = new AddGoalWindow();
+            AddCardWindow wd = new AddCardWindow();
             wd.Show();
 
             int index = int.Parse(uid); // tab index
