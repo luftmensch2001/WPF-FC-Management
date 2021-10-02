@@ -4,6 +4,7 @@
     <viewmodel:MainViewModel x:Key="MainVM"/>
     <viewmodel:LoginViewModel x:Key="LoginVM"/>
     <viewmodel:AddLeagueViewModel x:Key="AddLeagueVM" />
+    <viewmodel:ResultViewModel x:Key="ResultVM" />
 
     <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#222"/>
 

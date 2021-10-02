@@ -9,6 +9,7 @@
         mc:Ignorable="d"
         Title="Phần mềm quản lý giải bóng đá" Height="850" Width="1400"
         WindowStartupLocation="CenterOwner"
+        WindowState="Maximized"
         ResizeMode="CanMinimize"
         x:Name="wdHome"
         DataContext="{StaticResource MainVM}"
@@ -20,7 +21,7 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="#fff"
+        Background="#fefefe"
         FontFamily="{DynamicResource MaterialDesignFont}">
 
     <Grid>
@@ -470,11 +471,20 @@
             <!--Next Matches-->
             <!--#region Header bar-->
             <Grid Grid.Row="2">
+                <Grid.Resources>
+                    <Style x:Key="headerText" TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignTextBlock}">
+                        <Setter Property="Foreground" Value="#fff"/>
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="FontWeight" Value="Medium"/>
+                    </Style>
+                </Grid.Resources>
                 <TextBlock Text="Trận sắp diễn ra" 
                            FontSize="20"
                            FontWeight="SemiBold"
                            FontStyle="Italic"
-                           Margin="10 20"/>
+                           Margin="70 20 70 20"/>
      
                 <Border CornerRadius="10" 
                         Background="#00A807"
@@ -498,71 +508,43 @@
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0">
                             <TextBlock Text="STT" 
-                                       Foreground="#fff"
-                                       FontSize="16"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"
-                                       FontWeight="Medium"/>
+                                       Style="{StaticResource headerText}"/>
                             <Rectangle Height="30" Width="1" Fill="White" HorizontalAlignment="Right"/>
                         </Grid>
 
                         <Grid Grid.Column="1">
                             <TextBlock Text="Đội 1" 
-                                       Foreground="#fff"
-                                       FontSize="16"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"
-                                       FontWeight="Medium"/>
+                                       Style="{StaticResource headerText}"/>
                             <Rectangle Height="30" Width="1" Fill="White" HorizontalAlignment="Right"/>
                         </Grid>
 
                         <Grid Grid.Column="2">
                             <TextBlock Text="Đội 2" 
-                                       Foreground="#fff"
-                                       FontSize="16"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"
-                                       FontWeight="Medium"/>
+                                       Style="{StaticResource headerText}"/>
                             <Rectangle Height="30" Width="1" Fill="White" HorizontalAlignment="Right"/>
                         </Grid>
 
                         <Grid Grid.Column="3">
                             <TextBlock Text="Sân" 
-                                       Foreground="#fff"
-                                       FontSize="16"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"
-                                       FontWeight="Medium"/>
+                                       Style="{StaticResource headerText}"/>
                             <Rectangle Height="30" Width="1" Fill="White" HorizontalAlignment="Right"/>
                         </Grid>
 
                         <Grid Grid.Column="4">
                             <TextBlock Text="Giờ" 
-                                       Foreground="#fff"
-                                       FontSize="16"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"
-                                       FontWeight="Medium"/>
+                                       Style="{StaticResource headerText}"/>
                             <Rectangle Height="30" Width="1" Fill="White" HorizontalAlignment="Right"/>
                         </Grid>
 
                         <Grid Grid.Column="5">
                             <TextBlock Text="Ngày" 
-                                       Foreground="#fff"
-                                       FontSize="16"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"
-                                       FontWeight="Medium"/>
+                                       Style="{StaticResource headerText}"/>
                             <Rectangle Height="30" Width="1" Fill="White" HorizontalAlignment="Right"/>
                         </Grid>
 
                         <Grid Grid.Column="6">
                             <TextBlock Text="Vòng đấu" 
-                                       Foreground="#fff"
-                                       FontSize="16"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"
-                                       FontWeight="Medium"/>
+                                       Style="{StaticResource headerText}"/>
                         </Grid>
                     </Grid>
                 </Border>
@@ -573,12 +555,18 @@
                 <Border CornerRadius="10" 
                         Background="#282823"
                         Width="1100"
-                        Height="310"
+                        Height="335"
                         VerticalAlignment="Top"
                         Margin="0">
                     <Grid>
-                        <!--Max 5 matches, no scroll-->
                         <StackPanel x:Name="spnNextMatches">
+                            <StackPanel.Resources>
+                                <Style TargetType="userControl:ucMatchDetailNoEdit">
+                                    <Setter Property="Height" Value="40" />
+                                </Style>
+                            </StackPanel.Resources>
+                            <!--Max 5 matches, no scroll-->
+
                             <userControl:ucMatchDetailNoEdit />
                             <userControl:ucMatchDetailNoEdit />
                             <userControl:ucMatchDetailNoEdit />
@@ -698,12 +686,38 @@
                     </Button>
                 </Grid>
 
+                <!--Button Edit-->
+                <Grid Grid.Column="2"
+                      Margin="30 0 0 0">
+                    <Button x:Name="btnEditLeague"
+                            Style="{StaticResource MyGreenButtonStyle}"
+                            Width="150"
+                            Height="45"
+                            Margin="110 12 0 0"
+                            HorizontalAlignment="Left">
+
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon 
+                                    Width="20"
+                                    Height="20"
+                                    Kind="NoteEditOutline"
+                                    Margin="0 0 8 0"/>
+                            <TextBlock Text="Sửa thông tin" />
+                        </StackPanel>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding OpenEditLeagueWindowCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </Grid>
+
                 <!--Button create-->
                 <Grid Grid.Column="2"
                       Margin="30 0 0 0">
                     <Button x:Name="btnCreateLeague"
                             Style="{StaticResource MyGreenButtonStyle}"
-                            Width="260"
+                            Width="200"
                             Height="45"
                             Margin="0 12 50 0"
                             HorizontalAlignment="Right">
@@ -764,6 +778,210 @@
             
         </Grid>
         
+        <!--#endregion-->
+        
+        <!--#region SCHEDULE-->
+        <Grid 
+            x:Name="grdScheduleScreen"
+            Grid.Column="1"
+            Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition />
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+
+            <!--#region Title-->
+            <Grid Grid.Row="0">
+                <StackPanel>
+                    <TextBlock Text="LỊCH THI ĐẤU" 
+                               VerticalAlignment="Top"
+                               HorizontalAlignment="Center"
+                               Foreground="#333"
+                               FontSize="42"
+                               Margin="0 20 0 0"
+                               FontWeight="SemiBold"/>
+                    <Button 
+                        x:Name="btnCreateSchedule"
+                        Content="Tạo lịch thi đấu"
+                        Style="{StaticResource MyGreenButtonStyle}"
+                        Width="250"
+                        Height="45"
+                        FontSize="15"
+                        Margin="0 20 0 0">
+
+                    </Button>
+                </StackPanel>
+                <Image 
+                        Width="200" Height="200"
+                        HorizontalAlignment="Left" 
+                        Source="/Resource/Images/players.png"
+                        Margin="50 0 0 0"/>
+
+                <Image 
+                        Width="200" Height="200"
+                        HorizontalAlignment="Right" 
+                        Source="/Resource/Images/football.png"
+                        Margin="0 0 60 0"/>
+            </Grid>
+            <!--#endregion-->
+            
+            <!--#region Header Bar-->
+            <Grid Grid.Row="1">
+                <StackPanel>
+                    <ComboBox
+                        materialDesign:HintAssist.Hint="Chọn vòng đấu"
+                        Width="200"
+                        HorizontalAlignment="Center"
+                        Margin="0 30 0 0">
+                        
+                        <ComboBoxItem
+                            Content="Tất cả" />
+                        <ComboBoxItem
+                            Content="Vòng 1" />
+                        <ComboBoxItem
+                            Content="Vòng 2" />
+                        <ComboBoxItem
+                            Content="Vòng 3" />
+                        <ComboBoxItem
+                            Content="Vòng 4" />
+                    </ComboBox>
+                </StackPanel>
+                
+            </Grid>
+            <!--#endregion-->
+            
+            <!--#region Matches-->
+            <Grid Grid.Row="2">
+                <StackPanel>
+                    <StackPanel.Resources>
+                        <Style x:Key="headerText" TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignTextBlock}">
+                            <Setter Property="Foreground" Value="#fff"/>
+                            <Setter Property="FontSize" Value="16"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="FontWeight" Value="Medium"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    
+                    <Border CornerRadius="10" 
+                        Background="#00A807"
+                        Width="1100"
+                        Height="50"
+                        VerticalAlignment="Bottom"
+                        Margin="0">
+
+                        <Grid 
+                          Width="1100"
+                          Height="50"
+                          Background="Transparent">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2.5*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2.5*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="1.6*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                            
+                            <Grid Grid.Column="0">
+                                <TextBlock Text="STT" 
+                                       Style="{StaticResource headerText}"/>
+                                <Rectangle Height="50" Width="1" Fill="White" HorizontalAlignment="Right"/>
+                            </Grid>
+
+                            <Grid Grid.Column="1">
+                                <TextBlock Text="Ngày" 
+                                       Style="{StaticResource headerText}"/>
+                                <Rectangle Height="50" Width="1" Fill="White" HorizontalAlignment="Right"/>
+                            </Grid>
+
+                            <Grid Grid.Column="2">
+                                <TextBlock Text="Giờ" 
+                                       Style="{StaticResource headerText}"/>
+                                <Rectangle Height="50" Width="1" Fill="White" HorizontalAlignment="Right"/>
+                            </Grid>
+
+                            <Grid Grid.Column="3">
+                                <TextBlock Text="Đội 1" 
+                                       Style="{StaticResource headerText}"/>
+                                <Rectangle Height="50" Width="1" Fill="White" HorizontalAlignment="Right"/>
+                            </Grid>
+
+                            <Grid Grid.Column="4">
+                                <TextBlock Text="Tỉ số" 
+                                       Style="{StaticResource headerText}"/>
+                                <Rectangle Height="50" Width="1" Fill="White" HorizontalAlignment="Right"/>
+                            </Grid>
+
+                            <Grid Grid.Column="5">
+                                <TextBlock Text="Đội 2" 
+                                       Style="{StaticResource headerText}"/>
+                                <Rectangle Height="50" Width="1" Fill="White" HorizontalAlignment="Right"/>
+                            </Grid>
+
+                            <Grid Grid.Column="6">
+                                <TextBlock Text="Sân" 
+                                       Style="{StaticResource headerText}"/>
+                                <Rectangle Height="50" Width="1" Fill="White" HorizontalAlignment="Right"/>
+                            </Grid>
+
+                            <Grid Grid.Column="7">
+                                <TextBlock Text="Vòng đấu" 
+                                       Style="{StaticResource headerText}"/>
+                                <Rectangle Height="50" Width="1" Fill="White" HorizontalAlignment="Right"/>
+                            </Grid>
+
+                            <Grid Grid.Column="8">
+                                <TextBlock Text="Ghi kết quả" 
+                                       Style="{StaticResource headerText}"/>
+                            </Grid>
+
+
+                        </Grid>
+                    </Border>
+                    <!--Matches list-->
+                    <Border CornerRadius="10" 
+                        Background="#282823"
+                        Width="1100"
+                        Height="510"
+                        VerticalAlignment="Top"
+                        Margin="0">
+                        <Grid>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      Style="{StaticResource FavsScrollViewer}">
+                                <WrapPanel x:Name="wpSchedule">
+                                    <WrapPanel.Resources>
+                                        <Style TargetType="userControl:ucMatchDetail">
+                                            <Setter Property="Width" Value="1100" />
+                                            <Setter Property="Height" Value="60" />
+                                        </Style>
+                                    </WrapPanel.Resources>
+
+                                    <!--Add matches here-->
+                                    <userControl:ucMatchDetail />
+                                    <userControl:ucMatchDetail />
+                                    <userControl:ucMatchDetail />
+                                    <userControl:ucMatchDetail />
+                                    <userControl:ucMatchDetail />
+                                    <userControl:ucMatchDetail />
+                                    <userControl:ucMatchDetail />
+                                    <userControl:ucMatchDetail />
+                                    <userControl:ucMatchDetail />
+                                    <userControl:ucMatchDetail />
+                                    <userControl:ucMatchDetail />
+                                    <userControl:ucMatchDetail />
+                                </WrapPanel>
+                            </ScrollViewer>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </Grid>
+            <!--#endregion-->
+        </Grid>
         <!--#endregion-->
         
     </Grid>

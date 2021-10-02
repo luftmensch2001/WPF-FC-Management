@@ -16,6 +16,8 @@ namespace FCM.ViewModel
 
         public ICommand OpenAddLeagueWindowCommand { get; set; }
 
+        public ICommand OpenEditLeagueWindowCommand { get; set; }
+
         public ICommand SearchLeagueCommand { get; set; }
 
         public string uid;
@@ -27,11 +29,12 @@ namespace FCM.ViewModel
             SwitchTabCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SwitchTab(parameter));
             GetUidCommand = new RelayCommand<Button>((parameter) => true, (parameter) => uid = parameter.Uid);
             OpenAddLeagueWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddLeagueWindow());
+            OpenEditLeagueWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenEditLeagueWindow());
             SearchLeagueCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SearchLeague(parameter)); // Viết tạm hàm để debug, chưa xử lý
         }
 
         public void SwitchTab(MainWindow parameter)
-        {
+        {         
             int index = int.Parse(uid); // tab index
             //Move Stroke Menu
             parameter.grdStroke.Margin = new Thickness(0, (200 + 65 * index), 0, 0);
@@ -58,6 +61,7 @@ namespace FCM.ViewModel
             // Disable all screen
             parameter.grdHomeScreen.Visibility = Visibility.Hidden;
             parameter.grdLeaguesScreen.Visibility = Visibility.Hidden;
+            parameter.grdScheduleScreen.Visibility = Visibility.Hidden;
 
             // Switch tab - Show selected screen
             switch (index)
@@ -75,6 +79,7 @@ namespace FCM.ViewModel
                 case 2:
                     parameter.btnSchedule.Foreground = lightGreen;
                     parameter.icSchedule.Foreground = lightGreen;
+                    parameter.grdScheduleScreen.Visibility = Visibility.Visible;
                     break;
                 case 3:
                     parameter.btnTeams.Foreground = lightGreen;
@@ -105,6 +110,15 @@ namespace FCM.ViewModel
         public void OpenAddLeagueWindow()
         {
             AddLeagueWindow wd = new AddLeagueWindow();
+            wd.ShowDialog();
+        }
+
+        public void OpenEditLeagueWindow()
+        {
+            AddLeagueWindow wd = new AddLeagueWindow();
+            wd.tblTitle.Text = "SỬA THÔNG TIN GIẢI ĐẤU";
+            wd.btnCreateLeague.Content = "Lưu";
+            // insert current data (name, sponsor, time, logo, ...)  to wd
             wd.ShowDialog();
         }
 
