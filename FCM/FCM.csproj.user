@@ -22,6 +22,9 @@
     <Compile Update="UserControls\ucMatchDetailNoEdit.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\AddGoalWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\AddLeagueWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -61,6 +64,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControls\ucMatchDetailNoEdit.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\AddGoalWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\AddLeagueWindow.xaml">

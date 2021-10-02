@@ -99,3 +99,5 @@ G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucGoal.b
 G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucGoal.g.cs
 G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucCard.baml
 G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucCard.g.cs
+G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddGoalWindow.g.cs
+G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddGoalWindow.baml

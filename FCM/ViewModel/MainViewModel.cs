@@ -34,7 +34,10 @@ namespace FCM.ViewModel
         }
 
         public void SwitchTab(MainWindow parameter)
-        {         
+        {
+            AddGoalWindow wd = new AddGoalWindow();
+            wd.Show();
+
             int index = int.Parse(uid); // tab index
             //Move Stroke Menu
             parameter.grdStroke.Margin = new Thickness(0, (150 + 60 * index), 0, 0);
