@@ -103,3 +103,5 @@ G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddGoalWindow.g.
 G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddGoalWindow.baml
 G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddCardWindow.g.cs
 G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddCardWindow.baml
+G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\EditMatchInforWindow.g.cs
+G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\EditMatchInforWindow.baml

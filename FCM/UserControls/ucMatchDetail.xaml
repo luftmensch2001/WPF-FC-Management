@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:FCM.UserControls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"      
              mc:Ignorable="d" 
-             d:DesignHeight="60" d:DesignWidth="900"
+             d:DesignHeight="70" d:DesignWidth="900"
              Background="#282823"
              Foreground="White"
              VerticalAlignment="Top"
@@ -90,23 +90,47 @@
         </Grid>
 
         <Grid Grid.Column="8">
-            <Button 
-                x:Name="btnRecordResult"
+            <StackPanel Margin="0 0 0 0">
+                <Button 
+                x:Name="btnEditInfor"
                 Style="{StaticResource MyGreenButtonStyle}"
-                Width="90"
-                Height="30"
-                MinWidth="0">
-                
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon
+                Background="#4554ff"
+                Width="70"
+                Height="24"
+                MinWidth="0"
+                Padding="0">
+
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
                         Width="15"
                         Height="15"
                         Kind="Pencil"
                         Margin="0 0 4 0"/>
-                    <TextBlock Text="Ghi KQ" 
+                        <TextBlock Text="Sửa" 
                                FontSize="12"/>
-                </StackPanel>
-            </Button>
+                    </StackPanel>
+                </Button>
+                
+                <Button 
+                x:Name="btnRecordResult"
+                Style="{StaticResource MyGreenButtonStyle}"
+                Width="70"
+                Height="24"
+                MinWidth="0"
+                Padding="0">
+
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                        Width="15"
+                        Height="15"
+                        Kind="FileEdit"
+                        Margin="0 0 4 0"/>
+                        <TextBlock Text="Ghi KQ" 
+                               FontSize="12"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            
         </Grid>
 
         <Rectangle Grid.ColumnSpan="9" Fill="#ccc" Height="1" VerticalAlignment="Bottom" Margin="0 0 0 0"/>

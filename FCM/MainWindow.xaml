@@ -931,7 +931,7 @@
                             </Grid>
 
                             <Grid Grid.Column="8">
-                                <TextBlock Text="Ghi kết quả" 
+                                <TextBlock Text="Chi tiết" 
                                        Style="{StaticResource headerText}"/>
                             </Grid>
 
@@ -952,7 +952,7 @@
                                     <WrapPanel.Resources>
                                         <Style TargetType="userControl:ucMatchDetail">
                                             <Setter Property="Width" Value="900" />
-                                            <Setter Property="Height" Value="48" />
+                                            <Setter Property="Height" Value="58" />
                                         </Style>
                                     </WrapPanel.Resources>
 
