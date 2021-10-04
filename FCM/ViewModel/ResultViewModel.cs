@@ -13,6 +13,8 @@ namespace FCM.ViewModel
     {
         public ICommand SwitchTabCommand { get; set; }
         public ICommand GetUidCommand { get; set; }
+        public ICommand SwitchPlayersCommand { get; set; }
+
 
         public SolidColorBrush lightGreen = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#52ff00"));
         public SolidColorBrush white = new SolidColorBrush(Colors.White);
@@ -22,6 +24,7 @@ namespace FCM.ViewModel
         {
             SwitchTabCommand = new RelayCommand<ResultRecordingWindow>((parameter) => true, (parameter) => SwitchTab(parameter));
             GetUidCommand = new RelayCommand<Button>((parameter) => true, (parameter) => uid = parameter.Uid);
+            SwitchPlayersCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenSwitchPlayersWindow());
         }
 
         public void SwitchTab(ResultRecordingWindow parameter)
@@ -33,11 +36,12 @@ namespace FCM.ViewModel
             // Reset color
             parameter.btnGoalsTab.Foreground = white;
             parameter.btnCardsTab.Foreground = white;
-            parameter.btnTeamsTab.Foreground = white;
+            parameter.btnFormationsTab.Foreground = white;
 
             // Hide all screens
             parameter.grdGoalsTab.Visibility = Visibility.Hidden;
             parameter.grdCardsTab.Visibility = Visibility.Hidden;
+            parameter.grdFormationsTab.Visibility = Visibility.Hidden;
 
             switch (index)
             {
@@ -50,11 +54,15 @@ namespace FCM.ViewModel
                     parameter.grdCardsTab.Visibility = Visibility.Visible;
                     break;
                 case 2:
-                    parameter.btnTeamsTab.Foreground = lightGreen;
+                    parameter.btnFormationsTab.Foreground = lightGreen;
+                    parameter.grdFormationsTab.Visibility = Visibility.Visible;
                     break;
             }
-
-
+        }
+        public void OpenSwitchPlayersWindow()
+        {
+            SwitchPlayersWindow wd = new SwitchPlayersWindow();
+            wd.ShowDialog();
         }
     }
 }

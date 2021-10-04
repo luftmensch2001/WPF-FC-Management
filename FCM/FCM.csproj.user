@@ -10,6 +10,9 @@
     <Compile Update="UserControls\ucCard.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\ucFootballer.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\ucGoal.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -20,6 +23,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\ucMatchDetailNoEdit.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\ucSwitchedPlayers.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\AddCardWindow.xaml.cs">
@@ -38,6 +44,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\ResultRecordingWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\SwitchPlayersWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -60,6 +69,9 @@
     <Page Update="UserControls\ucCard.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="UserControls\ucFootballer.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UserControls\ucGoal.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -70,6 +82,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControls\ucMatchDetailNoEdit.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\ucSwitchedPlayers.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\AddCardWindow.xaml">
@@ -88,6 +103,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\ResultRecordingWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\SwitchPlayersWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

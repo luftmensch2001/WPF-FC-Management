@@ -207,7 +207,7 @@
 
                     <Grid>
                         <Button 
-                        x:Name="btnTeamsTab"
+                        x:Name="btnFormationsTab"
                         Content="ĐỘI HÌNH"
                         Uid="2"
                         Background="Transparent"
@@ -221,7 +221,7 @@
                                 </i:EventTrigger>
                                 <i:EventTrigger EventName="MouseMove">
                                     <i:InvokeCommandAction Command="{Binding GetUidCommand}"
-                                                       CommandParameter="{Binding ElementName=btnTeamsTab}"/>
+                                                       CommandParameter="{Binding ElementName=btnFormationsTab}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Button>
@@ -567,6 +567,305 @@
                         </StackPanel>
                     </Button>
                 </Grid>
+            </Grid>
+            <!--Formation-->
+            <Grid 
+                x:Name="grdFormationsTab"
+                Visibility="Hidden">
+                <Grid.Resources>
+                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#fff"/>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <!--Select team-->
+                <ComboBox
+                        x:Name="cbSelectedTeam"
+                        Style="{StaticResource MaterialDesignComboBox}"
+                        materialDesign:ColorZoneAssist.Mode="Dark"
+                        Foreground="#fff"
+                        BorderBrush="#fff"
+                        Width="150"
+                        IsEditable="False"
+                        SelectedIndex="0"
+                        Height="30"
+                        VerticalAlignment="Top"
+                        Grid.ColumnSpan="3">
+                    <ComboBoxItem
+                                x:Name="cbiTeam1"
+                                Content="FC Mèo" />
+                    <ComboBoxItem
+                                x:Name="cbiTeam2"
+                                Content="FC Chó" />
+                </ComboBox>
+                <!--Main Formation-->
+                <Grid Grid.Column="0">
+                    <StackPanel>
+                        <TextBlock Text="Đội hình trên sân"
+                                   Style="{StaticResource H2}"
+                                   FontSize="16"
+                                   Margin="0 40 0 0"/>
+                        <materialDesign:Card
+                            Width="280"
+                            Height="350"
+                            Margin="0 10 0 0"
+                            Background="#3a3a3a"
+                            UniformCornerRadius="12">
+                            <StackPanel>
+                                <!--Header-->
+                                <Grid Height="25"
+                                  VerticalAlignment="Top">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.5*"/>
+                                        <ColumnDefinition Width="1.3*"/>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.Resources>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="VerticalAlignment" Value="Bottom"/>
+                                            <Setter Property="Foreground" Value="#fff"/>
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        </Style>
+                                    </Grid.Resources>
+                                    <Grid Grid.Column="0">
+                                        <TextBlock Text="Số áo" />
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <TextBlock Text="Cầu thủ" />
+                                    </Grid>
+                                    <Grid Grid.Column="2">
+                                        <TextBlock Text="Vị trí" />
+                                    </Grid>
+                                    <Grid Grid.Column="3">
+                                        <TextBlock Text="Thẻ phạt" />
+                                    </Grid>
+                                </Grid>
+                                <!--Line-->
+                                <Rectangle Height="1" Width="280" Fill="White" VerticalAlignment="Top" Margin="0 10 0 0"/>
+                                <!--Footballers list-->
+                                <Grid Height="300">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      Style="{StaticResource FavsScrollViewer}">
+                                        <WrapPanel x:Name="wpMainFormation">
+                                            <WrapPanel.Resources>
+                                                <Style TargetType="userControl:ucFootballer">
+                                                    <Setter Property="Width" Value="280" />
+                                                    <Setter Property="Height" Value="50" />
+                                                </Style>
+                                            </WrapPanel.Resources>
+                                            <!--Add here-->
+                                            <userControl:ucFootballer />
+                                            <userControl:ucFootballer />
+                                            <userControl:ucFootballer />
+                                            <userControl:ucFootballer />
+                                            <userControl:ucFootballer />
+                                        </WrapPanel>
+                                    </ScrollViewer>
+                                </Grid>
+                            </StackPanel>
+                        </materialDesign:Card>
+                    </StackPanel>
+                </Grid>
+
+                <!--Reserve Formation-->
+                <Grid Grid.Column="2">
+                    <StackPanel>
+                        <TextBlock Text="Đội hình dự bị"
+                                   Style="{StaticResource H2}"
+                                   FontSize="16"
+                                   Margin="0 40 0 0"/>
+                        <materialDesign:Card
+                            Width="280"
+                            Height="350"
+                            Margin="0 10 0 0"
+                            Background="#3a3a3a"
+                            UniformCornerRadius="12">
+                            <StackPanel>
+                                <!--Header-->
+                                <Grid Height="25"
+                                  VerticalAlignment="Top">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.5*"/>
+                                        <ColumnDefinition Width="1.3*"/>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.Resources>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="VerticalAlignment" Value="Bottom"/>
+                                            <Setter Property="Foreground" Value="#fff"/>
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        </Style>
+                                    </Grid.Resources>
+                                    <Grid Grid.Column="0">
+                                        <TextBlock Text="Số áo" />
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <TextBlock Text="Cầu thủ" />
+                                    </Grid>
+                                    <Grid Grid.Column="2">
+                                        <TextBlock Text="Vị trí" />
+                                    </Grid>
+                                    <Grid Grid.Column="3">
+                                        <TextBlock Text="Thẻ phạt" />
+                                    </Grid>
+                                </Grid>
+                                <!--Line-->
+                                <Rectangle Height="1" Width="280" Fill="White" VerticalAlignment="Top" Margin="0 10 0 0"/>
+                                <!--Footballers list-->
+                                <Grid Height="300">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      Style="{StaticResource FavsScrollViewer}">
+                                        <WrapPanel x:Name="wpReserveFormation">
+                                            <WrapPanel.Resources>
+                                                <Style TargetType="userControl:ucFootballer">
+                                                    <Setter Property="Width" Value="280" />
+                                                    <Setter Property="Height" Value="50" />
+                                                </Style>
+                                            </WrapPanel.Resources>
+                                            <!--Add here-->
+                                            <userControl:ucFootballer />
+                                            <userControl:ucFootballer />
+                                            <userControl:ucFootballer />
+                                            <userControl:ucFootballer />
+                                            <userControl:ucFootballer />
+                                            <userControl:ucFootballer />
+                                            <userControl:ucFootballer />
+                                            <userControl:ucFootballer />
+                                            <userControl:ucFootballer />
+                                            <userControl:ucFootballer />
+                                        </WrapPanel>
+                                    </ScrollViewer>
+                                </Grid>
+                            </StackPanel>
+                        </materialDesign:Card>
+                    </StackPanel>
+                </Grid>
+                
+                <!--Mid Column-->
+                <Grid Grid.Column="1">
+                    <StackPanel Margin="0 70 0 0">
+                        <!--Add Player-->
+                        <TextBlock 
+                            Text="Thêm cầu thủ vào sân"
+                            Style="{StaticResource H2}"
+                            FontSize="14"/>
+                        <Border Width="280"
+                                Height="100"
+                                BorderBrush="#fff"
+                                BorderThickness="1"
+                                Background="Transparent"
+                                CornerRadius="12"
+                                Margin="0 5 0 0">
+                            <StackPanel>
+                                <ComboBox
+                                    x:Name="cbSelectPlayerAdd"
+                                    Style="{StaticResource MaterialDesignComboBox}"
+                                    materialDesign:ColorZoneAssist.Mode="Dark"
+                                    Foreground="#fff"
+                                    BorderBrush="#fff"
+                                    Width="180"
+                                    SelectedIndex="0"
+                                    Height="30"
+                                    VerticalAlignment="Top"
+                                    Margin="0 10 0 0">    
+                                    <ComboBoxItem
+                                        Content="9. Nguyễn Văn A" />
+                                    <ComboBoxItem
+                                        Content="11. Trần Văn B" />
+                                </ComboBox>
+                                <Button 
+                                    x:Name="btnAddPlayer"
+                                    Content="Thêm vào sân"
+                                    Style="{StaticResource MyGreenButtonStyle}"
+                                    Width="100"
+                                    Padding="0"
+                                    Margin="0 10 0 0"
+                                    FontSize="12"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!--Switch Players-->
+                        
+                        <TextBlock 
+                            Text="Danh sách thay người"
+                            Style="{StaticResource H2}"
+                            FontSize="14"
+                            Margin="0 30 0 0"/>
+
+                        <materialDesign:Card
+                            Width="320"
+                            Height="140"
+                            Background="#3a3a3a"
+                            Margin="0 5 0 0"
+                            UniformCornerRadius="12">
+                            <StackPanel>
+                                <!--Header-->
+                                <Grid Height="25">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="0.4*"/>
+                                        <ColumnDefinition Width="0.4*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <TextBlock Text="Rời sân" Foreground="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" FontWeight="Medium"/>
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <TextBlock Text="Vào sân" Foreground="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" FontWeight="Medium"/>
+                                    </Grid>
+                                    <Grid Grid.Column="2">
+                                        <TextBlock Text="TG" Foreground="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" FontWeight="Medium"/>
+                                    </Grid>
+                                    <Grid Grid.Column="3">
+                                        <TextBlock Text="Sửa" Foreground="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" FontWeight="Medium"/>
+                                    </Grid>
+                                </Grid>
+                                <Rectangle Height="1" Width="320" Fill="#fff" />
+                                <!--List-->
+                                <Grid Height="120">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      Style="{StaticResource FavsScrollViewer}">
+                                        <WrapPanel x:Name="wpSwitched">
+                                            <WrapPanel.Resources>
+                                                <Style TargetType="userControl:ucSwitchedPlayers">
+                                                    <Setter Property="Width" Value="320" />
+                                                    <Setter Property="Height" Value="40" />
+                                                </Style>
+                                            </WrapPanel.Resources>
+                                            <!--Add here-->
+                                            <userControl:ucSwitchedPlayers />
+                                            <userControl:ucSwitchedPlayers />
+                                            <userControl:ucSwitchedPlayers />
+                                        </WrapPanel>
+                                    </ScrollViewer>
+                                </Grid>
+                            </StackPanel>
+                        </materialDesign:Card>
+
+                        <Button 
+                            x:Name="btnSwitch"
+                            Style="{StaticResource MyGreenButtonStyle}"
+                            Content="Thay người"
+                            Width="110"
+                            Padding="0"
+                            FontSize="14"
+                            Margin="0 5 0 0">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding SwitchPlayersCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                            
+                    </StackPanel>
+                </Grid>
+                
             </Grid>
         </Grid>
         

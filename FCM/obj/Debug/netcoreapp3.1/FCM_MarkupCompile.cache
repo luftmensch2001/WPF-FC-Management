@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
 G:\Nam 3\OOP\WPF-FC-Management\FCM\App.xaml
-16205472614
+19-1433188040
 
-19-169748792
+221340478551
 1961195365397
-MainWindow.xaml;Resource\ButtonStyle.xaml;Resource\MainResource.xaml;Resource\ScrollBarStyle.xaml;Resource\TextStyle.xaml;UserControls\ucCard.xaml;UserControls\ucGoal.xaml;UserControls\ucLeagueCard.xaml;UserControls\ucMatchDetail.xaml;UserControls\ucMatchDetailNoEdit.xaml;View\AddCardWindow.xaml;View\AddGoalWindow.xaml;View\AddLeagueWindow.xaml;View\EditMatchInforWindow.xaml;View\LoginWindow.xaml;View\ResultRecordingWindow.xaml;
+MainWindow.xaml;Resource\ButtonStyle.xaml;Resource\MainResource.xaml;Resource\ScrollBarStyle.xaml;Resource\TextStyle.xaml;UserControls\ucCard.xaml;UserControls\ucFootballer.xaml;UserControls\ucGoal.xaml;UserControls\ucLeagueCard.xaml;UserControls\ucMatchDetail.xaml;UserControls\ucMatchDetailNoEdit.xaml;UserControls\ucSwitchedPlayers.xaml;View\AddCardWindow.xaml;View\AddGoalWindow.xaml;View\AddLeagueWindow.xaml;View\EditMatchInforWindow.xaml;View\LoginWindow.xaml;View\ResultRecordingWindow.xaml;View\SwitchPlayersWindow.xaml;
 
 False
 

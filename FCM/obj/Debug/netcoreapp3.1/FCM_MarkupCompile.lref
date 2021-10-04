@@ -11,4 +11,7 @@ FG:\Nam 3\OOP\WPF-FC-Management\FCM\View\AddLeagueWindow.xaml;;
 FG:\Nam 3\OOP\WPF-FC-Management\FCM\View\EditMatchInforWindow.xaml;;
 FG:\Nam 3\OOP\WPF-FC-Management\FCM\View\LoginWindow.xaml;;
 FG:\Nam 3\OOP\WPF-FC-Management\FCM\View\ResultRecordingWindow.xaml;;
+FG:\Nam 3\OOP\WPF-FC-Management\FCM\UserControls\ucFootballer.xaml;;
+FG:\Nam 3\OOP\WPF-FC-Management\FCM\UserControls\ucSwitchedPlayers.xaml;;
+FG:\Nam 3\OOP\WPF-FC-Management\FCM\View\SwitchPlayersWindow.xaml;;
 
