@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FCM.View"
         mc:Ignorable="d"
-       x:Name="wdAddLeague"
+       x:Name="wdResultRecording"
         WindowStartupLocation="CenterScreen"
         xmlns:userControl="clr-namespace:FCM.UserControls"
         ResizeMode="CanMinimize"
-        Title="Phần mềm quản lý giải bóng đá" Height="800" Width="1000"
+        Title="Phần mềm quản lý giải bóng đá" Height="750" Width="1000"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        DataContext="{StaticResource AddLeagueVM}"
+        DataContext="{StaticResource ResultVM}"
         Icon="/Resource/Images/software-logo.png"
         BorderBrush="#fff"
         BorderThickness="2"
@@ -27,10 +27,10 @@
         FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.1*"/>
+            <RowDefinition Height="1*"/>
             <RowDefinition Height="2.5*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="4.2*"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="7*"/>
         </Grid.RowDefinitions>
         
         <!--Title-->
@@ -55,7 +55,7 @@
             <Grid Grid.Column="0">
                 <StackPanel 
                     x:Name="stpTeam1"
-                    Margin="0 30 40 0"
+                    Margin="0 10 40 0"
                     HorizontalAlignment="Right">
                     <Image
                         x:Name="imgLogo1"
@@ -77,7 +77,7 @@
                         Text="2"
                         Style="{StaticResource H1}"
                         FontSize="52"
-                        Margin="0 40 0 0"/>
+                        Margin="0 25 0 0"/>
                     <Button
                         x:Name="btnAddGoal1"
                         Style="{StaticResource MaterialDesignIconButton}"
@@ -99,7 +99,7 @@
                     Style="{StaticResource H1}"
                     FontSize="52"
                     VerticalAlignment="Top"
-                    Margin="0 40 0 0" />
+                    Margin="0 25 0 0" />
             </Grid>
             
             <Grid Grid.Column="3">
@@ -109,7 +109,7 @@
                         Text="1"
                         Style="{StaticResource H1}"
                         FontSize="52"
-                        Margin="0 40 0 0"/>
+                        Margin="0 25 0 0"/>
                     <Button
                         x:Name="btnAddGoal2"
                         Style="{StaticResource MaterialDesignIconButton}"
@@ -128,7 +128,7 @@
             <Grid Grid.Column="4">
                 <StackPanel 
                     x:Name="stpTeam2"
-                    Margin="40 30 0 0"
+                    Margin="40 10 0 0"
                     HorizontalAlignment="Left">
                     <Image
                         x:Name="imgLogo2"
@@ -142,336 +142,436 @@
                         Margin="0 10 0 0"/>
                 </StackPanel>
             </Grid>
-            <Rectangle Fill="Gray" Height="1" VerticalAlignment="Bottom" Grid.ColumnSpan="5" Margin="0 0 0 10"/>
+            <Rectangle Fill="Gray" Height="1" VerticalAlignment="Bottom" Grid.ColumnSpan="5" Margin="0 0 0 0"/>
         </Grid>
         
-        <!--Goal list -->
+        <!--Menu tab-->
         <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <TextBlock 
-                Text="Danh sách bàn thắng"
-                Style="{StaticResource H2}" 
-                VerticalAlignment="Top"
-                Grid.ColumnSpan="2"/>
-            
-            <!--Team 1 Goals-->
-            <Grid Grid.Column="0">
-                <materialDesign:Card 
-                    Background="#3a3a3a"
-                    UniformCornerRadius="16"
-                    Width="380"
-                    Margin="0 30 0 0">
-                    <StackPanel>
-                        <!--Header-->
-                        <Grid Height="25"
-                                  VerticalAlignment="Top">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Grid.Resources>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                                    <Setter Property="VerticalAlignment" Value="Bottom"/>
-                                    <Setter Property="Foreground" Value="#fff"/>
-                                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                                </Style>
-                            </Grid.Resources>
-                            <Grid Grid.Column="0">
-                                <TextBlock Text="Cầu thủ" />
-                            </Grid>
-                            <Grid Grid.Column="1">
-                                <TextBlock Text="Thời gian" />
-                            </Grid>
-                            <Grid Grid.Column="2">
-                                <TextBlock Text="Loại bàn thắng" />
-                            </Grid>
-                            <Grid Grid.Column="3">
-                                <TextBlock Text="Chỉnh sửa" />
-                            </Grid>
-                        </Grid>
-                        <!--Line-->
-                        <Rectangle Height="1" Width="380" Fill="White" VerticalAlignment="Top" Margin="0 10 0 0"/>
-                        <!--Goals List-->
-                        <Grid Height="140">
-                            <ScrollViewer VerticalScrollBarVisibility="Auto"
-                                      Style="{StaticResource FavsScrollViewer}">
-                                <WrapPanel x:Name="wpGoalsTeam1">
-                                    <WrapPanel.Resources>
-                                        <Style TargetType="userControl:ucGoal">
-                                            <Setter Property="Width" Value="380" />
-                                            <Setter Property="Height" Value="35" />
-                                        </Style>
-                                    </WrapPanel.Resources>
-                                    <!--Add Goal here-->
-                                    <userControl:ucGoal />
-                                    <userControl:ucGoal />
-                                    <userControl:ucGoal />
-                                </WrapPanel>
-                            </ScrollViewer>
-                        </Grid>
-                    </StackPanel>
-                </materialDesign:Card>
-            </Grid>
-            
-            <!--Team 2 Goals-->
-            <Grid Grid.Column="1">
-                <materialDesign:Card 
-                    Background="#3a3a3a"
-                    UniformCornerRadius="16"
-                    Width="380"
-                    Margin="0 30 0 0">
-                    <StackPanel>
-                        <!--Header-->
-                        <Grid Height="25"
-                                  VerticalAlignment="Top">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Grid.Resources>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                                    <Setter Property="VerticalAlignment" Value="Bottom"/>
-                                    <Setter Property="Foreground" Value="#fff"/>
-                                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                                </Style>
-                            </Grid.Resources>
-                            <Grid Grid.Column="0">
-                                <TextBlock Text="Cầu thủ" />
-                            </Grid>
-                            <Grid Grid.Column="1">
-                                <TextBlock Text="Thời gian" />
-                            </Grid>
-                            <Grid Grid.Column="2">
-                                <TextBlock Text="Loại bàn thắng" />
-                            </Grid>
-                            <Grid Grid.Column="3">
-                                <TextBlock Text="Chỉnh sửa" />
-                            </Grid>
-                        </Grid>
-                        <!--Line-->
-                        <Rectangle Height="1" Width="380" Fill="White" VerticalAlignment="Top" Margin="0 10 0 0"/>
-                        <!--Goals List-->
-                        <Grid Height="140">
-                            <ScrollViewer VerticalScrollBarVisibility="Auto"
-                                      Style="{StaticResource FavsScrollViewer}">
-                                <WrapPanel x:Name="wpGoalsTeam2">
-                                    <WrapPanel.Resources>
-                                        <Style TargetType="userControl:ucGoal">
-                                            <Setter Property="Width" Value="380" />
-                                            <Setter Property="Height" Value="35" />
-                                        </Style>
-                                    </WrapPanel.Resources>
-                                    <!--Add Goal here-->
-                                    <userControl:ucGoal />
-                                    <userControl:ucGoal />
-                                    <userControl:ucGoal />
-                                </WrapPanel>
-                            </ScrollViewer>
-                        </Grid>
-                    </StackPanel>
-                </materialDesign:Card>
-            </Grid>
-        </Grid>
+            <Grid  Width="360" Height="50">
+                <Rectangle 
+                x:Name="rtStroke"
+                Fill="#52FF00" 
+                Height="5" Width="80" 
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Left"
+                Margin="20 0 0 5"/>
+                <!--20 Left + 120 * tab-->
 
-        <!--Cards list -->
-        <Grid Grid.Row="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <TextBlock 
-                Text="Danh sách thẻ phạt"
-                Style="{StaticResource H2}" 
-                VerticalAlignment="Top"
-                Margin="0 10 0 0"
-                Grid.ColumnSpan="2"/>
-            <!--Team 1 Cards-->
-            <Grid Grid.Column="0">
-                <materialDesign:Card 
-                        Background="#3a3a3a"
-                        UniformCornerRadius="16"
-                        VerticalAlignment="Top"
-                        Width="380"
-                        Height="160"
-                        Margin="0 40 0 0">
+                <StackPanel Width="360" Height="50" Orientation="Horizontal">
+                    <Grid>
+                        <Button 
+                        x:Name="btnGoalsTab"
+                        Content="BÀN THẮNG"
+                        Uid="0"
+                        Background="Transparent"
+                        Foreground="#52FF00"
+                        Width="120"
+                        BorderBrush="{x:Null}"
+                        FontWeight="SemiBold">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
+                                                       CommandParameter="{Binding ElementName=wdResultRecording}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseMove">
+                                    <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btnGoalsTab}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                        <Rectangle Fill="#fff" Height="30" Width="1" HorizontalAlignment="Right" />
+                    </Grid>
 
-                    <StackPanel>
-                        <Grid Height="25"
-                                  VerticalAlignment="Top">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Grid.Resources>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                                    <Setter Property="VerticalAlignment" Value="Bottom"/>
-                                    <Setter Property="Foreground" Value="#fff"/>
-                                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                                </Style>
-                            </Grid.Resources>
-                            <Grid Grid.Column="0">
-                                <TextBlock Text="Cầu thủ" />
-                            </Grid>
-                            <Grid Grid.Column="1">
-                                <TextBlock Text="Thời gian" />
-                            </Grid>
-                            <Grid Grid.Column="2">
-                                <TextBlock Text="Loại thẻ" />
-                            </Grid>
-                            <Grid Grid.Column="3">
-                                <TextBlock Text="Chỉnh sửa" />
-                            </Grid>
-                        </Grid>
-                        <!--Line-->
-                        <Rectangle Height="1" Width="380" Fill="White" VerticalAlignment="Top" Margin="0 10 0 0"/>
-                        <!--Card List -->
-                        <Grid Height="140">
-                            <ScrollViewer VerticalScrollBarVisibility="Auto"
-                                      Style="{StaticResource FavsScrollViewer}">
-                                <WrapPanel x:Name="wpCardsTeam1">
-                                    <WrapPanel.Resources>
-                                        <Style TargetType="userControl:ucCard">
-                                            <Setter Property="Width" Value="380" />
-                                            <Setter Property="Height" Value="35" />
-                                        </Style>
-                                    </WrapPanel.Resources>
-                                    <!--Add Cards here-->
-                                    <userControl:ucCard/>
-                                    <userControl:ucCard/>
-                                </WrapPanel>
-                            </ScrollViewer>
-                        </Grid>
-                    </StackPanel>
-                </materialDesign:Card>
-                <Button 
-                    x:Name="btnAddCardTeam1"
-                    Style="{StaticResource MyGreenButtonStyle}"
-                    VerticalAlignment="Bottom"
-                    Margin="0 0 0 60"
-                    Width="100"
-                    Padding="0">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon 
-                            Kind="BookPlus"/>
-                        <TextBlock Text="Thêm thẻ" 
-                                   FontWeight="Regular"
-                                   Margin="5 0 0 0"/>
-                    </StackPanel>
-                </Button>
-                    
-            </Grid>
+                    <Grid>
+                        <Button 
+                        x:Name="btnCardsTab"
+                        Content="THẺ PHẠT"
+                        Uid="1"
+                        Background="Transparent"
+                        Width="120"
+                        BorderBrush="{x:Null}"
+                        FontWeight="SemiBold">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
+                                                       CommandParameter="{Binding ElementName=wdResultRecording}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseMove">
+                                    <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btnCardsTab}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                        <Rectangle Fill="#fff" Height="30" Width="1" HorizontalAlignment="Right" />
+                    </Grid>
 
-            <!--Team 2 Cards-->
-            <Grid Grid.Column="1">
-                <materialDesign:Card 
-                        Background="#3a3a3a"
-                        UniformCornerRadius="16"
-                        VerticalAlignment="Top"
-                        Width="380"
-                        Height="160"
-                        Margin="0 40 0 0">
-
-                    <StackPanel>
-                        <Grid Height="25"
-                                  VerticalAlignment="Top">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Grid.Resources>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                                    <Setter Property="VerticalAlignment" Value="Bottom"/>
-                                    <Setter Property="Foreground" Value="#fff"/>
-                                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                                </Style>
-                            </Grid.Resources>
-                            <Grid Grid.Column="0">
-                                <TextBlock Text="Cầu thủ" />
-                            </Grid>
-                            <Grid Grid.Column="1">
-                                <TextBlock Text="Thời gian" />
-                            </Grid>
-                            <Grid Grid.Column="2">
-                                <TextBlock Text="Loại thẻ" />
-                            </Grid>
-                            <Grid Grid.Column="3">
-                                <TextBlock Text="Chỉnh sửa" />
-                            </Grid>
-                        </Grid>
-                        <!--Line-->
-                        <Rectangle Height="1" Width="380" Fill="White" VerticalAlignment="Top" Margin="0 10 0 0"/>
-                        <!--Card List -->
-                        <Grid Height="140">
-                            <ScrollViewer VerticalScrollBarVisibility="Auto"
-                                      Style="{StaticResource FavsScrollViewer}">
-                                <WrapPanel x:Name="wpCardsTeam2">
-                                    <WrapPanel.Resources>
-                                        <Style TargetType="userControl:ucCard">
-                                            <Setter Property="Width" Value="380" />
-                                            <Setter Property="Height" Value="35" />
-                                        </Style>
-                                    </WrapPanel.Resources>
-                                    <!--Add Cards here-->
-                                    <userControl:ucCard/>
-                                    <userControl:ucCard/>
-                                </WrapPanel>
-                            </ScrollViewer>
-                        </Grid>
-                    </StackPanel>
-                </materialDesign:Card>
-                <Button 
-                    x:Name="btnAddCardTeam2"
-                    Style="{StaticResource MyGreenButtonStyle}"
-                    VerticalAlignment="Bottom"
-                    Margin="0 0 0 60"
-                    Width="100"
-                    Padding="0">
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon 
-                            Kind="BookPlus"/>
-                        <TextBlock Text="Thêm thẻ" 
-                                   FontWeight="Regular"
-                                   Margin="5 0 0 0"/>
-                    </StackPanel>
-                </Button>
-
-            </Grid>
-            
-            <!--Button Save and Exit-->
-            <Grid Grid.ColumnSpan="2"
-                  VerticalAlignment="Bottom"
-                  Height="50">
-                <StackPanel Orientation="Horizontal" Width="220">
-                    <Button 
-                        x:Name="btnSave"
-                        Content="Lưu lại"
-                        Height="40"
-                        Style="{StaticResource MyGreenButtonStyle}"/>
-
-                    <Button 
-                        x:Name="btnExit"
-                        Content="Thoát"
-                        Height="40"
-                        Style="{StaticResource MyRedButtonStyle}"
-                        Margin="20 0 0 0"/>
+                    <Grid>
+                        <Button 
+                        x:Name="btnTeamsTab"
+                        Content="ĐỘI HÌNH"
+                        Uid="2"
+                        Background="Transparent"
+                        Width="120"
+                        BorderBrush="{x:Null}"
+                        FontWeight="SemiBold">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
+                                                       CommandParameter="{Binding ElementName=wdResultRecording}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseMove">
+                                    <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btnTeamsTab}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
                 </StackPanel>
             </Grid>
         </Grid>
+              
+        <Grid Grid.Row="3">
+            <!--Goal list -->
+            <Grid 
+                x:Name="grdGoalsTab"
+                Visibility="Visible">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock 
+                Text="Danh sách bàn thắng"
+                Style="{StaticResource H2}" 
+                VerticalAlignment="Top"
+                Grid.ColumnSpan="2"
+                Margin="0 10 0 0"/>
+
+                <!--Team 1 Goals-->
+                <Grid Grid.Column="0">
+                    <materialDesign:Card 
+                    Background="#3a3a3a"
+                    UniformCornerRadius="16"
+                    Width="410"
+                    Height="330"
+                    Margin="0 0 0 0">
+                        <StackPanel>
+                            <!--Header-->
+                            <Grid Height="25"
+                                  VerticalAlignment="Top">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="VerticalAlignment" Value="Bottom"/>
+                                        <Setter Property="Foreground" Value="#fff"/>
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    </Style>
+                                </Grid.Resources>
+                                <Grid Grid.Column="0">
+                                    <TextBlock Text="Số áo" />
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <TextBlock Text="Cầu thủ" />
+                                </Grid>
+                                <Grid Grid.Column="2">
+                                    <TextBlock Text="Thời gian" />
+                                </Grid>
+                                <Grid Grid.Column="3">
+                                    <TextBlock Text="Loại bàn thắng" />
+                                </Grid>
+                                <Grid Grid.Column="4">
+                                    <TextBlock Text="Chỉnh sửa" />
+                                </Grid>
+                            </Grid>
+                            <!--Line-->
+                            <Rectangle Height="1" Width="410" Fill="White" VerticalAlignment="Top" Margin="0 10 0 0"/>
+                            <!--Goals List-->
+                            <Grid Height="285">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      Style="{StaticResource FavsScrollViewer}">
+                                    <WrapPanel x:Name="wpGoalsTeam1">
+                                        <WrapPanel.Resources>
+                                            <Style TargetType="userControl:ucGoal">
+                                                <Setter Property="Width" Value="410" />
+                                                <Setter Property="Height" Value="35" />
+                                            </Style>
+                                        </WrapPanel.Resources>
+                                        <!--Add Goal here-->
+                                        <userControl:ucGoal />
+                                        <userControl:ucGoal />
+                                        <userControl:ucGoal />
+                                        <userControl:ucGoal />
+                                        <userControl:ucGoal />
+                                        <userControl:ucGoal />
+                                    </WrapPanel>
+                                </ScrollViewer>
+                            </Grid>
+                        </StackPanel>
+                    </materialDesign:Card>
+                </Grid>
+
+                <!--Team 2 Goals-->
+                <Grid Grid.Column="1">
+                    <materialDesign:Card 
+                    Background="#3a3a3a"
+                    UniformCornerRadius="16"
+                    Width="410"
+                    Height="330"
+                    Margin="0 0 0 0">
+                        <StackPanel>
+                            <!--Header-->
+                            <Grid Height="25"
+                                  VerticalAlignment="Top">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="VerticalAlignment" Value="Bottom"/>
+                                        <Setter Property="Foreground" Value="#fff"/>
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    </Style>
+                                </Grid.Resources>
+                                <Grid Grid.Column="0">
+                                    <TextBlock Text="Số áo" />
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <TextBlock Text="Cầu thủ" />
+                                </Grid>
+                                <Grid Grid.Column="2">
+                                    <TextBlock Text="Thời gian" />
+                                </Grid>
+                                <Grid Grid.Column="3">
+                                    <TextBlock Text="Loại bàn thắng" />
+                                </Grid>
+                                <Grid Grid.Column="4">
+                                    <TextBlock Text="Chỉnh sửa" />
+                                </Grid>
+                            </Grid>
+                            <!--Line-->
+                            <Rectangle Height="1" Width="410" Fill="White" VerticalAlignment="Top" Margin="0 10 0 0"/>
+                            <!--Goals List-->
+                            <Grid Height="285">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      Style="{StaticResource FavsScrollViewer}">
+                                    <WrapPanel x:Name="wpGoalsTeam2">
+                                        <WrapPanel.Resources>
+                                            <Style TargetType="userControl:ucGoal">
+                                                <Setter Property="Width" Value="410" />
+                                                <Setter Property="Height" Value="35" />
+                                            </Style>
+                                        </WrapPanel.Resources>
+                                        <!--Add Goal here-->
+                                        <userControl:ucGoal />
+                                        <userControl:ucGoal />
+                                        <userControl:ucGoal />
+                                        <userControl:ucGoal />
+                                    </WrapPanel>
+                                </ScrollViewer>
+                            </Grid>
+                        </StackPanel>
+                    </materialDesign:Card>
+                </Grid>
+            </Grid>
+            <!--Cards list-->
+            <Grid 
+                x:Name="grdCardsTab"
+                Visibility="Hidden">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock 
+                Text="Danh sách thẻ phạt"
+                Style="{StaticResource H2}" 
+                VerticalAlignment="Top"
+                Grid.ColumnSpan="2"
+                Margin="0 10 0 0"/>
+
+                <!--Team 1 Cards-->
+                <Grid Grid.Column="0">
+                    <materialDesign:Card 
+                    Background="#3a3a3a"
+                    UniformCornerRadius="16"
+                    Width="410"
+                    Height="290"
+                    Margin="0 0 0 0">
+                        <StackPanel>
+                            <!--Header-->
+                            <Grid Height="25"
+                                  VerticalAlignment="Top">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="VerticalAlignment" Value="Bottom"/>
+                                        <Setter Property="Foreground" Value="#fff"/>
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    </Style>
+                                </Grid.Resources>
+                                <Grid Grid.Column="0">
+                                    <TextBlock Text="Số áo" />
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <TextBlock Text="Cầu thủ" />
+                                </Grid>
+                                <Grid Grid.Column="2">
+                                    <TextBlock Text="Thời gian" />
+                                </Grid>
+                                <Grid Grid.Column="3">
+                                    <TextBlock Text="Loại thẻ" />
+                                </Grid>
+                                <Grid Grid.Column="4">
+                                    <TextBlock Text="Chỉnh sửa" />
+                                </Grid>
+                            </Grid>
+                            <!--Line-->
+                            <Rectangle Height="1" Width="410" Fill="White" VerticalAlignment="Top" Margin="0 10 0 0"/>
+                            <!--Card List-->
+                            <Grid Height="245">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      Style="{StaticResource FavsScrollViewer}">
+                                    <WrapPanel x:Name="wpCardsTeam1">
+                                        <WrapPanel.Resources>
+                                            <Style TargetType="userControl:ucCard">
+                                                <Setter Property="Width" Value="410" />
+                                                <Setter Property="Height" Value="35" />
+                                            </Style>
+                                        </WrapPanel.Resources>
+                                        <!--Add Cards here-->
+                                        <userControl:ucCard />
+                                        <userControl:ucCard />
+                                        <userControl:ucCard />
+                                        <userControl:ucCard />
+                                        <userControl:ucCard />
+                                        <userControl:ucCard />
+                                        <userControl:ucCard />
+                                        <userControl:ucCard />
+                                    </WrapPanel>
+                                </ScrollViewer>
+                            </Grid>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <Button 
+                        x:Name="btnAddCardTeam1"
+                        Style="{StaticResource MyGreenButtonStyle}"
+                        VerticalAlignment="Bottom"
+                        Margin="0 0 0 30"
+                        Width="100"
+                        Padding="0">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon 
+                            Kind="BookPlus"/>
+                            <TextBlock Text="Thêm thẻ" 
+                                   FontWeight="Regular"
+                                   Margin="5 0 0 0"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+
+                <!--Team 2 Cards-->
+                <Grid Grid.Column="1">
+                    <materialDesign:Card 
+                    Background="#3a3a3a"
+                    UniformCornerRadius="16"
+                    Width="410"
+                    Height="290"
+                    Margin="0 0 0 0">
+                        <StackPanel>
+                            <!--Header-->
+                            <Grid Height="25"
+                                  VerticalAlignment="Top">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="VerticalAlignment" Value="Bottom"/>
+                                        <Setter Property="Foreground" Value="#fff"/>
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    </Style>
+                                </Grid.Resources>
+                                <Grid Grid.Column="0">
+                                    <TextBlock Text="Số áo" />
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <TextBlock Text="Cầu thủ" />
+                                </Grid>
+                                <Grid Grid.Column="2">
+                                    <TextBlock Text="Thời gian" />
+                                </Grid>
+                                <Grid Grid.Column="3">
+                                    <TextBlock Text="Loại thẻ" />
+                                </Grid>
+                                <Grid Grid.Column="4">
+                                    <TextBlock Text="Chỉnh sửa" />
+                                </Grid>
+                            </Grid>
+                            <!--Line-->
+                            <Rectangle Height="1" Width="410" Fill="White" VerticalAlignment="Top" Margin="0 10 0 0"/>
+                            <!--Card List-->
+                            <Grid Height="245">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      Style="{StaticResource FavsScrollViewer}">
+                                    <WrapPanel x:Name="wpCardsTeam2">
+                                        <WrapPanel.Resources>
+                                            <Style TargetType="userControl:ucCard">
+                                                <Setter Property="Width" Value="410" />
+                                                <Setter Property="Height" Value="35" />
+                                            </Style>
+                                        </WrapPanel.Resources>
+                                        <!--Add Cards here-->
+                                        <userControl:ucCard />
+                                        <userControl:ucCard />
+                                        <userControl:ucCard />
+                                    </WrapPanel>
+                                </ScrollViewer>
+                            </Grid>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <Button 
+                        x:Name="btnAddCardTeam2"
+                        Style="{StaticResource MyGreenButtonStyle}"
+                        VerticalAlignment="Bottom"
+                        Margin="0 0 0 30"
+                        Width="100"
+                        Padding="0">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon 
+                            Kind="BookPlus"/>
+                            <TextBlock Text="Thêm thẻ" 
+                                   FontWeight="Regular"
+                                   Margin="5 0 0 0"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Grid>
+        </Grid>
+        
+        
+
 
 
 
