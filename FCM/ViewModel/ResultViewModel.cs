@@ -14,6 +14,7 @@ namespace FCM.ViewModel
         public ICommand SwitchTabCommand { get; set; }
         public ICommand GetUidCommand { get; set; }
         public ICommand SwitchPlayersCommand { get; set; }
+        public ICommand ExitCommand { get; set; }
 
 
         public SolidColorBrush lightGreen = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#52ff00"));
@@ -23,6 +24,7 @@ namespace FCM.ViewModel
         public ResultViewModel()
         {
             SwitchTabCommand = new RelayCommand<ResultRecordingWindow>((parameter) => true, (parameter) => SwitchTab(parameter));
+            ExitCommand = new RelayCommand<ResultRecordingWindow>((parameter) => true, (parameter) => parameter.Close());
             GetUidCommand = new RelayCommand<Button>((parameter) => true, (parameter) => uid = parameter.Uid);
             SwitchPlayersCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenSwitchPlayersWindow());
         }

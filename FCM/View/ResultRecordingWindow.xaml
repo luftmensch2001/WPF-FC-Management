@@ -40,6 +40,47 @@
                 Text="GHI KẾT QUẢ"
                 Style="{StaticResource H1}"/>
             <Rectangle Fill="Gray" Height="1" VerticalAlignment="Bottom"/>
+            <StackPanel 
+                Orientation="Horizontal"
+                Width="205"
+                HorizontalAlignment="Right"
+                Margin="0 0 10 0">
+                <Button 
+                    x:Name="btnSave"
+                    Style="{StaticResource MyGreenButtonStyle}"
+                    Width="100"
+                    Padding="0"
+                    HorizontalAlignment="Left"
+                    Margin="0 10 0 0">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="20" Height="20"
+                            Kind="CheckBold"/>
+                        <TextBlock Text="Lưu lại" VerticalAlignment="Center" Margin="5 0 0 0"/>
+                    </StackPanel>
+                </Button>
+
+                <Button 
+                    x:Name="btnCancel"
+                    Style="{StaticResource MyRedButtonStyle}"
+                    Width="100"
+                    Padding="0"
+                    HorizontalAlignment="Left"
+                    Margin="5 10 0 0">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                            Width="20" Height="20"
+                            Kind="CloseBold"/>
+                        <TextBlock Text="Huỷ" VerticalAlignment="Center" Margin="5 0 0 0"/>
+                    </StackPanel>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding ExitCommand}"
+                                                    CommandParameter="{Binding ElementName=wdResultRecording}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </StackPanel>
         </Grid>
 
         <!--Score-->
