@@ -111,3 +111,5 @@ G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucSwitch
 G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucSwitchedPlayers.baml
 G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\SwitchPlayersWindow.g.cs
 G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\SwitchPlayersWindow.baml
+G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucTeamButton.g.cs
+G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucTeamButton.baml

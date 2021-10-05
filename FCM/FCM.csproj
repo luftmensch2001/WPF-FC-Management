@@ -10,6 +10,7 @@
     <None Remove="background3.jpg" />
     <None Remove="football.png" />
     <None Remove="players.png" />
+    <None Remove="Resource\Images\arsenal-logo.png" />
     <None Remove="Resource\Images\cat.png" />
     <None Remove="Resource\Images\dog.png" />
     <None Remove="Resource\Images\football.png" />
@@ -19,6 +20,7 @@
     <None Remove="Resource\Images\software-logo.png" />
     <None Remove="Resource\Images\vleague.png" />
     <None Remove="software-logo.png" />
+    <None Remove="UserControls\arsenal-logo.png" />
     <None Remove="View\cat.png" />
     <None Remove="View\NoLogoSelected.png" />
   </ItemGroup>
@@ -34,6 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resource\Images\arsenal-logo.png" />
     <Resource Include="Resource\Images\cat.png" />
     <Resource Include="Resource\Images\dog.png" />
     <Resource Include="Resource\Images\football.png" />

@@ -270,7 +270,7 @@
                 </StackPanel>
             </Grid>
         </Grid>
-              
+
         <Grid Grid.Row="3">
             <!--Goal list -->
             <Grid 
@@ -787,7 +787,7 @@
                         </materialDesign:Card>
                     </StackPanel>
                 </Grid>
-                
+
                 <!--Mid Column-->
                 <Grid Grid.Column="1">
                     <StackPanel Margin="0 70 0 0">
@@ -814,7 +814,7 @@
                                     SelectedIndex="0"
                                     Height="30"
                                     VerticalAlignment="Top"
-                                    Margin="0 10 0 0">    
+                                    Margin="0 10 0 0">
                                     <ComboBoxItem
                                         Content="9. Nguyễn Văn A" />
                                     <ComboBoxItem
@@ -832,7 +832,7 @@
                         </Border>
 
                         <!--Switch Players-->
-                        
+
                         <TextBlock 
                             Text="Danh sách thay người"
                             Style="{StaticResource H2}"
@@ -903,17 +903,12 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Button>
-                            
+
                     </StackPanel>
                 </Grid>
-                
+
             </Grid>
         </Grid>
-        
-        
-
-
-
 
     </Grid>
 </Window>

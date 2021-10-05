@@ -35,9 +35,8 @@ namespace FCM.ViewModel
 
         public void SwitchTab(MainWindow parameter)
         {
-            ResultRecordingWindow wd = new ResultRecordingWindow();
+            MainWindow wd = new MainWindow();
             wd.Show();
-
             int index = int.Parse(uid); // tab index
             //Move Stroke Menu
             parameter.grdStroke.Margin = new Thickness(0, (150 + 60 * index), 0, 0);
@@ -67,6 +66,7 @@ namespace FCM.ViewModel
             parameter.grdHomeScreen.Visibility = Visibility.Hidden;
             parameter.grdLeaguesScreen.Visibility = Visibility.Hidden;
             parameter.grdScheduleScreen.Visibility = Visibility.Hidden;
+            parameter.grdTeamsScreen.Visibility = Visibility.Hidden;
 
             // Switch tab - Show selected screen
             switch (index)
@@ -89,6 +89,7 @@ namespace FCM.ViewModel
                 case 3:
                     parameter.btnTeams.Foreground = lightGreen;
                     parameter.icTeams.Foreground = lightGreen;
+                    parameter.grdTeamsScreen.Visibility = Visibility.Visible;
                     break;
                 case 4:
                     parameter.btnStanding.Foreground = lightGreen;
