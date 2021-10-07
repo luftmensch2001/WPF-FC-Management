@@ -136,7 +136,7 @@ namespace FCM.ViewModel
 
         public void SearchLeague(MainWindow parameter)
         {
-            MainWindow wd = new MainWindow();
+            LoginWindow wd = new LoginWindow();
             wd.Show();
             parameter.Close();
         }

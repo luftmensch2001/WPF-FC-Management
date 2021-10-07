@@ -26,9 +26,9 @@
         <Grid Grid.RowSpan="2" x:Name="background">
             <Image Source="/Resource/Images/LoginBackground.jpg" Stretch="Fill"></Image>
         </Grid>
-
-        <!--Login Form-->
+        <!--Body-->
         <materialDesign:Card 
+            Visibility="Visible"
             Width="320" 
             Height="300" 
             Background="White"
@@ -38,26 +38,37 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="4*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
-                    <TextBlock Text="ĐĂNG NHẬP" 
-                               FontSize="25" 
-                               VerticalAlignment="Center" 
-                               HorizontalAlignment="Center" 
-                               FontWeight="Bold"/>
+                    <TextBlock 
+                            x:Name="tblTitle"
+                            Text="ĐĂNG NHẬP" 
+                            FontSize="25" 
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Center" 
+                            FontWeight="Bold"/>
                 </Grid>
-                <!--Username field-->
-                <Grid Grid.Row="1">
-                    <materialDesign:PackIcon 
+                
+                <!--Grid Login-->
+                <Grid 
+                    x:Name="grdLogin"
+                    Grid.Row="1"
+                    Visibility="Visible">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <!--Username field-->
+                    <Grid Grid.Row="0">
+                        <materialDesign:PackIcon 
                         Width="25"
                         Height="25"
                         Kind="User"
                         VerticalAlignment="Center"
                         Margin="40 12 0 0"/>
-                    <TextBox
+                        <TextBox
                         x:Name="tbUsername"
                         materialDesign:HintAssist.Hint="Tài khoản"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -66,17 +77,17 @@
                         Width="200" 
                         FontSize="15"
                         Margin="40 0 0 0"/>
-                </Grid>
+                    </Grid>
 
-                <!--Password field-->
-                <Grid Grid.Row="2">
-                    <materialDesign:PackIcon 
+                    <!--Password field-->
+                    <Grid Grid.Row="1">
+                        <materialDesign:PackIcon 
                         Width="25"
                         Height="25"
                         Kind="Key"
                         VerticalAlignment="Top"
                         Margin="40 12 0 0"/>
-                    <PasswordBox
+                        <PasswordBox
                         x:Name="pbPassword"
                         materialDesign:HintAssist.Hint="Mật khẩu"
                         Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
@@ -85,44 +96,170 @@
                         Width="200" 
                         FontSize="15"
                         Margin="40 0 0 0"/>
-                </Grid>
+                    </Grid>
 
-                <!--Button Field-->
-                <Grid Grid.Row="3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
+                    <!--Button Field-->
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
 
-                    <!--Login Button-->
-                    <Grid Grid.Column="0">
-                        <Button x:Name="btnLogin" 
+                        <!--Login Button-->
+                        <Grid Grid.Column="0">
+                            <Button x:Name="btnLogin" 
                                 Content="Đăng nhập" 
                                 Style="{StaticResource MyGreenButtonStyle}"
                                 VerticalAlignment="Top"
                                 HorizontalAlignment="Right"
-                                Margin="0 0 5 0">
-                            <!--Check logic event here-->
-                        </Button>
-                    </Grid>
+                                Margin="0 0 8 0">
+                                <!--Check logic event here-->
+                            </Button>
+                        </Grid>
 
-                    <!--Exit Button-->
-                    <Grid Grid.Column="1">
-                        <Button x:Name="btnExit" 
+                        <!--Exit Button-->
+                        <Grid Grid.Column="1">
+                            <Button x:Name="btnExit" 
                                 Content="Thoát" 
                                 Style="{StaticResource MyRedButtonStyle}"
                                 VerticalAlignment="Top"
                                 HorizontalAlignment="Left"
                                 Margin="18 0 0 0">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding ExitLoginCommand}"
+                                                       CommandParameter="{Binding ElementName=wdLogin}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                        </Grid>
+                        <Button x:Name="btnResigerTab" 
+                                Content="Đăng ký" 
+                                BorderBrush="#000"  
+                                Foreground="#333"
+                                Style="{StaticResource MyRedButtonStyle}"
+                                VerticalAlignment="Bottom"
+                                Background="Transparent"
+                                Height="25"
+                                HorizontalAlignment="Center"
+                                Margin="0 0 0 5"
+                                Grid.ColumnSpan="2">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
-                                    <i:InvokeCommandAction Command="{Binding ExitLoginCommand}"
+                                    <i:InvokeCommandAction Command="{Binding OpenRegisterCommand}"
                                                        CommandParameter="{Binding ElementName=wdLogin}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Button>
                     </Grid>
                 </Grid>
+                
+                <!--Grid Register-->
+                <Grid 
+                    x:Name="grdRegister"
+                    Grid.Row="1"
+                    Visibility="Hidden">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="0.7*"/>
+                    </Grid.RowDefinitions>
+                    <!--Username field-->
+                    <Grid Grid.Row="0">
+                        <materialDesign:PackIcon 
+                        Width="25"
+                        Height="25"
+                        Kind="User"
+                        VerticalAlignment="Center"
+                        Margin="40 12 0 0"/>
+                        <TextBox
+                        x:Name="tbRegUsername"
+                        materialDesign:HintAssist.Hint="Tài khoản"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        VerticalAlignment="Center"
+                        Height="40"
+                        Width="200" 
+                        FontSize="15"
+                        Margin="40 0 0 0"/>
+                    </Grid>
+
+                    <!--Password field-->
+                    <Grid Grid.Row="1">
+                        <materialDesign:PackIcon 
+                        Width="25"
+                        Height="25"
+                        Kind="Key"
+                        VerticalAlignment="Top"
+                        Margin="40 12 0 0"/>
+                        <PasswordBox
+                        x:Name="pbRegPassword"
+                        materialDesign:HintAssist.Hint="Mật khẩu"
+                        Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                        VerticalAlignment="Top"
+                        Height="40"
+                        Width="200" 
+                        FontSize="15"
+                        Margin="40 0 0 0"/>
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <materialDesign:PackIcon 
+                        Width="25"
+                        Height="25"
+                        Kind="Key"
+                        VerticalAlignment="Top"
+                        Margin="40 12 0 0"/>
+                        <PasswordBox
+                        x:Name="pbRePassword"
+                        materialDesign:HintAssist.Hint="Nhập lại mật khẩu"
+                        Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                        VerticalAlignment="Top"
+                        Height="40"
+                        Width="200" 
+                        FontSize="15"
+                        Margin="40 0 0 0"/>
+                    </Grid>
+
+                    <!--Button Field-->
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <!--Login Button-->
+                        <Grid Grid.Column="0">
+                            <Button x:Name="btnRegister" 
+                                Content="Đăng ký" 
+                                Style="{StaticResource MyGreenButtonStyle}"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Right"
+                                Margin="0 0 5 0">
+                                <!--Check logic event here-->
+                            </Button>
+                        </Grid>
+
+                        <!--Back Button-->
+                        <Grid Grid.Column="1">
+                            <Button x:Name="btnLoginTab" 
+                                Content="Quay lại" 
+                                Style="{StaticResource MyRedButtonStyle}"
+                                Background="#4554ff"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Left"
+                                Margin="18 0 0 0">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding OpenLoginCommand}"
+                                                       CommandParameter="{Binding ElementName=wdLogin}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                
             </Grid>
         </materialDesign:Card>
     </Grid>
