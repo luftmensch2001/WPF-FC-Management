@@ -15,6 +15,7 @@
     <None Remove="Resource\Images\dog.png" />
     <None Remove="Resource\Images\football.png" />
     <None Remove="Resource\Images\LoginBackground.jpg" />
+    <None Remove="Resource\Images\NoImageSelected.png" />
     <None Remove="Resource\Images\NoLogoSelected.png" />
     <None Remove="Resource\Images\players.png" />
     <None Remove="Resource\Images\software-logo.png" />
@@ -22,6 +23,7 @@
     <None Remove="software-logo.png" />
     <None Remove="UserControls\arsenal-logo.png" />
     <None Remove="View\cat.png" />
+    <None Remove="View\NoImageSelected.png" />
     <None Remove="View\NoLogoSelected.png" />
   </ItemGroup>
 
@@ -41,6 +43,7 @@
     <Resource Include="Resource\Images\dog.png" />
     <Resource Include="Resource\Images\football.png" />
     <Resource Include="Resource\Images\LoginBackground.jpg" />
+    <Resource Include="Resource\Images\NoImageSelected.png" />
     <Resource Include="Resource\Images\NoLogoSelected.png" />
     <Resource Include="Resource\Images\players.png" />
     <Resource Include="Resource\Images\software-logo.png">

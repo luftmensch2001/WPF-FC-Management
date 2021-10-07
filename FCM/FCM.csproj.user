@@ -43,6 +43,12 @@
     <Compile Update="View\AddLeagueWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\AddPlayerWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\AddTeamWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\EditMatchInforWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -106,6 +112,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\AddLeagueWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\AddPlayerWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\AddTeamWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\EditMatchInforWindow.xaml">

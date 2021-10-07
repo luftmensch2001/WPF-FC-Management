@@ -18,6 +18,7 @@ namespace FCM.ViewModel
 
         public ICommand OpenEditLeagueWindowCommand { get; set; }
         public ICommand OpenAddTeamWindowCommand { get; set; }
+        public ICommand OpenAddPlayerWindowCommand { get; set; }
        
         public ICommand SearchLeagueCommand { get; set; }
 
@@ -32,6 +33,7 @@ namespace FCM.ViewModel
             OpenAddLeagueWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddLeagueWindow());
             OpenEditLeagueWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenEditLeagueWindow());
             OpenAddTeamWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddTeamWindow());
+            OpenAddPlayerWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddPlayerWindow());
             SearchLeagueCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SearchLeague(parameter)); 
         }
 
@@ -141,7 +143,14 @@ namespace FCM.ViewModel
 
         public void OpenAddTeamWindow()
         {
+            AddTeamWindow wd = new AddTeamWindow();
+            wd.ShowDialog();
+        }
 
+        public void OpenAddPlayerWindow()
+        {
+            AddPlayerWindow wd = new AddPlayerWindow();
+            wd.ShowDialog();
         }
 
     }

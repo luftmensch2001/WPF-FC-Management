@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
 G:\Nam 3\OOP\WPF-FC-Management\FCM\App.xaml
-2253866265
+23-1843895345
 
-271731281208
+28-595921252
 1961195365397
-MainWindow.xaml;Resource\ButtonStyle.xaml;Resource\MainResource.xaml;Resource\ScrollBarStyle.xaml;Resource\TextStyle.xaml;UserControls\ucCard.xaml;UserControls\ucFootballer.xaml;UserControls\ucGoal.xaml;UserControls\ucLeagueCard.xaml;UserControls\ucMatchDetail.xaml;UserControls\ucMatchDetailNoEdit.xaml;UserControls\ucPlayer.xaml;UserControls\ucSwitchedPlayers.xaml;UserControls\ucTeamButton.xaml;View\AddCardWindow.xaml;View\AddGoalWindow.xaml;View\AddLeagueWindow.xaml;View\AddTeamWindow.xaml;View\EditMatchInforWindow.xaml;View\LoginWindow.xaml;View\ResultRecordingWindow.xaml;View\SwitchPlayersWindow.xaml;
+MainWindow.xaml;Resource\ButtonStyle.xaml;Resource\MainResource.xaml;Resource\ScrollBarStyle.xaml;Resource\TextStyle.xaml;UserControls\ucCard.xaml;UserControls\ucFootballer.xaml;UserControls\ucGoal.xaml;UserControls\ucLeagueCard.xaml;UserControls\ucMatchDetail.xaml;UserControls\ucMatchDetailNoEdit.xaml;UserControls\ucPlayer.xaml;UserControls\ucSwitchedPlayers.xaml;UserControls\ucTeamButton.xaml;View\AddCardWindow.xaml;View\AddGoalWindow.xaml;View\AddLeagueWindow.xaml;View\AddPlayerWindow.xaml;View\AddTeamWindow.xaml;View\EditMatchInforWindow.xaml;View\LoginWindow.xaml;View\ResultRecordingWindow.xaml;View\SwitchPlayersWindow.xaml;
 
-False
+True
 

@@ -1161,6 +1161,11 @@
                                             Kind="PlusBold"/>
                                         <TextBlock Text="Thêm cầu thủ" VerticalAlignment="Center" Margin="5 0 0 0"/>
                                     </StackPanel>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click">
+                                            <i:InvokeCommandAction Command="{Binding OpenAddPlayerWindowCommand}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                 </Button>
 
                                 <Button
