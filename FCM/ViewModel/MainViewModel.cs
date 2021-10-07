@@ -17,7 +17,8 @@ namespace FCM.ViewModel
         public ICommand OpenAddLeagueWindowCommand { get; set; }
 
         public ICommand OpenEditLeagueWindowCommand { get; set; }
-
+        public ICommand OpenAddTeamWindowCommand { get; set; }
+       
         public ICommand SearchLeagueCommand { get; set; }
 
         public string uid;
@@ -30,13 +31,12 @@ namespace FCM.ViewModel
             GetUidCommand = new RelayCommand<Button>((parameter) => true, (parameter) => uid = parameter.Uid);
             OpenAddLeagueWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddLeagueWindow());
             OpenEditLeagueWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenEditLeagueWindow());
+            OpenAddTeamWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddTeamWindow());
             SearchLeagueCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SearchLeague(parameter)); 
         }
 
         public void SwitchTab(MainWindow parameter)
         {
-            MainWindow wd = new MainWindow();
-            wd.Show();
             int index = int.Parse(uid); // tab index
             //Move Stroke Menu
             parameter.grdStroke.Margin = new Thickness(0, (150 + 60 * index), 0, 0);
@@ -137,6 +137,11 @@ namespace FCM.ViewModel
             MainWindow wd = new MainWindow();
             wd.Show();
             parameter.Close();
+        }
+
+        public void OpenAddTeamWindow()
+        {
+
         }
 
     }

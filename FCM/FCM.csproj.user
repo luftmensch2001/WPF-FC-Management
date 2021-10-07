@@ -25,6 +25,9 @@
     <Compile Update="UserControls\ucMatchDetailNoEdit.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\ucPlayer.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\ucSwitchedPlayers.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -85,6 +88,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControls\ucMatchDetailNoEdit.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\ucPlayer.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControls\ucSwitchedPlayers.xaml">
