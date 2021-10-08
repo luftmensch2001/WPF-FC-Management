@@ -12,6 +12,7 @@ namespace FCM.ViewModel
     public class MainViewModel : BaseViewModel
     {
         public ICommand SwitchTabCommand { get; set; }
+        public ICommand SwitchTabStatisticsCommand { get; set; }
         public ICommand GetUidCommand { get; set; }
 
         public ICommand OpenAddLeagueWindowCommand { get; set; }
@@ -29,12 +30,14 @@ namespace FCM.ViewModel
         public MainViewModel()
         {
             SwitchTabCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SwitchTab(parameter));
+            SwitchTabStatisticsCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SwitchTabStatistics(parameter));
             GetUidCommand = new RelayCommand<Button>((parameter) => true, (parameter) => uid = parameter.Uid);
             OpenAddLeagueWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddLeagueWindow());
             OpenEditLeagueWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenEditLeagueWindow());
             OpenAddTeamWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddTeamWindow());
             OpenAddPlayerWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddPlayerWindow());
-            SearchLeagueCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SearchLeague(parameter)); 
+            SearchLeagueCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SearchLeague(parameter));
+             
         }
 
         public void SwitchTab(MainWindow parameter)
@@ -69,6 +72,8 @@ namespace FCM.ViewModel
             parameter.grdLeaguesScreen.Visibility = Visibility.Hidden;
             parameter.grdScheduleScreen.Visibility = Visibility.Hidden;
             parameter.grdTeamsScreen.Visibility = Visibility.Hidden;
+            parameter.grdStandingScreen.Visibility = Visibility.Hidden;
+            parameter.grdStatisticsScreen.Visibility = Visibility.Hidden;
 
             // Switch tab - Show selected screen
             switch (index)
@@ -96,10 +101,12 @@ namespace FCM.ViewModel
                 case 4:
                     parameter.btnStanding.Foreground = lightGreen;
                     parameter.icStanding.Foreground = lightGreen;
+                    parameter.grdStandingScreen.Visibility = Visibility.Visible;
                     break;
                 case 5:
                     parameter.btnStatistics.Foreground = lightGreen;
                     parameter.icStatistics.Foreground = lightGreen;
+                    parameter.grdStatisticsScreen.Visibility = Visibility.Visible;
                     break;
                 case 6:
                     parameter.btnSetting.Foreground = lightGreen;
@@ -136,7 +143,7 @@ namespace FCM.ViewModel
 
         public void SearchLeague(MainWindow parameter)
         {
-            LoginWindow wd = new LoginWindow();
+            MainWindow wd = new MainWindow();
             wd.Show();
             parameter.Close();
         }
@@ -151,6 +158,39 @@ namespace FCM.ViewModel
         {
             AddPlayerWindow wd = new AddPlayerWindow();
             wd.ShowDialog();
+        }
+
+        public void SwitchTabStatistics(MainWindow parameter)
+        {
+            int index = int.Parse(uid); // tab index
+            //Move Stroke Tab
+            parameter.rtStroke.Margin = new Thickness((20 + 120 * index), 0, 0, 5);
+
+            // Reset color
+            parameter.btnSttTeams.Foreground = white;
+            parameter.btnSttPlayers.Foreground = white;
+            parameter.btnSttCards.Foreground = white;
+
+            // Hide all screens
+            parameter.grdSttTeams.Visibility = Visibility.Hidden;
+            parameter.grdSttPlayers.Visibility = Visibility.Hidden;
+            parameter.grdSttCards.Visibility = Visibility.Hidden;
+
+            switch (index)
+            {
+                case 0:
+                    parameter.btnSttTeams.Foreground = lightGreen;
+                    parameter.grdSttTeams.Visibility = Visibility.Visible;
+                    break;
+                case 1:
+                    parameter.btnSttPlayers.Foreground = lightGreen;
+                    parameter.grdSttPlayers.Visibility = Visibility.Visible;
+                    break;
+                case 2:
+                    parameter.btnSttCards.Foreground = lightGreen;
+                    parameter.grdSttCards.Visibility = Visibility.Visible;
+                    break;
+            }
         }
 
     }

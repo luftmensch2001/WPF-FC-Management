@@ -984,7 +984,8 @@
         <Grid 
             x:Name="grdTeamsScreen"
             Grid.Column="1"
-            Background="#3a3a3a">
+            Background="#3a3a3a"
+            Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="5*"/>
@@ -1170,7 +1171,7 @@
 
                                 <Button
                                     x:Name="btnExportTeam"
-                                    Style="{StaticResource MyGreenButtonStyle}" 
+                                    Style="{StaticResource MyGreenButtonStyle}"
                                     Width="120" Padding="0" Margin="5 0 0 0">
                                     <StackPanel Orientation="Horizontal" >
                                         <materialDesign:PackIcon 
@@ -1259,6 +1260,342 @@
                         </Grid>
                     </Grid>
                 </Grid>
+            </Grid>
+        </Grid>
+        <!--#endregion-->
+        
+        <!--#region STANDING-->
+        <Grid 
+            x:Name="grdStandingScreen"
+            Grid.Column="1"
+            Background="#3a3a3a"
+            Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+            <!--Title-->
+            <Grid Grid.Row="0">
+                <TextBlock
+                    Text="BẢNG XẾP HẠNG"
+                    Style="{StaticResource H1}"
+                    FontSize="36"/>
+                <Button
+                    x:Name="btnExportStanding"
+                    Style="{StaticResource MyGreenButtonStyle}" 
+                    Width="120" Padding="0" Margin="0 0 15 0"
+                    Background="Transparent" BorderBrush="White" BorderThickness="1"
+                    VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                    <StackPanel Orientation="Horizontal" >
+                        <materialDesign:PackIcon 
+                                            Width="20" Height="20"
+                                            Kind="Export"/>
+                        <TextBlock Text="Xuất PDF" VerticalAlignment="Center" Margin="5 0 0 0"/>
+                    </StackPanel>
+                </Button>
+                <Image Height="100" Width="100" Margin="90 0 0 0"
+                       HorizontalAlignment="Left" Source="/Resource/Images/football3.png"/>
+                <Image Height="100" Width="100" Margin="0 0 150 5"
+                       HorizontalAlignment="Right" Source="/Resource/Images/football.png"/>
+                <Rectangle Fill="Gray" Height="1" VerticalAlignment="Bottom"/>
+            </Grid>
+            <!--Body-->
+            <Grid Grid.Row="1">
+                <DataGrid
+                    ItemsSource="{Binding Items2}"
+                    SelectionUnit="FullRow"
+                    SelectionMode="Extended"
+                    Width="900" Height="550"
+                    CanUserResizeRows="False"
+                    CanUserDeleteRows="False"
+                    CanUserAddRows="False">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="BorderThickness" Value="0" />
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Header="Hạng"
+                            Width="90"/>
+                        <DataGridTextColumn
+                            Header="Đội"
+                            Width="130"/>
+                        <DataGridTextColumn
+                            Header="Số trận"
+                            Width="90"/>
+                        <DataGridTextColumn
+                            Header="Thắng"
+                            Width="90"/>
+                        <DataGridTextColumn
+                            Header="Hoà"
+                            Width="90"/>
+                        <DataGridTextColumn
+                            Header="Thua"
+                            Width="90"/>
+                        <DataGridTextColumn
+                            Header="Điểm"
+                            Width="90"/>
+                        <DataGridTextColumn
+                            Header="Hiệu số"
+                            Width="90"/>
+                        <DataGridTextColumn
+                            Header="5 trận gần nhất"
+                            Width="140"/>
+                    </DataGrid.Columns>
+                    
+                </DataGrid>
+     
+            </Grid>
+        </Grid>
+        <!--#endregion-->
+
+        <!--#region STACTISTICS-->
+        <Grid 
+            x:Name="grdStatisticsScreen"
+            Grid.Column="1"
+            Background="#3a3a3a"
+            Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+            <!--Title-->
+            <Grid Grid.Row="0">
+                <TextBlock Text="THỐNG KÊ" Style="{StaticResource H1}" FontSize="35"/>
+                <Rectangle Fill="Gray" Height="1" VerticalAlignment="Bottom" />
+            </Grid>
+            <!--Menu-->
+            <Grid Grid.Row="1">
+                <Grid  Width="360" Height="50">
+                <Rectangle 
+                    x:Name="rtStroke"
+                    Fill="#52FF00" 
+                    Height="5" Width="80" 
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Left"
+                    Margin="20 0 0 5"/>
+                    <!--20 Left + 120 * tab-->
+                    <!--Menu-->
+                    <StackPanel Width="360" Height="50" Orientation="Horizontal">
+                        <Grid>
+                            <Button 
+                                x:Name="btnSttTeams"
+                                Content="ĐỘI BÓNG"
+                                Uid="0"
+                                Background="Transparent"
+                                Foreground="#52FF00"
+                                Width="120"
+                                BorderBrush="{x:Null}"
+                                FontWeight="SemiBold">  
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding SwitchTabStatisticsCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="MouseMove">
+                                        <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btnSttTeams}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                            <Rectangle Fill="#fff" Height="30" Width="1" HorizontalAlignment="Right" />
+                        </Grid>
+
+                        <Grid>
+                            <Button 
+                                x:Name="btnSttPlayers"
+                                Content="CẦU THỦ"
+                                Uid="1"
+                                Background="Transparent"
+                                Width="120"
+                                BorderBrush="{x:Null}"
+                                FontWeight="SemiBold">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding SwitchTabStatisticsCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="MouseMove">
+                                        <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btnSttPlayers}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                            <Rectangle Fill="#fff" Height="30" Width="1" HorizontalAlignment="Right" />
+                        </Grid>
+
+                        <Grid>
+                            <Button 
+                                x:Name="btnSttCards"
+                                Content="THẺ PHẠT"
+                                Uid="2"
+                                Background="Transparent"
+                                Width="120"
+                                BorderBrush="{x:Null}"
+                                FontWeight="SemiBold">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding SwitchTabStatisticsCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="MouseMove">
+                                        <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btnSttCards}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+                    
+                </Grid>
+                <Button
+                    x:Name="btnExportStatistics"
+                    Style="{StaticResource MyGreenButtonStyle}" 
+                    Width="110" Padding="0" Margin="0 0 70 0"
+                    Background="Transparent" BorderBrush="White" BorderThickness="1"
+                    VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                    <StackPanel Orientation="Horizontal" >
+                        <materialDesign:PackIcon 
+                                            Width="20" Height="20"
+                                            Kind="Export"/>
+                        <TextBlock Text="Xuất PDF" VerticalAlignment="Center" Margin="5 0 0 0"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+            <!--Body-->
+            <Grid Grid.Row="2"
+                  x:Name="grdSttTeams"
+                  Visibility="Visible">
+                <DataGrid
+                    x:Name="dgvStatisticsTeams"
+                    ItemsSource="{Binding Items2}"
+                    SelectionUnit="FullRow"
+                    SelectionMode="Extended"
+                    Width="800" Height="490"
+                    CanUserResizeRows="False"
+                    CanUserDeleteRows="False"
+                    CanUserAddRows="False">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="BorderThickness" Value="0" />
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Header="STT"
+                            Width="70"/>
+                        <DataGridTextColumn
+                            Header="Đội bóng"
+                            Width="130"/>
+                        <DataGridTextColumn
+                            Header="Số trận"
+                            Width="100"/>
+                        <DataGridTextColumn
+                            Header="Bàn thắng"
+                            Width="100"/>
+                        <DataGridTextColumn
+                            Header="Bàn thua"
+                            Width="100"/>
+                        <DataGridTextColumn
+                            Header="Thẻ đỏ"
+                            Width="90"/>
+                        <DataGridTextColumn
+                            Header="Thẻ vàng"
+                            Width="90"/>
+                        <DataGridTextColumn
+                            Header="Tổng số thẻ"
+                            Width="120"/>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+            </Grid>
+
+            <Grid Grid.Row="2"
+                  x:Name="grdSttPlayers"
+                  Visibility="Hidden">
+                <DataGrid
+                    x:Name="dgvStatisticsPlayers"
+                    ItemsSource="{Binding Items2}"
+                    SelectionUnit="FullRow"
+                    SelectionMode="Extended"
+                    Width="800" Height="490"
+                    CanUserResizeRows="False"
+                    CanUserDeleteRows="False"
+                    CanUserAddRows="False">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="BorderThickness" Value="0" />
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Header="STT"
+                            Width="70"/>
+                        <DataGridTextColumn
+                            Header="Tên cầu thủ"
+                            Width="125"/>
+                        <DataGridTextColumn
+                            Header="Số áo"
+                            Width="100"/>
+                        <DataGridTextColumn
+                            Header="Đội"
+                            Width="125"/>
+                        <DataGridTextColumn
+                            Header="Bàn thắng"
+                            Width="100"/>
+                        <DataGridTextColumn
+                            Header="Kiến tạo"
+                            Width="100"/>
+                        <DataGridTextColumn
+                            Header="Thẻ đỏ"
+                            Width="90"/>
+                        <DataGridTextColumn
+                            Header="Thẻ vàng"
+                            Width="90"/>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+            </Grid>
+
+            <Grid Grid.Row="2"
+                  x:Name="grdSttCards"
+                  Visibility="Hidden">
+                <DataGrid
+                    x:Name="dgvStatisticsCards"
+                    ItemsSource="{Binding Items2}"
+                    SelectionUnit="FullRow"
+                    SelectionMode="Extended"
+                    Width="500" Height="450"
+                    CanUserResizeRows="False"
+                    CanUserDeleteRows="False"
+                    CanUserAddRows="False">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="BorderThickness" Value="0" />
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Header="Vòng đấu"
+                            Width="150"/>
+                        <DataGridTextColumn
+                            Header="Thẻ vàng"
+                            Width="100"/>
+                        <DataGridTextColumn
+                            Header="Thẻ đỏ"
+                            Width="100"/>
+                        <DataGridTextColumn
+                            Header="Tổng số thẻ"
+                            Width="150"/>
+                    </DataGrid.Columns>
+
+                </DataGrid>
             </Grid>
         </Grid>
         <!--#endregion-->

@@ -140,9 +140,9 @@
                                 Style="{StaticResource MyRedButtonStyle}"
                                 VerticalAlignment="Bottom"
                                 Background="Transparent"
-                                Height="25"
+                                Height="30"
                                 HorizontalAlignment="Center"
-                                Margin="0 0 0 5"
+                                Margin="0 0 0 10"
                                 Grid.ColumnSpan="2">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">

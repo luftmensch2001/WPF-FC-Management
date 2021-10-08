@@ -9,11 +9,13 @@
   <ItemGroup>
     <None Remove="background3.jpg" />
     <None Remove="football.png" />
+    <None Remove="football3.png" />
     <None Remove="players.png" />
     <None Remove="Resource\Images\arsenal-logo.png" />
     <None Remove="Resource\Images\cat.png" />
     <None Remove="Resource\Images\dog.png" />
     <None Remove="Resource\Images\football.png" />
+    <None Remove="Resource\Images\football3.png" />
     <None Remove="Resource\Images\LoginBackground.jpg" />
     <None Remove="Resource\Images\NoImageSelected.png" />
     <None Remove="Resource\Images\NoLogoSelected.png" />
@@ -42,6 +44,7 @@
     <Resource Include="Resource\Images\cat.png" />
     <Resource Include="Resource\Images\dog.png" />
     <Resource Include="Resource\Images\football.png" />
+    <Resource Include="Resource\Images\football3.png" />
     <Resource Include="Resource\Images\LoginBackground.jpg" />
     <Resource Include="Resource\Images\NoImageSelected.png" />
     <Resource Include="Resource\Images\NoLogoSelected.png" />
