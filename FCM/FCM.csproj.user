@@ -37,6 +37,9 @@
     <Compile Update="View\AddCardWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\AddGoalTypeWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\AddGoalWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -47,6 +50,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\AddTeamWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\EditDialogWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\EditMatchInforWindow.xaml.cs">
@@ -108,6 +114,9 @@
     <Page Update="View\AddCardWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\AddGoalTypeWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\AddGoalWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -118,6 +127,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\AddTeamWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\EditDialogWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\EditMatchInforWindow.xaml">

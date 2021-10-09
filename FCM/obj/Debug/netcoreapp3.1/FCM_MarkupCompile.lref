@@ -12,10 +12,12 @@ FG:\Nam 3\OOP\WPF-FC-Management\FCM\UserControls\ucTeamButton.xaml;;
 FG:\Nam 3\OOP\WPF-FC-Management\FCM\View\AddCardWindow.xaml;;
 FG:\Nam 3\OOP\WPF-FC-Management\FCM\View\AddGoalWindow.xaml;;
 FG:\Nam 3\OOP\WPF-FC-Management\FCM\View\AddLeagueWindow.xaml;;
+FG:\Nam 3\OOP\WPF-FC-Management\FCM\View\AddPlayerWindow.xaml;;
+FG:\Nam 3\OOP\WPF-FC-Management\FCM\View\AddTeamWindow.xaml;;
 FG:\Nam 3\OOP\WPF-FC-Management\FCM\View\EditMatchInforWindow.xaml;;
 FG:\Nam 3\OOP\WPF-FC-Management\FCM\View\LoginWindow.xaml;;
 FG:\Nam 3\OOP\WPF-FC-Management\FCM\View\ResultRecordingWindow.xaml;;
 FG:\Nam 3\OOP\WPF-FC-Management\FCM\View\SwitchPlayersWindow.xaml;;
-FG:\Nam 3\OOP\WPF-FC-Management\FCM\View\AddTeamWindow.xaml;;
-FG:\Nam 3\OOP\WPF-FC-Management\FCM\View\AddPlayerWindow.xaml;;
+FG:\Nam 3\OOP\WPF-FC-Management\FCM\View\EditDialogWindow.xaml;;
+FG:\Nam 3\OOP\WPF-FC-Management\FCM\View\AddGoalTypeWindow.xaml;;
 

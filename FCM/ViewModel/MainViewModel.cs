@@ -20,6 +20,9 @@ namespace FCM.ViewModel
         public ICommand OpenEditLeagueWindowCommand { get; set; }
         public ICommand OpenAddTeamWindowCommand { get; set; }
         public ICommand OpenAddPlayerWindowCommand { get; set; }
+        public ICommand OpenEditDialogCommand { get; set; }
+        public ICommand OpenAddGoalTypeCommand { get; set; }
+        public ICommand OpenEditGoalTypeCommand { get; set; }
        
         public ICommand SearchLeagueCommand { get; set; }
 
@@ -33,9 +36,12 @@ namespace FCM.ViewModel
             SwitchTabStatisticsCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SwitchTabStatistics(parameter));
             GetUidCommand = new RelayCommand<Button>((parameter) => true, (parameter) => uid = parameter.Uid);
             OpenAddLeagueWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddLeagueWindow());
+            OpenEditDialogCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenEditDialogWindow(parameter));
             OpenEditLeagueWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenEditLeagueWindow());
             OpenAddTeamWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddTeamWindow());
             OpenAddPlayerWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddPlayerWindow());
+            OpenAddGoalTypeCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddGoalTypeWindow());
+            OpenEditGoalTypeCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenEditGoalTypeWindow());
             SearchLeagueCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SearchLeague(parameter));
              
         }
@@ -74,6 +80,9 @@ namespace FCM.ViewModel
             parameter.grdTeamsScreen.Visibility = Visibility.Hidden;
             parameter.grdStandingScreen.Visibility = Visibility.Hidden;
             parameter.grdStatisticsScreen.Visibility = Visibility.Hidden;
+            parameter.grdSettingScreen.Visibility = Visibility.Hidden;
+            parameter.grdHelpsScreen.Visibility = Visibility.Hidden;
+            parameter.grdAccountScreen.Visibility = Visibility.Hidden;
 
             // Switch tab - Show selected screen
             switch (index)
@@ -111,14 +120,17 @@ namespace FCM.ViewModel
                 case 6:
                     parameter.btnSetting.Foreground = lightGreen;
                     parameter.icSetting.Foreground = lightGreen;
+                    parameter.grdSettingScreen.Visibility = Visibility.Visible;
                     break;
                 case 7:
                     parameter.btnHelp.Foreground = lightGreen;
                     parameter.icHelp.Foreground = lightGreen;
+                    parameter.grdHelpsScreen.Visibility = Visibility.Visible;
                     break;
                 case 8:
                     parameter.btnAccount.Foreground = lightGreen;
                     parameter.icAccount.Foreground = lightGreen;
+                    parameter.grdAccountScreen.Visibility = Visibility.Visible;
                     break;
 
                 default:
@@ -192,6 +204,24 @@ namespace FCM.ViewModel
                     break;
             }
         }
+        public void OpenEditDialogWindow(string parameter)
+        {
+            // Dùng parameter để biết đã bấm vào nút Sửa nào
+            EditDialogWindow wd = new EditDialogWindow(parameter);
+            wd.ShowDialog();
+        }
 
-    }
+        public void OpenAddGoalTypeWindow()
+        {
+            AddGoalTypeWindow wd = new AddGoalTypeWindow();
+            wd.ShowDialog();
+        }
+        public void OpenEditGoalTypeWindow()
+        {
+            AddGoalTypeWindow wd = new AddGoalTypeWindow();
+            wd.Title = "Sửa thông tin";
+            wd.btnAdd.Content = "Xác nhận";
+            wd.ShowDialog();
+        }
+    }   
 }
