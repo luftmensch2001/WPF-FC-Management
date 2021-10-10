@@ -1603,7 +1603,7 @@
         <!--#region SETTINGS-->
         <Grid Grid.Column="1"
               x:Name="grdSettingScreen"
-              Visibility="Visible"
+              Visibility="Hidden"
               Background="#3a3a3a">
             <Grid.RowDefinitions>
                 <RowDefinition />
@@ -1947,8 +1947,65 @@
         <!--#region HELPS-->
         <Grid Grid.Column="1"
               x:Name="grdHelpsScreen"
-              Visibility="Hidden">
+              Visibility="Visible" Background="#3a3a3a">
+            <Image Width="200" Height="200"
+                   VerticalAlignment="Top" Margin="0 80 0 0"
+                   Source="/Resource/Images/coder.png"/>
 
+            <Image Width="130" Height="130" Opacity="0.6"
+                   VerticalAlignment="Center" Margin="50 60 0 0" HorizontalAlignment="Left"
+                   Source="/Resource/Images/engineer.png"/>
+
+            <Image Width="130" Height="130" Opacity="0.6"
+                   VerticalAlignment="Center" Margin="0 180 50 0" HorizontalAlignment="Right"
+                   Source="/Resource/Images/settings.png"/>
+
+            <TextBlock
+                Text="Copyright © by 814DevTeam"
+                Style="{StaticResource H2}" VerticalAlignment="Top"
+                Margin="0 310 0 0"/>
+            <TextBlock
+                Text="All rights reserved"
+                Style="{StaticResource H2}"/>
+            <TextBlock
+                Text="Nếu có vấn đề trong lúc sử dụng"
+                Style="{StaticResource H2}"
+                VerticalAlignment="Bottom" Margin="0 0 0 160"/>
+            <Button
+                x:Name="btnGuild"
+                Style="{StaticResource MyGreenButtonStyle}" Margin="0 0 0 250"
+                Width="270" Height="45" VerticalAlignment="Bottom">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon
+                        Kind="BookOpenVariant" Width="30" Height="30" Margin="0 0 10 0"/>
+                    <TextBlock Text="Hướng dẫn sử dụng phần mềm" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <StackPanel Orientation="Horizontal" Width="360" Height="45"
+                        VerticalAlignment="Bottom" Margin="0 0 0 90">
+                <Button
+                x:Name="btnReport"
+                Style="{StaticResource MyGreenButtonStyle}" 
+                Width="140" Height="45">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                        Kind="Alert" Width="30" Height="30" Margin="0 0 10 0"/>
+                        <TextBlock Text="Báo lỗi" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button
+                x:Name="btnContact"
+                Style="{StaticResource MyGreenButtonStyle}" 
+                Width="200" Height="45" Margin="20 0 0 0">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                        Kind="MessageAlertOutline" Width="30" Height="30" Margin="0 0 10 0"/>
+                        <TextBlock Text="Liên hệ với chúng tôi" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            
         </Grid>
         <!--#endregion-->
 
