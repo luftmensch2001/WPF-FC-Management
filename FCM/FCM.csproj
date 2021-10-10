@@ -7,12 +7,73 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="background3.jpg" />
+    <None Remove="coder.png" />
+    <None Remove="engineer.png" />
+    <None Remove="field.png" />
+    <None Remove="football.png" />
+    <None Remove="football3.png" />
+    <None Remove="football4.png" />
+    <None Remove="football6.png" />
+    <None Remove="help.png" />
+    <None Remove="players.png" />
+    <None Remove="Resource\Images\arsenal-logo.png" />
+    <None Remove="Resource\Images\cat.png" />
+    <None Remove="Resource\Images\coder.png" />
+    <None Remove="Resource\Images\dog.png" />
+    <None Remove="Resource\Images\engineer.png" />
+    <None Remove="Resource\Images\field.png" />
+    <None Remove="Resource\Images\football.png" />
+    <None Remove="Resource\Images\football3.png" />
+    <None Remove="Resource\Images\football4.png" />
+    <None Remove="Resource\Images\football6.png" />
+    <None Remove="Resource\Images\help.png" />
+    <None Remove="Resource\Images\LoginBackground.jpg" />
+    <None Remove="Resource\Images\NoImageSelected.png" />
+    <None Remove="Resource\Images\NoLogoSelected.png" />
+    <None Remove="Resource\Images\players.png" />
+    <None Remove="Resource\Images\settings.png" />
+    <None Remove="Resource\Images\software-logo.png" />
+    <None Remove="Resource\Images\vleague.png" />
+    <None Remove="settings.png" />
+    <None Remove="software-logo.png" />
+    <None Remove="UserControls\arsenal-logo.png" />
+    <None Remove="View\cat.png" />
+    <None Remove="View\NoImageSelected.png" />
+    <None Remove="View\NoLogoSelected.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MaterialDesignColors" Version="2.0.3" />
     <PackageReference Include="MaterialDesignThemes" Version="4.2.1" />
+    <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Model\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resource\Images\arsenal-logo.png" />
+    <Resource Include="Resource\Images\cat.png" />
+    <Resource Include="Resource\Images\coder.png" />
+    <Resource Include="Resource\Images\dog.png" />
+    <Resource Include="Resource\Images\engineer.png" />
+    <Resource Include="Resource\Images\field.png" />
+    <Resource Include="Resource\Images\football.png" />
+    <Resource Include="Resource\Images\football3.png" />
+    <Resource Include="Resource\Images\football4.png" />
+    <Resource Include="Resource\Images\football6.png" />
+    <Resource Include="Resource\Images\help.png" />
+    <Resource Include="Resource\Images\LoginBackground.jpg" />
+    <Resource Include="Resource\Images\NoImageSelected.png" />
+    <Resource Include="Resource\Images\NoLogoSelected.png" />
+    <Resource Include="Resource\Images\players.png" />
+    <Resource Include="Resource\Images\settings.png" />
+    <Resource Include="Resource\Images\software-logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resource\Images\vleague.png" />
   </ItemGroup>
 
 </Project>
