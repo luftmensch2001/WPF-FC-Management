@@ -23,6 +23,7 @@ namespace FCM.ViewModel
         public ICommand OpenEditDialogCommand { get; set; }
         public ICommand OpenAddGoalTypeCommand { get; set; }
         public ICommand OpenEditGoalTypeCommand { get; set; }
+        public ICommand OpenChangePasswordCommand { get; set; }
        
         public ICommand SearchLeagueCommand { get; set; }
 
@@ -42,6 +43,7 @@ namespace FCM.ViewModel
             OpenAddPlayerWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddPlayerWindow());
             OpenAddGoalTypeCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddGoalTypeWindow());
             OpenEditGoalTypeCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenEditGoalTypeWindow());
+            OpenChangePasswordCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenChangePasswordWindow(parameter));
             SearchLeagueCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SearchLeague(parameter));
              
         }
@@ -75,6 +77,7 @@ namespace FCM.ViewModel
 
             // Disable all screen
             parameter.grdHomeScreen.Visibility = Visibility.Hidden;
+            parameter.grdHomeNoLeagueScreen.Visibility = Visibility.Hidden;
             parameter.grdLeaguesScreen.Visibility = Visibility.Hidden;
             parameter.grdScheduleScreen.Visibility = Visibility.Hidden;
             parameter.grdTeamsScreen.Visibility = Visibility.Hidden;
@@ -90,7 +93,10 @@ namespace FCM.ViewModel
                 case 0:
                     parameter.btnHome.Foreground = lightGreen;
                     parameter.icHome.Foreground = lightGreen;
-                    parameter.grdHomeScreen.Visibility = Visibility.Visible;
+                    if (0>1) // Nếu có ít nhất 1 mùa giải
+                        parameter.grdHomeScreen.Visibility = Visibility.Visible;
+                    else
+                        parameter.grdHomeNoLeagueScreen.Visibility = Visibility.Visible;
                     break;
                 case 1:
                     parameter.btnLeagues.Foreground = lightGreen;
@@ -223,5 +229,11 @@ namespace FCM.ViewModel
             wd.btnAdd.Content = "Xác nhận";
             wd.ShowDialog();
         }
+        public void OpenChangePasswordWindow(string username)
+        {
+            ChangePasswordWindow wd = new ChangePasswordWindow(username);
+            wd.ShowDialog();
+        }
+        
     }   
 }

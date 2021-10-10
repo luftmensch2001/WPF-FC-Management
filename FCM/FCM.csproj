@@ -10,8 +10,11 @@
     <None Remove="background3.jpg" />
     <None Remove="coder.png" />
     <None Remove="engineer.png" />
+    <None Remove="field.png" />
     <None Remove="football.png" />
     <None Remove="football3.png" />
+    <None Remove="football4.png" />
+    <None Remove="football6.png" />
     <None Remove="help.png" />
     <None Remove="players.png" />
     <None Remove="Resource\Images\arsenal-logo.png" />
@@ -19,8 +22,11 @@
     <None Remove="Resource\Images\coder.png" />
     <None Remove="Resource\Images\dog.png" />
     <None Remove="Resource\Images\engineer.png" />
+    <None Remove="Resource\Images\field.png" />
     <None Remove="Resource\Images\football.png" />
     <None Remove="Resource\Images\football3.png" />
+    <None Remove="Resource\Images\football4.png" />
+    <None Remove="Resource\Images\football6.png" />
     <None Remove="Resource\Images\help.png" />
     <None Remove="Resource\Images\LoginBackground.jpg" />
     <None Remove="Resource\Images\NoImageSelected.png" />
@@ -53,8 +59,11 @@
     <Resource Include="Resource\Images\coder.png" />
     <Resource Include="Resource\Images\dog.png" />
     <Resource Include="Resource\Images\engineer.png" />
+    <Resource Include="Resource\Images\field.png" />
     <Resource Include="Resource\Images\football.png" />
     <Resource Include="Resource\Images\football3.png" />
+    <Resource Include="Resource\Images\football4.png" />
+    <Resource Include="Resource\Images\football6.png" />
     <Resource Include="Resource\Images\help.png" />
     <Resource Include="Resource\Images\LoginBackground.jpg" />
     <Resource Include="Resource\Images\NoImageSelected.png" />

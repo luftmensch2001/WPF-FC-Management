@@ -579,7 +579,18 @@
         </Grid>
         <!--END HOME-->
         <!--#endregion-->
-        
+
+        <!--#region HOME NO LEAGUE-->
+        <Grid
+            x:Name="grdHomeNoLeagueScreen"
+            Grid.Column="1"
+            Visibility="Visible">
+            <Image 
+                VerticalAlignment="Bottom"
+                Source="/Resource/Images/football6.png" Stretch="Fill"/>
+        </Grid>
+        <!--#endregion-->
+
         <!--#region LEAGUES-->
 
         <Grid
@@ -1947,7 +1958,7 @@
         <!--#region HELPS-->
         <Grid Grid.Column="1"
               x:Name="grdHelpsScreen"
-              Visibility="Visible" Background="#3a3a3a">
+              Visibility="Hidden" Background="#3a3a3a">
             <Image Width="200" Height="200"
                    VerticalAlignment="Top" Margin="0 80 0 0"
                    Source="/Resource/Images/coder.png"/>
@@ -2012,9 +2023,46 @@
         <!--#region ACCOUNT-->
         <Grid Grid.Column="1"
               x:Name="grdAccountScreen"
-              Visibility="Hidden">
+              Visibility="Hidden"
+              Background="#3a3a3a">
+            <Image Source="/Resource/Images/field.png" VerticalAlignment="Bottom" Stretch="UniformToFill"/>
+            <Grid Panel.ZIndex="1">
+                <TextBlock 
+                        x:Name="tblUsername" VerticalAlignment="Top"
+                        Text="Xin chào, @username" Width="500" TextWrapping="Wrap"
+                        TextAlignment="Center" Margin="0 80 0 0"
+                        Style="{StaticResource H1}"/>
+                <Button
+                    Content="Đổi mật khẩu" FontSize="20"
+                    x:Name="btnChangePassword"
+                    Background="#4554ff"
+                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                    Width="300" Height="50"
+                    VerticalAlignment="Top" Margin="0 140 0 0">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding OpenChangePasswordCommand}"
+                                                           CommandParameter="username"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
 
+                <Button
+                    x:Name="btnLogOut"
+                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                    Width="300" Height="50"
+                    Background="#f72d00"
+                    VerticalAlignment="Top" Margin="0 210 0 0">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon 
+                            Kind="LogoutVariant" Width="30" Height="30"/>
+                        <TextBlock Text="Đăng xuất" VerticalAlignment="Center" FontSize="20" Margin="5 0 0 0"/>
+                        
+                    </StackPanel>
+                </Button>
+            </Grid>
         </Grid>
         <!--#endregion-->
+           
     </Grid>
 </Window>
