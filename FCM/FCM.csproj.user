@@ -28,6 +28,9 @@
     <Compile Update="UserControls\ucPlayer.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\ucShootout.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\ucSwitchedPlayers.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -47,6 +50,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\AddPlayerWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\AddShootoutWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\AddTeamWindow.xaml.cs">
@@ -108,6 +114,9 @@
     <Page Update="UserControls\ucPlayer.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="UserControls\ucShootout.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UserControls\ucSwitchedPlayers.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -127,6 +136,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\AddPlayerWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\AddShootoutWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\AddTeamWindow.xaml">
