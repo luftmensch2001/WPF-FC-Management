@@ -188,7 +188,7 @@
         
         <!--Menu tab-->
         <Grid Grid.Row="2">
-            <Grid  Width="480" Height="50">
+            <Grid  Width="360" Height="50">
                 <Rectangle 
                 x:Name="rtStroke"
                 Fill="#52FF00" 
@@ -198,7 +198,7 @@
                 Margin="20 0 0 5"/>
                 <!--20 Left + 120 * tab-->
 
-                <StackPanel Width="480" Height="50" Orientation="Horizontal">
+                <StackPanel Width="360" Height="50" Orientation="Horizontal">
                     <Grid>
                         <Button 
                         x:Name="btnGoalsTab"
@@ -267,27 +267,6 @@
                             </i:Interaction.Triggers>
                         </Button>
                         <Rectangle Fill="#fff" Height="30" Width="1" HorizontalAlignment="Right" />
-                    </Grid>
-                    <Grid>
-                        <Button 
-                        x:Name="btnShootoutTab"
-                        Content="LUÂN LƯU"
-                        Uid="3"
-                        Background="Transparent"
-                        Width="120"
-                        BorderBrush="{x:Null}"
-                        FontWeight="SemiBold">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Click">
-                                    <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
-                                                       CommandParameter="{Binding ElementName=wdResultRecording}"/>
-                                </i:EventTrigger>
-                                <i:EventTrigger EventName="MouseMove">
-                                    <i:InvokeCommandAction Command="{Binding GetUidCommand}"
-                                                       CommandParameter="{Binding ElementName=btnShootoutTab}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Button>
                     </Grid>
                 </StackPanel>
             </Grid>
@@ -929,186 +908,6 @@
                     </StackPanel>
                 </Grid>
 
-            </Grid>
-            <!--Shootout-->
-            <Grid
-                x:Name="grdShootoutTab"
-                Visibility="Hidden">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="0.3*"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <!--Shootout Team 1-->
-                <Grid Grid.Column="0">
-                    <materialDesign:Card 
-                    Background="#3a3a3a"
-                    UniformCornerRadius="16"
-                    Width="400"
-                    Height="280"
-                    Margin="0 0 0 0">
-                        <StackPanel>
-                            <!--Header-->
-                            <Grid Height="25"
-                                  VerticalAlignment="Top">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.5*"/>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Grid.Resources>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                                        <Setter Property="VerticalAlignment" Value="Bottom"/>
-                                        <Setter Property="Foreground" Value="#fff"/>
-                                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                                    </Style>
-                                </Grid.Resources>
-                                <Grid Grid.Column="0">
-                                    <TextBlock Text="STT" />
-                                </Grid>
-                                <Grid Grid.Column="1">
-                                    <TextBlock Text="Cầu thủ" />
-                                </Grid>
-                                <Grid Grid.Column="2">
-                                    <TextBlock Text="Số áo" />
-                                </Grid>
-                                <Grid Grid.Column="3">
-                                    <TextBlock Text="Kết quả" />
-                                </Grid>
-                                <Grid Grid.Column="4">
-                                    <TextBlock Text="Chỉnh sửa" />
-                                </Grid>
-                            </Grid>
-                            <!--Line-->
-                            <Rectangle Height="1"  Fill="White" VerticalAlignment="Top" Margin="0 10 0 0"/>
-                            <!--Goals List-->
-                            <Grid Height="245">
-                                <ScrollViewer VerticalScrollBarVisibility="Auto"
-                                      Style="{StaticResource FavsScrollViewer}">
-                                    <WrapPanel x:Name="wpShootoutTeam1">
-                                        <WrapPanel.Resources>
-                                            <Style TargetType="userControl:ucShootout">
-                                                <Setter Property="Width" Value="400" />
-                                                <Setter Property="Height" Value="35" />
-                                            </Style>
-                                        </WrapPanel.Resources>
-                                        <!--Add Goal here-->
-                                        <userControl:ucShootout />
-                                        <userControl:ucShootout />
-                                        <userControl:ucShootout />
-                                        <userControl:ucShootout />
-                                        <userControl:ucShootout />
-                                    </WrapPanel>
-                                </ScrollViewer>
-                            </Grid>
-                        </StackPanel>
-                    </materialDesign:Card>
-                    <Button 
-                    x:Name="btnAddShootout1"
-                    Content="Thêm"
-                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                    Background="#00A807" Margin="0 0 0 37"
-                    Width="100" VerticalAlignment="Bottom" BorderThickness="0">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <i:InvokeCommandAction Command="{Binding OpenAddShootoutCommand}"
-                                                    CommandParameter="0"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </Button>
-                </Grid>
-                
-                <!--Score-->
-                <Grid Grid.Column="1">
-                    <TextBlock 
-                        Text="5  -  3" 
-                        x:Name="tblShootoutScore"       
-                        Style="{StaticResource H1}"
-                        Margin="0 0 0 100"/>
-                </Grid>
-                <!--Shootout Team 2-->
-                <Grid Grid.Column="2">
-                    <materialDesign:Card 
-                    Background="#3a3a3a"
-                    UniformCornerRadius="16"
-                    Width="400"
-                    Height="280"
-                    Margin="0 0 0 0">
-                        <StackPanel>
-                            <!--Header-->
-                            <Grid Height="25"
-                                  VerticalAlignment="Top">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="0.5*"/>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Grid.Resources>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                                        <Setter Property="VerticalAlignment" Value="Bottom"/>
-                                        <Setter Property="Foreground" Value="#fff"/>
-                                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                                    </Style>
-                                </Grid.Resources>
-                                <Grid Grid.Column="0">
-                                    <TextBlock Text="STT" />
-                                </Grid>
-                                <Grid Grid.Column="1">
-                                    <TextBlock Text="Cầu thủ" />
-                                </Grid>
-                                <Grid Grid.Column="2">
-                                    <TextBlock Text="Số áo" />
-                                </Grid>
-                                <Grid Grid.Column="3">
-                                    <TextBlock Text="Kết quả" />
-                                </Grid>
-                                <Grid Grid.Column="4">
-                                    <TextBlock Text="Chỉnh sửa" />
-                                </Grid>
-                            </Grid>
-                            <!--Line-->
-                            <Rectangle Height="1"  Fill="White" VerticalAlignment="Top" Margin="0 10 0 0"/>
-                            <!--Goals List-->
-                            <Grid Height="245">
-                                <ScrollViewer VerticalScrollBarVisibility="Auto"
-                                      Style="{StaticResource FavsScrollViewer}">
-                                    <WrapPanel x:Name="wpShootoutTeam2">
-                                        <WrapPanel.Resources>
-                                            <Style TargetType="userControl:ucShootout">
-                                                <Setter Property="Width" Value="400" />
-                                                <Setter Property="Height" Value="35" />
-                                            </Style>
-                                        </WrapPanel.Resources>
-                                        <!--Add Goal here-->
-                                        <userControl:ucShootout />
-                                        <userControl:ucShootout />
-                                        <userControl:ucShootout />
-                                    </WrapPanel>
-                                </ScrollViewer>
-                            </Grid>
-                        </StackPanel>
-                    </materialDesign:Card>
-                    <Button 
-                    x:Name="btnAddShootout2"
-                    Content="Thêm"
-                    Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                    Background="#00A807" Margin="0 0 0 37"
-                    Width="100" VerticalAlignment="Bottom" BorderThickness="0">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <i:InvokeCommandAction Command="{Binding OpenAddShootoutCommand}"
-                                                    CommandParameter="0"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </Button>
-                </Grid>
-                
             </Grid>
         </Grid>
 
