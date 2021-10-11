@@ -15,6 +15,7 @@ namespace FCM.ViewModel
         public ICommand GetUidCommand { get; set; }
         public ICommand SwitchPlayersCommand { get; set; }
         public ICommand ExitCommand { get; set; }
+        public ICommand OpenAddShootoutCommand { get; set; }
 
 
         public SolidColorBrush lightGreen = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#52ff00"));
@@ -27,6 +28,7 @@ namespace FCM.ViewModel
             ExitCommand = new RelayCommand<ResultRecordingWindow>((parameter) => true, (parameter) => parameter.Close());
             GetUidCommand = new RelayCommand<Button>((parameter) => true, (parameter) => uid = parameter.Uid);
             SwitchPlayersCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenSwitchPlayersWindow());
+            OpenAddShootoutCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddShootoutWindow(parameter));
         }
 
         public void SwitchTab(ResultRecordingWindow parameter)
@@ -39,11 +41,13 @@ namespace FCM.ViewModel
             parameter.btnGoalsTab.Foreground = white;
             parameter.btnCardsTab.Foreground = white;
             parameter.btnFormationsTab.Foreground = white;
+            parameter.btnShootoutTab.Foreground = white;
 
             // Hide all screens
             parameter.grdGoalsTab.Visibility = Visibility.Hidden;
             parameter.grdCardsTab.Visibility = Visibility.Hidden;
             parameter.grdFormationsTab.Visibility = Visibility.Hidden;
+            parameter.grdShootoutTab.Visibility = Visibility.Hidden;
 
             switch (index)
             {
@@ -59,11 +63,22 @@ namespace FCM.ViewModel
                     parameter.btnFormationsTab.Foreground = lightGreen;
                     parameter.grdFormationsTab.Visibility = Visibility.Visible;
                     break;
+                case 3:
+                    parameter.btnShootoutTab.Foreground = lightGreen;
+                    parameter.grdShootoutTab.Visibility = Visibility.Visible;
+                    break;
             }
         }
         public void OpenSwitchPlayersWindow()
         {
             SwitchPlayersWindow wd = new SwitchPlayersWindow();
+            wd.ShowDialog();
+        }
+
+        public void OpenAddShootoutWindow(string parameter)
+        {
+            // parameter = 0 / 1 : team 1 / team 2
+            AddShootoutWindow wd = new AddShootoutWindow(parameter);
             wd.ShowDialog();
         }
     }
