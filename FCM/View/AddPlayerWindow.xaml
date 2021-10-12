@@ -48,16 +48,11 @@
 
             <!--#region Infor Fields-->
             <Grid Grid.Column="0">
-                <TextBlock Text="Thông tin cơ bản"
-                           Style="{StaticResource H2}"
-                           VerticalAlignment="Top"
-                           FontSize="18"/>
-
                 <Border CornerRadius="12" 
                         Background="#fff" 
                         Width="350"
-                        Height="400"
-                        VerticalAlignment="Bottom" Margin="0 0 0 20">
+                        Height="450"
+                        VerticalAlignment="Bottom" Margin="0 0 0 0">
                     <StackPanel>
                         <!--Player's name-->
                         <TextBox
@@ -92,6 +87,17 @@
                         <TextBox
                                 x:Name="tbPosition"
                                 materialDesign:HintAssist.Hint="Vị trí thi đấu"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Top"
+                                Height="45"
+                                Width="250" 
+                                FontSize="15"
+                                Margin="0 20 0 0"/>
+
+                        <!--Nationality-->
+                        <TextBox
+                                x:Name="tbNationality"
+                                materialDesign:HintAssist.Hint="Quốc tịch"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 VerticalAlignment="Top"
                                 Height="45"
