@@ -72,8 +72,8 @@
                 <Border CornerRadius="12" 
                         Background="#fff" 
                         Width="350"
-                        Height="250"
-                        VerticalAlignment="Bottom" Margin="0 0 0 20">
+                        Height="270"
+                        VerticalAlignment="Bottom" Margin="0 0 0 0">
                     <StackPanel>
                         <!--Team's name-->
                         <TextBox
@@ -84,7 +84,7 @@
                                 Height="45"
                                 Width="250" 
                                 FontSize="15"
-                                Margin="0 20 0 0"/>
+                                Margin="0 10 0 0"/>
                         <!--Coach-->
                         <TextBox
                                 x:Name="tbCoach"
@@ -101,6 +101,17 @@
                         <TextBox
                                 x:Name="tbStadium"
                                 materialDesign:HintAssist.Hint="Sân nhà"
+                                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                VerticalAlignment="Top"
+                                Height="45"
+                                Width="250" 
+                                FontSize="15"
+                                Margin="0 20 0 0"/>
+
+                        <!--National-->
+                        <TextBox
+                                x:Name="tbNational"
+                                materialDesign:HintAssist.Hint="Quốc gia"
                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 VerticalAlignment="Top"
                                 Height="45"
@@ -139,7 +150,7 @@
                         Style="{StaticResource MyGreenButtonStyle}"
                         Width="110"
                         VerticalAlignment="Bottom"
-                        Margin="0 10 0 25">
+                        Margin="0 10 0 10">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon 
                                     Kind="TrayArrowUp"
