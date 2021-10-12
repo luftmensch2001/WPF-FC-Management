@@ -1094,6 +1094,7 @@
                                         <TextBlock Text="Huấn luyện viên:" FontSize="14" Foreground="White"/>
                                         <TextBlock Text="Sân nhà:" FontSize="14" Foreground="White" Margin="0 10 0 0"/>
                                         <TextBlock Text="Số thành viên:" FontSize="14" Foreground="White" Margin="0 10 0 0"/>
+                                        <TextBlock Text="Quốc gia:" FontSize="14" Foreground="White" Margin="0 10 0 0"/>
                                         <TextBlock Text="Hạng hiện tại:" FontSize="14" Foreground="White" Margin="0 10 0 0"/>
                                     </StackPanel>
                                     <!--Replace here-->
@@ -1107,6 +1108,9 @@
                                         <TextBlock 
                                             x:Name="tblCountOfMembers"
                                             Text="15" FontSize="14" Foreground="White" Margin="0 10 0 0"/>
+                                        <TextBlock 
+                                            x:Name="tblNational"
+                                            Text="Việt Nam" FontSize="14" Foreground="White" Margin="0 10 0 0"/>
                                         <TextBlock 
                                             x:Name="tblRank"
                                             Text="#3" FontSize="14" Foreground="White" Margin="0 10 0 0"/>
