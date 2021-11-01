@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FCM.DAO;
+using FCM.DTO;
 
 namespace FCM
 {
@@ -20,8 +22,14 @@ namespace FCM
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Account currentAccount { get; set; }
         public MainWindow()
         {
+            InitializeComponent();
+        }
+        public MainWindow(Account account)
+        {
+            currentAccount = account;
             InitializeComponent();
         }
     }
