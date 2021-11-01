@@ -30,7 +30,7 @@
         <materialDesign:Card 
             Visibility="Visible"
             Width="320" 
-            Height="300" 
+            Height="350" 
             Background="White"
             UniformCornerRadius="16"
             HorizontalAlignment="Right"
@@ -58,7 +58,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition Height="1.2*"/>
                     </Grid.RowDefinitions>
                     <!--Username field-->
                     <Grid Grid.Row="0">
@@ -149,7 +149,7 @@
                                 Background="Transparent"
                                 Height="30"
                                 HorizontalAlignment="Center"
-                                Margin="0 0 0 10"
+                                Margin="0 0 0 15"
                                 Grid.ColumnSpan="2">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
@@ -167,6 +167,7 @@
                     Grid.Row="1"
                     Visibility="Hidden">
                     <Grid.RowDefinitions>
+                        <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -228,8 +229,26 @@
                         Margin="40 0 0 0"/>
                     </Grid>
 
-                    <!--Button Field-->
                     <Grid Grid.Row="3">
+                        <materialDesign:PackIcon 
+                        Width="25"
+                        Height="25"
+                        Kind="Key"
+                        VerticalAlignment="Top"
+                        Margin="40 12 0 0"/>
+                        <PasswordBox
+                        x:Name="pbAdminPassword"
+                        materialDesign:HintAssist.Hint="Mật khẩu admin"
+                        Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                        VerticalAlignment="Top"
+                        Height="40"
+                        Width="200" 
+                        FontSize="15"
+                        Margin="40 0 0 0"/>
+                    </Grid>
+
+                    <!--Button Field-->
+                    <Grid Grid.Row="4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />

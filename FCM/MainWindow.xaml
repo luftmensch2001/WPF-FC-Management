@@ -656,7 +656,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="3.5*"/>
                 </Grid.ColumnDefinitions>
                  
                 <!--Search bar-->
@@ -664,7 +664,7 @@
                       Margin="30 0 0 0">
                     <TextBox
                         x:Name="tbSearchLeague"
-                        Width="300"
+                        Width="260"
                         FontSize="18"
                         materialDesign:HintAssist.Hint="Nhập tên giải đấu"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -702,12 +702,14 @@
                 <!--Button Edit-->
                 <Grid Grid.Column="2"
                       Margin="30 0 0 0">
+                    <StackPanel Orientation="Horizontal">
                     <Button x:Name="btnEditLeague"
                             Style="{StaticResource MyGreenButtonStyle}"
                             Background="#4554ff"
-                            Width="150"
+                            Width="140"
                             Height="35"
-                            Margin="70 12 0 0"
+                            Padding="0"
+                            Margin="0 12 0 0"
                             HorizontalAlignment="Left">
 
                         <StackPanel Orientation="Horizontal">
@@ -724,6 +726,24 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Button>
+                        <Button x:Name="btnDeleteLeague"
+                            Style="{StaticResource MyRedButtonStyle}"
+                            Width="130"
+                            Height="35"
+                            Padding="0"
+                            Margin="10 12 0 0"
+                            HorizontalAlignment="Left">
+
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon 
+                                    Width="20"
+                                    Height="20"
+                                    Kind="Bin"
+                                    Margin="0 0 8 0"/>
+                                <TextBlock Text="Xoá giải đấu" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
                 </Grid>
 
                 <!--Button create-->
@@ -731,10 +751,10 @@
                       Margin="30 0 0 0">
                     <Button x:Name="btnCreateLeague"
                             Style="{StaticResource MyGreenButtonStyle}"
-                            Width="170"
+                            Width="160"
                             Height="35"
                             Padding="0"
-                            Margin="0 12 30 0"
+                            Margin="0 12 20 0"
                             HorizontalAlignment="Right">
 
                         <StackPanel Orientation="Horizontal">
