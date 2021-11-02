@@ -104,6 +104,8 @@ namespace FCM.ViewModel
                     parameter.btnLeagues.Foreground = lightGreen;
                     parameter.icLeagues.Foreground = lightGreen;
                     parameter.grdLeaguesScreen.Visibility = Visibility.Visible;
+                    UserControls.ucLeagueCard ucLeagueCard = new UserControls.ucLeagueCard();
+                    parameter.wpLeagueCards.Children.Add(ucLeagueCard);
                     break;
                 case 2:
                     parameter.btnSchedule.Foreground = lightGreen;

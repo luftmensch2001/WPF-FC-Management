@@ -793,7 +793,7 @@
                                         <Setter Property="Height" Value="190" />
                                     </Style>
                                 </WrapPanel.Resources>
-                                <!--Add Cards here-->
+                                <!--Add Cards here
                                 <userControl:ucLeagueCard />
                                 <userControl:ucLeagueCard />
                                 <userControl:ucLeagueCard />
@@ -803,7 +803,7 @@
                                 <userControl:ucLeagueCard />
                                 <userControl:ucLeagueCard />
                                 <userControl:ucLeagueCard />
-                                <userControl:ucLeagueCard />
+                                <userControl:ucLeagueCard /> -->
                             </WrapPanel>
                         </ScrollViewer>
                     </Grid>

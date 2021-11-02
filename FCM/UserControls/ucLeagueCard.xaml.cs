@@ -10,6 +10,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FCM.DAO;
+using FCM.DTO;
 
 namespace FCM.UserControls
 {
@@ -22,5 +24,14 @@ namespace FCM.UserControls
         {
             InitializeComponent();
         }
+        public ucLeagueCard(League league)
+        {
+            InitializeComponent();
+            imgLeagueLogo.Source = league.logo;
+            tblLeagueName.Text = league.nameLeague;
+            tblLeagueStatus.Text = league.nameLeague.ToString();
+            tblLeagueTeamsCount.Text = league.countTeam.ToString();
+        }
+
     }
 }

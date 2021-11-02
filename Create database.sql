@@ -27,7 +27,8 @@ Create Table Tournaments
 	DisplayName nvarchar(100),												-- Tên giải đấu
 	Time Datetime,
 	Status Bit,
-	Logo Image
+	Logo Image,
+	countTeam int
 )
 Go
 

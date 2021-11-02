@@ -39,20 +39,20 @@
                         Style="{StaticResource H1}"/>
             <Rectangle Fill="#ccc" Height="1" VerticalAlignment="Bottom" Margin="0 0 0 10"/>
         </Grid>
-        
+
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            
+
             <!--#region Infor Fields-->
             <Grid Grid.Column="0">
                 <TextBlock Text="Thông tin cơ bản"
                            Style="{StaticResource H2}"
                            VerticalAlignment="Top"
                            FontSize="16"/>
-                       
+
                 <Border CornerRadius="12" 
                         Background="#fff" 
                         Width="350"
@@ -79,7 +79,7 @@
                                 Width="250" 
                                 FontSize="15"
                                 Margin="0 20 0 0"/>
-                        
+
                         <!--Time-->
                         <DatePicker
                                 Width="250"
@@ -101,7 +101,7 @@
                 </Border>
             </Grid>
             <!--#endregion-->
-            
+
             <!--#region Logo-->
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>

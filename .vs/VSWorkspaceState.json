@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\FCM"
+    "\\FCM",
+    "\\FCM\\DAO",
+    "\\FCM\\ViewModel"
   ],
-  "SelectedNode": "\\FCM\\MainWindow.xaml",
+  "SelectedNode": "\\FCM\\ViewModel\\AddLeagueViewModel.cs",
   "PreviewInSolutionExplorer": false
 }

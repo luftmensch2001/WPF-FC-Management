@@ -1,6 +1,5 @@
 ﻿using FCM.View;
 using Microsoft.Expression.Interactivity.Core;
-using FCM.View;
 using System;
 using System.Collections.Generic;
 using System.Text;
