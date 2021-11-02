@@ -32,7 +32,17 @@ namespace FCM.DAO
             
             return users;
         }
-
+        public void CreateAccount(Account account)
+        {
+            string query = "Insert into Users (username, password, displayname, roleLevel) " +
+                           "Values  (" +
+                           "'"+ account.userName.ToString() + "'" + "," +
+                           "'" + account.password.ToString() + "'" + "," +
+                           "'" + account.displayName.ToString()+" " + "'" + "," +
+                           account.roleLevel.ToString() +
+                           ")";
+           DataProvider.Instance.ExecuteQuery(query);
+        }
 
         public static string MD5Hash(string input)
         {
@@ -50,6 +60,46 @@ namespace FCM.DAO
         {
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
             return System.Convert.ToBase64String(plainTextBytes);
+        }
+        public string GetPasswordAdmin()
+        {
+            string query = "Select* " +
+                           "From Users " +
+                           "Where roleLevel = 1  ";
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+            
+            if (tb!=null)
+                return (string)tb.Rows[0]["password"];
+            return "";
+        }
+        public int GetId(string userName)
+        {
+            string query = "Select* " +
+                           "From Users " +
+                           "Where username = '" +userName + "'";
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+
+            if (tb.Rows[0] != null)
+                return (int)tb.Rows[0]["id"];
+            return 1;
+        }
+        public string GetPassword(string userName)
+        {
+            string query = "Select* " +
+                           "From Users " +
+                           "Where username = '" + userName + "'";
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+
+            if (tb.Rows[0] != null)
+                return (string)tb.Rows[0]["password"];
+            return " ";
+        }
+        public void UpdatePassword(string userName, string password)
+        {
+            string query = "Update Users " +
+                            "Set password = '" + password + "' " +
+                            "Where username = '" + userName + "' ";
+            DataProvider.Instance.ExecuteQuery(query);
         }
     }
 }

@@ -24,6 +24,7 @@ namespace FCM.ViewModel
         public ICommand OpenAddGoalTypeCommand { get; set; }
         public ICommand OpenEditGoalTypeCommand { get; set; }
         public ICommand OpenChangePasswordCommand { get; set; }
+        public ICommand OpenLoginCommand { get; set; }
        
         public ICommand SearchLeagueCommand { get; set; }
 
@@ -43,7 +44,8 @@ namespace FCM.ViewModel
             OpenAddPlayerWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddPlayerWindow());
             OpenAddGoalTypeCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddGoalTypeWindow());
             OpenEditGoalTypeCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenEditGoalTypeWindow());
-            OpenChangePasswordCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenChangePasswordWindow(parameter));
+            OpenChangePasswordCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenChangePasswordWindow(parameter));
+            OpenLoginCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenLoginWindow(parameter));
             SearchLeagueCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SearchLeague(parameter));
              
         }
@@ -229,11 +231,19 @@ namespace FCM.ViewModel
             wd.btnAdd.Content = "Xác nhận";
             wd.ShowDialog();
         }
-        public void OpenChangePasswordWindow(string username)
+        public void OpenChangePasswordWindow(MainWindow parameter)
         {
-            ChangePasswordWindow wd = new ChangePasswordWindow(username);
+            ChangePasswordWindow wd = new ChangePasswordWindow(parameter.currentAccount);
             wd.ShowDialog();
         }
-        
+        public void OpenLoginWindow(MainWindow parameter)
+        {
+            LoginWindow loginWindow = new LoginWindow();
+            parameter.Hide();
+            loginWindow.Show();
+            parameter.Close();
+        }
+
+
     }   
 }

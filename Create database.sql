@@ -15,6 +15,9 @@ Create Table Users
 	RoleLevel int															-- Level người dùng ( 1 - Admin, 2 - staff)
 )
 Go
+insert into Users(Username,Password,DisplayName,RoleLevel)
+values ('admin','cdd96d3cc73d1dbdaffa03cc6cd7339b','a',1)
+Go
 
 -- Giải đấu -- 
 Create Table Tournaments

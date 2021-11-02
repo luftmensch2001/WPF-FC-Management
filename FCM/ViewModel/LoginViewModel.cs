@@ -13,17 +13,17 @@ namespace FCM.ViewModel
     {
         public ICommand ExitLoginCommand { get; set; }
         public ICommand OpenRegisterCommand { get; set; }
+        public ICommand RegisterCommand { get; set; }
         public ICommand OpenLoginCommand { get; set; }
         public ICommand LoginCommand { get; set; }
 
-      //  public string UserName { get => UserName; set { UserName = value;OnPropertyChanged(); } } 
-    //    public string Password { get => Password; set { Password = value;OnPropertyChanged(); } } 
         
         public LoginViewModel()
         {
             
             ExitLoginCommand = new RelayCommand<LoginWindow>((parameter) => true, (parameter) => parameter.Close());
             OpenRegisterCommand = new RelayCommand<LoginWindow>((parameter) => true, (parameter) => OpenRegister(parameter));
+            RegisterCommand = new RelayCommand<LoginWindow>((parameter) => true, (parameter) => Register(parameter));
             OpenLoginCommand = new RelayCommand<LoginWindow>((parameter) => true, (parameter) => OpenLogin(parameter));
             LoginCommand = new RelayCommand<LoginWindow>((parameter) => true, (parameter) => Login(parameter));
         }
@@ -54,25 +54,87 @@ namespace FCM.ViewModel
                 return;
             }
 
-          //  MessageBox.Show(parameter.tbUsername.Text);
-           // MessageBox.Show(parameter.pbPassword.Password);
-
             string userName = parameter.tbUsername.Text;
-            //string passwordEncode = FCM.DAO.UserDAO.MD5Hash(UserDAO.Base64Encode(parameter.pbPassword.Password));\
-            string password = parameter.pbPassword.Password;
+            string password = AccountDAO.MD5Hash(AccountDAO.Base64Encode(parameter.pbPassword.Password));
+            //string password = parameter.pbPassword.Password;
             List<Account> accounts = AccountDAO.Instance.GetListAccount();
             //MessageBox.Show(accounts.Count.ToString());
             foreach (Account account in accounts)
             {
                 if (account.userName == userName && account.password == password)
                 {
-                    MainWindow mainWindow = new MainWindow();
-                    mainWindow.ShowDialog();
-                    MessageBox.Show("TRUE");
+                    MainWindow mainWindow = new MainWindow(account);
+                    parameter.Hide();
+                    mainWindow.Show();
+                    parameter.Close();
+                    return;
+                }
+                if (account.userName == userName && account.password != password)
+                {
+                    MessageBox.Show("Sai mật khẫu");
+                    return;
+                }    
+            }
+            MessageBox.Show("Tài khoản không tồn tại");
+        }
+        public void Register(LoginWindow parameter)
+        {
+            if (parameter.tbRegUsername.Text == "")
+            {
+                MessageBox.Show("Vui lòng nhập tên tài khoản");
+                return;
+            }
+            if (parameter.pbRegPassword.Password == "")
+            {
+                MessageBox.Show("Vui lòng nhập mật khẫu");
+                return;
+            }
+            if (parameter.pbRePassword.Password == "")
+            {
+                MessageBox.Show("Vui lòng nhập mật khẫu xác nhận");
+                return;
+            }
+            if (parameter.pbRePassword.Password != parameter.pbRegPassword.Password)
+            {
+                MessageBox.Show("Mật khẫu không khớp với Mật khẫu xác nhận");
+                return;
+            }
+            if (parameter.pbAdminPassword.Password == "")
+            {
+                MessageBox.Show("Vui lòng nhập mật khẫu admin");
+                return;
+            }
+
+            string userName = parameter.tbRegUsername.Text;
+            string password = AccountDAO.MD5Hash(AccountDAO.Base64Encode(parameter.pbRegPassword.Password));
+            //string password = parameter.pbRegPassword.Password;
+            string rePassword = parameter.pbRePassword.Password;
+            string regPasswordAdmin = AccountDAO.MD5Hash(AccountDAO.Base64Encode(parameter.pbAdminPassword.Password));
+
+            List<Account> accounts = AccountDAO.Instance.GetListAccount();
+            foreach (Account account in accounts)
+            {
+                if (account.userName == userName)
+                {
+                    MessageBox.Show("Tài khoản đã tồn tại");
                     return;
                 }
             }
-            MessageBox.Show("False");
+            string passwordAdmin = AccountDAO.Instance.GetPasswordAdmin();
+            if (passwordAdmin != regPasswordAdmin)
+            {
+                MessageBox.Show("Mật khẫu admin không chính xác    " + passwordAdmin + "  " + regPasswordAdmin);
+                return;
+            }
+            Account account1 = new Account(userName, password, "", 0);
+            AccountDAO.Instance.CreateAccount(account1);
+            account1.id = AccountDAO.Instance.GetId(account1.userName);
+            MessageBox.Show(account1.id.ToString());
+            MainWindow mainWindow = new MainWindow(account1);
+            parameter.Hide();
+            mainWindow.Show();
+            parameter.Close();
+
         }
     }
 }

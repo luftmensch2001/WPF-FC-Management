@@ -13,6 +13,21 @@ namespace FCM.DTO
         public string displayName { get; set; }
         public int roleLevel { get; set; }
 
+        public Account(string userName, string password, string displayname, int roleLevel)
+        {
+            this.userName = userName;
+            this.password = password;
+            this.displayName = displayname;
+            this.roleLevel = roleLevel;
+        }
+        public Account(int id, string userName, string password, string displayname, int roleLevel)
+        {
+            this.id = id;
+            this.userName = userName;
+            this.password = password;
+            this.displayName = displayName;
+            this.roleLevel = roleLevel;
+        }
         public Account(DataRow row)
         {
             this.id = (int)row["id"];

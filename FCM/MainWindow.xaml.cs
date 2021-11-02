@@ -30,7 +30,9 @@ namespace FCM
         public MainWindow(Account account)
         {
             currentAccount = account;
+          
             InitializeComponent();
+            tblUsername.Text = "Xin chào " + account.userName;
         }
     }
 }

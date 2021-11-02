@@ -12,7 +12,7 @@ TRACE;RELEASE;NETCOREAPP;NETCOREAPP3_1;
 F:\Clone\WPF-FC-Management\FCM\App.xaml
 26695722485
 
-32-596286227
+34766371145
 197-1454842983
 MainWindow.xaml;Resource\ButtonStyle.xaml;Resource\MainResource.xaml;Resource\ScrollBarStyle.xaml;Resource\TextStyle.xaml;UserControls\ucCard.xaml;UserControls\ucFootballer.xaml;UserControls\ucGoal.xaml;UserControls\ucLeagueCard.xaml;UserControls\ucMatchDetail.xaml;UserControls\ucMatchDetailNoEdit.xaml;UserControls\ucPlayer.xaml;UserControls\ucSwitchedPlayers.xaml;UserControls\ucTeamButton.xaml;View\AddCardWindow.xaml;View\AddGoalTypeWindow.xaml;View\AddGoalWindow.xaml;View\AddLeagueWindow.xaml;View\AddPlayerWindow.xaml;View\AddTeamWindow.xaml;View\ChangePasswordWindow.xaml;View\EditDialogWindow.xaml;View\EditMatchInforWindow.xaml;View\LoginWindow.xaml;View\ResultRecordingWindow.xaml;View\SwitchPlayersWindow.xaml;
 
