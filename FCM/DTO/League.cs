@@ -18,7 +18,7 @@ namespace FCM.DTO
         public string nameLeague { get; set; }
         public int status { get; set; }
         public DateTime dateTime { get; set; }
-        public BitmapImage logo { get; set; }
+        public Byte[] logo { get; set; }
         public int countTeam { get; set; } = 0;
 
         public League(DataRow row)
@@ -28,9 +28,10 @@ namespace FCM.DTO
             this.nameLeague = (string)row["displayname"];
             this.status = (int)row["status"];
             this.dateTime = (DateTime)row["time"];
-            this.logo = ImageProcessing.Instance.LoadImage((byte[])row["logo"]);
+            this.logo = (byte[])row["logo"];
+            this.countTeam = (int)row["countTeam"];
         }
-        public League(string nameSpender, string nameLeague, int status, DateTime dateTime, BitmapImage logo, int countTeam)
+        public League(string nameSpender, string nameLeague, int status, DateTime dateTime, Byte[] logo, int countTeam)
         {
             this.nameLeague = nameLeague;
             this.nameSpender = nameSpender;

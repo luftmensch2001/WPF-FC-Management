@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Drawing;
 using System.Windows.Media.Imaging;
-using FCM.DAO;
-using FCM.DTO;
 
 namespace FCM.DAO
 {
@@ -18,40 +17,37 @@ namespace FCM.DAO
             get { if (instance == null) instance = new ImageProcessing(); return instance; }
             set => instance = value;
         }
-        public byte[] ConvertBitmapSourceToByteArray(BitmapEncoder encoder, System.Windows.Media.ImageSource imageSource)
+        public byte[] convertImgToByte(Image img)
         {
-            byte[] bytes = null;
-            var bitmapSource = imageSource as BitmapSource;
-
-            if (bitmapSource != null)
+            using (MemoryStream ms = new MemoryStream())
             {
-                encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
-
-                using (var stream = new MemoryStream())
-                {
-                    encoder.Save(stream);
-                    bytes = stream.ToArray();
-                }
+                img.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                return ms.ToArray();
             }
-
-            return bytes;
         }
-        public BitmapImage LoadImage(byte[] imageData)
+        public Image ByteToImg(Byte[] byteString)
         {
-            if (imageData == null || imageData.Length == 0) return null;
-            var image = new BitmapImage();
-            using (var mem = new MemoryStream(imageData))
-            {
-                mem.Position = 0;
-                image.BeginInit();
-                image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.UriSource = null;
-                image.StreamSource = mem;
-                image.EndInit();
-            }
-            image.Freeze();
+            MemoryStream ms = new MemoryStream(byteString, 0, byteString.Length);
+            ms.Write(byteString, 0, byteString.Length);
+            Image image = Image.FromStream(ms);
+
             return image;
+        }
+        public BitmapImage Convert(Image img)
+        {
+            using (var memory = new MemoryStream())
+            {
+                img.Save(memory, System.Drawing.Imaging.ImageFormat.Png);
+                memory.Position = 0;
+
+                var bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = memory;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+
+                return bitmapImage;
+            }
         }
     }
 }

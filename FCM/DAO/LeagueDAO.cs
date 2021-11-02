@@ -34,16 +34,17 @@ namespace FCM.DAO
         }
         public void CreateLeague(League league)
         {
-            string query = "Insert into Tournaments (Honors,DisplayName,Time,Status,Logo,countTeam ) " +
+            string query = "Insert into Tournaments (Honors,DisplayName,Time,Status,countTeam ) " +
                          "Values (  " +
                          "'" + league.nameSpender + "' ," +
                          "'" + league.nameLeague + "' ," +
                          "'" + league.dateTime + "' ," +
                          "'" + league.status + "' ," +
-                         "'" + ImageProcessing.Instance.ConvertBitmapSourceToByteArray(new PngBitmapEncoder(), league.logo) + "' ," +
                          "' " + league.countTeam.ToString() + "'" +
                          ")";
             DataProvider.Instance.ExecuteQuery(query);
+            query = "UPDATE Tournaments SET logo = @img WHERE ID = (SELECT MAX(Id) FROM Tournaments)";
+            DataProvider.Instance.ExecuteQuery(query, new object[] { league.logo });
         }
     }
 }

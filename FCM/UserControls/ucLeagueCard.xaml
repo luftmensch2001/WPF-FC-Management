@@ -8,7 +8,9 @@
              d:DesignHeight="190" d:DesignWidth="260"
              VerticalAlignment="Top"
              HorizontalAlignment="Left"
+             DataContext="{StaticResource MainVM}"
              Margin="0 20 20 0">
+             
     <Border CornerRadius="8" 
             Background="Transparent" 
             BorderBrush="#fff"
@@ -21,13 +23,15 @@
                     <RowDefinition Height="1.4*"/>
                 </Grid.RowDefinitions>
                 <!--Logo-->
-                <Grid Grid.Row="0">
-                    <Image x:Name="imgLeagueLogo"
+                 <Image x:Name="imgLeagueLogo"
                        Margin="15 15 15 5"
-                       Width="210"
-                       Source="/Resource/Images/vleague.png" />
-                </Grid>
-                <!--Detail-->
+                       Width="210">
+
+                    <Image.Source>
+                    <BitmapImage UriSource="/Resource/Images/vleague.png" />
+                    </Image.Source>
+                </Image>
+            <!--Detail-->
                 <Grid Grid.Row="1">
                     <TextBlock x:Name="tblLeagueName"
                            Text="Giải bóng đá ao làng"
@@ -65,20 +69,24 @@
                            HorizontalAlignment="Left"
                            Margin="20 0 0 10"
                            VerticalAlignment="Bottom"/>
-
+                <Grid Grid.Row="1">
                     <Button x:Name="btnLeagueDetail"
                             Style="{StaticResource MyGreenButtonStyle}"
                             Content="Đi tới"
                             MinWidth="20"
                             Width="60"
                             Height="30"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
                             FontSize="14"
                             FontWeight="Medium"
                             Padding="0"
                             Margin="0 0 10 5" 
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"/>
+                            >
+                    </Button>
                 </Grid>
+
+            </Grid>
      
             </Grid>
     </Border>

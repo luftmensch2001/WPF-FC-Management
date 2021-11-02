@@ -19,6 +19,8 @@ namespace FCM.ViewModel
         public ICommand CancelAddLeagueCommand { get; set; }
         public ICommand AddLeagueCommand { get; set; }
         public ICommand AddLogoLeagueCommand { get; set; }
+        private string pathImage = "";
+        private System.Drawing.Image imaged;
 
         public AddLeagueViewModel()
         {
@@ -34,13 +36,15 @@ namespace FCM.ViewModel
             if (path != "")
                 try
                 {
-                    Uri fileUri = new Uri(path);
-                    parameter.imgLeagueLogo.Source = new BitmapImage(fileUri);
+                    pathImage = path;
+                    imaged = Image.FromFile(path);
+                    parameter.imgLeagueLogo.Source = ImageProcessing.Instance.Convert(imaged);
                 }
                 catch
                 {
                     MessageBox.Show("File không hợp lệ, vui lòng chọn lại", "Lỗi");
                 }
+
         }
         void AddLeague(AddLeagueWindow parameter)
         {
@@ -80,16 +84,9 @@ namespace FCM.ViewModel
                 MessageBox.Show("Vui lòng chọn logo giải đấu");
                 return;
             }
-            try
-            {
-                League league = new League(parameter.tbSponsor.Text, parameter.tbUsername.Text, 0, DateTime.Parse(parameter.datePicker.ToString()), (BitmapImage)parameter.imgLeagueLogo.Source, number);
+                League league = new League(parameter.tbSponsor.Text, parameter.tbUsername.Text, 0, DateTime.Parse(parameter.datePicker.ToString()),ImageProcessing.Instance.convertImgToByte(imaged), number);
                 LeagueDAO.Instance.CreateLeague(league);
                 MessageBox.Show("Tạo mùa giải thành công");
-            }
-            catch
-            {
-                MessageBox.Show("Tạo mùa giải thất bại");
-            }
 
         }
     }

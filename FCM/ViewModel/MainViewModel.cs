@@ -153,18 +153,18 @@ namespace FCM.ViewModel
         public void OpenAddLeagueWindow(MainWindow parameter)
         {
             AddLeagueWindow wd = new AddLeagueWindow();
-            
             wd.ShowDialog();
             LoadListLeague(parameter);
         }
         public void LoadListLeague(MainWindow parameter)
         {
+            //parameter.wpLeagueCards.Children.Clear();
             List<League> leagues = new List<League>();
             leagues = LeagueDAO.Instance.GetListLeagues();
             foreach (League league in leagues)
             {
                 ucLeagueCard ucLeagueCard = new ucLeagueCard(league);
-                parameter.grdLeagues.Children.Add(ucLeagueCard);
+                parameter.wpLeagueCards.Children.Add(ucLeagueCard);
             }    
         }
         public void OpenEditLeagueWindow()

@@ -767,7 +767,8 @@
                         </StackPanel>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
-                                <i:InvokeCommandAction Command="{Binding OpenAddLeagueWindowCommand}"/>
+                                <i:InvokeCommandAction Command="{Binding OpenAddLeagueWindowCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Button>
@@ -794,6 +795,7 @@
                                     </Style>
                                 </WrapPanel.Resources>
                                 <!--Add Cards here-->
+                                <userControl:ucLeagueCard />
                             </WrapPanel>
                         </ScrollViewer>
                     </Grid>

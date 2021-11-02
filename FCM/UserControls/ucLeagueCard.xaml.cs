@@ -27,10 +27,10 @@ namespace FCM.UserControls
         public ucLeagueCard(League league)
         {
             InitializeComponent();
-            imgLeagueLogo.Source = league.logo;
+            imgLeagueLogo.Source = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(league.logo));
             tblLeagueName.Text = league.nameLeague;
-            tblLeagueStatus.Text = league.nameLeague.ToString();
-            tblLeagueTeamsCount.Text = league.countTeam.ToString();
+            tblLeagueStatus.Text = league.status.ToString();
+            tblLeagueTeamsCount.Text = league.countTeam.ToString()+" Đội";
         }
 
     }
