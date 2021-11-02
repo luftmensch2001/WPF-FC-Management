@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\FCM",
+    "\\FCM\\DAO",
+    "\\FCM\\DTO",
     "\\FCM\\ViewModel"
   ],
-  "SelectedNode": "\\FCM\\ViewModel\\MainViewModel.cs",
+  "SelectedNode": "\\FCM.sln",
   "PreviewInSolutionExplorer": false
 }

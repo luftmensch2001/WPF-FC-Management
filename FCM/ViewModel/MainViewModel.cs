@@ -6,6 +6,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using FCM.DAO;
+using FCM.DTO;
+using FCM.UserControls;
 
 namespace FCM.ViewModel
 {
@@ -37,7 +40,7 @@ namespace FCM.ViewModel
             SwitchTabCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SwitchTab(parameter));
             SwitchTabStatisticsCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SwitchTabStatistics(parameter));
             GetUidCommand = new RelayCommand<Button>((parameter) => true, (parameter) => uid = parameter.Uid);
-            OpenAddLeagueWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddLeagueWindow());
+            OpenAddLeagueWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenAddLeagueWindow(parameter));
             OpenEditDialogCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenEditDialogWindow(parameter));
             OpenEditLeagueWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenEditLeagueWindow());
             OpenAddTeamWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddTeamWindow());
@@ -104,6 +107,7 @@ namespace FCM.ViewModel
                     parameter.btnLeagues.Foreground = lightGreen;
                     parameter.icLeagues.Foreground = lightGreen;
                     parameter.grdLeaguesScreen.Visibility = Visibility.Visible;
+                    LoadListLeague(parameter);
                     break;
                 case 2:
                     parameter.btnSchedule.Foreground = lightGreen;
@@ -146,12 +150,23 @@ namespace FCM.ViewModel
             }
         }
 
-        public void OpenAddLeagueWindow()
+        public void OpenAddLeagueWindow(MainWindow parameter)
         {
             AddLeagueWindow wd = new AddLeagueWindow();
+            
             wd.ShowDialog();
+            LoadListLeague(parameter);
         }
-
+        public void LoadListLeague(MainWindow parameter)
+        {
+            List<League> leagues = new List<League>();
+            leagues = LeagueDAO.Instance.GetListLeagues();
+            foreach (League league in leagues)
+            {
+                ucLeagueCard ucLeagueCard = new ucLeagueCard(league);
+                parameter.grdLeagues.Children.Add(ucLeagueCard);
+            }    
+        }
         public void OpenEditLeagueWindow()
         {
             AddLeagueWindow wd = new AddLeagueWindow();

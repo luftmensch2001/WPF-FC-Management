@@ -26,8 +26,9 @@ Create Table Tournaments
 	Honors nvarchar(100),													-- Nhà tài trợ
 	DisplayName nvarchar(100),												-- Tên giải đấu
 	Time Datetime,
-	Status Bit,
-	Logo Image
+	Status int,
+	Logo Image,
+	countTeam int
 )
 Go
 
