@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\FCM"
+    "\\FCM",
+    "\\FCM\\ViewModel"
   ],
-  "SelectedNode": "\\FCM\\MainWindow.xaml",
+  "SelectedNode": "\\FCM\\ViewModel\\MainViewModel.cs",
   "PreviewInSolutionExplorer": false
 }
