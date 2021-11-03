@@ -30,12 +30,12 @@ namespace FCM.ViewModel
         public ICommand OpenEditGoalTypeCommand { get; set; }
         public ICommand OpenChangePasswordCommand { get; set; }
         public ICommand OpenLoginCommand { get; set; }
-       
+
         public ICommand SearchLeagueCommand { get; set; }
 
         public string uid;
 
-        public SolidColorBrush lightGreen = new SolidColorBrush((Color) ColorConverter.ConvertFromString("#52ff00"));
+        public SolidColorBrush lightGreen = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#52ff00"));
         public SolidColorBrush white = new SolidColorBrush(Colors.White);
         public MainViewModel()
         {
@@ -54,9 +54,8 @@ namespace FCM.ViewModel
             OpenChangePasswordCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenChangePasswordWindow(parameter));
             OpenLoginCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenLoginWindow(parameter));
             SearchLeagueCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SearchLeague(parameter));
-             
-        }
 
+        }
         public void SwitchTab(MainWindow parameter)
         {
             int index = int.Parse(uid); // tab index
@@ -102,7 +101,7 @@ namespace FCM.ViewModel
                 case 0:
                     parameter.btnHome.Foreground = lightGreen;
                     parameter.icHome.Foreground = lightGreen;
-                    if (0>1) // Nếu có ít nhất 1 mùa giải
+                    if (0 > 1) // Nếu có ít nhất 1 mùa giải
                         parameter.grdHomeScreen.Visibility = Visibility.Visible;
                     else
                         parameter.grdHomeNoLeagueScreen.Visibility = Visibility.Visible;
@@ -134,9 +133,13 @@ namespace FCM.ViewModel
                     parameter.grdStatisticsScreen.Visibility = Visibility.Visible;
                     break;
                 case 6:
-                    parameter.btnSetting.Foreground = lightGreen;
-                    parameter.icSetting.Foreground = lightGreen;
-                    parameter.grdSettingScreen.Visibility = Visibility.Visible;
+                    if (parameter.league != null)
+                    {
+                        parameter.btnSetting.Foreground = lightGreen;
+                        parameter.icSetting.Foreground = lightGreen;
+                        parameter.grdSettingScreen.Visibility = Visibility.Visible;
+                        GetDetailSetting(parameter);
+                    }
                     break;
                 case 7:
                     parameter.btnHelp.Foreground = lightGreen;
@@ -156,9 +159,12 @@ namespace FCM.ViewModel
 
         public void OpenAddLeagueWindow(MainWindow parameter)
         {
-            AddLeagueWindow wd = new AddLeagueWindow();
-            wd.ShowDialog();
-            LoadListLeague(parameter);
+            if (parameter.currentAccount.roleLevel == 1)
+            {
+                AddLeagueWindow wd = new AddLeagueWindow();
+                wd.ShowDialog();
+                LoadListLeague(parameter);
+            }
         }
         public List<League> leagues;
         public void LoadListLeague(MainWindow parameter)
@@ -169,12 +175,14 @@ namespace FCM.ViewModel
         void LoadListLeagueToScreen(List<League> listLeagues, MainWindow parameter)
         {
             parameter.wpLeagueCards.Children.Clear();
-            if (listLeagues!=null)
-            if (parameter.league == null)
-            {
-                if (leagues.Count > 0)
-                    LoadDetailLeague(leagues[0], parameter);
-            }
+            if (listLeagues != null)
+                if (parameter.league == null)
+                {
+                    if (leagues.Count > 0)
+                    {
+                        LoadDetailLeague(leagues[0], parameter);
+                    }
+                }
             foreach (League league in listLeagues)
             {
                 ucLeagueCard ucLeagueCard = new ucLeagueCard(league, parameter, this);
@@ -185,9 +193,10 @@ namespace FCM.ViewModel
         {
             window.league = league;
             window.imgLeagueLogo.Source = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(league.logo));
-            window.tblLeagueName.Text = "Tên mùa giải: " +league.nameLeague;
-            window.tblSponsor.Text = "Nhà tài trợ " +league.nameSpender;
-            
+            window.tblLeagueName.Text = "Tên mùa giải: " + league.nameLeague;
+            window.tblSponsor.Text = "Nhà tài trợ " + league.nameSpender;
+            window.setting = SettingDAO.Instance.GetSetting(league.id);
+
             switch (league.status)
             {
                 case 0:
@@ -200,56 +209,112 @@ namespace FCM.ViewModel
                     window.tblLeagueStatus.Text = "Trạng thái: Đã bắt đầu";
                     break;
             }
+            ChangeStatus(league.status, window);
             window.tblLeagueTime.Text = "Thời gian: " + league.dateTime.ToString("M/d/yyyy");
+        }
+        public void ChangeStatus(int status, MainWindow parameter)
+        {
+            switch (parameter.league.status)
+            {
+                case -1:
+                    parameter.btnSchedule.IsEnabled = false;
+                    parameter.btnReport.IsEnabled = false;
+                    parameter.btnTeams.IsEnabled = false;
+                    parameter.btnStanding.IsEnabled = false;
+                    parameter.btnSetting.IsEnabled = false;
+                    break;
+                case 0:
+                    parameter.btnSchedule.IsEnabled = false;
+                    parameter.btnReport.IsEnabled = false;
+                    parameter.btnTeams.IsEnabled = true;
+                    parameter.btnStanding.IsEnabled = false;
+                    parameter.btnSetting.IsEnabled = true;
+                    break;
+                case 1:
+                    parameter.btnSchedule.IsEnabled = true;
+                    parameter.btnReport.IsEnabled = true;
+                    parameter.btnTeams.IsEnabled = true;
+                    parameter.btnStanding.IsEnabled = true;
+                    parameter.btnSetting.IsEnabled = true;
+                    break;
+                case 2:
+                    parameter.btnSchedule.IsEnabled = true;
+                    parameter.btnReport.IsEnabled = true;
+                    parameter.btnTeams.IsEnabled = true;
+                    parameter.btnStanding.IsEnabled = true;
+                    parameter.btnSetting.IsEnabled = true;
+                    break;
+            }
         }
         public void DeleteLeague(MainWindow parameter)
         {
-            if (parameter.league==null)
+            if (parameter.currentAccount.roleLevel == 1)
             {
-            }
-            else
-            {
-                LeagueDAO.Instance.DeleteLeague(parameter.league);
-                parameter.league = null;
+                if (parameter.league == null)
+                {
+                }
+                else
+                {
+                    SettingDAO.Instance.DeleteSetting(parameter.league.id);
+                    LeagueDAO.Instance.DeleteLeague(parameter.league);
+                    parameter.league = null;
 
-                parameter.imgLeagueLogo.Source = parameter.nullImage.Source;
-                parameter.tblLeagueName.Text = "";
-                parameter.tblSponsor.Text = "";
-                parameter.tblLeagueStatus.Text = "";
-                parameter.tblLeagueTime.Text = "";
-                LoadListLeague(parameter);
-            }    
+                    parameter.imgLeagueLogo.Source = parameter.nullImage.Source;
+                    parameter.tblLeagueName.Text = "";
+                    parameter.tblSponsor.Text = "";
+                    parameter.tblLeagueStatus.Text = "";
+                    parameter.tblLeagueTime.Text = "";
+                    LoadListLeague(parameter);
+                }
+            }
         }
         public void OpenEditLeagueWindow(MainWindow parameter)
         {
-            if (parameter.league!=null && parameter.league.status==0)
+            if (parameter.currentAccount.roleLevel == 1)
             {
-                AddLeagueWindow wd = new AddLeagueWindow(parameter.league);
-                wd.tblTitle.Text = "SỬA THÔNG TIN GIẢI ĐẤU";
-                wd.btnCreateLeague.Content = "Sửa";
-                wd.tbSponsor.Text = parameter.league.nameSpender;
-                wd.tbUsername.Text = parameter.league.nameLeague;
-                wd.imgLeagueLogo.Source = parameter.imgLeagueLogo.Source;
-                wd.datePicker.SelectedDate = parameter.league.dateTime;
-                wd.tbCountOfTeams.Text = parameter.league.countTeam.ToString();
-                wd.ShowDialog();
-                LoadDetailLeague(LeagueDAO.Instance.GetLeagueById(parameter.league.id), parameter);
-                LoadListLeague(parameter);
+                if (parameter.league != null && parameter.league.status == 0)
+                {
+                    AddLeagueWindow wd = new AddLeagueWindow(parameter.league);
+                    wd.tblTitle.Text = "SỬA THÔNG TIN GIẢI ĐẤU";
+                    wd.btnCreateLeague.Content = "Sửa";
+                    wd.tbSponsor.Text = parameter.league.nameSpender;
+                    wd.tbUsername.Text = parameter.league.nameLeague;
+                    wd.imgLeagueLogo.Source = parameter.imgLeagueLogo.Source;
+                    wd.datePicker.SelectedDate = parameter.league.dateTime;
+                    wd.tbCountOfTeams.Text = parameter.league.countTeam.ToString();
+                    wd.ShowDialog();
+                    LoadDetailLeague(LeagueDAO.Instance.GetLeagueById(parameter.league.id), parameter);
+                    LoadListLeague(parameter);
+                }
             }
         }
 
         public void SearchLeague(MainWindow parameter)
-        {  
+        {
             string name = StringFormat.Instance.FomartSpace(parameter.tbSearchLeague.Text);
             List<League> listLeague = new List<League>();
             foreach (League league in leagues)
             {
                 if (league.nameLeague.Contains(name))
                     listLeague.Add(league);
-            }    
-            LoadListLeagueToScreen(listLeague,parameter);
+            }
+            LoadListLeagueToScreen(listLeague, parameter);
         }
-
+        public void GetDetailSetting(MainWindow parameter)
+        {
+            if (parameter.setting != null)
+            {
+                parameter.tblCountOfTeams.Text = parameter.setting.numberOfTeam.ToString();
+                parameter.tblMinCountPlayers.Text = parameter.setting.minPlayerOfTeam.ToString();
+                parameter.tblMaxCountPlayers.Text = parameter.setting.maxPlayerOfTeam.ToString();
+                parameter.tblMinAge.Text = parameter.setting.minAge.ToString();
+                parameter.tblMaxAge.Text = parameter.setting.maxAge.ToString();
+                parameter.tblMaxForeign.Text = parameter.setting.maxForeignPlayers.ToString();
+                parameter.tbScoreWin.Text = parameter.setting.scoreWin.ToString();
+                parameter.tbScoreDraw.Text = parameter.setting.scoreDraw.ToString();
+                parameter.tbScoreLose.Text = parameter.setting.scoreLose.ToString();
+            }
+        }
         public void OpenAddTeamWindow()
         {
             AddTeamWindow wd = new AddTeamWindow();

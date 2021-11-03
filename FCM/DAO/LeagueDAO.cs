@@ -41,6 +41,12 @@ namespace FCM.DAO
             League league = new League(tb.Rows[0]);
             return league;
         }
+        public int GetNewestLeagurId()
+        {
+            string query = "SELECT MAX(Id) as id FROM Tournaments";
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+            return (int)tb.Rows[0]["id"];
+        }
         public void CreateLeague(League league)
         {
             string query = "Insert into Tournaments (Honors,DisplayName,Time,Status,countTeam ) " +

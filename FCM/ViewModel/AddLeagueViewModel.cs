@@ -88,6 +88,8 @@ namespace FCM.ViewModel
             {
                 League league = new League(parameter.tbSponsor.Text, parameter.tbUsername.Text, 0, DateTime.Parse(parameter.datePicker.ToString()), ImageProcessing.Instance.convertImgToByte(imaged), number);
                 LeagueDAO.Instance.CreateLeague(league);
+                SettingDAO.Instance.CreateSetting(LeagueDAO.Instance.GetNewestLeagurId(), league.countTeam);
+                
                 MessageBox.Show("Tạo mùa giải thành công");
                 parameter.Close();
             } else
@@ -99,6 +101,7 @@ namespace FCM.ViewModel
                     league = new League(parameter.tbSponsor.Text, parameter.tbUsername.Text, 0, DateTime.Parse(parameter.datePicker.ToString()), ImageProcessing.Instance.convertImgToByte(imaged), number);
                 league.id = parameter.league.id;
                 LeagueDAO.Instance.UpdateLeague(league);
+                SettingDAO.Instance.UpdateSetting_NumberOfTeams(league.id, league.countTeam);
                 MessageBox.Show("Sửa mùa giải thành công");
                 parameter.Close();
             }

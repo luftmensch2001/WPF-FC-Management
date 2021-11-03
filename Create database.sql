@@ -39,9 +39,9 @@ Create Table Teams
 	IdTournaments int,
 	DisplayName nvarchar(100),
 	Coach nvarchar(100),													-- Tên huấn luyện viên
-	Stadium nvarchar(100),													-- Tên sân nhà
-	NumberOfMembers int,													-- Số lượng thành viên
-	Nation nvarchar(100),													-- Quốc gia
+	Stadium nvarchar(100),	
+	Nation nvarchar(100),																							-- Quốc gia
+	Logo Image,
 
 	foreign key (IdTournaments) references Tournaments(Id)
 )
@@ -58,7 +58,7 @@ Create Table Players
 	Position nvarchar(100),													-- Vị trí thi đấu
 	Nationality nvarchar(100),
 	Note nvarchar(max),
-	Image Image,
+	Imagee Image,
 
 	foreign key (IdTeams) references Teams(Id)
 )

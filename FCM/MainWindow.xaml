@@ -155,6 +155,7 @@
                         Margin="40 0 0 0"
                         Foreground="#fff"/>
                     <Button x:Name="btnSchedule" 
+                            IsEnabled="False"
                             Content="LỊCH THI ĐẤU"
                             Height="55"
                             Width="295"
@@ -165,6 +166,7 @@
                             Padding="80 0 0 0"
                             HorizontalContentAlignment="Left"
                             VerticalContentAlignment="Center">
+                       
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
@@ -195,6 +197,7 @@
                         Foreground="#fff"/>
                     <Button x:Name="btnTeams" 
                             Content="ĐỘI BÓNG"
+                            IsEnabled="False"
                             Height="55"
                             Width="295"
                             FontSize="20"
@@ -233,6 +236,7 @@
                         Foreground="#fff"/>
                     <Button x:Name="btnStanding" 
                             Content="BẢNG XẾP HẠNG"
+                            IsEnabled="False"
                             Height="55"
                             Width="295"
                             Uid="4"
@@ -271,6 +275,7 @@
                         Foreground="#fff"/>
                     <Button 
                             Content="THỐNG KÊ"
+                            IsEnabled="False"
                             Height="55"
                             Width="295"
                             FontSize="20"
@@ -310,6 +315,7 @@
                         Foreground="#fff"/>
                     <Button 
                             Content="QUY ĐỊNH"
+                            IsEnabled="False"
                             Height="55"
                             Width="295"
                             FontSize="20"
@@ -1850,9 +1856,9 @@
                                 <StackPanel>
                                     <TextBlock Text="Điểm" HorizontalAlignment="Center" Margin="0, 20, 0, 10"/>
                                     <Rectangle Fill="Gray" Height="1" VerticalAlignment="Bottom" />
-                                    <TextBlock Text="3" />
-                                    <TextBlock Text="1" />
-                                    <TextBlock Text="0" />
+                                    <TextBlock Text="3" x:Name="tbScoreWin"/>
+                                    <TextBlock Text="1" x:Name="tbScoreDraw"/>
+                                    <TextBlock Text="0" x:Name="tbScoreLose"/>
                                 </StackPanel>
                                 <Rectangle Fill="Gray" Width="1" HorizontalAlignment="Right" />
                             </Grid>
