@@ -445,6 +445,8 @@
                        VerticalAlignment="Top" 
                        Margin="0 20 0 0"
                        Source="/Resource/Images/NoLeagueSelected.png"/>
+                    <Image x:Name="nullImage"
+                           Source="/Resource/Images/NoLeagueSelected.png"/>
                 </Grid>
                 <!--League Description-->
                 <Grid Grid.Row="1">
@@ -722,8 +724,9 @@
                         </StackPanel>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
-                                <i:InvokeCommandAction Command="{Binding OpenEditLeagueWindowCommand}"/>
-                            </i:EventTrigger>
+                                    <i:InvokeCommandAction Command="{Binding OpenEditLeagueWindowCommand}" 
+                                                           CommandParameter="{Binding ElementName=wdHome}"/>
+                                </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Button>
                         <Button x:Name="btnDeleteLeague"

@@ -8,6 +8,6 @@
     "\\FCM\\UserControls",
     "\\FCM\\ViewModel"
   ],
-  "SelectedNode": "\\FCM\\UserControls\\ucLeagueCard.xaml",
+  "SelectedNode": "\\FCM\\ViewModel\\AddLeagueViewModel.cs",
   "PreviewInSolutionExplorer": false
 }

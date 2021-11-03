@@ -32,6 +32,15 @@ namespace FCM.DAO
             }
             return leagues;
         }
+        public League GetLeagueById(int id)
+        {
+            string query = "Select* " +
+                         "From Tournaments " +
+                         "Where id= "+ id;
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+            League league = new League(tb.Rows[0]);
+            return league;
+        }
         public void CreateLeague(League league)
         {
             string query = "Insert into Tournaments (Honors,DisplayName,Time,Status,countTeam ) " +
@@ -44,6 +53,20 @@ namespace FCM.DAO
                          ")";
             DataProvider.Instance.ExecuteQuery(query);
             query = "UPDATE Tournaments SET logo = @img WHERE ID = (SELECT MAX(Id) FROM Tournaments)";
+            DataProvider.Instance.ExecuteQuery(query, new object[] { league.logo });
+        }
+        public void UpdateLeague(League league)
+        {
+            string query = "Update Tournaments " +
+                            "Set " +
+                            " Honors = " + "'" + league.nameSpender + "' ," +
+                            " Displayname = " + "'" + league.nameLeague + "' ," +
+                            " Time = " + "'" + league.dateTime + "' ," +
+                            " Status = " + "'" + league.status + "' ," +
+                            " countTeam = " + "' " + league.countTeam.ToString() + "'" +
+                            " Where id = " + league.id;
+            DataProvider.Instance.ExecuteQuery(query);
+            query = "UPDATE Tournaments SET logo = @img WHERE ID = " + league.id;
             DataProvider.Instance.ExecuteQuery(query, new object[] { league.logo });
         }
         public void DeleteLeague(League league)

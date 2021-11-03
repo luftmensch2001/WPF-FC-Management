@@ -46,7 +46,7 @@ namespace FCM.ViewModel
             DeleteLeagueCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => DeleteLeague(parameter));
 
             OpenEditDialogCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenEditDialogWindow(parameter));
-            OpenEditLeagueWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenEditLeagueWindow());
+            OpenEditLeagueWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenEditLeagueWindow(parameter));
             OpenAddTeamWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddTeamWindow());
             OpenAddPlayerWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddPlayerWindow());
             OpenAddGoalTypeCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddGoalTypeWindow());
@@ -160,30 +160,47 @@ namespace FCM.ViewModel
             wd.ShowDialog();
             LoadListLeague(parameter);
         }
+        public List<League> leagues;
         public void LoadListLeague(MainWindow parameter)
         {
-            parameter.wpLeagueCards.Children.Clear();
-            List<League> leagues = new List<League>();
             leagues = LeagueDAO.Instance.GetListLeagues();
+            LoadListLeagueToScreen(leagues, parameter);
+        }
+        void LoadListLeagueToScreen(List<League> listLeagues, MainWindow parameter)
+        {
+            parameter.wpLeagueCards.Children.Clear();
+            if (listLeagues!=null)
             if (parameter.league == null)
             {
                 if (leagues.Count > 0)
                     LoadDetailLeague(leagues[0], parameter);
             }
-            foreach (League league in leagues)
+            foreach (League league in listLeagues)
             {
-                ucLeagueCard ucLeagueCard = new ucLeagueCard(league,parameter,this);
+                ucLeagueCard ucLeagueCard = new ucLeagueCard(league, parameter, this);
                 parameter.wpLeagueCards.Children.Add(ucLeagueCard);
-            }    
+            }
         }
         public void LoadDetailLeague(League league, MainWindow window)
         {
             window.league = league;
             window.imgLeagueLogo.Source = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(league.logo));
-            window.tblLeagueName.Text = league.nameLeague;
-            window.tblSponsor.Text = league.nameSpender;
-            window.tblLeagueStatus.Text = league.status.ToString();
-            window.tblLeagueTime.Text = league.dateTime.ToString();
+            window.tblLeagueName.Text = "Tên mùa giải: " +league.nameLeague;
+            window.tblSponsor.Text = "Nhà tài trợ " +league.nameSpender;
+            
+            switch (league.status)
+            {
+                case 0:
+                    window.tblLeagueStatus.Text = "Trạng thái: Đang đăng ký";
+                    break;
+                case 1:
+                    window.tblLeagueStatus.Text = "Trạng thái: Chuẩn bị bắt đầu";
+                    break;
+                case 2:
+                    window.tblLeagueStatus.Text = "Trạng thái: Đã bắt đầu";
+                    break;
+            }
+            window.tblLeagueTime.Text = "Thời gian: " + league.dateTime.ToString("M/d/yyyy");
         }
         public void DeleteLeague(MainWindow parameter)
         {
@@ -195,8 +212,7 @@ namespace FCM.ViewModel
                 LeagueDAO.Instance.DeleteLeague(parameter.league);
                 parameter.league = null;
 
-                Uri uri = new Uri("pack://application:,,,/Resource/Images/Vleague.png");
-                parameter.imgLeagueLogo.Source = new BitmapImage(uri);
+                parameter.imgLeagueLogo.Source = parameter.nullImage.Source;
                 parameter.tblLeagueName.Text = "";
                 parameter.tblSponsor.Text = "";
                 parameter.tblLeagueStatus.Text = "";
@@ -204,20 +220,34 @@ namespace FCM.ViewModel
                 LoadListLeague(parameter);
             }    
         }
-        public void OpenEditLeagueWindow()
+        public void OpenEditLeagueWindow(MainWindow parameter)
         {
-            AddLeagueWindow wd = new AddLeagueWindow();
-            wd.tblTitle.Text = "SỬA THÔNG TIN GIẢI ĐẤU";
-            wd.btnCreateLeague.Content = "Lưu";
-            // insert current data (name, sponsor, time, logo, ...)  to wd
-            wd.ShowDialog();
+            if (parameter.league!=null && parameter.league.status==0)
+            {
+                AddLeagueWindow wd = new AddLeagueWindow(parameter.league);
+                wd.tblTitle.Text = "SỬA THÔNG TIN GIẢI ĐẤU";
+                wd.btnCreateLeague.Content = "Sửa";
+                wd.tbSponsor.Text = parameter.league.nameSpender;
+                wd.tbUsername.Text = parameter.league.nameLeague;
+                wd.imgLeagueLogo.Source = parameter.imgLeagueLogo.Source;
+                wd.datePicker.SelectedDate = parameter.league.dateTime;
+                wd.tbCountOfTeams.Text = parameter.league.countTeam.ToString();
+                wd.ShowDialog();
+                LoadDetailLeague(LeagueDAO.Instance.GetLeagueById(parameter.league.id), parameter);
+                LoadListLeague(parameter);
+            }
         }
 
         public void SearchLeague(MainWindow parameter)
-        {
-            MainWindow wd = new MainWindow();
-            wd.Show();
-            parameter.Close();
+        {  
+            string name = StringFormat.Instance.FomartSpace(parameter.tbSearchLeague.Text);
+            List<League> listLeague = new List<League>();
+            foreach (League league in leagues)
+            {
+                if (league.nameLeague.Contains(name))
+                    listLeague.Add(league);
+            }    
+            LoadListLeagueToScreen(listLeague,parameter);
         }
 
         public void OpenAddTeamWindow()

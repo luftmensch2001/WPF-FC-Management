@@ -84,10 +84,24 @@ namespace FCM.ViewModel
                 MessageBox.Show("Vui lòng chọn logo giải đấu");
                 return;
             }
-                League league = new League(parameter.tbSponsor.Text, parameter.tbUsername.Text, 0, DateTime.Parse(parameter.datePicker.ToString()),ImageProcessing.Instance.convertImgToByte(imaged), number);
+            if (parameter.league==null)
+            {
+                League league = new League(parameter.tbSponsor.Text, parameter.tbUsername.Text, 0, DateTime.Parse(parameter.datePicker.ToString()), ImageProcessing.Instance.convertImgToByte(imaged), number);
                 LeagueDAO.Instance.CreateLeague(league);
                 MessageBox.Show("Tạo mùa giải thành công");
                 parameter.Close();
+            } else
+            {
+                League league;
+                if (imaged==null)
+                    league = new League(parameter.tbSponsor.Text, parameter.tbUsername.Text, 0, DateTime.Parse(parameter.datePicker.ToString()), parameter.league.logo, number);
+                else
+                    league = new League(parameter.tbSponsor.Text, parameter.tbUsername.Text, 0, DateTime.Parse(parameter.datePicker.ToString()), ImageProcessing.Instance.convertImgToByte(imaged), number);
+                league.id = parameter.league.id;
+                LeagueDAO.Instance.UpdateLeague(league);
+                MessageBox.Show("Sửa mùa giải thành công");
+                parameter.Close();
+            }
 
         }
     }

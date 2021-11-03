@@ -258,3 +258,4 @@ F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
 F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
 F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
 F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.AssemblyReference.cache

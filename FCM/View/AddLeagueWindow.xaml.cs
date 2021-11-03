@@ -9,6 +9,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using FCM.DAO;
+using FCM.DTO;
 
 namespace FCM.View
 {
@@ -17,9 +19,15 @@ namespace FCM.View
     /// </summary>
     public partial class AddLeagueWindow : Window
     {
+        public League league { get; set; }
         public AddLeagueWindow()
         {
             InitializeComponent();
+        }
+        public AddLeagueWindow(League league)
+        {
+            InitializeComponent();
+            this.league = league;
         }
     }
 }
