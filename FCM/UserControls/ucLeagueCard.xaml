@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FCM.UserControls"
+               xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="190" d:DesignWidth="260"
              VerticalAlignment="Top"
@@ -69,7 +70,7 @@
                            HorizontalAlignment="Left"
                            Margin="20 0 0 10"
                            VerticalAlignment="Bottom"/>
-                <Grid Grid.Row="1">
+                <Grid Grid.Column="0">
                     <Button x:Name="btnLeagueDetail"
                             Style="{StaticResource MyGreenButtonStyle}"
                             Content="Đi tới"
@@ -81,8 +82,14 @@
                             FontSize="14"
                             FontWeight="Medium"
                             Padding="0"
-                            Margin="0 0 10 5" 
-                            >
+                            Margin="0 0 10 5">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding GetCommand}"
+                                                       CommandParameter="{Binding ElementName=wcLeagueCard}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
                     </Button>
                 </Grid>
 

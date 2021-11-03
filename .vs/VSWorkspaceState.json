@@ -4,8 +4,10 @@
     "\\FCM",
     "\\FCM\\DAO",
     "\\FCM\\DTO",
+    "\\FCM\\Resource",
+    "\\FCM\\UserControls",
     "\\FCM\\ViewModel"
   ],
-  "SelectedNode": "\\FCM.sln",
+  "SelectedNode": "\\FCM\\Resource\\MainResource.xaml",
   "PreviewInSolutionExplorer": false
 }

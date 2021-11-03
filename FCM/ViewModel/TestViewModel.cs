@@ -4,8 +4,10 @@ using System.Text;
 
 namespace FCM.ViewModel
 {
-    class AccountViewModel 
+    public class TestViewModel
     {
-        
+        public TestViewModel()
+        {
+        }
     }
 }

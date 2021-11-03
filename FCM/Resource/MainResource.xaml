@@ -6,6 +6,7 @@
     <viewmodel:AddLeagueViewModel x:Key="AddLeagueVM" />
     <viewmodel:ResultViewModel x:Key="ResultVM" />
     <viewmodel:ChangePasswordViewModel x:Key="ChangePasswordVM"/>
+    <viewmodel:LeagueCardViewModel x:Key="LeagueCardVM" />
 
     <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#222"/>
 
