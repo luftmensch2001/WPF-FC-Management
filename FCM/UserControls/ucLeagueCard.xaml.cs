@@ -12,6 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FCM.DAO;
 using FCM.DTO;
+using FCM.ViewModel;
 
 namespace FCM.UserControls
 {
@@ -20,13 +21,19 @@ namespace FCM.UserControls
     /// </summary>
     public partial class ucLeagueCard : UserControl
     {
+        public League league { get; set; }
+        public MainWindow mainWindow { get; set; }
+        public MainViewModel main { get; set; }
         public ucLeagueCard()
         {
             InitializeComponent();
         }
-        public ucLeagueCard(League league)
+        public ucLeagueCard(League league, MainWindow parameter, MainViewModel main)
         {
             InitializeComponent();
+            this.mainWindow = parameter;
+            this.main = main;
+            this.league = league;
             imgLeagueLogo.Source = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(league.logo));
             tblLeagueName.Text = league.nameLeague;
             tblLeagueStatus.Text = league.status.ToString();

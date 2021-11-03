@@ -46,5 +46,12 @@ namespace FCM.DAO
             query = "UPDATE Tournaments SET logo = @img WHERE ID = (SELECT MAX(Id) FROM Tournaments)";
             DataProvider.Instance.ExecuteQuery(query, new object[] { league.logo });
         }
+        public void DeleteLeague(League league)
+        {
+            string query = "Delete " +
+                            "From Tournaments " +
+                            "Where id = " + league.id;
+            DataProvider.Instance.ExecuteQuery(query);
+        }    
     }
 }

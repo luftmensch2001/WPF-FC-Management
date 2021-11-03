@@ -135,7 +135,6 @@ F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\MaterialDesignColors.dll
 F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\MaterialDesignThemes.Wpf.dll
 F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Expression.Interactions.dll
 F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Windows.Interactivity.dll
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.AssemblyReference.cache
 F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\Resource\ButtonStyle.baml
 F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\Resource\ScrollBarStyle.baml
 F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\Resource\TextStyle.baml

@@ -9,6 +9,7 @@ using System.Windows.Media;
 using FCM.DAO;
 using FCM.DTO;
 using FCM.UserControls;
+using System.Windows.Media.Imaging;
 
 namespace FCM.ViewModel
 {
@@ -21,6 +22,7 @@ namespace FCM.ViewModel
         public ICommand OpenAddLeagueWindowCommand { get; set; }
 
         public ICommand OpenEditLeagueWindowCommand { get; set; }
+        public ICommand DeleteLeagueCommand { get; set; }
         public ICommand OpenAddTeamWindowCommand { get; set; }
         public ICommand OpenAddPlayerWindowCommand { get; set; }
         public ICommand OpenEditDialogCommand { get; set; }
@@ -41,6 +43,8 @@ namespace FCM.ViewModel
             SwitchTabStatisticsCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SwitchTabStatistics(parameter));
             GetUidCommand = new RelayCommand<Button>((parameter) => true, (parameter) => uid = parameter.Uid);
             OpenAddLeagueWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenAddLeagueWindow(parameter));
+            DeleteLeagueCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => DeleteLeague(parameter));
+
             OpenEditDialogCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenEditDialogWindow(parameter));
             OpenEditLeagueWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenEditLeagueWindow());
             OpenAddTeamWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddTeamWindow());
@@ -158,13 +162,46 @@ namespace FCM.ViewModel
         }
         public void LoadListLeague(MainWindow parameter)
         {
-            //parameter.wpLeagueCards.Children.Clear();
+            parameter.wpLeagueCards.Children.Clear();
             List<League> leagues = new List<League>();
             leagues = LeagueDAO.Instance.GetListLeagues();
+            if (parameter.league == null)
+            {
+                if (leagues.Count > 0)
+                    LoadDetailLeague(leagues[0], parameter);
+            }
             foreach (League league in leagues)
             {
-                ucLeagueCard ucLeagueCard = new ucLeagueCard(league);
+                ucLeagueCard ucLeagueCard = new ucLeagueCard(league,parameter,this);
                 parameter.wpLeagueCards.Children.Add(ucLeagueCard);
+            }    
+        }
+        public void LoadDetailLeague(League league, MainWindow window)
+        {
+            window.league = league;
+            window.imgLeagueLogo.Source = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(league.logo));
+            window.tblLeagueName.Text = league.nameLeague;
+            window.tblSponsor.Text = league.nameSpender;
+            window.tblLeagueStatus.Text = league.status.ToString();
+            window.tblLeagueTime.Text = league.dateTime.ToString();
+        }
+        public void DeleteLeague(MainWindow parameter)
+        {
+            if (parameter.league==null)
+            {
+            }
+            else
+            {
+                LeagueDAO.Instance.DeleteLeague(parameter.league);
+                parameter.league = null;
+
+                Uri uri = new Uri("pack://application:,,,/Resource/Images/Vleague.png");
+                parameter.imgLeagueLogo.Source = new BitmapImage(uri);
+                parameter.tblLeagueName.Text = "";
+                parameter.tblSponsor.Text = "";
+                parameter.tblLeagueStatus.Text = "";
+                parameter.tblLeagueTime.Text = "";
+                LoadListLeague(parameter);
             }    
         }
         public void OpenEditLeagueWindow()

@@ -102,7 +102,7 @@
 
 
                 <!--Grid Leagues-->
-                <Grid x:Name="grdLeagues"
+                <Grid x:Name="grds"
                       Height="55"
                       Margin="0 5 0 0">
 
@@ -444,7 +444,7 @@
                        Height="140" 
                        VerticalAlignment="Top" 
                        Margin="0 20 0 0"
-                       Source="/Resource/Images/vleague.png"/>
+                       Source="/Resource/Images/NoLeagueSelected.png"/>
                 </Grid>
                 <!--League Description-->
                 <Grid Grid.Row="1">
@@ -612,7 +612,7 @@
                 <!--Logo-->
                 <Grid Grid.Column="0">
                     <Image x:Name="imgLeagueLogo" 
-                           Source="/Resource/Images/vleague.png"
+                           Source="/Resource/Images/NoLeagueSelected.png"
                            Margin="10 0 0 0"
                            Width="260"/>
                 </Grid>
@@ -621,27 +621,27 @@
                     <StackPanel Margin="30 20 0 0">
                         <TextBlock
                             x:Name="tblLeagueName"
-                            Text="GIẢI BÓNG ĐÁ VÔ ĐỊCH QUỐC GIA VIỆT NAM"
+                            Text=""
                             FontSize="25"
                             FontWeight="Bold"/>
 
                         <TextBlock
                             x:Name="tblSponsor"
-                            Text="Nhà tài trợ chính: LS Holding"
+                            Text=""
                             FontSize="20"
                             Margin="0 10 0 0"
                             FontWeight="Medium"/>
 
                         <TextBlock
                             x:Name="tblLeagueTime"
-                            Text="Thời gian: 12/6/2021"
+                            Text=""
                             FontSize="20"
                             Margin="0 10 0 0"
                             FontWeight="Medium"/>
 
                         <TextBlock
                             x:Name="tblLeagueStatus"
-                            Text="Đang diễn ra"
+                            Text=""
                             FontSize="20"
                             FontStyle="Italic"
                             Margin="0 10 0 0"
@@ -732,7 +732,14 @@
                             Height="35"
                             Padding="0"
                             Margin="10 12 0 0"
+                                
                             HorizontalAlignment="Left">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding DeleteLeagueCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
 
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon 

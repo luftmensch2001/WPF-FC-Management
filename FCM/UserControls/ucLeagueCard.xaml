@@ -6,11 +6,13 @@
              xmlns:local="clr-namespace:FCM.UserControls"
                xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
+            x:Name="wcLeagueCard"
              d:DesignHeight="190" d:DesignWidth="260"
              VerticalAlignment="Top"
              HorizontalAlignment="Left"
-             DataContext="{StaticResource MainVM}"
+             DataContext="{StaticResource LeagueCardVM}"
              Margin="0 20 20 0">
+
              
     <Border CornerRadius="8" 
             Background="Transparent" 
@@ -85,7 +87,7 @@
                             Margin="0 0 10 5">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
-                                <i:InvokeCommandAction Command="{Binding GetCommand}"
+                                <i:InvokeCommandAction Command="{Binding GetDetailCommand}"
                                                        CommandParameter="{Binding ElementName=wcLeagueCard}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>

@@ -23,6 +23,7 @@ namespace FCM
     public partial class MainWindow : Window
     {
         public Account currentAccount { get; set; }
+        public League league { get; set; }
         public MainWindow()
         {
             InitializeComponent();

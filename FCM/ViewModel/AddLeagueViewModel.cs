@@ -58,11 +58,11 @@ namespace FCM.ViewModel
                 MessageBox.Show("Vui lòng nhập tên nhà tài trợ");
                 return;
             }
-            //if (parameter.datePicker.Text == "")
-            //{
-            //    MessageBox.Show("Vui lòng nhập thời gian");
-            //    return;
-            //}
+            if (parameter.datePicker.Text == "")
+            {
+                MessageBox.Show("Vui lòng nhập thời gian");
+                return;
+            }
             if (parameter.tbCountOfTeams.Text == "")
             {
                 MessageBox.Show("Vui lòng nhập số đội tham gia");
@@ -87,6 +87,7 @@ namespace FCM.ViewModel
                 League league = new League(parameter.tbSponsor.Text, parameter.tbUsername.Text, 0, DateTime.Parse(parameter.datePicker.ToString()),ImageProcessing.Instance.convertImgToByte(imaged), number);
                 LeagueDAO.Instance.CreateLeague(league);
                 MessageBox.Show("Tạo mùa giải thành công");
+                parameter.Close();
 
         }
     }
