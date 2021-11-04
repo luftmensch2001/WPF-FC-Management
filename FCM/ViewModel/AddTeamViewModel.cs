@@ -60,7 +60,7 @@ namespace FCM.ViewModel
                 Team team = new Team(parameter.idTournament,name,coach,stadium,national, ImageProcessing.Instance.convertImgToByte(imaged));
                 TeamDAO.Instance.CreateTeams(team);
 
-                MessageBox.Show("Tạo đội bóng thành công");
+                MessageBox.Show("Thêm đội bóng thành công");
                 parameter.Close();
             }
             else

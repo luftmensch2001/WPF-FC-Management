@@ -41,11 +41,16 @@ namespace FCM.DAO
             }
             return teams;
         }
-        public void DeleteTeam(int id)
+        public void DeleteTeam(int idTournaments)
         {
+            List<Team> teams = GetListTeam(idTournaments);
+            foreach (Team team in teams)
+            {
+                PlayerDAO.Instance.DeletePlayer(team.id);
+            }    
             string query = "Delete " +
                             "From Teams " +
-                            "Where id = " + id;
+                            "Where idTournaments = " + idTournaments;
             DataProvider.Instance.ExecuteQuery(query);
         }
         public void CreateTeams(Team team)

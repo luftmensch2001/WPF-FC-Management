@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 
 namespace FCM.DTO
 {
-    class Player
+    public class Player
     {
         public int id { get; set; }
         public int idTeam { get; set; }

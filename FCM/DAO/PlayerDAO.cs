@@ -10,11 +10,11 @@ namespace FCM.DAO
 {
     class PlayerDAO
     {
-        private static SettingDAO instance;
+        private static PlayerDAO instance;
 
-        public static SettingDAO Instance
+        public static PlayerDAO Instance
         {
-            get { if (instance == null) instance = new SettingDAO(); return instance; }
+            get { if (instance == null) instance = new PlayerDAO(); return instance; }
             set => instance = value;
         }
         public Player GetPlayerById(int id)
@@ -26,12 +26,22 @@ namespace FCM.DAO
             Player player = new Player(tb.Rows[0]);
             return player;
         }
+        public bool IsHaveNumber(int number, int idTeam)
+        {
+            string query = "Select count(id) as countId  " +
+                           "From players " +
+                           "Where uniformNumber = " + number +" and idteams= " + idTeam;
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+            if ((int)tb.Rows[0]["countId"] >0)
+                return true;
+            return false;
+        }
         public List<Player> GetListPlayer(int idTeams)
         {
             List<Player> players = new List<Player>();
 
             string query = "Select* " +
-                            "From Players" +
+                            "From Players " +
                             "Where idTeams = " + idTeams;
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
             foreach (DataRow row in tb.Rows)
@@ -50,7 +60,7 @@ namespace FCM.DAO
         }
         public void CreatePlayers(Player player)
         {
-            string query = "Insert into Players (IdTeams,DisplayName,UniformNumber,Birthday,Position,Nationality,Note,Imagee) " +
+            string query = "Insert into Players (IdTeams,DisplayName,UniformNumber,Birthday,Position,Nationality,Note) " +
                          "Values (  " +
                          "" + player.idTeam + " ," +
                          "N'" + player.namePlayer + "' ," +
@@ -58,7 +68,7 @@ namespace FCM.DAO
                          "N'" + player.birthDay + "' ," +
                          "N'" + player.position + "' ," +
                          "N'" + player.nationality + "' ," +
-                         "N'" + player.note + "' ," +
+                         "N'" + player.note + "' " +
                          ")";
             DataProvider.Instance.ExecuteQuery(query);
             query = "UPDATE players SET imagee = @img WHERE ID = (SELECT MAX(Id) FROM Players)";
@@ -73,7 +83,8 @@ namespace FCM.DAO
                             " uniformnumber = " + "" + player.uniformNumber + " ," +
                             " birthDay = " + "N'" + player.birthDay + "' ," +
                             " position = " + "N'" + player.position + "' ," +
-                            " nationality = " + "N'" + player.note + "' ," +
+                            " nationality = " + "N'" + player.nationality + "', " +
+                            " note = " + "N'" + player.note + "' " +
                             " Where id = " + player.id;
             DataProvider.Instance.ExecuteQuery(query);
             query = "UPDATE players SET imagee = @img WHERE ID = " + player.id;

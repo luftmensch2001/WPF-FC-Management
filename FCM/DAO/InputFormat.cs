@@ -16,7 +16,7 @@ namespace FCM.DAO
         {
             foreach (char i in s)
             {
-                if (0 > i || i > 9)
+                if ('0' > i || i > '9')
                     return false;
             }
             return true;

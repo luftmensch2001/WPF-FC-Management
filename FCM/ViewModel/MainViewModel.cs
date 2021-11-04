@@ -111,10 +111,16 @@ namespace FCM.ViewModel
                         parameter.grdHomeNoLeagueScreen.Visibility = Visibility.Visible;
                     break;
                 case 1:
+                    LoadListLeague(parameter);
                     parameter.btnLeagues.Foreground = lightGreen;
                     parameter.icLeagues.Foreground = lightGreen;
                     parameter.grdLeaguesScreen.Visibility = Visibility.Visible;
-                    LoadListLeague(parameter);
+                    if (parameter.currentAccount.roleLevel == 0)
+                    {
+                        parameter.btnDeleteLeague.IsEnabled = false;
+                        parameter.btnEditLeague.IsEnabled = false;
+                        parameter.btnCreateLeague.IsEnabled = false;
+                    }
                     break;
                 case 2:
                     parameter.btnSchedule.Foreground = lightGreen;
@@ -126,6 +132,13 @@ namespace FCM.ViewModel
                     parameter.btnTeams.Foreground = lightGreen;
                     parameter.icTeams.Foreground = lightGreen;
                     parameter.grdTeamsScreen.Visibility = Visibility.Visible;
+                    if (parameter.currentAccount.roleLevel==0)
+                    {
+                        parameter.btnAddPlayer.IsEnabled = false;
+                        parameter.btnAddTeam.IsEnabled = false;
+                        parameter.btnDeleteTeam.IsEnabled = false;
+                        parameter.btnEditInforTeam.IsEnabled = false;
+                    }
                     break;
                 case 4:
                     parameter.btnStanding.Foreground = lightGreen;
@@ -336,10 +349,10 @@ namespace FCM.ViewModel
                     ucTeamButton teamButton = new ucTeamButton(team, parameter, this);
                     parameter.wpTeamsList.Children.Add(teamButton);
                 }
-                if (parameter.wpTeamsList.Children.Count>0)
-                {
+                if (parameter.wpTeamsList.Children.Count > 0)
                     LoadDetailTeam(parameter, teams[0]);
-                }    
+                else
+                    LoadListPlayer(parameter, -1);
             }
         }
         public void LoadDetailTeam(MainWindow parameter, Team team)
@@ -350,6 +363,23 @@ namespace FCM.ViewModel
             parameter.tblNational.Text = team.nation;
             parameter.tblStadium.Text = team.stadium;
             parameter.imgTeamLogo.Source = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(team.logo));
+            LoadListPlayer(parameter,team.id);
+            parameter.tblCountOfMembers.Text = parameter.wpPlayersList.Children.Count.ToString();
+            if (parameter.wpPlayersList.Children.Count > parameter.setting.minPlayerOfTeam)
+                parameter.tblStatus.Text = "Hợp lệ";
+            else
+                parameter.tblStatus.Text = "Chưa hợp lệ";
+        }
+        public int CountNationatily(MainWindow parameter)
+        {
+            int s = 0;
+            foreach (ucPlayer ucPlayer in parameter.wpPlayersList.Children)
+            {
+                if (ucPlayer.player.nationality != parameter.team.nation)
+                    s++;
+
+            }    
+            return s;
         }
         public void OpenAddTeamWindow(MainWindow parameter)
         {
@@ -393,7 +423,7 @@ namespace FCM.ViewModel
                 }
                 else
                 {
-                    TeamDAO.Instance.DeleteTeam(parameter.team.id);
+                    TeamDAO.Instance.DeleteTeam(parameter.league.id);
                     parameter.team = null;
 
                     parameter.tblTeamName.Text = "NULL";
@@ -403,14 +433,57 @@ namespace FCM.ViewModel
                     parameter.tblCountOfMembers.Text = "NULL";
                     parameter.imgTeamLogo.Source = new BitmapImage(new Uri("pack://application:,,,/Resource/Images/software-logo.png"));
                     LoadListTeams(parameter);
+                    LoadListPlayer(parameter, -1);
                 }
             }
         }
 
         public void OpenAddPlayerWindow(MainWindow parameter)
         {
-            AddPlayerWindow wd = new AddPlayerWindow();
-            wd.ShowDialog();
+            if (parameter.currentAccount.roleLevel == 1)
+            {
+                if (parameter.setting.maxPlayerOfTeam == parameter.wpPlayersList.Children.Count)
+                {
+                    MessageBox.Show("Số lượng cầu thủ đã đạt tối đa");
+                    return;
+                }
+                AddPlayerWindow wd = new AddPlayerWindow(parameter.team, parameter.setting,(CountNationatily(parameter)<parameter.setting.maxForeignPlayers));
+                wd.ShowDialog();
+                LoadListPlayer(parameter, parameter.team.id);
+            }
+        }
+        public void LoadListPlayer(MainWindow parameter, int idTeam)
+        {
+            if (idTeam < 0)
+                return;
+            parameter.wpPlayersList.Children.Clear();
+            List<Player> players = PlayerDAO.Instance.GetListPlayer(idTeam);
+            for (int i =0;i<players.Count;i++)
+            {     
+                ucPlayer ucPlayer = new ucPlayer(players[i], parameter.currentAccount.roleLevel,i+1, parameter,this);
+                parameter.wpPlayersList.Children.Add(ucPlayer);
+            }    
+        }
+        public void OpenEditPlayerWindow(MainWindow parameter, Player player)
+        {
+            if (parameter.team != null)
+            {
+                AddPlayerWindow wd = new AddPlayerWindow(parameter.team,player,parameter.setting,(CountNationatily(parameter)<parameter.setting.maxForeignPlayers));
+                if (parameter.currentAccount.roleLevel == 1)
+                {
+                    wd.tblTitle.Text = "SỬA THÔNG TIN CẦU THỦ";
+                    wd.btnAdd.Content = "Sửa";
+                }
+                else
+                {
+                    wd.tblTitle.Text = "THÔNG TIN CẦU THỦ";
+                    wd.btnAdd.Content = "Thoát";
+                    wd.btnAdd.Visibility = Visibility.Hidden;
+                    wd.btnUploadImage.Visibility = Visibility.Hidden;
+                }
+                wd.ShowDialog();
+                LoadListTeams(parameter);
+            }
         }
 
         public void SwitchTabStatistics(MainWindow parameter)
@@ -476,7 +549,5 @@ namespace FCM.ViewModel
             loginWindow.Show();
             parameter.Close();
         }
-
-
     }   
 }

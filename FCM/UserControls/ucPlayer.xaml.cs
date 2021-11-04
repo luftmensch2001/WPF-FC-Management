@@ -10,6 +10,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FCM.DAO;
+using FCM.DTO;
+using FCM.ViewModel;
 
 namespace FCM.UserControls
 {
@@ -18,9 +21,29 @@ namespace FCM.UserControls
     /// </summary>
     public partial class ucPlayer : UserControl
     {
+        public Player player { get; set; }
+        public int roleLevel { get; set; }
+        public MainViewModel mainViewModel { get; set; }
+        public MainWindow mainWindow { get; set; }
         public ucPlayer()
         {
             InitializeComponent();
+        }
+        public ucPlayer(Player player, int roleLevel,int index, MainWindow mainWindow, MainViewModel mainViewModel)
+        {
+            InitializeComponent();
+            this.player = player;
+            this.roleLevel = roleLevel;
+            tblName.Text = player.namePlayer;
+            tblNationality.Text = player.nationality;
+            tblIndex.Text = index.ToString();
+            tblNumber.Text = player.uniformNumber.ToString();
+            tblDoB.Text = player.birthDay.ToString("M/dd/yyyy");
+            tblPosition.Text = player.position;
+            this.mainWindow = mainWindow;
+            this.mainViewModel = mainViewModel;
+            if (roleLevel == 0)
+                btnDeletePlayer.IsEnabled = false;
         }
     }
 }

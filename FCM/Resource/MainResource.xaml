@@ -9,6 +9,8 @@
     <viewmodel:LeagueCardViewModel x:Key="LeagueCardVM" />
     <viewmodel:TeamButtonViewModel x:Key="TeamButtonVM"/>
     <viewmodel:AddTeamViewModel x:Key="AddTeamVM"/>
+    <viewmodel:AddPlayerViewModel x:Key="AddPlayerVM"/>
+    <viewmodel:PlayerViewModel x:Key="PlayerVM"/>
 
     <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#222"/>
 
