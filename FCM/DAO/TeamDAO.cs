@@ -31,8 +31,8 @@ namespace FCM.DAO
             List<Team> teams = new List<Team>();
 
             string query = "Select* " +
-                            "From Teams" +
-                            "Where idTournament = " + idTournament;
+                            "From Teams " +
+                            "Where idTournaments = " + idTournament;
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
             foreach (DataRow row in tb.Rows)
             {
@@ -50,13 +50,13 @@ namespace FCM.DAO
         }
         public void CreateTeams(Team team)
         {
-            string query = "Insert into Teams (idTournament,DisplayName,Coach,Stadium,nation) " +
+            string query = "Insert into Teams (idTournaments,DisplayName,Coach,Stadium,nation) " +
                          "Values (  " +
                          "" + team.idTournament + " ," +
-                         "'" + team.nameTeam + "' ," +
-                         "'" + team.coach + "' ," +
-                         "'" + team.stadium + "' ," +
-                         "'" + team.nation + "' ," +
+                         "N'" + team.nameTeam + "' ," +
+                         "N'" + team.coach + "' ," +
+                         "N'" + team.stadium + "' ," +
+                         "N'" + team.nation + "' " +
                          ")";
             DataProvider.Instance.ExecuteQuery(query);
             query = "UPDATE Teams SET logo = @img WHERE ID = (SELECT MAX(Id) FROM Teams)";
@@ -66,10 +66,10 @@ namespace FCM.DAO
         {
             string query = "Update Teams " +
                             "Set " +
-                            " Displayname = " + "'" + team.nameTeam + "' ," +
-                            " coach = " + "'" + team.coach + "' ," +
-                            " stadium = " + "'" + team.stadium + "' ," +
-                            " nation = " + "'" + team.nation + "' ," +
+                            " Displayname = " + "N'" + team.nameTeam + "' ," +
+                            " coach = " + "N'" + team.coach + "' ," +
+                            " stadium = " + "N'" + team.stadium + "' ," +
+                            " nation = " + "N'" + team.nation + "' " +
                             " Where id = " + team.id;
             DataProvider.Instance.ExecuteQuery(query);
             query = "UPDATE Teams SET logo = @img WHERE ID = " + team.id;

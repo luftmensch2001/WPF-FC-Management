@@ -23,7 +23,9 @@ namespace FCM.ViewModel
 
         public ICommand OpenEditLeagueWindowCommand { get; set; }
         public ICommand DeleteLeagueCommand { get; set; }
+        public ICommand DeleteTeamCommand { get; set; }
         public ICommand OpenAddTeamWindowCommand { get; set; }
+        public ICommand OpenEditTeamWindowCommand { get; set; }
         public ICommand OpenAddPlayerWindowCommand { get; set; }
         public ICommand OpenEditDialogCommand { get; set; }
         public ICommand OpenAddGoalTypeCommand { get; set; }
@@ -44,13 +46,15 @@ namespace FCM.ViewModel
             GetUidCommand = new RelayCommand<Button>((parameter) => true, (parameter) => uid = parameter.Uid);
             OpenAddLeagueWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenAddLeagueWindow(parameter));
             DeleteLeagueCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => DeleteLeague(parameter));
+            DeleteTeamCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => DeleteTeam(parameter));
 
             OpenEditDialogCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenEditDialogWindow(parameter));
             OpenEditLeagueWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenEditLeagueWindow(parameter));
-            OpenAddTeamWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddTeamWindow());
-            OpenAddPlayerWindowCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddPlayerWindow());
-            OpenAddGoalTypeCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenAddGoalTypeWindow());
-            OpenEditGoalTypeCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenEditGoalTypeWindow());
+            OpenAddTeamWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenAddTeamWindow(parameter));
+            OpenEditTeamWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenEditTeamWindow(parameter));
+            OpenAddPlayerWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenAddPlayerWindow(parameter));
+            OpenAddGoalTypeCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenAddGoalTypeWindow(parameter));
+            OpenEditGoalTypeCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenEditGoalTypeWindow(parameter));
             OpenChangePasswordCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenChangePasswordWindow(parameter));
             OpenLoginCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenLoginWindow(parameter));
             SearchLeagueCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SearchLeague(parameter));
@@ -118,6 +122,7 @@ namespace FCM.ViewModel
                     parameter.grdScheduleScreen.Visibility = Visibility.Visible;
                     break;
                 case 3:
+                    LoadListTeams(parameter);
                     parameter.btnTeams.Foreground = lightGreen;
                     parameter.icTeams.Foreground = lightGreen;
                     parameter.grdTeamsScreen.Visibility = Visibility.Visible;
@@ -176,6 +181,7 @@ namespace FCM.ViewModel
         {
             parameter.wpLeagueCards.Children.Clear();
             if (listLeagues != null)
+            {
                 if (parameter.league == null)
                 {
                     if (leagues.Count > 0)
@@ -183,10 +189,13 @@ namespace FCM.ViewModel
                         LoadDetailLeague(leagues[0], parameter);
                     }
                 }
-            foreach (League league in listLeagues)
-            {
-                ucLeagueCard ucLeagueCard = new ucLeagueCard(league, parameter, this);
-                parameter.wpLeagueCards.Children.Add(ucLeagueCard);
+                if (listLeagues.Count == 0)
+                    ChangeStatus(-1, parameter);
+                foreach (League league in listLeagues)
+                {
+                    ucLeagueCard ucLeagueCard = new ucLeagueCard(league, parameter, this);
+                    parameter.wpLeagueCards.Children.Add(ucLeagueCard);
+                }
             }
         }
         public void LoadDetailLeague(League league, MainWindow window)
@@ -194,7 +203,7 @@ namespace FCM.ViewModel
             window.league = league;
             window.imgLeagueLogo.Source = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(league.logo));
             window.tblLeagueName.Text = "Tên mùa giải: " + league.nameLeague;
-            window.tblSponsor.Text = "Nhà tài trợ " + league.nameSpender;
+            window.tblSponsor.Text = "Nhà tài trợ: " + league.nameSpender;
             window.setting = SettingDAO.Instance.GetSetting(league.id);
 
             switch (league.status)
@@ -214,7 +223,7 @@ namespace FCM.ViewModel
         }
         public void ChangeStatus(int status, MainWindow parameter)
         {
-            switch (parameter.league.status)
+            switch (status)
             {
                 case -1:
                     parameter.btnSchedule.IsEnabled = false;
@@ -255,7 +264,6 @@ namespace FCM.ViewModel
                 }
                 else
                 {
-                    SettingDAO.Instance.DeleteSetting(parameter.league.id);
                     LeagueDAO.Instance.DeleteLeague(parameter.league);
                     parameter.league = null;
 
@@ -291,7 +299,7 @@ namespace FCM.ViewModel
 
         public void SearchLeague(MainWindow parameter)
         {
-            string name = StringFormat.Instance.FomartSpace(parameter.tbSearchLeague.Text);
+            string name = InputFormat.Instance.FomartSpace(parameter.tbSearchLeague.Text);
             List<League> listLeague = new List<League>();
             foreach (League league in leagues)
             {
@@ -315,13 +323,91 @@ namespace FCM.ViewModel
                 parameter.tbScoreLose.Text = parameter.setting.scoreLose.ToString();
             }
         }
-        public void OpenAddTeamWindow()
+
+        List<Team> teams;
+        public void LoadListTeams(MainWindow parameter)
         {
-            AddTeamWindow wd = new AddTeamWindow();
-            wd.ShowDialog();
+            parameter.wpTeamsList.Children.Clear();
+            if (parameter.league!=null)
+            {
+                teams = TeamDAO.Instance.GetListTeam(parameter.league.id);
+                foreach (Team team in teams)
+                {
+                    ucTeamButton teamButton = new ucTeamButton(team, parameter, this);
+                    parameter.wpTeamsList.Children.Add(teamButton);
+                }
+                if (parameter.wpTeamsList.Children.Count>0)
+                {
+                    LoadDetailTeam(parameter, teams[0]);
+                }    
+            }
+        }
+        public void LoadDetailTeam(MainWindow parameter, Team team)
+        {
+            parameter.team = team;
+            parameter.tblTeamName.Text = team.nameTeam;
+            parameter.tblCoach.Text = team.coach;
+            parameter.tblNational.Text = team.nation;
+            parameter.tblStadium.Text = team.stadium;
+            parameter.imgTeamLogo.Source = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(team.logo));
+        }
+        public void OpenAddTeamWindow(MainWindow parameter)
+        {
+            if (parameter.currentAccount.roleLevel == 1)
+            {
+                if (parameter.wpTeamsList.Children.Count==parameter.setting.numberOfTeam)
+                {
+                    MessageBox.Show("Số lượng đội bóng đá đạt tối đa");
+                }
+                AddTeamWindow wd = new AddTeamWindow(parameter.league.id);
+                wd.ShowDialog();
+                LoadListTeams(parameter);
+            }
+        }
+        public void OpenEditTeamWindow(MainWindow parameter)
+        {
+            if (parameter.currentAccount.roleLevel == 1)
+            {
+                if (parameter.team != null)
+                {
+                    AddTeamWindow wd = new AddTeamWindow(parameter.league.id,parameter.team);
+                    wd.tblTitle.Text = "SỬA THÔNG TIN ĐỘI BÓNG";
+                    wd.btnAdd.Content = "Sửa";
+                    wd.tbName.Text = parameter.team.nameTeam;
+                    wd.tbCoach.Text = parameter.team.coach;
+                    wd.tbNational.Text = parameter.team.nation;
+                    wd.tbStadium.Text = parameter.team.stadium;
+                    wd.imgTeamLogo.Source = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(parameter.team.logo));
+                    wd.btnImportTeam.Visibility = Visibility.Hidden;
+                    wd.ShowDialog();
+                    LoadListTeams(parameter);
+                }
+            }
+        }
+        public void DeleteTeam(MainWindow parameter)
+        {
+            if (parameter.currentAccount.roleLevel == 1)
+            {
+                if (parameter.team == null)
+                {
+                }
+                else
+                {
+                    TeamDAO.Instance.DeleteTeam(parameter.team.id);
+                    parameter.team = null;
+
+                    parameter.tblTeamName.Text = "NULL";
+                    parameter.tblStadium.Text = "NULL";
+                    parameter.tblNational.Text = "NULL";
+                    parameter.tblCoach.Text = "NULL";
+                    parameter.tblCountOfMembers.Text = "NULL";
+                    parameter.imgTeamLogo.Source = new BitmapImage(new Uri("pack://application:,,,/Resource/Images/software-logo.png"));
+                    LoadListTeams(parameter);
+                }
+            }
         }
 
-        public void OpenAddPlayerWindow()
+        public void OpenAddPlayerWindow(MainWindow parameter)
         {
             AddPlayerWindow wd = new AddPlayerWindow();
             wd.ShowDialog();
@@ -366,12 +452,12 @@ namespace FCM.ViewModel
             wd.ShowDialog();
         }
 
-        public void OpenAddGoalTypeWindow()
+        public void OpenAddGoalTypeWindow(MainWindow parameter)
         {
             AddGoalTypeWindow wd = new AddGoalTypeWindow();
             wd.ShowDialog();
         }
-        public void OpenEditGoalTypeWindow()
+        public void OpenEditGoalTypeWindow(MainWindow parameter)
         {
             AddGoalTypeWindow wd = new AddGoalTypeWindow();
             wd.Title = "Sửa thông tin";

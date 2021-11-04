@@ -36,9 +36,9 @@ namespace FCM.DAO
         {
             string query = "Insert into Users (username, password, displayname, roleLevel) " +
                            "Values  (" +
-                           "'"+ account.userName.ToString() + "'" + "," +
-                           "'" + account.password.ToString() + "'" + "," +
-                           "'" + account.displayName.ToString()+" " + "'" + "," +
+                           "N'"+ account.userName.ToString() + "'" + "," +
+                           "N'" + account.password.ToString() + "'" + "," +
+                           "N'" + account.displayName.ToString()+" " + "'" + "," +
                            account.roleLevel.ToString() +
                            ")";
            DataProvider.Instance.ExecuteQuery(query);
@@ -97,8 +97,8 @@ namespace FCM.DAO
         public void UpdatePassword(string userName, string password)
         {
             string query = "Update Users " +
-                            "Set password = '" + password + "' " +
-                            "Where username = '" + userName + "' ";
+                            "Set password = 'N" + password + "' " +
+                            "Where username = 'N" + userName + "' ";
             DataProvider.Instance.ExecuteQuery(query);
         }
     }

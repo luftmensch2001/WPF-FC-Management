@@ -19,7 +19,6 @@ namespace FCM.ViewModel
         public ICommand CancelAddLeagueCommand { get; set; }
         public ICommand AddLeagueCommand { get; set; }
         public ICommand AddLogoLeagueCommand { get; set; }
-        private string pathImage = "";
         private System.Drawing.Image imaged;
 
         public AddLeagueViewModel()
@@ -36,7 +35,6 @@ namespace FCM.ViewModel
             if (path != "")
                 try
                 {
-                    pathImage = path;
                     imaged = Image.FromFile(path);
                     parameter.imgLeagueLogo.Source = ImageProcessing.Instance.Convert(imaged);
                 }
@@ -44,51 +42,26 @@ namespace FCM.ViewModel
                 {
                     MessageBox.Show("File không hợp lệ, vui lòng chọn lại", "Lỗi");
                 }
-
         }
         void AddLeague(AddLeagueWindow parameter)
         {
-            if (parameter.tbUsername.Text == "")
+            string name = InputFormat.Instance.FomartSpace(parameter.tbUsername.Text);
+            string sponsor = InputFormat.Instance.FomartSpace(parameter.tbSponsor.Text);
+            string countTeam = InputFormat.Instance.FomartSpace(parameter.tbCountOfTeams.Text);
+            if (name == ""|| sponsor == ""|| parameter.datePicker.Text == ""|| countTeam == ""|| parameter.imgLeagueLogo.Source.ToString() == "pack://application:,,,/Resource/Images/NoLogoSelected.png")
             {
-                MessageBox.Show("Vui lòng nhập tên giải đấu");
+                MessageBox.Show("Thiếu thông tin","Lỗi");
                 return;
             }
-            if (parameter.tbSponsor.Text == "")
+            if (InputFormat.Instance.isNumber(countTeam) || Int32.Parse(countTeam)<2 || Int32.Parse(countTeam) >24)
             {
-                MessageBox.Show("Vui lòng nhập tên nhà tài trợ");
-                return;
-            }
-            if (parameter.datePicker.Text == "")
-            {
-                MessageBox.Show("Vui lòng nhập thời gian");
-                return;
-            }
-            if (parameter.tbCountOfTeams.Text == "")
-            {
-                MessageBox.Show("Vui lòng nhập số đội tham gia");
-                return;
-            }
-            bool isNumber = false;
-            int number = -1;
-            if (int.TryParse(parameter.tbCountOfTeams.Text, out number))
-            {
-                isNumber = true;
-            }
-            if (!isNumber || number <= 0 || number > 64)
-            {
-                MessageBox.Show("Số đội tham gia chỉ nhận giá trị số nguyên >0 và <64");
-                return;
-            }
-            if (parameter.imgLeagueLogo.Source.ToString() == "pack://application:,,,/Resource/Images/NoLogoSelected.png")
-            {
-                MessageBox.Show("Vui lòng chọn logo giải đấu");
+                MessageBox.Show("Số đội tham gia chỉ nhận giá trị số nguyên >=2 và <64");
                 return;
             }
             if (parameter.league==null)
             {
-                League league = new League(parameter.tbSponsor.Text, parameter.tbUsername.Text, 0, DateTime.Parse(parameter.datePicker.ToString()), ImageProcessing.Instance.convertImgToByte(imaged), number);
+                League league = new League(sponsor, name, 0, DateTime.Parse(parameter.datePicker.ToString()), ImageProcessing.Instance.convertImgToByte(imaged), Int32.Parse(countTeam));
                 LeagueDAO.Instance.CreateLeague(league);
-                SettingDAO.Instance.CreateSetting(LeagueDAO.Instance.GetNewestLeagurId(), league.countTeam);
                 
                 MessageBox.Show("Tạo mùa giải thành công");
                 parameter.Close();
@@ -96,12 +69,11 @@ namespace FCM.ViewModel
             {
                 League league;
                 if (imaged==null)
-                    league = new League(parameter.tbSponsor.Text, parameter.tbUsername.Text, 0, DateTime.Parse(parameter.datePicker.ToString()), parameter.league.logo, number);
+                    league = new League(sponsor,name, 0, DateTime.Parse(parameter.datePicker.ToString()), parameter.league.logo, Int32.Parse(countTeam));
                 else
-                    league = new League(parameter.tbSponsor.Text, parameter.tbUsername.Text, 0, DateTime.Parse(parameter.datePicker.ToString()), ImageProcessing.Instance.convertImgToByte(imaged), number);
+                    league = new League(sponsor, name, 0, DateTime.Parse(parameter.datePicker.ToString()), ImageProcessing.Instance.convertImgToByte(imaged), Int32.Parse(countTeam));
                 league.id = parameter.league.id;
                 LeagueDAO.Instance.UpdateLeague(league);
-                SettingDAO.Instance.UpdateSetting_NumberOfTeams(league.id, league.countTeam);
                 MessageBox.Show("Sửa mùa giải thành công");
                 parameter.Close();
             }

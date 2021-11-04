@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 
 namespace FCM.DTO
 {
-    class Team
+    public class Team
     {
         public int id { get; set; }
         public int idTournament { get; set; }
@@ -24,7 +24,7 @@ namespace FCM.DTO
         public Team(DataRow row)
         {
             this.id = (int)row["id"];
-            this.idTournament = (int)row["idTournament"];
+            this.idTournament = (int)row["idTournaments"];
             this.nameTeam = (string)row["Displayname"];
             this.stadium = (string)row["stadium"];
             this.nation = (string)row["nation"];

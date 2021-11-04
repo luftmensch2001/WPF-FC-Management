@@ -51,32 +51,36 @@ namespace FCM.DAO
         {
             string query = "Insert into Tournaments (Honors,DisplayName,Time,Status,countTeam ) " +
                          "Values (  " +
-                         "'" + league.nameSpender + "' ," +
-                         "'" + league.nameLeague + "' ," +
-                         "'" + league.dateTime + "' ," +
-                         "'" + league.status + "' ," +
-                         "' " + league.countTeam.ToString() + "'" +
+                         "N'" + league.nameSpender + "' ," +
+                         "N'" + league.nameLeague + "' ," +
+                         "N'" + league.dateTime + "' ," +
+                         "N'" + league.status + "' ," +
+                         " " + league.countTeam + "" +
                          ")";
             DataProvider.Instance.ExecuteQuery(query);
             query = "UPDATE Tournaments SET logo = @img WHERE ID = (SELECT MAX(Id) FROM Tournaments)";
             DataProvider.Instance.ExecuteQuery(query, new object[] { league.logo });
+            SettingDAO.Instance.CreateSetting(GetNewestLeagurId(), league.countTeam);
         }
         public void UpdateLeague(League league)
         {
             string query = "Update Tournaments " +
                             "Set " +
-                            " Honors = " + "'" + league.nameSpender + "' ," +
-                            " Displayname = " + "'" + league.nameLeague + "' ," +
+                            " Honors = " + "N'" + league.nameSpender + "' ," +
+                            " Displayname = " + "N'" + league.nameLeague + "' ," +
                             " Time = " + "'" + league.dateTime + "' ," +
-                            " Status = " + "'" + league.status + "' ," +
-                            " countTeam = " + "' " + league.countTeam.ToString() + "'" +
+                            " Status = " + "N'" + league.status + "' ," +
+                            " countTeam = " + " " + league.countTeam + "" +
                             " Where id = " + league.id;
             DataProvider.Instance.ExecuteQuery(query);
             query = "UPDATE Tournaments SET logo = @img WHERE ID = " + league.id;
             DataProvider.Instance.ExecuteQuery(query, new object[] { league.logo });
+            SettingDAO.Instance.UpdateSetting_NumberOfTeams(league.id, league.countTeam);
         }
         public void DeleteLeague(League league)
         {
+            SettingDAO.Instance.DeleteSetting(league.id);
+            TeamDAO.Instance.DeleteTeam(league.id);
             string query = "Delete " +
                             "From Tournaments " +
                             "Where id = " + league.id;

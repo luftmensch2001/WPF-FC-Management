@@ -53,12 +53,12 @@ namespace FCM.DAO
             string query = "Insert into Players (IdTeams,DisplayName,UniformNumber,Birthday,Position,Nationality,Note,Imagee) " +
                          "Values (  " +
                          "" + player.idTeam + " ," +
-                         "'" + player.namePlayer + "' ," +
+                         "N'" + player.namePlayer + "' ," +
                          "" + player.uniformNumber + " ," +
-                         "'" + player.birthDay + "' ," +
-                         "'" + player.position + "' ," +
-                         "'" + player.nationality + "' ," +
-                         "'" + player.note + "' ," +
+                         "N'" + player.birthDay + "' ," +
+                         "N'" + player.position + "' ," +
+                         "N'" + player.nationality + "' ," +
+                         "N'" + player.note + "' ," +
                          ")";
             DataProvider.Instance.ExecuteQuery(query);
             query = "UPDATE players SET imagee = @img WHERE ID = (SELECT MAX(Id) FROM Players)";
@@ -69,11 +69,11 @@ namespace FCM.DAO
             string query = "Update Players " +
                             "Set " +
                             " idteams = " + "" + player.idTeam + " ," +
-                            " Displayname = " + "'" + player.namePlayer + "' ," +
+                            " Displayname = " + "N'" + player.namePlayer + "' ," +
                             " uniformnumber = " + "" + player.uniformNumber + " ," +
-                            " birthDay = " + "'" + player.birthDay + "' ," +
-                            " position = " + "'" + player.position + "' ," +
-                            " nationality = " + "'" + player.note + "' ," +
+                            " birthDay = " + "N'" + player.birthDay + "' ," +
+                            " position = " + "N'" + player.position + "' ," +
+                            " nationality = " + "N'" + player.note + "' ," +
                             " Where id = " + player.id;
             DataProvider.Instance.ExecuteQuery(query);
             query = "UPDATE players SET imagee = @img WHERE ID = " + player.id;

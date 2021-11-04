@@ -24,6 +24,7 @@ namespace FCM
     {
         public Account currentAccount { get; set; }
         public League league { get; set; }
+        public Team team { get; set; }
         public Setting setting { get; set; }
         public MainWindow()
         {
