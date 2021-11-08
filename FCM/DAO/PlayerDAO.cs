@@ -65,7 +65,7 @@ namespace FCM.DAO
                          "" + player.idTeam + " ," +
                          "N'" + player.namePlayer + "' ," +
                          "" + player.uniformNumber + " ," +
-                         "N'" + player.birthDay + "' ," +
+                         "N'" + player.birthDay.ToString("M/d/yyyy") + "' ," +
                          "N'" + player.position + "' ," +
                          "N'" + player.nationality + "' ," +
                          "N'" + player.note + "' " +

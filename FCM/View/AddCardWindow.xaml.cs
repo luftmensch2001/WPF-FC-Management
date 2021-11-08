@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FCM.DAO;
+using FCM.DTO;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -17,9 +19,37 @@ namespace FCM.View
     /// </summary>
     public partial class AddCardWindow : Window
     {
-        public AddCardWindow()
+        bool isEdit = false; // true: đang thực hiện chức năng SỬA thẻ phạt, false: đang thực hiện chức năng THÊM thẻ phạt
+
+        public ResultRecordingWindow resultWD;
+        public bool isTeam1;
+        public List<Player> players;
+        public AddCardWindow(ResultRecordingWindow resultWD, bool isTeam1, Team team, bool isEdit = false)
         {
             InitializeComponent();
+
+            this.resultWD = resultWD;
+            this.isTeam1 = isTeam1;
+
+            this.isEdit = isEdit;
+            if (this.isEdit == true)
+            {
+                this.tblTitle.Text = "SỬA THẺ PHẠT";
+                this.Title = "Sửa thẻ phạt";
+                this.tblAddCard.Text = "Lưu";
+            }
+
+            this.tblName.Text = team.nameTeam;
+            this.imgLogo.Source = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(team.logo));
+
+            players = PlayerDAO.Instance.GetListPlayer(team.id);
+
+            this.cbPlayer.Items.Clear();
+
+            for (int i = 0; i < players.Count; i++)
+            {
+                this.cbPlayer.Items.Add(players[i].namePlayer.ToString());
+            }
         }
     }
 }

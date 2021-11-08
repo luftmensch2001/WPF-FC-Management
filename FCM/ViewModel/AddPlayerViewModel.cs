@@ -45,6 +45,34 @@ namespace FCM.ViewModel
                     MessageBox.Show("File không hợp lệ, vui lòng chọn lại", "Lỗi");
                 }
         }
+
+        // Kiểm tra xem đã đủ số lượng cầu thủ/đội bóng tối thiếu hay chưa
+        bool IsReady(AddPlayerWindow parameter)
+        {
+            League leagueNow = LeagueDAO.Instance.GetLeagueById(parameter.team.idTournament);
+
+            bool isEnoughTeams = true;
+            bool isEnoughPlayers = true;
+
+            if (leagueNow.countTeam != parameter.setting.numberOfTeam)
+            {
+                isEnoughTeams = false;
+            }
+
+            List<Team> teamsList = TeamDAO.Instance.GetListTeam(leagueNow.id);
+            foreach (Team team in teamsList)
+            {
+                int numberPlayerOfTeams = TeamDAO.Instance.GetPlayerCountOfTeam(team.id);
+
+                if (numberPlayerOfTeams < parameter.setting.minPlayerOfTeam)
+                {
+                    isEnoughPlayers = false;
+                    break;
+                }
+            }
+            
+            return (isEnoughPlayers && isEnoughTeams);
+        }
         void AddPlayer(AddPlayerWindow parameter)
         {
             string name = InputFormat.Instance.FomartSpace(parameter.tbName.Text);
@@ -63,7 +91,8 @@ namespace FCM.ViewModel
                 MessageBox.Show("Số áo chỉ nhận giá trị là số nguyên dương >= 0");
                 return;
             }
-            if (parameter.player.uniformNumber != Int32.Parse(unformNumber) && PlayerDAO.Instance.IsHaveNumber(Int32.Parse(unformNumber), parameter.team.id))
+            if ((parameter.player == null || parameter.player.uniformNumber != Int32.Parse(unformNumber))
+                && PlayerDAO.Instance.IsHaveNumber(Int32.Parse(unformNumber), parameter.team.id))
             {
                 MessageBox.Show("Số áo đã tồn tại");
                 return;
@@ -87,6 +116,24 @@ namespace FCM.ViewModel
                 PlayerDAO.Instance.CreatePlayers(player);
 
                 MessageBox.Show("Thêm cầu thủ thành công");
+
+                // KIỂM TRA: Nếu đã đủ số lượng đội bóng, mỗi đội bóng đã đủ số lượng cầu thủ tối thiểu thì cho phép đổi
+                // trạng thái giải đấu sang Chuẩn bị bắt đầu. Tức Status = 1
+                #region KIỂM TRA ĐỔI TRẠNG THÁI
+                League leagueNow = LeagueDAO.Instance.GetLeagueById(parameter.team.idTournament);
+
+                // Nếu Status = 1 sẵn rồi thì ko cần kiểm tra
+                if (leagueNow.status != 1)
+                {
+                    if (IsReady(parameter))
+                    {
+                        LeagueDAO.Instance.UpdateStatusOfLeague(parameter.team.idTournament, 1);
+                        MessageBox.Show("Đã đủ số lượng đội bóng và số lượng cầu thủ!\n Bạn đã có thể tạo lịch thi đấu ngay bây giờ");
+                    }
+                }    
+                #endregion
+
+
                 parameter.Close();
             }
             else

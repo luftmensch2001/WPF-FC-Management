@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FCM.View"
         mc:Ignorable="d"
-        x:Name="wdAddLeague"
+        x:Name="wdSwitchedPlayers"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize"
         Title="Thay cầu thủ" Height="330" Width="300"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        DataContext=""
+        DataContext="{StaticResource ResultVM}"
         Icon="/Resource/Images/software-logo.png"
         materialDesign:ShadowAssist.ShadowDepth="Depth2"
         
@@ -84,6 +84,12 @@
                     Content="Xác nhận"
                     Style="{StaticResource MyGreenButtonStyle}"
                     Width="100">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding OKSwitchedPlayersCommand}"
+                                                    CommandParameter="{Binding ElementName=wdSwitchedPlayers}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
 
                 <Button 
@@ -93,6 +99,12 @@
                     MinWidth="0"
                     Width="100"
                     Margin="10 0 0 0">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding CancelSwitchedPlayersCommand}"
+                                                    CommandParameter="{Binding ElementName=wdSwitchedPlayers}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
             </StackPanel>
         </StackPanel>

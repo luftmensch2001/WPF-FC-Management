@@ -35,6 +35,14 @@ namespace FCM.ViewModel
 
         public ICommand SearchLeagueCommand { get; set; }
 
+        public ICommand CreateScheduleCommand { get; set; }
+        public ICommand ChangeRoundCommand { get; set; }
+
+        //public ICommand OpenEditMatchWindowCommand { get; set; }
+        //public ICommand OpenResultRecordWindowCommand { get; set; }
+
+        
+
         public string uid;
 
         public SolidColorBrush lightGreen = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#52ff00"));
@@ -59,6 +67,11 @@ namespace FCM.ViewModel
             OpenLoginCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenLoginWindow(parameter));
             SearchLeagueCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SearchLeague(parameter));
 
+            CreateScheduleCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => CreateSchedule(parameter));
+            ChangeRoundCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => ChangeCbxRound(parameter));
+
+            //OpenEditMatchWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenEditMatchInfoWindow(parameter));
+            //OpenResultRecordWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenResultRecordingWindow(parameter));
         }
         public void SwitchTab(MainWindow parameter)
         {
@@ -106,7 +119,9 @@ namespace FCM.ViewModel
                     parameter.btnHome.Foreground = lightGreen;
                     parameter.icHome.Foreground = lightGreen;
                     if (0 > 1) // Nếu có ít nhất 1 mùa giải
+                    {
                         parameter.grdHomeScreen.Visibility = Visibility.Visible;
+                    }
                     else
                         parameter.grdHomeNoLeagueScreen.Visibility = Visibility.Visible;
                     break;
@@ -126,6 +141,12 @@ namespace FCM.ViewModel
                     parameter.btnSchedule.Foreground = lightGreen;
                     parameter.icSchedule.Foreground = lightGreen;
                     parameter.grdScheduleScreen.Visibility = Visibility.Visible;
+
+                    
+                    AddItemsForCbxRound(parameter);
+                    parameter.cbxRound.SelectedIndex = 0;
+                    LoadListMatch(parameter, 0);
+
                     break;
                 case 3:
                     LoadListTeams(parameter);
@@ -190,7 +211,7 @@ namespace FCM.ViewModel
             leagues = LeagueDAO.Instance.GetListLeagues();
             LoadListLeagueToScreen(leagues, parameter);
         }
-        void LoadListLeagueToScreen(List<League> listLeagues, MainWindow parameter)
+        public void LoadListLeagueToScreen(List<League> listLeagues, MainWindow parameter)
         {
             parameter.wpLeagueCards.Children.Clear();
             if (listLeagues != null)
@@ -450,6 +471,13 @@ namespace FCM.ViewModel
                 AddPlayerWindow wd = new AddPlayerWindow(parameter.team, parameter.setting,(CountNationatily(parameter)<parameter.setting.maxForeignPlayers));
                 wd.ShowDialog();
                 LoadListPlayer(parameter, parameter.team.id);
+
+                parameter.league = LeagueDAO.Instance.GetLeagueById(parameter.league.id);
+
+                if (parameter.league.status != 0)
+                {
+                    ChangeStatus(parameter.league.status, parameter);
+                }    
             }
         }
         public void LoadListPlayer(MainWindow parameter, int idTeam)
@@ -463,6 +491,7 @@ namespace FCM.ViewModel
                 ucPlayer ucPlayer = new ucPlayer(players[i], parameter.currentAccount.roleLevel,i+1, parameter,this);
                 parameter.wpPlayersList.Children.Add(ucPlayer);
             }    
+            
         }
         public void OpenEditPlayerWindow(MainWindow parameter, Player player)
         {
@@ -549,5 +578,187 @@ namespace FCM.ViewModel
             loginWindow.Show();
             parameter.Close();
         }
-    }   
+
+
+
+        #region SCHEDULE (Lịch thi đấu)
+        // Tạo lịch thi đấu
+        public void CreateSchedule(MainWindow parameter)
+        {
+            // Status = Đang đăng ký (Chưa đủ thông tin)
+            if (parameter.league.status == 0)
+            {
+                MessageBox.Show("Giải đấu này đang trong tình trạng đăng ký!\nVui lòng cung cấp đầy đủ thông tin về đội bóng để tạo lịch thi đấu!", "Lỗi" , MessageBoxButton.OK,MessageBoxImage.Error);
+                return;
+            }
+            // Status = Đã bắt đầu (Đã bắt đầu)
+            if (parameter.league.status == 2)
+            {
+                MessageBox.Show("Giải đấu này đã được bắt đầu!\nKhông thể tạo lịch thi đấu!", "Lỗi" , MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Tiến hành tạo lịch
+            if (MessageBox.Show("Sau khi tiến hành tạo lịch, các thông tin về Quy định giải đấu, Câu lạc bộ, Cầu thủ sẽ không được phép thay đổi nữa!\n" +
+                "Các trận đấu sẽ được tạo ngẫu nhiên theo nguyên tắc vòng tròn tính điểm.\n" +
+                "Bạn có muốn tạo lịch thi đấu?", "Lưu ý", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                // Hàm tạo lịch theo Vòng tròn tính điểm
+                CreateScheduleWithCircle(parameter);
+
+                // Thay đổi status của giải đấu = 2 (Đã bắt đầu khởi tranh)
+                LeagueDAO.Instance.UpdateStatusOfLeague(parameter.league.id, 2);
+
+
+                MessageBox.Show("Tạo lịch thi đấu thành công!", "Thành công", MessageBoxButton.OK);
+
+                LoadListMatch(parameter, 0);
+            }
+        }
+
+        // Tạo lịch thi đấu với cách vòng tròn tính điểm
+        // Viết riêng hàm cho đẹp, hơn nữa để phát triển thêm nhiều các sắp lịch khác (nếu có phát triển thêm)
+        public void CreateScheduleWithCircle(MainWindow parameter)
+        {
+            // Lưu ý: số lượng đội bóng BẮT BUỘC PHẢI là số CHẴN
+            if (parameter.league.countTeam %2 == 1)
+            {
+                MessageBox.Show("Số đội bóng tham gia giải đấu phải là số chẵn!", "Lưu ý", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            List<Team> teams = TeamDAO.Instance.GetListTeam(parameter.league.id);
+
+            // Số lượng đội bóng
+            int nTeams = teams.Count;
+
+            bool[,] homeStadium = new bool[nTeams + 1, nTeams + 1];
+            // homeStadium[i,j] = true  : đã có 1 trận đấu đội i vs j và sân là sân nhà của đội i, = false : chưa diễn ra trận đấu giữa đội i và j
+            for (int i = 0; i <= nTeams; i++) for (int j = 0; j <= nTeams; j++) homeStadium[i, j] = false;
+
+
+            bool[] isAttended = new bool[nTeams + 1];
+            // Tại 1 vòng đấu nào đóm đội i nếu đã tham gia thì isAttended[i] = true;
+
+            Match[] matches = new Match[(nTeams - 1) * nTeams + 1];
+            int nTrandau = 0;
+
+            // Tạo lịch
+            for (int vongdau = 1; vongdau <= (nTeams - 1) * 2; vongdau++) 
+            {
+                // Đánh dấu rằng: tại vòng đấu thứ vongdau, tất cả các đội bóng đều chưa tham gia
+                for (int attended = 0; attended <= nTeams; attended++)
+                {
+                    isAttended[attended] = false;
+                }
+
+                //for (int i = 0; i < nTeams; i++)
+                //{
+                //    for (int j = i + 1; j < nTeams; j++)
+                //    {
+                //        if (i == j || isAttended[i] || isAttended[j] || homeStadium[i,j])
+                //        {
+                //            continue;
+                //        }
+
+                //        isAttended[i] = true;
+                //        isAttended[j] = true;
+                //        homeStadium[i, j] = true;
+                //        nTrandau++;
+                //        matches[nTrandau] = new Match(parameter.league.id, teams[i].id, teams[j].id, vongdau, teams[i].stadium);
+                //    }    
+                //}   
+
+                int nAttended = 0; // Số đội bóng đã tham gia vòng đấu hiện tại
+
+                Random rdTeam01 = new Random();
+                Random rdTeam02 = new Random();
+
+                while (nAttended < nTeams / 2) // Số trận đấu tối đa trong một vòng đấu = số đội bóng/2
+                {
+                    int team01 = rdTeam01.Next(1, nTeams + 1);
+                    int team02 = rdTeam02.Next(1, nTeams + 1);
+
+                    while (isAttended[team01] || isAttended[team02] || homeStadium[team01, team02] || team01 == team02)
+                    {
+                        team01 = rdTeam01.Next(1, nTeams + 1);
+                        team02 = rdTeam02.Next(1, nTeams + 1);
+                    }
+
+                    isAttended[team01] = true;
+                    isAttended[team02] = true;
+                    homeStadium[team01, team02] = true;
+
+                    nTrandau++;
+                    matches[nTrandau] = new Match(parameter.league.id, teams[team01 - 1].id, teams[team02 - 1].id, vongdau, teams[team01 - 1].stadium);
+
+                    nAttended++;
+                }
+            }
+
+            for (int i = 1; i <= nTrandau; i++)
+            {
+                //matches[i].date = DateTime.Now.Date;
+                matches[i].date = DateTime.ParseExact(DateTime.Now.ToString("dd/MM/yyyy"), "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                matches[i].time = DateTime.ParseExact(DateTime.Now.ToString("HH:mm"), "HH:mm", System.Globalization.CultureInfo.InvariantCulture);
+                MatchDAO.Instance.AddMatch(matches[i]);
+            }    
+        }
+
+        // Thêm dữ liệu vào thanh lọc Vòng đấu
+        public void AddItemsForCbxRound(MainWindow parameter)
+        {
+            parameter.cbxRound.Items.Clear();
+            parameter.cbxRound.Items.Add("Tất cả");
+            for (int i = 1; i <= (parameter.league.countTeam - 1) * 2; i++)
+            {
+                string item = "Vòng " + i.ToString();
+                parameter.cbxRound.Items.Add(item);
+            }    
+        }
+
+
+        // Hiển thị danh sách trận đấu
+        List<Match> listMatches;
+        public void LoadListMatch(MainWindow parameter, int round)
+        {
+            if (round == 0)
+            {
+                listMatches = MatchDAO.Instance.GetListMatch(parameter.league.id);
+            }    
+            else
+            {
+                listMatches = MatchDAO.Instance.GetListMatchByRound(parameter.league.id, round);
+            }
+            
+            parameter.wpSchedule.Children.Clear();
+
+            int i = 0;
+            foreach (Match match in listMatches)
+            {
+                i++;
+                ucMatchDetail ucmatchDetail = new ucMatchDetail(i, match, parameter, this);
+                parameter.wpSchedule.Children.Add(ucmatchDetail);
+            }    
+
+        }
+
+        public void ChangeCbxRound(MainWindow parameter)
+        {
+            int round = parameter.cbxRound.SelectedIndex;
+            LoadListMatch(parameter, round);
+        }
+
+        public void OpenEditMatchInfoWindow(MainWindow parameter, Match match)
+        {
+            EditMatchInforWindow wd = new EditMatchInforWindow(match);
+            wd.ShowDialog();
+
+            LoadListMatch(parameter, parameter.cbxRound.SelectedIndex);
+        }
+        public void OpenResultRecordingWindow(MainWindow parameter, Match match)
+        {
+            ResultRecordingWindow wd = new ResultRecordingWindow(match);
+            wd.ShowDialog();
+        }
+        #endregion
+    }
 }

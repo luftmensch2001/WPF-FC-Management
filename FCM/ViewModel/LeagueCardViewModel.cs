@@ -16,7 +16,6 @@ namespace FCM.ViewModel
         public ICommand GetDetailCommand { get; set; }
         public LeagueCardViewModel()
         {
-            
             GetDetailCommand = new RelayCommand<ucLeagueCard>((parameter) => true, (parameter) => GetDetail(parameter));
         }
         void GetDetail(ucLeagueCard parameter)

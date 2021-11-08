@@ -4,6 +4,8 @@ Go
 Use WPF_FCM
 Go
 
+Set Dateformat dmy
+go
 
 -- Tài khoản -- 
 Create Table Users
@@ -72,6 +74,7 @@ Create Table Matchs
 	IdTeam01 int,
 	IdTeam02 int,
 	Round int,
+	Date Datetime,
 	Time Datetime,
 	Stadium nvarchar(100),
 
@@ -81,6 +84,8 @@ Create Table Matchs
 )
 Go
 
+
+
 -- Đội hình/thành viên đưuọc đăng ký thi đấu -
 -- Cái này mình đang mặc định là cả Team có bao nhiêu cầu thủ đem hết vào trận, tuy nhiên cái này sai về logic, 
 -- hơn nữa mình thêm cái này để mình phát triển tính năng "Chuyển nhượng" sẽ không xảy ra bug chỗ này 
@@ -89,12 +94,14 @@ Create Table Lineups
 	IdMatchs int,
 	IdPlayers int,
 	IdTeams int,
+	isOffical int,			-- 1: cầu thủ chính thức, 0: cầu thủ dự bị
 
 	foreign key (IdMatchs) references Matchs(Id),
 	foreign key (IdPlayers) references Players(Id),
 	foreign key (IdTeams) references Teams(Id)
 )
 Go
+
 
 -- Loại bàn thắng -- 
 Create Table TypeOfGoals
@@ -105,23 +112,25 @@ Create Table TypeOfGoals
 Go
 
 -- Bàn thắng -- 
-Create Table Match_Goals
+Create Table Goals
 (
 	IdMatchs int,
-	IdPlayers int,
+	IdPlayerGoals int,
+	IdPlayerAssist int,
 	IdTeams int,
 	IdTypeOfGoals int,
 	Time Datetime,
 
 	foreign key (IdMatchs) references Matchs(Id),
-	foreign key (IdPlayers) references Players(Id),
+	foreign key (IdPlayerGoals) references Players(Id),
+	foreign key (IdPlayerAssist) references Players(Id),
 	foreign key (IdTeams) references Teams(Id),
 	foreign key (IdTypeOfGoals) references TypeOfGoals(Id)
 )
 Go
 
 -- Thẻ phạt -- 
-Create Table Penalty
+Create Table Cards
 (
 	IdMatchs int,
 	IdPlayers int,
@@ -135,8 +144,9 @@ Create Table Penalty
 )
 Go
 
+
 -- Thay người -- 
-Create Table Subtitutions
+Create Table SwitchedPlayers
 (
 	IdMatchs int,
 	IdPlayerIn int,

@@ -6,6 +6,9 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="410"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             DataContext="{StaticResource ResultVM}"
+             x:Name="ucGoalCard"
              
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             TextElement.FontWeight="Regular"
@@ -60,6 +63,12 @@
                     Height="25"
                     Padding="0">
                     <materialDesign:PackIcon Kind="Pencil" />
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding EditGoalCommand}"
+                                                    CommandParameter="{Binding ElementName=ucGoalCard}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
 
                 <Button 
@@ -69,6 +78,12 @@
                     Height="25"
                     Padding="0">
                     <materialDesign:PackIcon Kind="DeleteOutline" />
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding DeleteGoalCommand}"
+                                                    CommandParameter="{Binding ElementName=ucGoalCard}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
             </StackPanel>
         </Grid>

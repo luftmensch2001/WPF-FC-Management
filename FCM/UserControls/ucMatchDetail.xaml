@@ -5,11 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FCM.UserControls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"      
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="70" d:DesignWidth="900"
              Background="#282823"
              Foreground="White"
              VerticalAlignment="Top"
+             DataContext="{StaticResource EditMatchInforVM}"
+             x:Name="wcMatchDetailCard"
              Margin="0 25 0 0">
     <Grid>
         <Grid.Resources>
@@ -35,7 +38,7 @@
 
         <Grid Grid.Column="0">
             <TextBlock Text="No" 
-                        x:Name="tblID"
+                        x:Name="tblSTT"
                         Style="{StaticResource headerText}"/>
             <Rectangle Height="30" Width="1" Fill="Gray" HorizontalAlignment="Right"/>
         </Grid>
@@ -109,6 +112,12 @@
                         <TextBlock Text="Sửa" 
                                FontSize="12"/>
                     </StackPanel>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding OpenEditMatchWindowCommand}"
+                                                       CommandParameter="{Binding ElementName=wcMatchDetailCard}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
                 
                 <Button 
@@ -128,6 +137,12 @@
                         <TextBlock Text="Ghi KQ" 
                                FontSize="12"/>
                     </StackPanel>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding OpenResultRecordWindowCommand}"
+                                                       CommandParameter="{Binding ElementName=wcMatchDetailCard}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
             </StackPanel>
             

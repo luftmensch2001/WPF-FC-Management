@@ -22,5 +22,14 @@ namespace FCM.UserControls
         {
             InitializeComponent();
         }
+        public ucCard(string numberUniform, string NamePlayer, string minute, string typeOfCard)
+        {
+            InitializeComponent();
+
+            this.tblNumber.Text = numberUniform;
+            this.tblFootballer.Text = NamePlayer;
+            this.tblTime.Text = minute;
+            this.tblTypeOfCard.Text = typeOfCard;
+        }
     }
 }

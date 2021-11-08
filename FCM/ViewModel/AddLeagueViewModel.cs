@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using FCM.DAO;
 using FCM.DTO;
 using FCM.UserControls;
+using System.Globalization;
 
 namespace FCM.ViewModel
 {
@@ -53,14 +54,15 @@ namespace FCM.ViewModel
                 MessageBox.Show("Thiếu thông tin","Lỗi");
                 return;
             }
-            if (InputFormat.Instance.isNumber(countTeam) || Int32.Parse(countTeam)<2 || Int32.Parse(countTeam) >24)
+            if (!InputFormat.Instance.isNumber(countTeam) || Int32.Parse(countTeam)<2 || Int32.Parse(countTeam) >24)
             {
-                MessageBox.Show("Số đội tham gia chỉ nhận giá trị số nguyên >=2 và <64");
+                MessageBox.Show("Số đội tham gia chỉ nhận giá trị số nguyên >=2 và <=24");
                 return;
             }
             if (parameter.league==null)
             {
-                League league = new League(sponsor, name, 0, DateTime.Parse(parameter.datePicker.ToString()), ImageProcessing.Instance.convertImgToByte(imaged), Int32.Parse(countTeam));
+                //League league = new League(sponsor, name, 0, DateTime.Parse(parameter.datePicker.ToString()), ImageProcessing.Instance.convertImgToByte(imaged), Int32.Parse(countTeam));
+                League league = new League(sponsor, name, 0, parameter.datePicker.SelectedDate.Value, ImageProcessing.Instance.convertImgToByte(imaged), Int32.Parse(countTeam));
                 LeagueDAO.Instance.CreateLeague(league);
                 
                 MessageBox.Show("Tạo mùa giải thành công");

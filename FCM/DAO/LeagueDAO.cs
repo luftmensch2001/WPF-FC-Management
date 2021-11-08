@@ -53,7 +53,7 @@ namespace FCM.DAO
                          "Values (  " +
                          "N'" + league.nameSpender + "' ," +
                          "N'" + league.nameLeague + "' ," +
-                         "N'" + league.dateTime + "' ," +
+                         "N'" + league.dateTime.ToString("M/d/yyyy") + "' ," +
                          "N'" + league.status + "' ," +
                          " " + league.countTeam + "" +
                          ")";
@@ -77,6 +77,16 @@ namespace FCM.DAO
             DataProvider.Instance.ExecuteQuery(query, new object[] { league.logo });
             SettingDAO.Instance.UpdateSetting_NumberOfTeams(league.id, league.countTeam);
         }
+
+        public void UpdateStatusOfLeague(int id, int status)
+        {
+            string query = "Update Tournaments " +
+                " Set " +
+                " Status = " + status +
+                " Where id = " + id;
+            DataProvider.Instance.ExecuteQuery(query);
+        }
+
         public void DeleteLeague(League league)
         {
             SettingDAO.Instance.DeleteSetting(league.id);

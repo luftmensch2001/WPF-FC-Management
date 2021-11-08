@@ -26,6 +26,15 @@ namespace FCM.DAO
             Team team = new Team(tb.Rows[0]);
             return team;
         }
+
+        public int GetPlayerCountOfTeam(int id)
+        {
+            string query = "Select* " +
+                         "From Players " +
+                         "Where IdTeams= " + id;
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+            return tb.Rows.Count;
+        }
         public List<Team> GetListTeam(int idTournament)
         {
             List<Team> teams = new List<Team>();
@@ -80,6 +89,5 @@ namespace FCM.DAO
             query = "UPDATE Teams SET logo = @img WHERE ID = " + team.id;
             DataProvider.Instance.ExecuteQuery(query, new object[] { team.logo });
         }
-
     }
 }

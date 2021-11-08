@@ -1,4 +1,7 @@
-﻿using System;
+﻿using FCM.DAO;
+using FCM.DTO;
+using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -17,9 +20,34 @@ namespace FCM.View
     /// </summary>
     public partial class EditMatchInforWindow : Window
     {
+        public Match match { get; set; }
         public EditMatchInforWindow()
         {
             InitializeComponent();
+            
+        }
+        public EditMatchInforWindow(Match match)
+        {
+            InitializeComponent();
+            this.match = match;
+
+            // Sân vận động
+            //this.cbStadium.Items.Clear();
+            Team team01 = TeamDAO.Instance.GetTeamById(match.idTeam01);
+            Team team02 = TeamDAO.Instance.GetTeamById(match.idTeam02);
+            this.cbStadium.Items.Add(team01.stadium);
+            this.cbStadium.Items.Add(team02.stadium);
+            this.cbStadium.SelectedIndex = 0;
+
+            // Ngày thi đấu
+            this.dpDate.SelectedDate = match.date.Date;
+
+            // Thời gian
+            //this.tpTime.SelectedTime = match.time.ToString("hh:mm");
+            this.tpTime.SelectedTime = DateTime.ParseExact(match.time.ToString("hh:mm"), "hh:mm", System.Globalization.CultureInfo.InvariantCulture);
+
+            InitializeComponent();
+
         }
     }
 }

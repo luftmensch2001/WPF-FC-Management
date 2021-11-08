@@ -5,16 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FCM.View"
         mc:Ignorable="d"
-        x:Name="wdAddLeague"
+        x:Name="wdEditMatchInfor"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize"
         Title="Sửa thông tin trận đấu" Height="325" Width="380"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        DataContext=""
+        
         Icon="/Resource/Images/software-logo.png"
         BorderBrush="#fff"
         BorderThickness="1"
         materialDesign:ShadowAssist.ShadowDepth="Depth1"
+        
+        DataContext="{StaticResource EditMatchInforVM}"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -45,10 +47,6 @@
                                 FontSize="14"
                                 Margin="20 0 0 0"
                                 Width="160">
-                        <ComboBoxItem
-                                Content="Sân nhà team 1" />
-                        <ComboBoxItem
-                                Content="Sân nhà team 2" />
                     </ComboBox>
                 </StackPanel>
                 <!--Date-->
@@ -79,12 +77,26 @@
                 <Button 
                     x:Name="btnSave"
                     Style="{StaticResource MyGreenButtonStyle}" 
-                    Content="Lưu"/>
-                <Button 
+                    Content="Lưu">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding SaveCommand}"
+                                                    CommandParameter="{Binding ElementName=wdEditMatchInfor}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button
                     x:Name="btnCancel"
                     Style="{StaticResource MyRedButtonStyle}" 
                     Content="Huỷ"
-                    Margin="10 0 0 0"/>
+                    Margin="10 0 0 0">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding ExitCommand}"
+                                                    CommandParameter="{Binding ElementName=wdEditMatchInfor}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
             </StackPanel>
         </Grid>
     </Grid>

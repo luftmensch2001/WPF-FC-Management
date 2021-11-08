@@ -846,30 +846,34 @@
                     <Button 
                         x:Name="btnCreateSchedule"
                         Content="Tạo lịch thi đấu"
+                        
                         Style="{StaticResource MyGreenButtonStyle}"
                         Width="250"
                         Height="45"
                         FontSize="15"
                         Margin="0 20 0 0">
 
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding CreateScheduleCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </Button>
 
                     <ComboBox
+                        x:Name="cbxRound"
                         materialDesign:HintAssist.Hint="Chọn vòng đấu"
                         Width="200"
                         HorizontalAlignment="Center"
                         Margin="0 30 0 0">
-
-                        <ComboBoxItem
-                            Content="Tất cả" />
-                        <ComboBoxItem
-                            Content="Vòng 1" />
-                        <ComboBoxItem
-                            Content="Vòng 2" />
-                        <ComboBoxItem
-                            Content="Vòng 3" />
-                        <ComboBoxItem
-                            Content="Vòng 4" />
+f
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding ChangeRoundCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                 </StackPanel>
                 <Image 
