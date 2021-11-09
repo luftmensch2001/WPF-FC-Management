@@ -41,7 +41,8 @@ namespace FCM.ViewModel
         //public ICommand OpenEditMatchWindowCommand { get; set; }
         //public ICommand OpenResultRecordWindowCommand { get; set; }
 
-        
+
+        public int round = 0;
 
         public string uid;
 
@@ -744,6 +745,7 @@ namespace FCM.ViewModel
         public void ChangeCbxRound(MainWindow parameter)
         {
             int round = parameter.cbxRound.SelectedIndex;
+            this.round = round;
             LoadListMatch(parameter, round);
         }
 
@@ -758,6 +760,7 @@ namespace FCM.ViewModel
         {
             ResultRecordingWindow wd = new ResultRecordingWindow(match);
             wd.ShowDialog();
+            LoadListMatch(parameter, this.round);
         }
         #endregion
     }

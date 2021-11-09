@@ -58,6 +58,25 @@ namespace FCM.View
             Init(match);
         }
 
+        void setCardInfor()
+        {
+            for (int i = 0; i < this.listLineups_Offical_Team1.Count; i++)
+            {
+                this.listLineups_Offical_Team1[i].setCardInfor();
+            }
+            for (int i = 0; i < this.listLineups_Offical_Team2.Count; i++)
+            {
+                this.listLineups_Offical_Team2[i].setCardInfor();
+            }
+            for (int i = 0; i < this.listLineups_Prep_Team1.Count; i++)
+            {
+                this.listLineups_Prep_Team1[i].setCardInfor();
+            }
+            for (int i = 0; i < this.listLineups_Prep_Team2.Count; i++)
+            {
+                this.listLineups_Prep_Team2[i].setCardInfor();
+            }
+        }
         void Init(Match match)
         {
             this.match = match;
@@ -86,6 +105,8 @@ namespace FCM.View
 
             // Lấy dữ liệu lên
             GetDataFromDatabase();
+
+            setCardInfor();
 
             LoadLineups(0);
         }
@@ -117,6 +138,8 @@ namespace FCM.View
 
                 this.ScoreTeam1 = this.listGoalsTeam1.Count;
                 this.ScoreTeam2 = this.listGoalsTeam2.Count;
+
+                
             }
             LoadLineups(0);
             LoadCard();
@@ -202,7 +225,7 @@ namespace FCM.View
 
             foreach (Player player in players)
             {
-                Lineups lineup = new Lineups(this.match.id, player.id, this.teamNow.id, 0);
+                Lineups lineup = new Lineups(this.match.id, player.id, this.teamNow.id, 0, getCardFromPlayer(player));
                 lineupsPrep.Add(lineup);
             }
 
@@ -258,10 +281,11 @@ namespace FCM.View
                 this.wpReserveFormation.Children.Add(ucFootballer);
             }
             
+            // Thêm vào danh sách thay người
             if (switchedPlayers != null)
             for (int i = 0; i < switchedPlayers.Count; i++)
             {
-                this.wpSwitched.Children.Add(new ucSwitchedPlayers(switchedPlayers[i]));
+                this.wpSwitched.Children.Add(new ucSwitchedPlayers(switchedPlayers[i], this));
             }
 
             ResetComboboxAddPlayer();
@@ -306,7 +330,15 @@ namespace FCM.View
                 ChangeFromPrepToOfficial(this.listLineups_Prep_Team1[indexIn]);
                 this.listLineups_Offical_Team1.RemoveAt(indexOut);
                 this.listLineups_Prep_Team1.RemoveAt(indexIn);
-                this.listLineups_Prep_Team1.Add(new Lineups(this.match.id, idOut, team1.id, 0));
+                this.listLineups_Prep_Team1.Add(new Lineups(this.match.id, idOut, team1.id, 0, 
+                                                            getCardFromPlayer(new Player(this.team1.id, 
+                                                                                            PlayerDAO.Instance.GetPlayerById(idOut).namePlayer,
+                                                                                            PlayerDAO.Instance.GetPlayerById(idOut).uniformNumber,
+                                                                                            PlayerDAO.Instance.GetPlayerById(idOut).birthDay,
+                                                                                            PlayerDAO.Instance.GetPlayerById(idOut).position,
+                                                                                            PlayerDAO.Instance.GetPlayerById(idOut).nationality,
+                                                                                            PlayerDAO.Instance.GetPlayerById(idOut).note,
+                                                                                            PlayerDAO.Instance.GetPlayerById(idOut).image))));
 
 
                 SwitchedPlayer switchedPlayer = new SwitchedPlayer(this.match.id, idIn, idOut, team1.id, minute);
@@ -320,7 +352,15 @@ namespace FCM.View
                 ChangeFromPrepToOfficial(this.listLineups_Prep_Team2[indexIn]);
                 this.listLineups_Offical_Team2.RemoveAt(indexOut);
                 this.listLineups_Prep_Team2.RemoveAt(indexIn);
-                this.listLineups_Prep_Team2.Add(new Lineups(this.match.id, idOut, team2.id, 0));
+                this.listLineups_Prep_Team2.Add(new Lineups(this.match.id, idOut, team1.id, 0,
+                                                            getCardFromPlayer(new Player(this.team1.id,
+                                                                                            PlayerDAO.Instance.GetPlayerById(idOut).namePlayer,
+                                                                                            PlayerDAO.Instance.GetPlayerById(idOut).uniformNumber,
+                                                                                            PlayerDAO.Instance.GetPlayerById(idOut).birthDay,
+                                                                                            PlayerDAO.Instance.GetPlayerById(idOut).position,
+                                                                                            PlayerDAO.Instance.GetPlayerById(idOut).nationality,
+                                                                                            PlayerDAO.Instance.GetPlayerById(idOut).note,
+                                                                                            PlayerDAO.Instance.GetPlayerById(idOut).image))));
 
                 SwitchedPlayer switchedPlayer = new SwitchedPlayer(this.match.id, idIn, idOut, team2.id, minute);
                 this.listSwitchedPlayerTeam2.Add(switchedPlayer);
@@ -367,7 +407,6 @@ namespace FCM.View
                 this.listLineups_Offical_Team2.Add(lineup);
             }    
         }
-
         public void AddCard(bool isTeam1, Card card)
         {
             if (isTeam1)
@@ -392,7 +431,7 @@ namespace FCM.View
                 string uniformNumber = PlayerDAO.Instance.GetPlayerById(idPlayer).uniformNumber.ToString();
                 string namePlayer = PlayerDAO.Instance.GetPlayerById(idPlayer).namePlayer.ToString();
 
-                ucCard ucCard = new ucCard(uniformNumber, namePlayer, card.time, card.typeOfCard);
+                ucCard ucCard = new ucCard(this, new Card(this.match.id, idPlayer, this.team1.id, card.typeOfCard, card.time));
 
                 this.wpCardsTeam1.Children.Add(ucCard);
             }
@@ -402,10 +441,39 @@ namespace FCM.View
                 int idPlayer = card.idPlayer;
                 string uniformNumber = PlayerDAO.Instance.GetPlayerById(idPlayer).uniformNumber.ToString();
                 string namePlayer = PlayerDAO.Instance.GetPlayerById(idPlayer).namePlayer.ToString();
-                ucCard ucCard = new ucCard(uniformNumber, namePlayer, card.time, card.typeOfCard);
+
+                ucCard ucCard = new ucCard(this, new Card(this.match.id, idPlayer, this.team2.id, card.typeOfCard, card.time));
 
                 this.wpCardsTeam2.Children.Add(ucCard);
             }
+
+            LoadLineups(this.cbSelectedTeam.SelectedIndex);
+        }
+        public void Deletecard(Card card)
+        {
+            for (int i = 0; i < this.listCardsTeam1.Count; i++)
+            {
+                if (this.listCardsTeam1[i].idPlayer == card.idPlayer &&
+                    this.listCardsTeam1[i].typeOfCard == card.typeOfCard &&
+                    this.team1.id == card.idTeams &&
+                    this.listCardsTeam1[i].time == card.time)
+                {
+                    this.listCardsTeam1.RemoveAt(i);
+                    break;
+                }
+            }
+            for (int i = 0; i < this.listCardsTeam2.Count; i++)
+            {
+                if (this.listCardsTeam2[i].idPlayer == card.idPlayer &&
+                    this.listCardsTeam2[i].typeOfCard == card.typeOfCard &&
+                    this.team2.id == card.idTeams &&
+                    this.listCardsTeam2[i].time == card.time)
+                {
+                    this.listCardsTeam2.RemoveAt(i);
+                    break;
+                }
+            }
+            LoadCard();
         }
         public void AddNewGoal(bool isTeam1, Goal newGoal)
         {
@@ -421,6 +489,32 @@ namespace FCM.View
             }
             LoadGoalListToWindow();
         }
+        public void DeleteGoal(Goal goal)
+        {
+            for (int i = 0; i < this.listGoalsTeam1.Count; i++)
+            {
+                if (this.listGoalsTeam1[i].idPlayerGoals == goal.idPlayerGoals &&
+                    this.listGoalsTeam1[i].idPlayerAssist == goal.idPlayerAssist &&
+                    this.listGoalsTeam1[i].idTypeOfGoals == goal.idTypeOfGoals &&
+                    this.listGoalsTeam1[i].time == goal.time)
+                {
+                    this.listGoalsTeam1.RemoveAt(i);
+                    break;
+                }
+            }
+            for (int i = 0; i < this.listGoalsTeam2.Count; i++)
+            {
+                if (this.listGoalsTeam2[i].idPlayerGoals == goal.idPlayerGoals &&
+                    this.listGoalsTeam2[i].idPlayerAssist == goal.idPlayerAssist &&
+                    this.listGoalsTeam2[i].idTypeOfGoals == goal.idTypeOfGoals &&
+                    this.listGoalsTeam2[i].time == goal.time)
+                {
+                    this.listGoalsTeam2.RemoveAt(i);
+                    break;
+                }
+            }
+            LoadGoalListToWindow();
+        }
         public void LoadGoalListToWindow()
         {
             this.wpGoalsTeam1.Children.Clear();
@@ -432,15 +526,356 @@ namespace FCM.View
 
             for (int i = 0; i < this.listGoalsTeam1.Count; i++)
             {
-                ucGoal goal = new ucGoal(this.listGoalsTeam1[i]);
+                ucGoal goal = new ucGoal(this.listGoalsTeam1[i], this);
                 this.wpGoalsTeam1.Children.Add(goal);
             }
             for (int i = 0; i < this.listGoalsTeam2.Count; i++)
             {
-                ucGoal goal = new ucGoal(this.listGoalsTeam2[i]);
+                ucGoal goal = new ucGoal(this.listGoalsTeam2[i], this);
                 this.wpGoalsTeam2.Children.Add(goal);
             }
         }
+        public void DeleteSwitched(SwitchedPlayer s)
+        {
+            Player pIn = new Player();
+            Player pOut = new Player();
 
+
+            // Xóa bỏ khỏi danh sách Switch
+            for (int i = 0; i < this.listSwitchedPlayerTeam1.Count; i++)
+            {
+                if (this.listSwitchedPlayerTeam1[i].idPlayerIn == s.idPlayerIn &&
+                    this.listSwitchedPlayerTeam1[i].idPlayerOut == s.idPlayerOut &&
+                    this.listSwitchedPlayerTeam1[i].idTeam == s.idTeam &&
+                    this.listSwitchedPlayerTeam1[i].time == s.time)
+                {
+                    pIn = new Player(this.team1.id, PlayerDAO.Instance.GetPlayerById(s.idPlayerIn).namePlayer,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerIn).uniformNumber,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerIn).birthDay,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerIn).position,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerIn).nationality,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerIn).note,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerIn).image);
+
+                    pIn.id = s.idPlayerIn;
+
+                    pOut = new Player(this.team1.id, PlayerDAO.Instance.GetPlayerById(s.idPlayerOut).namePlayer,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerOut).uniformNumber,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerOut).birthDay,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerOut).position,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerOut).nationality,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerOut).note,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerOut).image);
+
+                    pOut.id = s.idPlayerOut;
+
+                    this.listSwitchedPlayerTeam1.RemoveAt(i);
+                    break;
+                }
+            }
+            for (int i = 0; i < this.listSwitchedPlayerTeam2.Count; i++)
+            {
+                if (this.listSwitchedPlayerTeam2[i].idPlayerIn == s.idPlayerIn &&
+                    this.listSwitchedPlayerTeam2[i].idPlayerOut == s.idPlayerOut &&
+                    this.listSwitchedPlayerTeam2[i].idTeam == s.idTeam &&
+                    this.listSwitchedPlayerTeam2[i].time == s.time)
+                {
+                    pIn = new Player(this.team2.id, PlayerDAO.Instance.GetPlayerById(s.idPlayerIn).namePlayer,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerIn).uniformNumber,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerIn).birthDay,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerIn).position,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerIn).nationality,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerIn).note,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerIn).image);
+
+                    pIn.id = s.idPlayerIn;
+
+                    pOut = new Player(this.team2.id, PlayerDAO.Instance.GetPlayerById(s.idPlayerOut).namePlayer,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerOut).uniformNumber,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerOut).birthDay,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerOut).position,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerOut).nationality,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerOut).note,
+                                    PlayerDAO.Instance.GetPlayerById(s.idPlayerOut).image);
+
+                    pOut.id = s.idPlayerOut;
+
+                    this.listSwitchedPlayerTeam2.RemoveAt(i);
+                    break;
+                }
+            }
+
+            // Xóa thằng Out ra khỏi Prep, đẩy lại vào Official
+            DeleteFromPrep(pOut);
+            InsertIntoOfficial(pOut);
+
+            // Xóa thằng In khỏi Official, đẩy vào lại Prep
+            DeleteFromOfficial(pIn);
+            InsertIntoPrep(pIn);
+
+            // Xóa dữ liệu thay người khỏi danh sách
+            for (int i = 0; i < this.listSwitchedPlayerTeam1.Count; i++)
+            {
+                if (this.listSwitchedPlayerTeam1[i].idPlayerIn == pIn.id && 
+                    this.listSwitchedPlayerTeam1[i].idPlayerOut == pOut.id && 
+                    this.team1.id == s.idTeam &&
+                    this.listSwitchedPlayerTeam1[i].time == s.time)
+                {
+                    this.listSwitchedPlayerTeam1.RemoveAt(i);
+                    break;
+                }
+            }
+            for (int i = 0; i < this.listSwitchedPlayerTeam2.Count; i++)
+            {
+                if (this.listSwitchedPlayerTeam2[i].idPlayerIn == pIn.id &&
+                    this.listSwitchedPlayerTeam2[i].idPlayerOut == pOut.id &&
+                    this.team2.id == s.idTeam &&
+                    this.listSwitchedPlayerTeam2[i].time == s.time)
+                {
+                    this.listSwitchedPlayerTeam2.RemoveAt(i);
+                    break;
+                }
+            }
+
+            // Load lại danh sách Lineups
+            LoadLineups(this.cbSelectedTeam.SelectedIndex);
+        }
+        public void ShowListSwitched()
+        {
+            for (int i = 0; i < this.listSwitchedPlayerTeam1.Count; i++)
+            {
+                MessageBox.Show(TeamDAO.Instance.GetTeamById(this.listSwitchedPlayerTeam1[i].idTeam).nameTeam + "-" +
+                    this.listSwitchedPlayerTeam1[i].idPlayerIn + " - " +
+                    PlayerDAO.Instance.GetPlayerById(this.listSwitchedPlayerTeam1[i].idPlayerIn).namePlayer + "-" +
+                    this.listSwitchedPlayerTeam1[i].idPlayerOut + " - " +
+                    PlayerDAO.Instance.GetPlayerById(this.listSwitchedPlayerTeam1[i].idPlayerOut).namePlayer);
+            }
+            for (int i = 0; i < this.listSwitchedPlayerTeam2.Count; i++)
+            {
+                MessageBox.Show(TeamDAO.Instance.GetTeamById(this.listSwitchedPlayerTeam2[i].idTeam).nameTeam + "-" +
+                    this.listSwitchedPlayerTeam2[i].idPlayerIn + " - " +
+                    PlayerDAO.Instance.GetPlayerById(this.listSwitchedPlayerTeam2[i].idPlayerIn).namePlayer + "-" +
+                    this.listSwitchedPlayerTeam2[i].idPlayerOut + " - " +
+                    PlayerDAO.Instance.GetPlayerById(this.listSwitchedPlayerTeam2[i].idPlayerOut).namePlayer);
+            }
+        }
+
+        void InsertIntoPrep(Player p)
+        {
+            if (p.idTeam == this.team1.id)
+            {
+                for (int i = 0; i < this.listLineups_Prep_Team1.Count; i++)
+                {
+                    if (this.listLineups_Prep_Team1[i].idPlayer == p.id)
+                    {
+                        return;
+                    }
+                }
+
+                Lineups l = new Lineups(this.match.id, p.id, this.team1.id, 0, getCardFromPlayer(p));
+
+                this.listLineups_Prep_Team1.Add(l);
+            }
+            else
+            {
+                for (int i = 0; i < this.listLineups_Prep_Team2.Count; i++)
+                {
+                    if (this.listLineups_Prep_Team2[i].idPlayer == p.id)
+                    {
+                        return;
+                    }
+                }
+
+                Lineups l = new Lineups(this.match.id, p.id, this.team2.id, 0, getCardFromPlayer(p));
+
+                this.listLineups_Prep_Team2.Add(l);
+            }
+        }
+        void DeleteFromPrep(Player p)
+        {
+            for (int i = 0; i < this.listLineups_Prep_Team1.Count; i++)
+            {
+                if (p.id == this.listLineups_Prep_Team1[i].idPlayer && p.idTeam == this.team1.id)
+                {
+                    this.listLineups_Prep_Team1.RemoveAt(i);
+                    break;
+                }
+            }
+            for (int i = 0; i < this.listLineups_Prep_Team2.Count; i++)
+            {
+                if (p.id == this.listLineups_Prep_Team2[i].idPlayer && p.idTeam == this.team2.id)
+                {
+                    this.listLineups_Prep_Team2.RemoveAt(i);
+                    break;
+                }
+            }
+        }    
+        void InsertIntoOfficial(Player p)
+        {
+            if (p.idTeam == this.team1.id)
+            {
+                for (int i = 0; i < this.listLineups_Offical_Team1.Count; i++)
+                {
+                    if (this.listLineups_Offical_Team1[i].idPlayer == p.id)
+                    {
+                        return;
+                    }
+                }
+
+                Lineups l = new Lineups(this.match.id, p.id, this.team1.id, 1, getCardFromPlayer(p));
+
+                this.listLineups_Offical_Team1.Add(l);
+            }    
+            else
+            {
+                for (int i = 0; i < this.listLineups_Offical_Team2.Count; i++)
+                {
+                    if (this.listLineups_Offical_Team2[i].idPlayer == p.id)
+                    {
+                        return;
+                    }
+                }
+
+                Lineups l = new Lineups(this.match.id, p.id, this.team2.id, 1, getCardFromPlayer(p));
+
+                this.listLineups_Offical_Team2.Add(l);
+            }    
+        }
+        void DeleteFromOfficial(Player p)
+        {
+            for (int i = 0; i < this.listLineups_Offical_Team1.Count; i++)
+            {
+                if (p.id == this.listLineups_Offical_Team1[i].idPlayer && p.idTeam == this.team1.id)
+                {
+                    this.listLineups_Offical_Team1.RemoveAt(i);
+                    break;
+                }
+            }
+            for (int i = 0; i < this.listLineups_Offical_Team2.Count; i++)
+            {
+                if (p.id == this.listLineups_Offical_Team2[i].idPlayer && p.idTeam == this.team2.id)
+                {
+                    this.listLineups_Offical_Team2.RemoveAt(i);
+                    break;
+                }
+            }
+        }
+        string getCardFromPlayer(Player p)
+        {
+            string cardname = "";
+
+            for (int i = 0; i < this.listCardsTeam1.Count; i++)
+            {
+                if (p.id == this.listCardsTeam1[i].idPlayer && p.idTeam == this.team1.id)
+                {
+                    string card = this.listCardsTeam1[i].typeOfCard;
+                    cardname = card;
+                    if (cardname == "Thẻ đỏ")
+                    {
+                        break;
+                    }    
+                }
+            }
+            for (int i = 0; i < this.listCardsTeam2.Count; i++)
+            {
+                if (p.id == this.listCardsTeam2[i].idPlayer && p.idTeam == this.team1.id)
+                {
+                    string card = this.listCardsTeam2[i].typeOfCard;
+                    cardname = card;
+                    if (cardname == "Thẻ đỏ")
+                    {
+                        break;
+                    }
+                }
+            }
+            return cardname;
+        }
+        public void ChangeLineupsWhenChangeCardInfor(Card card, bool deleteCard = false)
+        {
+            Lineups lineup = new Lineups(this.match.id, card.idPlayer, card.idTeams, getOfficialInforByPlayerID(card.idPlayer), card.typeOfCard);
+
+            for (int i = 0; i < this.listLineups_Offical_Team1.Count; i++)
+            {
+                if (this.listLineups_Offical_Team1[i].idPlayer == lineup.idPlayer)
+                {
+                    this.listLineups_Offical_Team1[i].card = card.typeOfCard;
+
+                    if (deleteCard)
+                    {
+                        this.listLineups_Offical_Team1[i].card = "";
+                    }
+                }
+            }
+            for (int i = 0; i < this.listLineups_Offical_Team2.Count; i++)
+            {
+                if (this.listLineups_Offical_Team2[i].idPlayer == lineup.idPlayer)
+                {
+                    this.listLineups_Offical_Team2[i].card = card.typeOfCard;
+
+                    if (deleteCard)
+                    {
+                        this.listLineups_Offical_Team2[i].card = "";
+                    }
+                }
+            }
+            for (int i = 0; i < this.listLineups_Prep_Team1.Count; i++)
+            {
+                if (this.listLineups_Prep_Team1[i].idPlayer == lineup.idPlayer)
+                {
+                    this.listLineups_Prep_Team1[i].card = card.typeOfCard;
+
+                    if (deleteCard)
+                    {
+                        this.listLineups_Prep_Team1[i].card = "";
+                    }
+                }
+            }
+            for (int i = 0; i < this.listLineups_Prep_Team2.Count; i++)
+            {
+                if (this.listLineups_Prep_Team2[i].idPlayer == lineup.idPlayer)
+                {
+                    this.listLineups_Prep_Team2[i].card = card.typeOfCard;
+
+                    if (deleteCard)
+                    {
+                        this.listLineups_Prep_Team2[i].card = "";
+                    }
+                }
+            }
+
+            LoadLineups(this.cbSelectedTeam.SelectedIndex);
+        }
+        int getOfficialInforByPlayerID(int idPlayer)
+        {
+            for (int i = 0; i < this.listLineups_Offical_Team1.Count; i++)
+            {
+                if (this.listLineups_Offical_Team1[i].idPlayer == idPlayer)
+                {
+                    return this.listLineups_Offical_Team1[i].isOfficial;
+                }
+            }
+            for (int i = 0; i < this.listLineups_Offical_Team2.Count; i++)
+            {
+                if (this.listLineups_Offical_Team2[i].idPlayer == idPlayer)
+                {
+                    return this.listLineups_Offical_Team2[i].isOfficial;
+                }
+            }
+            for (int i = 0; i < this.listLineups_Prep_Team1.Count; i++)
+            {
+                if (this.listLineups_Prep_Team1[i].idPlayer == idPlayer)
+                {
+                    return this.listLineups_Prep_Team1[i].isOfficial;
+                }
+            }
+            for (int i = 0; i < this.listLineups_Prep_Team2.Count; i++)
+            {
+                if (this.listLineups_Prep_Team2[i].idPlayer == idPlayer)
+                {
+                    return this.listLineups_Prep_Team2[i].isOfficial;
+                }
+            }
+            return 2;
+        }
     }
 }

@@ -31,6 +31,25 @@ namespace FCM.DAO
             }
             return cards;
         }
+        public List<string> getListCardOfPlayer(int idMatch, Player p)
+        {
+            string query = "Select TypeOfCard " +
+                " FROM CARDS " +
+                " WHERE IdMatchs = " + idMatch + " AND " +
+                " IdPlayers = " + p.id + " AND " +
+                " IdTeams = " + p.idTeam;
+
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+
+            List<string> cardsList = new List<string>();
+
+            foreach (DataRow row in tb.Rows)
+            {
+                cardsList.Add(row["TypeOfCard"].ToString());
+            }
+
+            return cardsList;
+        }
         public void UpdateCard(Card card)
         {
             string query = "Update Cards" +

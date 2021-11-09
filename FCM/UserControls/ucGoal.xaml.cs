@@ -1,5 +1,6 @@
 ﻿using FCM.DAO;
 using FCM.DTO;
+using FCM.View;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,7 +25,10 @@ namespace FCM.UserControls
         {
             InitializeComponent();
         }
-        public ucGoal(Goal goal)
+
+        public ResultRecordingWindow resultWD;
+        public Goal goal;
+        public ucGoal(Goal goal, ResultRecordingWindow resultWD)
         {
             InitializeComponent();
 
@@ -32,6 +36,9 @@ namespace FCM.UserControls
             this.tblFootballer.Text = PlayerDAO.Instance.GetPlayerById(goal.idPlayerGoals).namePlayer.ToString();
             this.tblTime.Text = goal.time;
             this.tblTypeOfGoal.Text = TypeOfGoalDAO.Instance.GetTypeOfGoalNameByID(goal.idTypeOfGoals);
+
+            this.goal = goal;
+            this.resultWD = resultWD;
         }
     }
 }

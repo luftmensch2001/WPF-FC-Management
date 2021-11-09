@@ -22,6 +22,7 @@ namespace FCM.UserControls
     public partial class ucSwitchedPlayers : UserControl
     {
         public ResultRecordingWindow resultWD;
+        public SwitchedPlayer switchedPlayer;
         public ucSwitchedPlayers()
         {
             InitializeComponent();
@@ -32,9 +33,12 @@ namespace FCM.UserControls
 
             this.resultWD = resultWD;
         }
-        public ucSwitchedPlayers(SwitchedPlayer switchedPlayer)
+        public ucSwitchedPlayers(SwitchedPlayer switchedPlayer, ResultRecordingWindow resultWD)
         {
             InitializeComponent();
+
+            this.resultWD = resultWD;
+            this.switchedPlayer = switchedPlayer;
 
             this.tblNameIn.Text = getNumberAndNameOfPlayer(switchedPlayer.idPlayerIn);
             this.tblNameOut.Text = getNumberAndNameOfPlayer(switchedPlayer.idPlayerOut);

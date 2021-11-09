@@ -30,6 +30,18 @@ namespace FCM.UserControls
             this.tblNumber.Text = PlayerDAO.Instance.GetPlayerById(lineups.idPlayer).uniformNumber.ToString();
             this.tblName.Text = PlayerDAO.Instance.GetPlayerById(lineups.idPlayer).namePlayer.ToString();
             this.tblPosition.Text = PlayerDAO.Instance.GetPlayerById(lineups.idPlayer).position.ToString();
+
+            string card = lineups.card;
+
+            SolidColorBrush brush = new SolidColorBrush(Colors.Transparent);
+
+            if (card == "Thẻ vàng") 
+                brush = new SolidColorBrush(Color.FromRgb(255, 255, 0));
+            if (card == "Thẻ đỏ")
+                brush = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+
+            this.icCard.Foreground = brush;
+
         }
     }
 }

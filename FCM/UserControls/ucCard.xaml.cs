@@ -1,4 +1,7 @@
-﻿using System;
+﻿using FCM.DAO;
+using FCM.DTO;
+using FCM.View;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -22,14 +25,20 @@ namespace FCM.UserControls
         {
             InitializeComponent();
         }
-        public ucCard(string numberUniform, string NamePlayer, string minute, string typeOfCard)
+
+        public ResultRecordingWindow resultWD;
+        public Card card;
+        public ucCard(ResultRecordingWindow resultWD, Card card)
         {
             InitializeComponent();
 
-            this.tblNumber.Text = numberUniform;
-            this.tblFootballer.Text = NamePlayer;
-            this.tblTime.Text = minute;
-            this.tblTypeOfCard.Text = typeOfCard;
+            this.resultWD = resultWD;
+            this.card = card;
+
+            this.tblNumber.Text = PlayerDAO.Instance.GetPlayerById(card.idPlayer).uniformNumber.ToString();
+            this.tblFootballer.Text = PlayerDAO.Instance.GetPlayerById(card.idPlayer).namePlayer;
+            this.tblTime.Text = card.time;
+            this.tblTypeOfCard.Text = card.typeOfCard;
         }
     }
 }

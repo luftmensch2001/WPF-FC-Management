@@ -46,5 +46,6 @@ namespace FCM.DTO
             this.note = note;
             this.image = image;
         }
+        public Player() { }
     }
 }

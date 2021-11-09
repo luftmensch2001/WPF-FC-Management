@@ -29,7 +29,7 @@
         <Grid Grid.Column="3">
             <StackPanel Orientation="Horizontal"
                         Margin="0 0 0 0">
-                <Button 
+                <!--<Button 
                     x:Name="btnEdit"
                     Background="#00A807"
                     Width="18"
@@ -43,7 +43,7 @@
                                                     CommandParameter="{Binding ElementName=ucSwitchedPlayersCard}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                </Button>
+                </Button>-->
 
                 <Button 
                     x:Name="btnDelete"

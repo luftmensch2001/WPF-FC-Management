@@ -120,7 +120,8 @@ namespace FCM.ViewModel
         }
         public void DeleteSwitchedPlayer(ucSwitchedPlayers parameter)
         {
-            MessageBox.Show("xóa thông tin thay người");
+            //parameter.resultWD.ShowListSwitched();
+            parameter.resultWD.DeleteSwitched(parameter.switchedPlayer);
         }
         public void SaveUpdateResultInfor(ResultRecordingWindow parameter)
         {
@@ -168,12 +169,27 @@ namespace FCM.ViewModel
         }
         public void DeleteGoal(ucGoal parameter)
         {
-            MessageBox.Show("Xóa bàn thắng");
+            parameter.resultWD.DeleteGoal(new Goal(parameter.resultWD.match.id,
+                                                    parameter.goal.idPlayerGoals,
+                                                    parameter.goal.idPlayerAssist,
+                                                    parameter.goal.idTeams,
+                                                    parameter.goal.idTypeOfGoals,
+                                                    parameter.tblTime.Text));
         }
         
         public void DeleteCard(ucCard parameter)
         {
-            MessageBox.Show("Xóa thẻ phạt");
+            Card c = new Card(parameter.resultWD.match.id,
+                                                    parameter.card.idPlayer,
+                                                    parameter.card.idTeams,
+                                                    parameter.card.typeOfCard,
+                                                    parameter.card.time);
+
+            parameter.resultWD.ChangeLineupsWhenChangeCardInfor(c, true);
+
+            parameter.resultWD.Deletecard(c);
+
+            
         }
         
         public void AddGoal(AddGoalWindow parameter)
@@ -202,13 +218,16 @@ namespace FCM.ViewModel
                 ComboBoxItem cbxTypeOfCard = (ComboBoxItem)parameter.cbTypeOfCard.SelectedItem;
                 string typeOfCard = cbxTypeOfCard.Content.ToString();
 
+                Card c = new Card(parameter.resultWD.match.id,
+                             parameter.players[parameter.cbPlayer.SelectedIndex].id,
+                             (parameter.isTeam1 ? parameter.resultWD.team1.id : parameter.resultWD.team2.id),
+                             typeOfCard,
+                             parameter.tbTime.Text);
 
-                parameter.resultWD.AddCard(parameter.isTeam1, 
-                    new Card(parameter.resultWD.match.id, 
-                             parameter.players[parameter.cbPlayer.SelectedIndex].id, 
-                             (parameter.isTeam1 ? parameter.resultWD.team1.id : parameter.resultWD.team2.id), 
-                             typeOfCard, 
-                             parameter.tbTime.Text));
+                parameter.resultWD.AddCard(parameter.isTeam1, c);
+
+                parameter.resultWD.ChangeLineupsWhenChangeCardInfor(c);
+
                 parameter.Close();
             }
         }
