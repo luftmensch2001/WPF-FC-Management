@@ -66,6 +66,7 @@ namespace FCM.ViewModel
 
                 if (numberPlayerOfTeams < parameter.setting.minPlayerOfTeam)
                 {
+                    //MessageBox.Show(parameter.setting.minPlayerOfTeam.ToString());
                     isEnoughPlayers = false;
                     break;
                 }

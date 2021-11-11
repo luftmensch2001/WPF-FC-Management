@@ -28,8 +28,8 @@ namespace FCM.DTO
         {
             this.idTournament = (int)row["idTournaments"];
             this.numberOfTeam = (int)row["numberOfTeams"];
-            this.minPlayerOfTeam = (int)row["numberOfTeams"];
-            this.maxPlayerOfTeam = (int)row["numberOfTeams"];
+            this.minPlayerOfTeam = (int)row["MinPlayerOfTeams"];
+            this.maxPlayerOfTeam = (int)row["MaxPlayerOfTeams"];
             this.minAge = (int)row["minAge"];
             this.maxAge = (int)row["maxAge"];
             this.maxForeignPlayers = (int)row["MaxNumberForeignPlayers"];

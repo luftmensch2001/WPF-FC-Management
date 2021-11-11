@@ -342,3 +342,8 @@ C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FC
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.dll
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.pdb
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.genruntimeconfig.cache
+G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
