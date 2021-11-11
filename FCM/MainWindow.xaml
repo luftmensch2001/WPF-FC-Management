@@ -430,7 +430,7 @@
 
         <Grid Grid.Column="1"
               x:Name="grdHomeScreen"
-              Visibility="Visible">
+              Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="260"/>
                 <RowDefinition Height="1"/>
@@ -1022,6 +1022,82 @@ f
             <!--#endregion-->
         </Grid>
         <!--#endregion-->
+
+        <Grid
+            x:Name="grdSchedule16"
+            Grid.Column="1">
+            <Image x:Name="imgSchedule16" Stretch="Fill" Source="/16.png"/>
+            <StackPanel
+                Width="92"
+                HorizontalAlignment="Left"
+                Margin="15 32 0 0">
+                <ComboBox
+                    x:Name="cbTeam1"
+                    materialDesign:HintAssist.Hint="Chọn đội bóng"
+                    materialDesign:HintAssist.HintOpacity=".5"
+                    Width="92"
+                    FontSize="11">
+                    <ComboBoxItem Content="Team 1" />
+                    <ComboBoxItem Content="Team 2" />
+                    <ComboBoxItem Content="Team 3" />
+                </ComboBox>
+                <ComboBox
+                    x:Name="cbTeam2"
+                    materialDesign:HintAssist.Hint="Chọn đội bóng"
+                    materialDesign:HintAssist.HintOpacity=".5"
+                    Margin="0 20 0 0"
+                    Width="92"
+                    FontSize="11">
+                    <ComboBoxItem Content="Team 1" />
+                    <ComboBoxItem Content="Team 2" />
+                    <ComboBoxItem Content="Team 3" />
+                </ComboBox>
+                <ComboBox
+                    x:Name="cbTeam3"
+                    materialDesign:HintAssist.Hint="Chọn đội bóng"
+                    materialDesign:HintAssist.HintOpacity=".5"
+                    Margin="0 20 0 0"
+                    Width="92"
+                    FontSize="11">
+                    <ComboBoxItem Content="Team 1" />
+                    <ComboBoxItem Content="Team 2" />
+                    <ComboBoxItem Content="Team 3" />
+                </ComboBox>
+                <ComboBox
+                    x:Name="cbTeam4"
+                    materialDesign:HintAssist.Hint="Chọn đội bóng"
+                    materialDesign:HintAssist.HintOpacity=".5"
+                    Margin="0 18 0 0"
+                    Width="92"
+                    FontSize="11">
+                    <ComboBoxItem Content="Team 1" />
+                    <ComboBoxItem Content="Team 2" />
+                    <ComboBoxItem Content="Team 3" />
+                </ComboBox>
+                <ComboBox
+                    x:Name="cbTeam5"
+                    materialDesign:HintAssist.Hint="Chọn đội bóng"
+                    materialDesign:HintAssist.HintOpacity=".5"
+                    Margin="0 37 0 0"
+                    Width="92"
+                    FontSize="11">
+                    <ComboBoxItem Content="Team 1" />
+                    <ComboBoxItem Content="Team 2" />
+                    <ComboBoxItem Content="Team 3" />
+                </ComboBox>
+                <ComboBox
+                    x:Name="cbTeam6"
+                    materialDesign:HintAssist.Hint="Chọn đội bóng"
+                    materialDesign:HintAssist.HintOpacity=".5"
+                    Margin="0 18 0 0"
+                    Width="92"
+                    FontSize="11">
+                    <ComboBoxItem Content="Team 1" />
+                    <ComboBoxItem Content="Team 2" />
+                    <ComboBoxItem Content="Team 3" />
+                </ComboBox>
+            </StackPanel>
+        </Grid>
         
         <!--#region TEAMS-->
         <Grid 

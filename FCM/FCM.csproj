@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="16.png" />
     <None Remove="background3.jpg" />
     <None Remove="coder.png" />
     <None Remove="engineer.png" />
@@ -56,6 +57,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="16.png" />
     <Resource Include="Resource\Images\arsenal-logo.png" />
     <Resource Include="Resource\Images\cat.png" />
     <Resource Include="Resource\Images\coder.png" />
