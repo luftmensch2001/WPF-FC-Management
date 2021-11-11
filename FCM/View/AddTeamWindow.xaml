@@ -8,7 +8,7 @@
         x:Name="wdAddTeam"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize"
-        Title="Thêm đội bóng" Height="550" Width="800"
+        Title="Thêm đội bóng" Height="610" Width="800"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         DataContext="{StaticResource AddTeamVM}"
         Icon="/Resource/Images/software-logo.png"
@@ -29,7 +29,7 @@
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="3*"/>
-            <RowDefinition />
+            <RowDefinition Height="0.6*"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -72,7 +72,7 @@
                 <Border CornerRadius="12" 
                         Background="#fff" 
                         Width="350"
-                        Height="270"
+                        Height="320"
                         VerticalAlignment="Bottom" Margin="0 0 0 0">
                     <StackPanel>
                         <!--Team's name-->
@@ -118,7 +118,22 @@
                                 Width="250" 
                                 FontSize="15"
                                 Margin="0 20 0 0"/>
-
+                        <ComboBox
+                                x:Name="cbGroups"
+                                materialDesign:HintAssist.Hint="Chọn bảng đấu"
+                                materialDesign:HintAssist.HintOpacity=".5"
+                                Margin="0 23 0 0"
+                                FontSize="15"
+                                Width="250">
+                            <ComboBoxItem
+                                    Content="Bảng A" />
+                            <ComboBoxItem
+                                    Content="Bảng B" />
+                            <ComboBoxItem
+                                    Content="Bảng C" />
+                            <ComboBoxItem
+                                    Content="Bảng D" />
+                        </ComboBox>
                     </StackPanel>
                 </Border>
             </Grid>
@@ -150,7 +165,7 @@
                         Style="{StaticResource MyGreenButtonStyle}"
                         Width="110"
                         VerticalAlignment="Bottom"
-                        Margin="0 10 0 10">
+                        Margin="0 10 0 0">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon 
                                     Kind="TrayArrowUp"
