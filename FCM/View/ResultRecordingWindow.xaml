@@ -125,24 +125,6 @@
                         Style="{StaticResource H1}"
                         FontSize="52"
                         Margin="0 25 0 0"/>
-                    <Button
-                        x:Name="btnAddGoal1"
-                        Style="{StaticResource MaterialDesignIconButton}"
-                        ToolTip="MaterialDesignIconButton"
-                        Background="#00A807"
-                        Width="40"
-                        Height="40"
-                        Margin="0 10 0 0">
-                        <materialDesign:PackIcon
-                            Kind="Plus" 
-                            Foreground="#fff"/>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <i:InvokeCommandAction Command="{Binding AddScoreTeam1Command}"
-                                                    CommandParameter="{Binding ElementName=wdResultRecording}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </Button>
                 </StackPanel>
             </Grid>
 
@@ -163,24 +145,6 @@
                         Style="{StaticResource H1}"
                         FontSize="52"
                         Margin="0 25 0 0"/>
-                    <Button
-                        x:Name="btnAddGoal2"
-                        Style="{StaticResource MaterialDesignIconButton}"
-                        ToolTip="MaterialDesignIconButton"
-                        Background="#00A807"
-                        Width="40"
-                        Height="40"
-                        Margin="0 10 0 0">
-                        <materialDesign:PackIcon
-                            Kind="Plus" 
-                            Foreground="#fff"/>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <i:InvokeCommandAction Command="{Binding AddScoreTeam2Command}"
-                                                    CommandParameter="{Binding ElementName=wdResultRecording}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </Button>
                 </StackPanel>
             </Grid>
 
@@ -200,6 +164,31 @@
                         FontSize="25"
                         Margin="0 10 0 0"/>
                 </StackPanel>
+            </Grid>
+            <Grid
+                x:Name="grdPenalty"
+                Grid.Column="1"
+                Grid.ColumnSpan="3">
+                <TextBlock 
+                    Text="Penalty" FontSize="16"
+                    Style="{StaticResource H2}"
+                    VerticalAlignment="Bottom"
+                    Margin="0 0 0 50"/>
+                <TextBlock 
+                    x:Name="tblPenaltyScore"
+                    Text="3     -     5" FontSize="18"
+                    Style="{StaticResource H2}"
+                    VerticalAlignment="Bottom"
+                    Margin="0 0 0 23"/>
+                <Button 
+                    x:Name="btnEditPenalty"
+                    Background="#4554ff"
+                    Width="22"
+                    Height="22"
+                    Padding="0" Margin="0 0 0 2"
+                    VerticalAlignment="Bottom">
+                    <materialDesign:PackIcon Kind="Pencil" />
+                </Button>
             </Grid>
             <Rectangle Fill="Gray" Height="1" VerticalAlignment="Bottom" Grid.ColumnSpan="5" Margin="0 0 0 0"/>
         </Grid>
@@ -373,6 +362,22 @@
                             </Grid>
                         </StackPanel>
                     </materialDesign:Card>
+                    <Button
+                        x:Name="btnAddGoal1"
+                        Content="Thêm bàn thắng"
+                        Style="{StaticResource MyGreenButtonStyle}"
+                        Width="130" Height="35"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        Margin="0 0 0 10">
+                        
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding AddScoreTeam1Command}"
+                                                    CommandParameter="{Binding ElementName=wdResultRecording}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
                 </Grid>
 
                 <!--Team 2 Goals-->
@@ -441,6 +446,22 @@
                             </Grid>
                         </StackPanel>
                     </materialDesign:Card>
+
+                    <Button
+                        x:Name="btnAddGoal2"
+                        Content="Thêm bàn thắng"
+                        Style="{StaticResource MyGreenButtonStyle}"
+                        Width="130" Height="35"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        Margin="0 0 0 10">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding AddScoreTeam2Command}"
+                                                    CommandParameter="{Binding ElementName=wdResultRecording}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
                 </Grid>
             </Grid>
             <!--Cards list-->
