@@ -849,9 +849,9 @@
                         
                         Style="{StaticResource MyGreenButtonStyle}"
                         Width="250"
-                        Height="45"
+                        Height="40"
                         FontSize="15"
-                        Margin="0 20 0 0">
+                        Margin="0 10 0 0">
 
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
@@ -861,12 +861,23 @@
                         </i:Interaction.Triggers>
                     </Button>
 
+                    <Button 
+                        x:Name="btnShowChart"
+                        Content="Xem biểu đồ"
+                        
+                        Style="{StaticResource MyGreenButtonStyle}"
+                        Width="140"
+                        Height="40"
+                        FontSize="15"
+                        Margin="0 10 0 0">
+                    </Button>
+
                     <ComboBox
                         x:Name="cbxRound"
                         materialDesign:HintAssist.Hint="Chọn vòng đấu"
                         Width="200"
                         HorizontalAlignment="Center"
-                        Margin="0 30 0 0">
+                        Margin="0 10 0 0">
 f
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
@@ -1023,9 +1034,11 @@ f
         </Grid>
         <!--#endregion-->
 
+        <!--#region SCHEDULE CHART-->
         <Grid
             x:Name="grdScheduleChart"
-            Grid.Column="1">
+            Grid.Column="1"
+            Visibility="Hidden">
             <!--16 Teams-->
             <Grid
                 x:Name="grdSchedule16"
@@ -1627,6 +1640,7 @@ f
                 VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
         </Grid>
         
+        <!--#endregion-->  
         
         <!--#region TEAMS-->
         <Grid 
@@ -1968,7 +1982,7 @@ f
             Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition/>
-                <RowDefinition Height="5*"/>
+                <RowDefinition Height="4*"/>
             </Grid.RowDefinitions>
             <!--Title-->
             <Grid Grid.Row="0">
@@ -1989,6 +2003,25 @@ f
                         <TextBlock Text="Xuất PDF" VerticalAlignment="Center" Margin="5 0 0 0"/>
                     </StackPanel>
                 </Button>
+                <ComboBox
+                        x:Name="cbSelectedGroupsStanding"
+                        Style="{StaticResource MaterialDesignComboBox}"
+                        materialDesign:ColorZoneAssist.Mode="Dark"
+                        Foreground="#fff"
+                        BorderBrush="#fff"
+                        Width="100" Padding="5 8 5 5"
+                        IsEditable="False"
+                        SelectedIndex="0"
+                        Height="30"
+                        VerticalAlignment="Bottom"
+                        Margin="0 0 0 10">
+                    <ComboBoxItem Content="Tất cả" />
+                    <ComboBoxItem Content="Bảng A" />
+                    <ComboBoxItem Content="Bảng B" />
+                    <ComboBoxItem Content="Bảng C" />
+                    <ComboBoxItem Content="Bảng D" />
+
+                </ComboBox>
                 <Image Height="100" Width="100" Margin="90 0 0 0"
                        HorizontalAlignment="Left" Source="/Resource/Images/football3.png"/>
                 <Image Height="100" Width="100" Margin="0 0 150 5"

@@ -112,6 +112,7 @@ namespace FCM.ViewModel
             parameter.grdSettingScreen.Visibility = Visibility.Hidden;
             parameter.grdHelpsScreen.Visibility = Visibility.Hidden;
             parameter.grdAccountScreen.Visibility = Visibility.Hidden;
+            parameter.grdScheduleChart.Visibility = Visibility.Hidden;
 
             // Switch tab - Show selected screen
             switch (index)
