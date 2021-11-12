@@ -1024,26 +1024,30 @@ f
         <!--#endregion-->
 
         <Grid
-            x:Name="grdSchedule16"
+            x:Name="grdScheduleChart"
             Grid.Column="1">
-            <Image x:Name="imgSchedule16" Stretch="Fill" Source="/16.png"/>
-            <!--Vòng 16 đội-->
-            <StackPanel
+            <!--16 Teams-->
+            <Grid
+                x:Name="grdSchedule16"
+                Visibility="Hidden">
+                <Image x:Name="imgSchedule16" Stretch="Fill" Source="/Resource/Images/16.png"/>
+                <!--Vòng 16 đội-->
+                <StackPanel
                 Width="104"
                 HorizontalAlignment="Left"
                 Margin="10 34 0 0">
-                <ComboBox
+                    <ComboBox
                     x:Name="cb16Team1"
                     materialDesign:HintAssist.Hint="Chọn đội bóng"
                     materialDesign:HintAssist.HintOpacity=".5"
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                    <ComboBoxItem Content="Team 1" />
-                    <ComboBoxItem Content="Team 2" />
-                    <ComboBoxItem Content="Team 3" />
-                </ComboBox>
-                <ComboBox
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                    <ComboBox
                     x:Name="cb16Team2"
                     materialDesign:HintAssist.Hint="Chọn đội bóng"
                     materialDesign:HintAssist.HintOpacity=".5"
@@ -1051,11 +1055,11 @@ f
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                    <ComboBoxItem Content="Team 1" />
-                    <ComboBoxItem Content="Team 2" />
-                    <ComboBoxItem Content="Team 3" />
-                </ComboBox>
-                <ComboBox
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                    <ComboBox
                     x:Name="cb16Team3"
                     materialDesign:HintAssist.Hint="Chọn đội bóng"
                     materialDesign:HintAssist.HintOpacity=".5"
@@ -1063,11 +1067,11 @@ f
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                    <ComboBoxItem Content="Team 1" />
-                    <ComboBoxItem Content="Team 2" />
-                    <ComboBoxItem Content="Team 3" />
-                </ComboBox>
-                <ComboBox
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                    <ComboBox
                     x:Name="cb16Team4"
                     materialDesign:HintAssist.Hint="Chọn đội bóng"
                     materialDesign:HintAssist.HintOpacity=".5"
@@ -1075,11 +1079,11 @@ f
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                    <ComboBoxItem Content="Team 1" />
-                    <ComboBoxItem Content="Team 2" />
-                    <ComboBoxItem Content="Team 3" />
-                </ComboBox>
-                <ComboBox
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                    <ComboBox
                     x:Name="cb16Team5"
                     materialDesign:HintAssist.Hint="Chọn đội bóng"
                     materialDesign:HintAssist.HintOpacity=".5"
@@ -1087,11 +1091,11 @@ f
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                    <ComboBoxItem Content="Team 1" />
-                    <ComboBoxItem Content="Team 2" />
-                    <ComboBoxItem Content="Team 3" />
-                </ComboBox>
-                <ComboBox
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                    <ComboBox
                     x:Name="cb16Team6"
                     materialDesign:HintAssist.Hint="Chọn đội bóng"
                     materialDesign:HintAssist.HintOpacity=".5"
@@ -1099,11 +1103,11 @@ f
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                    <ComboBoxItem Content="Team 1" />
-                    <ComboBoxItem Content="Team 2" />
-                    <ComboBoxItem Content="Team 3" />
-                </ComboBox>
-                <ComboBox
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                    <ComboBox
                     x:Name="cb16Team7"
                     materialDesign:HintAssist.Hint="Chọn đội bóng"
                     materialDesign:HintAssist.HintOpacity=".5"
@@ -1111,11 +1115,11 @@ f
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                    <ComboBoxItem Content="Team 1" />
-                    <ComboBoxItem Content="Team 2" />
-                    <ComboBoxItem Content="Team 3" />
-                </ComboBox>
-                <ComboBox
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                    <ComboBox
                     x:Name="cb16Team8"
                     materialDesign:HintAssist.Hint="Chọn đội bóng"
                     materialDesign:HintAssist.HintOpacity=".5"
@@ -1123,11 +1127,11 @@ f
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                    <ComboBoxItem Content="Team 1" />
-                    <ComboBoxItem Content="Team 2" />
-                    <ComboBoxItem Content="Team 3" />
-                </ComboBox>
-                <ComboBox
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                    <ComboBox
                     x:Name="cb16Team9"
                     materialDesign:HintAssist.Hint="Chọn đội bóng"
                     materialDesign:HintAssist.HintOpacity=".5"
@@ -1135,11 +1139,11 @@ f
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                    <ComboBoxItem Content="Team 1" />
-                    <ComboBoxItem Content="Team 2" />
-                    <ComboBoxItem Content="Team 3" />
-                </ComboBox>
-                <ComboBox
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                    <ComboBox
                     x:Name="cb16Team10"
                     materialDesign:HintAssist.Hint="Chọn đội bóng"
                     materialDesign:HintAssist.HintOpacity=".5"
@@ -1147,11 +1151,11 @@ f
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                    <ComboBoxItem Content="Team 1" />
-                    <ComboBoxItem Content="Team 2" />
-                    <ComboBoxItem Content="Team 3" />
-                </ComboBox>
-                <ComboBox
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                    <ComboBox
                     x:Name="cb16Team11"
                     materialDesign:HintAssist.Hint="Chọn đội bóng"
                     materialDesign:HintAssist.HintOpacity=".5"
@@ -1159,11 +1163,11 @@ f
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                    <ComboBoxItem Content="Team 1" />
-                    <ComboBoxItem Content="Team 2" />
-                    <ComboBoxItem Content="Team 3" />
-                </ComboBox>
-                <ComboBox
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                    <ComboBox
                     x:Name="cb16Team12"
                     materialDesign:HintAssist.Hint="Chọn đội bóng"
                     materialDesign:HintAssist.HintOpacity=".5"
@@ -1171,11 +1175,11 @@ f
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                    <ComboBoxItem Content="Team 1" />
-                    <ComboBoxItem Content="Team 2" />
-                    <ComboBoxItem Content="Team 3" />
-                </ComboBox>
-                <ComboBox
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                    <ComboBox
                     x:Name="cb16Team13"
                     materialDesign:HintAssist.Hint="Chọn đội bóng"
                     materialDesign:HintAssist.HintOpacity=".5"
@@ -1183,11 +1187,11 @@ f
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                    <ComboBoxItem Content="Team 1" />
-                    <ComboBoxItem Content="Team 2" />
-                    <ComboBoxItem Content="Team 3" />
-                </ComboBox>
-                <ComboBox
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                    <ComboBox
                     x:Name="cb16Team14"
                     materialDesign:HintAssist.Hint="Chọn đội bóng"
                     materialDesign:HintAssist.HintOpacity=".5"
@@ -1195,11 +1199,11 @@ f
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                    <ComboBoxItem Content="Team 1" />
-                    <ComboBoxItem Content="Team 2" />
-                    <ComboBoxItem Content="Team 3" />
-                </ComboBox>
-                <ComboBox
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                    <ComboBox
                     x:Name="cb16Team15"
                     materialDesign:HintAssist.Hint="Chọn đội bóng"
                     materialDesign:HintAssist.HintOpacity=".5"
@@ -1207,11 +1211,11 @@ f
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                    <ComboBoxItem Content="Team 1" />
-                    <ComboBoxItem Content="Team 2" />
-                    <ComboBoxItem Content="Team 3" />
-                </ComboBox>
-                <ComboBox
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                    <ComboBox
                     x:Name="cb16Team16"
                     materialDesign:HintAssist.Hint="Chọn đội bóng"
                     materialDesign:HintAssist.HintOpacity=".5"
@@ -1219,65 +1223,65 @@ f
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                    <ComboBoxItem Content="Team 1" />
-                    <ComboBoxItem Content="Team 2" />
-                    <ComboBoxItem Content="Team 3" />
-                </ComboBox>
-            </StackPanel>
-            <!--Vòng 8 đội-->
-            <StackPanel
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                </StackPanel>
+                <!--Vòng 8 đội-->
+                <StackPanel
                 Width="100"
                 HorizontalAlignment="Left"
                 Margin="207 58 0 0">
-                <TextBlock
+                    <TextBlock
                     x:Name="tbl16Team1"
                     Width="100"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"/>
-                <TextBlock
+                    <TextBlock
                     x:Name="tbl16Team2"
                     Width="100"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"
                     Margin="0 70 0 0"/>
-                <TextBlock
+                    <TextBlock
                     x:Name="tbl16Team3"
                     Width="100"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"
                     Margin="0 70 0 0"/>
-                <TextBlock
+                    <TextBlock
                     x:Name="tbl16Team4"
                     Width="100"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"
                     Margin="0 72 0 0"/>
-                <TextBlock
+                    <TextBlock
                     x:Name="tbl16Team5"
                     Width="100"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"
                     Margin="0 70 0 0"/>
-                <TextBlock
+                    <TextBlock
                     x:Name="tbl16Team6"
                     Width="100"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"
                     Margin="0 70 0 0"/>
-                <TextBlock
+                    <TextBlock
                     x:Name="tbl16Team7"
                     Width="100"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"
                     Margin="0 70 0 0"/>
-                <TextBlock
+                    <TextBlock
                     x:Name="tbl16Team8"
                     Width="100"
                     TextAlignment="Center"
@@ -1285,61 +1289,61 @@ f
                     Text="Team Name"
                     Margin="0 70 0 0"/>
 
-            </StackPanel>
-            <!--Vòng 4 đội-->
-            <StackPanel
+                </StackPanel>
+                <!--Vòng 4 đội-->
+                <StackPanel
                 Width="100"
                 HorizontalAlignment="Left"
                 Margin="380 97 0 0">
-                <TextBlock
+                    <TextBlock
                     x:Name="tbl16Team9"
                     Width="100"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"/>
-                <TextBlock
+                    <TextBlock
                     x:Name="tbl16Team10"
                     Width="100"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"
                     Margin="0 155 0 0"/>
-                <TextBlock
+                    <TextBlock
                     x:Name="tbl16Team11"
                     Width="100"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"
                     Margin="0 154 0 0"/>
-                <TextBlock
+                    <TextBlock
                     x:Name="tbl16Team12"
                     Width="100"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"
                     Margin="0 155 0 0"/>
-            </StackPanel>
-            <!--Vòng 2 đội-->
-            <StackPanel
+                </StackPanel>
+                <!--Vòng 2 đội-->
+                <StackPanel
                 Width="100"
                 HorizontalAlignment="Left"
                 Margin="550 176 0 0">
-                <TextBlock
+                    <TextBlock
                     x:Name="tbl16Team13"
                     Width="130"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"/>
-                <TextBlock
+                    <TextBlock
                     x:Name="tbl16Team14"
                     Width="130"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"
                     Margin="0 325 0 0"/>
-            </StackPanel>
-            <!--Champion-->
-            <TextBlock
+                </StackPanel>
+                <!--Champion-->
+                <TextBlock
                     x:Name="tbl16Team15"
                     Width="130"
                     TextAlignment="Center"
@@ -1347,7 +1351,179 @@ f
                     FontSize="11"
                     Text="Team Name"
                     Margin="0 395 10 0"/>
+            </Grid>
+            <!--8 Teams-->
+            <Grid
+                x:Name="grdSchedule8"
+                Visibility="Hidden">
+                <Image x:Name="imgSchedule8" Source="/Resource/Images/8.png" Stretch="Fill" />
+                <!--Vòng 8 đội-->
+                <StackPanel
+                    Width="110"
+                    HorizontalAlignment="Left"
+                    Margin="145 50 0 0">
+                    <ComboBox
+                        x:Name="cb8Team1"
+                        materialDesign:HintAssist.Hint="Chọn đội bóng"
+                        materialDesign:HintAssist.HintOpacity=".5"
+                        Margin="-6 7 0 0"
+                        Width="110"
+                        Padding="5 4 5 4"
+                        FontSize="11">
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                    <ComboBox
+                        x:Name="cb8Team2"
+                        materialDesign:HintAssist.Hint="Chọn đội bóng"
+                        materialDesign:HintAssist.HintOpacity=".5"
+                        Margin="-6 61.5 0 0"
+                        Width="110"
+                        Padding="5 4 5 4"
+                        FontSize="11">
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                    <ComboBox
+                        x:Name="cb8Team3"
+                        materialDesign:HintAssist.Hint="Chọn đội bóng"
+                        materialDesign:HintAssist.HintOpacity=".5"
+                        Margin="-6 61.5 0 0"
+                        Width="110"
+                        Padding="5 4 5 4"
+                        FontSize="11">
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                    <ComboBox
+                        x:Name="cb8Team4"
+                        materialDesign:HintAssist.Hint="Chọn đội bóng"
+                        materialDesign:HintAssist.HintOpacity=".5"
+                        Margin="-6 61.5 0 0"
+                        Width="110"
+                        Padding="5 4 5 4"
+                        FontSize="11">
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                    <ComboBox
+                        x:Name="cb8Team5"
+                        materialDesign:HintAssist.Hint="Chọn đội bóng"
+                        materialDesign:HintAssist.HintOpacity=".5"
+                        Margin="-6 61.5 0 0"
+                        Width="110"
+                        Padding="5 4 5 4"
+                        FontSize="11">
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                    <ComboBox
+                        x:Name="cb8Team6"
+                        materialDesign:HintAssist.Hint="Chọn đội bóng"
+                        materialDesign:HintAssist.HintOpacity=".5"
+                        Margin="-6 61.5 0 0"
+                        Width="110"
+                        Padding="5 4 5 4"
+                        FontSize="11">
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                    <ComboBox
+                        x:Name="cb8Team7"
+                        materialDesign:HintAssist.Hint="Chọn đội bóng"
+                        materialDesign:HintAssist.HintOpacity=".5"
+                        Margin="-6 61.5 0 0"
+                        Width="110"
+                        Padding="5 4 5 4"
+                        FontSize="11">
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                    <ComboBox
+                        x:Name="cb8Team8"
+                        materialDesign:HintAssist.Hint="Chọn đội bóng"
+                        materialDesign:HintAssist.HintOpacity=".5"
+                        Margin="-6 61.5 0 0"
+                        Width="110"
+                        Padding="5 4 5 4"
+                        FontSize="11">
+                        <ComboBoxItem Content="Team 1" />
+                        <ComboBoxItem Content="Team 2" />
+                        <ComboBoxItem Content="Team 3" />
+                    </ComboBox>
+                </StackPanel>
+                <!--Vòng 4 đội-->
+                <StackPanel
+                    Width="100"
+                    HorizontalAlignment="Left"
+                    Margin="320 97 0 0">
+                    <TextBlock
+                        x:Name="tbl8Team1"
+                        Width="100"
+                        TextAlignment="Center"
+                        FontSize="11"
+                        Text="Team Name"/>
+                    <TextBlock
+                        x:Name="tbl8Team2"
+                        Width="100"
+                        TextAlignment="Center"
+                        FontSize="11"
+                        Text="Team Name"
+                        Margin="0 155 0 0"/>
+                    <TextBlock
+                        x:Name="tbl8Team3"
+                        Width="100"
+                        TextAlignment="Center"
+                        FontSize="11"
+                        Text="Team Name"
+                        Margin="0 153 0 0"/>
+                    <TextBlock
+                        x:Name="tbl8Team4"
+                        Width="100"
+                        TextAlignment="Center"
+                        FontSize="11"
+                        Text="Team Name"
+                        Margin="0 155 0 0"/>
+                </StackPanel>
+                <!--Vòng 2 đội-->
+                <StackPanel
+                    Width="100"
+                    HorizontalAlignment="Left"
+                    Margin="490 176 0 0">
+                    <TextBlock
+                        x:Name="tbl8Team5"
+                        Width="130"
+                        TextAlignment="Center"
+                        FontSize="11"
+                        Text="Team Name"/>
+                    <TextBlock
+                        x:Name="tbl8Team6"
+                        Width="130"
+                        TextAlignment="Center"
+                        FontSize="11"
+                        Text="Team Name"
+                        Margin="0 325 0 0"/>
+                </StackPanel>
+                <!--Champion-->
+                <TextBlock
+                    x:Name="tbl8Team7"
+                    Width="130"
+                    TextAlignment="Center"
+                    HorizontalAlignment="Right"
+                    FontSize="11"
+                    Text="Team Name"
+                    Margin="0 395 70 0"/>
+            </Grid>
+            <!--4 Teams-->
         </Grid>
+        
         
         <!--#region TEAMS-->
         <Grid 
