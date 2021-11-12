@@ -2015,7 +2015,6 @@ f
                         Height="30"
                         VerticalAlignment="Bottom"
                         Margin="0 0 0 10">
-                    <ComboBoxItem Content="Tất cả" />
                     <ComboBoxItem Content="Bảng A" />
                     <ComboBoxItem Content="Bảng B" />
                     <ComboBoxItem Content="Bảng C" />
