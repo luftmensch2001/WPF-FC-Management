@@ -347,3 +347,5 @@ G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Drawin
 G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
 G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
 G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\PenaltyWindow.g.cs
+G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\PenaltyWindow.baml
