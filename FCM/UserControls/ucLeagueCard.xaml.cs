@@ -39,13 +39,13 @@ namespace FCM.UserControls
             switch (league.status)
             {
                 case 0:
-                    tblLeagueStatus.Text = "Trạng thái: Đang đăng ký";
+                    //tblLeagueStatus.Text = "Trạng thái: Đang đăng ký";
                     break;
                 case 1:
-                    tblLeagueStatus.Text = "Trạng thái: Chuẩn bị bắt đầu";
+                    //tblLeagueStatus.Text = "Trạng thái: Chuẩn bị bắt đầu";
                     break;
                 case 2:
-                    tblLeagueStatus.Text = "Trạng thái: Đã bắt đầu";
+                    //tblLeagueStatus.Text = "Trạng thái: Đã bắt đầu";
                     break;
             }
             tblLeagueTeamsCount.Text = league.countTeam.ToString()+" Đội";
