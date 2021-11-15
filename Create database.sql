@@ -14,11 +14,12 @@ Create Table Users
 	Username nvarchar(100),
 	Password nvarchar(max),
 	DisplayName nvarchar(100),												-- Tên người dùng
-	RoleLevel int															-- Level người dùng ( 1 - Admin, 2 - staff)
+	RoleLevel int,															-- Level người dùng ( 1 - Admin, 2 - staff)
+	idLastLeague int,
 )
 Go
-insert into Users(Username,Password,DisplayName,RoleLevel)
-values ('admin','cdd96d3cc73d1dbdaffa03cc6cd7339b','a',1)
+insert into Users(Username,Password,DisplayName,RoleLevel, idLastLeague)
+values ('admin','cdd96d3cc73d1dbdaffa03cc6cd7339b','a',1 , -1)
 Go
 
 -- Giải đấu -- 
@@ -30,22 +31,35 @@ Create Table Tournaments
 	Time Datetime,
 	Status int,
 	Logo Image,
-	countTeam int
+	countTeam int,
+	typeLeague int,
+	countBoard int
 )
 Go
+Create Table Board
+(
+	Id int identity (1,1) primary key,
+	idTournament int,
+	NameBoard nvarchar(100),
+	countTeam int,
+
+	foreign key (idTournament) references Tournaments(id)
+)
+Go
+
 
 -- Đội bóng -- 
 Create Table Teams
 (
 	Id int identity (1,1) primary key,
-	IdTournaments int,
+	idTournaments int,
+	nameBoard nvarchar(100),
 	DisplayName nvarchar(100),
 	Coach nvarchar(100),													-- Tên huấn luyện viên
 	Stadium nvarchar(100),	
 	Nation nvarchar(100),																							-- Quốc gia
 	Logo Image,
-
-	foreign key (IdTournaments) references Tournaments(Id)
+	foreign key (idTournaments) references Tournaments(id)
 )
 Go
 

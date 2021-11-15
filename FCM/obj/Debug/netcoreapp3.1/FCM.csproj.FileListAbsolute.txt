@@ -349,3 +349,18 @@ G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\unix
 G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
 G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\PenaltyWindow.g.cs
 G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\PenaltyWindow.baml
+F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\PenaltyWindow.g.cs
+F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\PenaltyWindow.baml
+F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\EPPlus.dll
+F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
+F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
+F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.FileExtensions.dll
+F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Json.dll
+F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Abstractions.dll
+F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Physical.dll
+F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileSystemGlobbing.dll
+F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
+F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.IO.RecyclableMemoryStream.dll
+F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Text.Encoding.CodePages.dll
+F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Xml.XPath.XmlDocument.dll
+F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Text.Encoding.CodePages.dll

@@ -126,7 +126,7 @@ namespace FCM.ViewModel
                 MessageBox.Show("Mật khẫu admin không chính xác    " + passwordAdmin + "  " + regPasswordAdmin);
                 return;
             }
-            Account account1 = new Account(userName, password, "", 0);
+            Account account1 = new Account(userName, password, "", 0, -1);
             AccountDAO.Instance.CreateAccount(account1);
             account1.id = AccountDAO.Instance.GetId(account1.userName);
             MainWindow mainWindow = new MainWindow(account1);

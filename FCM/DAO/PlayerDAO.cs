@@ -58,6 +58,13 @@ namespace FCM.DAO
                             "Where id = " + id;
             DataProvider.Instance.ExecuteQuery(query);
         }
+        public void DeletePlayerInTeam(int idTeam)
+        {
+            string query = "Delete " +
+                            "From Players " +
+                            "Where idteams = " + idTeam;
+            DataProvider.Instance.ExecuteQuery(query);
+        }
         public void CreatePlayers(Player player)
         {
             string query = "Insert into Players (IdTeams,DisplayName,UniformNumber,Birthday,Position,Nationality,Note) " +

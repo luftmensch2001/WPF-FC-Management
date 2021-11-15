@@ -34,12 +34,13 @@ namespace FCM.DAO
         }
         public void CreateAccount(Account account)
         {
-            string query = "Insert into Users (username, password, displayname, roleLevel) " +
+            string query = "Insert into Users (username, password, displayname, roleLevel, idlastleague) " +
                            "Values  (" +
                            "N'"+ account.userName.ToString() + "'" + "," +
                            "N'" + account.password.ToString() + "'" + "," +
-                           "N'" + account.displayName.ToString()+" " + "'" + "," +
-                           account.roleLevel.ToString() +
+                           "N'" + account.displayName.ToString()+" " + "'" +
+                           "," + account.roleLevel.ToString() + "" +
+                           "," + account.idLastLeague.ToString() + "" +
                            ")";
            DataProvider.Instance.ExecuteQuery(query);
         }
@@ -99,6 +100,13 @@ namespace FCM.DAO
             string query = "Update Users " +
                             "Set password = 'N" + password + "' " +
                             "Where username = 'N" + userName + "' ";
+            DataProvider.Instance.ExecuteQuery(query);
+        }
+        public void UpdateIdLastLeague(string userName, int idLastLeague)
+        {
+            string query = "Update Users " +
+                            "Set idLastLeague = " + idLastLeague + " " +
+                            "Where username = N'" + userName + "' ";
             DataProvider.Instance.ExecuteQuery(query);
         }
     }

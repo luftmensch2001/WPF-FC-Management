@@ -26,6 +26,15 @@ namespace FCM.DAO
             Team team = new Team(tb.Rows[0]);
             return team;
         }
+        public int GetCountTeam(string nameBoard)
+        {
+            string query = "Select count(id) as count " +
+                         "From Teams " +
+                         "Where nameBoard= '" +nameBoard +"'";
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+            return (int)tb.Rows[0]["count"];
+            
+        }
 
         public int GetPlayerCountOfTeam(int id)
         {
@@ -35,13 +44,13 @@ namespace FCM.DAO
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
             return tb.Rows.Count;
         }
-        public List<Team> GetListTeam(int idTournament)
+        public List<Team> GetListTeam(string nameBoard)
         {
             List<Team> teams = new List<Team>();
 
             string query = "Select* " +
                             "From Teams " +
-                            "Where idTournaments = " + idTournament;
+                            "Where nameBoard = " + nameBoard;
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
             foreach (DataRow row in tb.Rows)
             {
@@ -50,23 +59,52 @@ namespace FCM.DAO
             }
             return teams;
         }
-        public void DeleteTeam(int idTournaments)
+        public List<Team> GetListTeamInLeague(int idTournament)
         {
-            List<Team> teams = GetListTeam(idTournaments);
+            List<Team> teams = new List<Team>();
+
+            string query = "Select* " +
+                            "From Teams " +
+                            "Where idTournaments =" + idTournament;
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+            foreach (DataRow row in tb.Rows)
+            {
+                Team team = new Team(row);
+                teams.Add(team);
+            }
+            return teams;
+        }
+        public void DeleteTeam(int idTournament)
+        {
+            List<Team> teams = GetListTeamInLeague(idTournament);
             foreach (Team team in teams)
             {
                 PlayerDAO.Instance.DeletePlayer(team.id);
+            }
+            string query = "Delete " +
+                            "From Teams " +
+                            "Where idTournaments = " + idTournament;
+            DataProvider.Instance.ExecuteQuery(query);
+        }
+        public void DeleteTeam(int idTournament, int id)
+        {
+            List<Team> teams = GetListTeamInLeague(idTournament);
+            foreach (Team team in teams)
+            {
+                PlayerDAO.Instance.DeletePlayerInTeam(team.id);
             }    
             string query = "Delete " +
                             "From Teams " +
-                            "Where idTournaments = " + idTournaments;
+                            "Where idTournaments = " + idTournament +"" +
+                            " and id = " + id;
             DataProvider.Instance.ExecuteQuery(query);
         }
         public void CreateTeams(Team team)
         {
-            string query = "Insert into Teams (idTournaments,DisplayName,Coach,Stadium,nation) " +
+            string query = "Insert into Teams (idTournaments, nameBoard,DisplayName,Coach,Stadium,nation) " +
                          "Values (  " +
-                         "" + team.idTournament + " ," +
+                         "" + team.idTournamnt + " ," +
+                         "N'" + team.nameBoard + "' ," +
                          "N'" + team.nameTeam + "' ," +
                          "N'" + team.coach + "' ," +
                          "N'" + team.stadium + "' ," +
@@ -88,6 +126,12 @@ namespace FCM.DAO
             DataProvider.Instance.ExecuteQuery(query);
             query = "UPDATE Teams SET logo = @img WHERE ID = " + team.id;
             DataProvider.Instance.ExecuteQuery(query, new object[] { team.logo });
+        }
+        public int GetNewestTeamid(int idTournament)
+        {
+            string query = "SELECT MAX(Id) as id FROM Teams";
+            DataTable db = DataProvider.Instance.ExecuteQuery(query);
+            return (int)db.Rows[0]["id"];
         }
     }
 }

@@ -8,6 +8,6 @@
     "\\FCM\\UserControls",
     "\\FCM\\ViewModel"
   ],
-  "SelectedNode": "\\FCM\\MainWindow.xaml",
+  "SelectedNode": "\\FCM\\MainWindow.xaml.cs",
   "PreviewInSolutionExplorer": false
 }

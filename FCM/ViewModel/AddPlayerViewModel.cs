@@ -46,10 +46,10 @@ namespace FCM.ViewModel
                 }
         }
 
-        // Kiểm tra xem đã đủ số lượng cầu thủ/đội bóng tối thiếu hay chưa
+       // Kiểm tra xem đã đủ số lượng cầu thủ/đội bóng tối thiếu hay chưa
         bool IsReady(AddPlayerWindow parameter)
         {
-            League leagueNow = LeagueDAO.Instance.GetLeagueById(parameter.team.idTournament);
+            League leagueNow = LeagueDAO.Instance.GetLeagueById(parameter.team.idTournamnt);
 
             bool isEnoughTeams = true;
             bool isEnoughPlayers = true;
@@ -59,7 +59,7 @@ namespace FCM.ViewModel
                 isEnoughTeams = false;
             }
 
-            List<Team> teamsList = TeamDAO.Instance.GetListTeam(leagueNow.id);
+            List<Team> teamsList = TeamDAO.Instance.GetListTeamInLeague(leagueNow.id);
             foreach (Team team in teamsList)
             {
                 int numberPlayerOfTeams = TeamDAO.Instance.GetPlayerCountOfTeam(team.id);
@@ -71,7 +71,7 @@ namespace FCM.ViewModel
                     break;
                 }
             }
-            
+
             return (isEnoughPlayers && isEnoughTeams);
         }
         void AddPlayer(AddPlayerWindow parameter)
@@ -121,14 +121,14 @@ namespace FCM.ViewModel
                 // KIỂM TRA: Nếu đã đủ số lượng đội bóng, mỗi đội bóng đã đủ số lượng cầu thủ tối thiểu thì cho phép đổi
                 // trạng thái giải đấu sang Chuẩn bị bắt đầu. Tức Status = 1
                 #region KIỂM TRA ĐỔI TRẠNG THÁI
-                League leagueNow = LeagueDAO.Instance.GetLeagueById(parameter.team.idTournament);
+                League leagueNow = LeagueDAO.Instance.GetLeagueById(parameter.team.idTournamnt);
 
                 // Nếu Status = 1 sẵn rồi thì ko cần kiểm tra
                 if (leagueNow.status != 1)
                 {
                     if (IsReady(parameter))
                     {
-                        LeagueDAO.Instance.UpdateStatusOfLeague(parameter.team.idTournament, 1);
+                        LeagueDAO.Instance.UpdateStatusOfLeague(parameter.team.idTournamnt, 1);
                         MessageBox.Show("Đã đủ số lượng đội bóng và số lượng cầu thủ!\n Bạn đã có thể tạo lịch thi đấu ngay bây giờ");
                     }
                 }    

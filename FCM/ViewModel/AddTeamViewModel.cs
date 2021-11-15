@@ -20,6 +20,7 @@ namespace FCM.ViewModel
         public ICommand CancelAddTeamCommand { get; set; }
         public ICommand AddTeamCommand { get; set; }
         public ICommand AddLogoTeamCommand { get; set; }
+        public ICommand ImportTeamCommand { get; set; }
         private System.Drawing.Image imaged;
 
         public AddTeamViewModel()
@@ -27,6 +28,7 @@ namespace FCM.ViewModel
             CancelAddTeamCommand = new RelayCommand<AddTeamWindow>((parameter) => true, (parameter) => parameter.Close());
             AddTeamCommand = new RelayCommand<AddTeamWindow>((parameter) => true, (parameter) => AddTeam(parameter));
             AddLogoTeamCommand = new RelayCommand<AddTeamWindow>((parameter) => true, (parameter) => AddLogoTeam(parameter));
+            ImportTeamCommand = new RelayCommand<AddTeamWindow>((parameter) => true, (parameter) => ImportTeam(parameter));
         }
         void AddLogoTeam(AddTeamWindow parameter)
         {
@@ -44,6 +46,11 @@ namespace FCM.ViewModel
                     MessageBox.Show("File không hợp lệ, vui lòng chọn lại", "Lỗi");
                 }
         }
+        void ImportTeam(AddTeamWindow parameter)
+        {
+            if (ExcelProcessing.Instance.ImportTeam(parameter))
+                parameter.Close();
+        }
         void AddTeam(AddTeamWindow parameter)
         {
             string name = InputFormat.Instance.FomartSpace(parameter.tbName.Text);
@@ -57,7 +64,7 @@ namespace FCM.ViewModel
             }
             if (parameter.team == null)
             {
-                Team team = new Team(parameter.idTournament,name,coach,stadium,national, ImageProcessing.Instance.convertImgToByte(imaged));
+                Team team = new Team(parameter.idTournament, parameter.cbGroups.Text,name,coach,stadium,national, ImageProcessing.Instance.convertImgToByte(imaged));
                 TeamDAO.Instance.CreateTeams(team);
 
                 MessageBox.Show("Thêm đội bóng thành công");
@@ -67,9 +74,9 @@ namespace FCM.ViewModel
             {
                 Team team;
                 if (imaged == null)
-                    team = new Team(parameter.idTournament, name, coach, stadium, national, parameter.team.logo);
+                    team = new Team(parameter.idTournament, parameter.cbGroups.Text, name, coach, stadium, national, parameter.team.logo);
                 else
-                    team = new Team(parameter.idTournament, name, coach, stadium, national, ImageProcessing.Instance.convertImgToByte(imaged));
+                    team = new Team(parameter.idTournament, parameter.cbGroups.Text, name, coach, stadium, national, ImageProcessing.Instance.convertImgToByte(imaged));
                 team.id = parameter.team.id;
                 TeamDAO.Instance.UpdateTeam(team);
                 MessageBox.Show("Sửa đội bóng thành công");

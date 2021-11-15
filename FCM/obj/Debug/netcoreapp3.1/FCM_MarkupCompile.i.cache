@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\
+F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\
 FCM
 none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\App.xaml
+F:\Clone\WPF-FC-Management\FCM\App.xaml
 27285526501
 
-65174424090
-19811209489
+68-337527286
+2091058842751
 MainWindow.xaml;Resource\ButtonStyle.xaml;Resource\MainResource.xaml;Resource\ScrollBarStyle.xaml;Resource\TextStyle.xaml;UserControls\ucCard.xaml;UserControls\ucFootballer.xaml;UserControls\ucGoal.xaml;UserControls\ucLeagueCard.xaml;UserControls\ucMatchDetail.xaml;UserControls\ucMatchDetailNoEdit.xaml;UserControls\ucPlayer.xaml;UserControls\ucSwitchedPlayers.xaml;UserControls\ucTeamButton.xaml;View\AddCardWindow.xaml;View\AddGoalTypeWindow.xaml;View\AddGoalWindow.xaml;View\AddLeagueWindow.xaml;View\AddPlayerWindow.xaml;View\AddTeamWindow.xaml;View\ChangePasswordWindow.xaml;View\EditDialogWindow.xaml;View\EditMatchInforWindow.xaml;View\LoginWindow.xaml;View\PenaltyWindow.xaml;View\ResultRecordingWindow.xaml;View\SwitchPlayersWindow.xaml;
 
 False

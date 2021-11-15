@@ -28,6 +28,15 @@ namespace FCM.DAO
                 s = s.Remove(0, 1);
             while (s.Length > 0 && s[s.Length - 1] == ' ')
                 s = s.Remove(s.Length - 1, 1);
+            int i = 1;
+            while (s.Length > 0 && i<s.Length)
+            {
+                while (s[i-1]==' ' && s[i] == ' ')
+                {
+                    s = s.Remove(i, 1);
+                }
+                i++;
+            }
             result = s;
             return result;
         }

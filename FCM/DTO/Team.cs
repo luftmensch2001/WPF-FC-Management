@@ -14,7 +14,8 @@ namespace FCM.DTO
     public class Team
     {
         public int id { get; set; }
-        public int idTournament { get; set; }
+        public string nameBoard { get; set; }
+        public int idTournamnt { get; set; }
         public string nameTeam { get; set; }
         public string stadium { get; set; }
         public string coach { get; set; }
@@ -24,16 +25,18 @@ namespace FCM.DTO
         public Team(DataRow row)
         {
             this.id = (int)row["id"];
-            this.idTournament = (int)row["idTournaments"];
+            this.idTournamnt = (int)row["idTournaments"];
+            this.nameBoard = (string)row["nameBoard"];
             this.nameTeam = (string)row["Displayname"];
             this.stadium = (string)row["stadium"];
             this.nation = (string)row["nation"];
             this.coach = (string)row["coach"];
             this.logo = (byte[])row["logo"];
         }
-        public Team(int idTournament, string nameTeam,string coach, string stadium, string nation, byte[] logo )
+        public Team(int idTournament, string nameBoard, string nameTeam,string coach, string stadium, string nation, byte[] logo )
         {
-            this.idTournament = idTournament;
+            this.idTournamnt = idTournament;
+            this.nameBoard = nameBoard;
             this.nameTeam = nameTeam;
             this.stadium = stadium;
             this.nation = nation;

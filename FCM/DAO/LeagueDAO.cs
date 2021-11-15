@@ -36,7 +36,7 @@ namespace FCM.DAO
         {
             string query = "Select* " +
                          "From Tournaments " +
-                         "Where id= "+ id;
+                         "Where id= " + id;
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
             League league = new League(tb.Rows[0]);
             return league;
@@ -49,13 +49,15 @@ namespace FCM.DAO
         }
         public void CreateLeague(League league)
         {
-            string query = "Insert into Tournaments (Honors,DisplayName,Time,Status,countTeam ) " +
+            string query = "Insert into Tournaments (Honors,DisplayName,Time,Status,countTeam,typeLeague, countBoard) " +
                          "Values (  " +
                          "N'" + league.nameSpender + "' ," +
                          "N'" + league.nameLeague + "' ," +
                          "N'" + league.dateTime.ToString("M/d/yyyy") + "' ," +
                          "N'" + league.status + "' ," +
-                         " " + league.countTeam + "" +
+                         " " + league.countTeam + "," +
+                         " " + league.typeLeague + "," +
+                         " " + league.countBoard + "" +
                          ")";
             DataProvider.Instance.ExecuteQuery(query);
             query = "UPDATE Tournaments SET logo = @img WHERE ID = (SELECT MAX(Id) FROM Tournaments)";
@@ -70,7 +72,9 @@ namespace FCM.DAO
                             " Displayname = " + "N'" + league.nameLeague + "' ," +
                             " Time = " + "'" + league.dateTime + "' ," +
                             " Status = " + "N'" + league.status + "' ," +
-                            " countTeam = " + " " + league.countTeam + "" +
+                            " countTeam =" + league.countTeam + "," +
+                            " typeLeague =" + league.typeLeague + "," +
+                            " countBoard =" + league.countBoard + "" +
                             " Where id = " + league.id;
             DataProvider.Instance.ExecuteQuery(query);
             query = "UPDATE Tournaments SET logo = @img WHERE ID = " + league.id;
@@ -95,6 +99,6 @@ namespace FCM.DAO
                             "From Tournaments " +
                             "Where id = " + league.id;
             DataProvider.Instance.ExecuteQuery(query);
-        }    
+        }
     }
 }

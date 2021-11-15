@@ -20,6 +20,8 @@ namespace FCM.DTO
         public DateTime dateTime { get; set; }
         public Byte[] logo { get; set; }
         public int countTeam { get; set; } = 0;
+        public int typeLeague { get; set; }
+        public int countBoard { get; set; }
 
         public League(DataRow row)
         {
@@ -30,8 +32,10 @@ namespace FCM.DTO
             this.dateTime = (DateTime)row["time"];
             this.logo = (byte[])row["logo"];
             this.countTeam = (int)row["countTeam"];
+            this.typeLeague = (int)row["TypeLeague"];
+            this.countBoard = (int)row["CountBoard"];
         }
-        public League(string nameSpender, string nameLeague, int status, DateTime dateTime, Byte[] logo, int countTeam)
+        public League(string nameSpender, string nameLeague, int status, DateTime dateTime, Byte[] logo, int countTeam, int typeLeague, int countBoard )
         {
             this.nameLeague = nameLeague;
             this.nameSpender = nameSpender;
@@ -39,6 +43,8 @@ namespace FCM.DTO
             this.dateTime = dateTime;
             this.logo = logo;
             this.countTeam = countTeam;
+            this.typeLeague = typeLeague;
+            this.countBoard = countBoard;
         }
     }
 }

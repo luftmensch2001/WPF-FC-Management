@@ -111,6 +111,12 @@
                                     Content="Loại trực tiếp" />
                             <ComboBoxItem
                                     Content="Chia bảng đấu" />
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding ChangeTypeLeagueCommand}"
+                                                       CommandParameter="{Binding ElementName=wdAddLeague}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                         </ComboBox>
                         <ComboBox
                                 x:Name="cbCountOfGroups"
@@ -118,7 +124,9 @@
                                 materialDesign:HintAssist.HintOpacity=".5"
                                 Margin="0 23 0 0"
                                 FontSize="15"
-                                Width="250">
+                                Width="250"
+                                Visibility="Hidden">
+                                
                             <ComboBoxItem
                                     Content="2 bảng" />
                             <ComboBoxItem

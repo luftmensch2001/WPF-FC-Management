@@ -107,6 +107,12 @@
                             FontWeight="Medium"
                             Padding="0"
                             Margin="0 0 35 5">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding DeleteLeagueCommand}"
+                                                       CommandParameter="{Binding ElementName=wcLeagueCard}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <materialDesign:PackIcon
                             Kind="Bin"/>
                     </Button>

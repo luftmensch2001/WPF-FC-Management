@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FCM.DAO;
 using FCM.DTO;
+using FCM.ViewModel;
 
 namespace FCM
 {
@@ -24,18 +25,27 @@ namespace FCM
     {
         public Account currentAccount { get; set; }
         public League league { get; set; }
+
+        public List<Board> boards { get; set; }
         public Team team { get; set; }
         public Setting setting { get; set; }
         public MainWindow()
         {
+            MessageBox.Show(((char)0).ToString());
             InitializeComponent();
         }
         public MainWindow(Account account)
         {
             currentAccount = account;
-          
             InitializeComponent();
             tblUsername.Text = "Xin chào " + account.userName;
+            if (currentAccount.idLastLeague != -1)
+            {
+                league =  LeagueDAO.Instance.GetLeagueById(currentAccount.idLastLeague);
+                MainViewModel mainViewModel = new MainViewModel();
+                mainViewModel.LoadDetailLeague(league,this);
+            }
+
         }
     }
 }

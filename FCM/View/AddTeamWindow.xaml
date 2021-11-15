@@ -53,6 +53,12 @@
                                     Margin="0 0 5 0"/>
                     <TextBlock Text="Nhập từ file" VerticalAlignment="Center" FontSize="14"/>
                 </StackPanel>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding ImportTeamCommand}"
+                                    CommandParameter="{Binding ElementName=wdAddTeam}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
             </Button>
         </Grid>
 

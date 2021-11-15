@@ -1884,6 +1884,12 @@ f
                                             Kind="Export"/>
                                         <TextBlock Text="Xuất file" VerticalAlignment="Center" Margin="5 0 0 0"/>
                                     </StackPanel>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click">
+                                            <i:InvokeCommandAction Command="{Binding ExportTeamCommand}"
+                                                                   CommandParameter="{Binding ElementName=wdHome}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                 </Button>
                             </StackPanel>
                         </Grid>

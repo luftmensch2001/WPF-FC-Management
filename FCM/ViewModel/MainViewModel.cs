@@ -37,6 +37,7 @@ namespace FCM.ViewModel
 
         public ICommand CreateScheduleCommand { get; set; }
         public ICommand ChangeRoundCommand { get; set; }
+        public ICommand ExportTeamCommand { get; set; }
 
         //public ICommand OpenEditMatchWindowCommand { get; set; }
         //public ICommand OpenResultRecordWindowCommand { get; set; }
@@ -70,6 +71,8 @@ namespace FCM.ViewModel
 
             CreateScheduleCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => CreateSchedule(parameter));
             ChangeRoundCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => ChangeCbxRound(parameter));
+
+            ExportTeamCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => ExportTeam(parameter));
 
             //OpenEditMatchWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenEditMatchInfoWindow(parameter));
             //OpenResultRecordWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenResultRecordingWindow(parameter));
@@ -197,7 +200,13 @@ namespace FCM.ViewModel
                     break;
             }
         }
-
+        void ExportTeam(MainWindow parameter)
+        {
+            if (parameter.team!=null)
+            {
+                ExcelProcessing.Instance.ExportFile(parameter.team);
+            }    
+        }
         public void OpenAddLeagueWindow(MainWindow parameter)
         {
             if (parameter.currentAccount.roleLevel == 1)
@@ -241,6 +250,9 @@ namespace FCM.ViewModel
             window.tblLeagueName.Text = "Tên mùa giải: " + league.nameLeague;
             window.tblSponsor.Text = "Nhà tài trợ: " + league.nameSpender;
             window.setting = SettingDAO.Instance.GetSetting(league.id);
+            window.boards = BoardDAO.Instance.GetListBoard(league.id);
+            window.currentAccount.idLastLeague = league.id;
+            AccountDAO.Instance.UpdateIdLastLeague(window.currentAccount.userName, league.id);
 
             switch (league.status)
             {
@@ -273,6 +285,7 @@ namespace FCM.ViewModel
                     parameter.btnReport.IsEnabled = false;
                     parameter.btnTeams.IsEnabled = true;
                     parameter.btnStanding.IsEnabled = false;
+                    parameter.btnStanding.IsEnabled = true;
                     parameter.btnSetting.IsEnabled = true;
                     break;
                 case 1:
@@ -308,6 +321,8 @@ namespace FCM.ViewModel
                     parameter.tblSponsor.Text = "";
                     parameter.tblLeagueStatus.Text = "";
                     parameter.tblLeagueTime.Text = "";
+                    parameter.currentAccount.idLastLeague = -1;
+                    AccountDAO.Instance.UpdateIdLastLeague(parameter.currentAccount.userName, -1);
                     LoadListLeague(parameter);
                 }
             }
@@ -366,14 +381,22 @@ namespace FCM.ViewModel
             parameter.wpTeamsList.Children.Clear();
             if (parameter.league!=null)
             {
-                teams = TeamDAO.Instance.GetListTeam(parameter.league.id);
+                teams = TeamDAO.Instance.GetListTeamInLeague(parameter.league.id);
                 foreach (Team team in teams)
                 {
                     ucTeamButton teamButton = new ucTeamButton(team, parameter, this);
                     parameter.wpTeamsList.Children.Add(teamButton);
                 }
+                if (teams.Count == parameter.setting.numberOfTeam)
+                    parameter.btnAddTeam.Visibility = Visibility.Hidden;
+                else
+                    parameter.btnAddTeam.Visibility = Visibility.Visible;
                 if (parameter.wpTeamsList.Children.Count > 0)
-                    LoadDetailTeam(parameter, teams[0]);
+                {   if (parameter.team == null)
+                        LoadDetailTeam(parameter, teams[0]);
+                    else
+                        LoadDetailTeam(parameter, parameter.team);
+                }
                 else
                     LoadListPlayer(parameter, -1);
             }
@@ -388,10 +411,7 @@ namespace FCM.ViewModel
             parameter.imgTeamLogo.Source = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(team.logo));
             LoadListPlayer(parameter,team.id);
             parameter.tblCountOfMembers.Text = parameter.wpPlayersList.Children.Count.ToString();
-            if (parameter.wpPlayersList.Children.Count > parameter.setting.minPlayerOfTeam)
-                parameter.tblStatus.Text = "Hợp lệ";
-            else
-                parameter.tblStatus.Text = "Chưa hợp lệ";
+            parameter.tblStatus.Text = parameter.team.nameBoard;
         }
         public int CountNationatily(MainWindow parameter)
         {
@@ -412,7 +432,7 @@ namespace FCM.ViewModel
                 {
                     MessageBox.Show("Số lượng đội bóng đá đạt tối đa");
                 }
-                AddTeamWindow wd = new AddTeamWindow(parameter.league.id);
+                AddTeamWindow wd = new AddTeamWindow(parameter.league.id, parameter.boards,parameter.setting);
                 wd.ShowDialog();
                 LoadListTeams(parameter);
             }
@@ -423,7 +443,7 @@ namespace FCM.ViewModel
             {
                 if (parameter.team != null)
                 {
-                    AddTeamWindow wd = new AddTeamWindow(parameter.league.id,parameter.team);
+                    AddTeamWindow wd = new AddTeamWindow(parameter.league.id,parameter.boards,parameter.setting,parameter.team);
                     wd.tblTitle.Text = "SỬA THÔNG TIN ĐỘI BÓNG";
                     wd.btnAdd.Content = "Sửa";
                     wd.tbName.Text = parameter.team.nameTeam;
@@ -446,7 +466,7 @@ namespace FCM.ViewModel
                 }
                 else
                 {
-                    TeamDAO.Instance.DeleteTeam(parameter.league.id);
+                    TeamDAO.Instance.DeleteTeam(parameter.league.id, parameter.team.id);
                     parameter.team = null;
 
                     parameter.tblTeamName.Text = "NULL";
@@ -484,9 +504,9 @@ namespace FCM.ViewModel
         }
         public void LoadListPlayer(MainWindow parameter, int idTeam)
         {
+            parameter.wpPlayersList.Children.Clear();
             if (idTeam < 0)
                 return;
-            parameter.wpPlayersList.Children.Clear();
             List<Player> players = PlayerDAO.Instance.GetListPlayer(idTeam);
             for (int i =0;i<players.Count;i++)
             {     
@@ -516,7 +536,7 @@ namespace FCM.ViewModel
                 LoadListTeams(parameter);
             }
         }
-
+        
         public void SwitchTabStatistics(MainWindow parameter)
         {
             int index = int.Parse(uid); // tab index
@@ -627,7 +647,7 @@ namespace FCM.ViewModel
             {
                 MessageBox.Show("Số đội bóng tham gia giải đấu phải là số chẵn!", "Lưu ý", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            List<Team> teams = TeamDAO.Instance.GetListTeam(parameter.league.id);
+            List<Team> teams = TeamDAO.Instance.GetListTeamInLeague(parameter.league.id);
 
             // Số lượng đội bóng
             int nTeams = teams.Count;

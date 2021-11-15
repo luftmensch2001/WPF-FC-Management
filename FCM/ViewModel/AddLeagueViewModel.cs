@@ -20,6 +20,7 @@ namespace FCM.ViewModel
         public ICommand CancelAddLeagueCommand { get; set; }
         public ICommand AddLeagueCommand { get; set; }
         public ICommand AddLogoLeagueCommand { get; set; }
+        public ICommand ChangeTypeLeagueCommand { get; set; }
         private System.Drawing.Image imaged;
 
         public AddLeagueViewModel()
@@ -27,6 +28,22 @@ namespace FCM.ViewModel
             CancelAddLeagueCommand = new RelayCommand<AddLeagueWindow>((parameter) => true, (parameter) => parameter.Close());
             AddLeagueCommand = new RelayCommand<AddLeagueWindow>((parameter) => true, (parameter) => AddLeague(parameter));
             AddLogoLeagueCommand = new RelayCommand<AddLeagueWindow>((parameter) => true, (parameter) => AddLogoLeague(parameter));
+            ChangeTypeLeagueCommand = new RelayCommand<AddLeagueWindow>((parameter) => true, (parameter) => ChangeTypeLeague(parameter));
+        }
+        void ChangeTypeLeague(AddLeagueWindow parameter)
+        {
+            switch (parameter.cbTypeOfLeague.SelectedIndex)
+            {
+                case 0:
+                    parameter.cbCountOfGroups.Visibility = Visibility.Hidden;
+                    break;
+                case 1:
+                    parameter.cbCountOfGroups.Visibility = Visibility.Hidden;
+                    break;
+                case 2:
+                    parameter.cbCountOfGroups.Visibility = Visibility.Visible;
+                    break;
+            }
         }
         void AddLogoLeague(AddLeagueWindow parameter)
         {
@@ -44,42 +61,111 @@ namespace FCM.ViewModel
                     MessageBox.Show("File không hợp lệ, vui lòng chọn lại", "Lỗi");
                 }
         }
+        public bool IsValidInformation(string name, string sponsor, string countTeam, string time, string logo, string typeLeague, string countBoard)
+        {
+            if (name == "" || sponsor == "" || countTeam == "" || time == "" || logo == "pack://application:,,,/Resource/Images/NoLogoSelected.png" || typeLeague == "" || countBoard == "")
+            {
+                MessageBox.Show("Thiếu thông tin", "Lỗi");
+                return false;
+            }
+            if (!InputFormat.Instance.isNumber(countTeam))
+            {
+                MessageBox.Show("Số đội tham gia chỉ nhận giá trị số nguyên >=2 và <=60");
+                return false;
+            }
+            if (typeLeague != "Loại trực tiếp" && (Int32.Parse(countTeam) < 2 || Int32.Parse(countTeam) > 60))
+            {
+                MessageBox.Show("Số đội thể loại thi đấu này phải >=2 và <=60");
+                return false;
+            }
+            if (typeLeague == "Loại trực tiếp" && (Int32.Parse(countTeam) < 2 || Int32.Parse(countTeam) > 16))
+            {
+                MessageBox.Show("Số đội thể loại thi đấu này phải >=2 và <=16");
+                return false;
+            }
+            if (Int32.Parse(countTeam) < 2 || Int32.Parse(countTeam) > 60)
+            {
+                MessageBox.Show("Số đội thể loại thi đấu này phải >=2 và <=60");
+                return false;
+            }
+            if (Int32.Parse(countTeam) < Int32.Parse(countBoard))
+            {
+                MessageBox.Show("Số đội tham gia không được nhỏ hơn số bảng đấu");
+                return false;
+            }
+            return true;
+        }
         void AddLeague(AddLeagueWindow parameter)
         {
             string name = InputFormat.Instance.FomartSpace(parameter.tbUsername.Text);
             string sponsor = InputFormat.Instance.FomartSpace(parameter.tbSponsor.Text);
             string countTeam = InputFormat.Instance.FomartSpace(parameter.tbCountOfTeams.Text);
-            if (name == ""|| sponsor == ""|| parameter.datePicker.Text == ""|| countTeam == ""|| parameter.imgLeagueLogo.Source.ToString() == "pack://application:,,,/Resource/Images/NoLogoSelected.png")
-            {
-                MessageBox.Show("Thiếu thông tin","Lỗi");
+            string countBoard = "1";
+            if (parameter.cbTypeOfLeague.Text == "Chia bảng đấu")
+                countBoard = parameter.cbCountOfGroups.Text[0].ToString() + parameter.cbCountOfGroups.Text[1].ToString();
+
+
+            if (!IsValidInformation(name,
+                               sponsor,
+                               countTeam,
+                               parameter.datePicker.Text,
+                               parameter.imgLeagueLogo.Source.ToString(),
+                               parameter.cbTypeOfLeague.Text,
+                               countBoard))
                 return;
-            }
-            if (!InputFormat.Instance.isNumber(countTeam) || Int32.Parse(countTeam)<2 || Int32.Parse(countTeam) >24)
-            {
-                MessageBox.Show("Số đội tham gia chỉ nhận giá trị số nguyên >=2 và <=24");
-                return;
-            }
-            if (parameter.league==null)
+            if (parameter.league == null)
             {
                 //League league = new League(sponsor, name, 0, DateTime.Parse(parameter.datePicker.ToString()), ImageProcessing.Instance.convertImgToByte(imaged), Int32.Parse(countTeam));
-                League league = new League(sponsor, name, 0, parameter.datePicker.SelectedDate.Value, ImageProcessing.Instance.convertImgToByte(imaged), Int32.Parse(countTeam));
+                League league = new League(sponsor, name, 0, parameter.datePicker.SelectedDate.Value, ImageProcessing.Instance.convertImgToByte(imaged), Int32.Parse(countTeam), parameter.cbTypeOfLeague.SelectedIndex, Int32.Parse(countBoard));
                 LeagueDAO.Instance.CreateLeague(league);
-                
+                league.id = LeagueDAO.Instance.GetNewestLeagurId();
+
+                CreateBoard(parameter.cbTypeOfLeague.SelectedIndex, Int32.Parse(countTeam), Int32.Parse(countBoard), league.id);
                 MessageBox.Show("Tạo mùa giải thành công");
                 parameter.Close();
-            } else
+            }
+            else
             {
                 League league;
-                if (imaged==null)
-                    league = new League(sponsor,name, 0, DateTime.Parse(parameter.datePicker.ToString()), parameter.league.logo, Int32.Parse(countTeam));
+                if (imaged == null)
+                    league = new League(sponsor, name, 0, DateTime.Parse(parameter.datePicker.ToString()), parameter.league.logo, Int32.Parse(countTeam), parameter.cbTypeOfLeague.SelectedIndex, Int32.Parse(countBoard));
                 else
-                    league = new League(sponsor, name, 0, DateTime.Parse(parameter.datePicker.ToString()), ImageProcessing.Instance.convertImgToByte(imaged), Int32.Parse(countTeam));
+                    league = new League(sponsor, name, 0, DateTime.Parse(parameter.datePicker.ToString()), ImageProcessing.Instance.convertImgToByte(imaged), Int32.Parse(countTeam), parameter.cbTypeOfLeague.SelectedIndex, Int32.Parse(countBoard));
                 league.id = parameter.league.id;
+                if (parameter.league.countBoard != league.countBoard || parameter.league.typeLeague!= league.typeLeague)
+                {
+                    BoardDAO.Instance.DeleteBoardInLeague(league.id);
+                    CreateBoard(parameter.cbTypeOfLeague.SelectedIndex, Int32.Parse(countTeam), Int32.Parse(countBoard), league.id);
+                }
+
                 LeagueDAO.Instance.UpdateLeague(league);
                 MessageBox.Show("Sửa mùa giải thành công");
                 parameter.Close();
             }
-
+            void CreateBoard(int type, int countTeam, int countBoard, int idLeague)
+            {
+                int countTeamInBoard = countTeam / countBoard;
+                if (countTeam % countBoard > 0)
+                    countTeamInBoard++;
+                switch (type)
+                {
+                    case 0:
+                        Board board = new Board(idLeague, "Bảng đấu vòng", countTeam);
+                        BoardDAO.Instance.CreateBoard(board);
+                        break;
+                    case 1:
+                        board = new Board(idLeague, "Bảng đấu loại trực tiếp", countTeam);
+                        BoardDAO.Instance.CreateBoard(board);
+                        break;
+                    case 2:
+                        for (int i = 0; i < countBoard; i++)
+                        {
+                            board = new Board(idLeague,"Bảng " +((char)(i+65)).ToString(), countTeamInBoard);
+                            BoardDAO.Instance.CreateBoard(board);
+                        }
+                        break;
+                }
+            }
         }
     }
 }

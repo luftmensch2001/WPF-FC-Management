@@ -36,16 +36,16 @@ namespace FCM.UserControls
             this.league = league;
             imgLeagueLogo.Source = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(league.logo));
             tblLeagueName.Text = league.nameLeague;
-            switch (league.status)
+            switch (league.typeLeague)
             {
                 case 0:
-                    //tblLeagueStatus.Text = "Trạng thái: Đang đăng ký";
+                    tblLeagueFormula.Text = "Đấu vòng tròn";
                     break;
                 case 1:
-                    //tblLeagueStatus.Text = "Trạng thái: Chuẩn bị bắt đầu";
+                    tblLeagueFormula.Text = "Đấu loại trực tiếp";
                     break;
                 case 2:
-                    //tblLeagueStatus.Text = "Trạng thái: Đã bắt đầu";
+                    tblLeagueFormula.Text = "Chia bảng đấu";
                     break;
             }
             tblLeagueTeamsCount.Text = league.countTeam.ToString()+" Đội";

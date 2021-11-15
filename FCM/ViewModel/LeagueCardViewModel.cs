@@ -14,13 +14,20 @@ namespace FCM.ViewModel
     public class LeagueCardViewModel : BaseViewModel
     {
         public ICommand GetDetailCommand { get; set; }
+        public ICommand DeleteLeagueCommand { get; set; }
         public LeagueCardViewModel()
         {
             GetDetailCommand = new RelayCommand<ucLeagueCard>((parameter) => true, (parameter) => GetDetail(parameter));
+            DeleteLeagueCommand = new RelayCommand<ucLeagueCard>((parameter) => true, (parameter) => DeleteLeague(parameter));
         }
         void GetDetail(ucLeagueCard parameter)
         {
             parameter.main.LoadDetailLeague(parameter.league, parameter.mainWindow);
+        }
+        void DeleteLeague(ucLeagueCard parameter)
+        {
+            LeagueDAO.Instance.DeleteLeague(parameter.league);
+            parameter.main.LoadListLeague(parameter.mainWindow);
         }
     }
 }
