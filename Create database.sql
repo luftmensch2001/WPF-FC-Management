@@ -136,8 +136,8 @@ Create Table Goals
 	IdPlayerAssist int,
 	IdTeams int,
 	IdTypeOfGoals int,
-	Time Datetime,
-
+	Time nvarchar(100),
+	
 	foreign key (IdMatchs) references Matchs(Id),
 	foreign key (IdPlayerGoals) references Players(Id),
 	foreign key (IdPlayerAssist) references Players(Id),
@@ -152,7 +152,7 @@ Create Table Cards
 	IdMatchs int,
 	IdPlayers int,
 	IdTeams int,
-	Time Datetime,
+	Time nvarchar(100),
 	TypeOfCard nvarchar(100),
 
 	foreign key (IdMatchs) references Matchs(Id),

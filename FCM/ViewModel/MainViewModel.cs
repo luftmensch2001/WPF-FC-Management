@@ -223,7 +223,12 @@ namespace FCM.ViewModel
                             parameter.btEditS3.IsEnabled = btState;
                             parameter.btEditS4.IsEnabled = btState;
                             parameter.btEditS5.IsEnabled = btState;
-                            parameter.btEditS6.IsEnabled = btState;
+                            if (parameter.league.typeLeague == 0)
+                            {
+                                parameter.btEditS6.IsEnabled = false;
+                            }
+                            else
+                                parameter.btEditS6.IsEnabled = btState;
                             parameter.btEditS7.IsEnabled = btState;
                             parameter.btEditS8.IsEnabled = btState;
                             parameter.btEditS9.IsEnabled = btState;
@@ -408,22 +413,6 @@ namespace FCM.ViewModel
                     listLeague.Add(league);
             }
             LoadListLeagueToScreen(listLeague, parameter);
-        }
-        public void GetDetailSetting(MainWindow parameter)
-        {
-            if (parameter.setting != null)
-            {
-                parameter.tblCountOfTeams.Text = parameter.setting.numberOfTeam.ToString();
-                parameter.tblMinCountPlayers.Text = parameter.setting.minPlayerOfTeam.ToString();
-                parameter.tblMaxCountPlayers.Text = parameter.setting.maxPlayerOfTeam.ToString();
-                parameter.tblMinAge.Text = parameter.setting.minAge.ToString();
-                parameter.tblMaxAge.Text = parameter.setting.maxAge.ToString();
-                parameter.tblMaxForeign.Text = parameter.setting.maxForeignPlayers.ToString();
-                parameter.tbScoreWin.Text = parameter.setting.scoreWin.ToString();
-                parameter.tbScoreDraw.Text = parameter.setting.scoreDraw.ToString();
-                parameter.tbScoreLose.Text = parameter.setting.scoreLose.ToString();
-                parameter.tbNumberOfTeamsIn.Text = parameter.setting.NumberOfTeamIn.ToString();
-            }
         }
 
         List<Team> teams;
@@ -886,6 +875,23 @@ namespace FCM.ViewModel
         #endregion
 
         #region Setting (Quy Định)
+
+        public void GetDetailSetting(MainWindow parameter)
+        {
+            if (parameter.setting != null)
+            {
+                parameter.tblCountOfTeams.Text = parameter.setting.numberOfTeam.ToString();
+                parameter.tblMinCountPlayers.Text = parameter.setting.minPlayerOfTeam.ToString();
+                parameter.tblMaxCountPlayers.Text = parameter.setting.maxPlayerOfTeam.ToString();
+                parameter.tblMinAge.Text = parameter.setting.minAge.ToString();
+                parameter.tblMaxAge.Text = parameter.setting.maxAge.ToString();
+                parameter.tblMaxForeign.Text = parameter.setting.maxForeignPlayers.ToString();
+                parameter.tbScoreWin.Text = parameter.setting.scoreWin.ToString();
+                parameter.tbScoreDraw.Text = parameter.setting.scoreDraw.ToString();
+                parameter.tbScoreLose.Text = parameter.setting.scoreLose.ToString();
+                parameter.tbNumberOfTeamsIn.Text = parameter.setting.NumberOfTeamIn.ToString();
+            }
+        }
         public void LoadTypesOfGoal(MainWindow parameter)
         {
             List<TypeOfGoal> data = new List<TypeOfGoal>();
