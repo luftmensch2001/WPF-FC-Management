@@ -108,8 +108,8 @@ Create Table Lineups
 	IdMatchs int,
 	IdPlayers int,
 	IdTeams int,
-	isOffical int,			-- 1: cầu thủ chính thức, 0: cầu thủ dự bị
-
+	isOfficial int,			-- 1: cầu thủ chính thức, 0: cầu thủ dự bị
+	
 	foreign key (IdMatchs) references Matchs(Id),
 	foreign key (IdPlayers) references Players(Id),
 	foreign key (IdTeams) references Teams(Id)
@@ -121,7 +121,10 @@ Go
 Create Table TypeOfGoals
 (
 	Id int identity (1,1) primary key,
+	IdTournaments int,
 	DisplayName nvarchar(100)
+
+	foreign key (IdTournaments) references Tournaments(Id)
 )
 Go
 
@@ -188,6 +191,7 @@ Create Table Settings
 	Score_win int,
 	Score_draw int,
 	Score_lose int,
+	NumberOfTeamsIn int,
 
 	foreign key (IdTournaments) references Tournaments(Id),
 )

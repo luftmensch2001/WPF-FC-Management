@@ -1040,7 +1040,7 @@ f
         <Grid
             x:Name="grdScheduleChart"
             Grid.Column="1"
-            Visibility="Visible">
+            Visibility="Hidden">
             <!--16 Teams-->
             <Grid
                 x:Name="grdSchedule16"
@@ -2419,7 +2419,7 @@ f
                                     <TextBlock Text="18" x:Name="tblMinAge"/>
                                     <TextBlock Text="35" x:Name="tblMaxAge"/>
                                     <TextBlock Text="3" x:Name="tblMaxForeign"/>
-                                    <TextBlock Text="2" x:Name="tblCountPerGroup"/>
+                                    <TextBlock Text="2" x:Name="tbNumberOfTeamsIn"/>
                                 </StackPanel>
                                 <Rectangle Fill="Gray" Width="1" HorizontalAlignment="Right" />
                             </Grid>
@@ -2437,83 +2437,111 @@ f
                                             <Setter Property="Margin" Value="0 25.4 0 1" />
                                         </Style>
                                     </StackPanel.Resources>
-                                    
+
                                     <TextBlock Text="Sửa" HorizontalAlignment="Center" Margin="0, 20, 0, 10"/>
                                     <Rectangle Fill="Gray" Height="1" VerticalAlignment="Bottom" />
-                                    
-                                    <Button>
-                                        <materialDesign:PackIcon
+
+                                    <Button x:Name="btEditS0">
+                                        <materialDesign:PackIcon 
                                             Kind="Pencil" Width="15" Height="15"/>
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="Click">
                                                 <i:InvokeCommandAction Command="{Binding OpenEditDialogCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="MouseMove">
+                                                <i:InvokeCommandAction Command="{Binding GetIdSettingCommand}"
                                                        CommandParameter="0"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Button>
 
-                                    <Button>
+                                    <Button x:Name="btEditS1">
                                         <materialDesign:PackIcon
                                             Kind="Pencil" Width="15" Height="15"/>
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="Click">
                                                 <i:InvokeCommandAction Command="{Binding OpenEditDialogCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="MouseMove">
+                                                <i:InvokeCommandAction Command="{Binding GetIdSettingCommand}"
                                                        CommandParameter="1"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Button>
 
-                                    <Button>
-                                        <materialDesign:PackIcon
+                                    <Button x:Name="btEditS2">
+                                        <materialDesign:PackIcon 
                                             Kind="Pencil" Width="15" Height="15"/>
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="Click">
                                                 <i:InvokeCommandAction Command="{Binding OpenEditDialogCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="MouseMove">
+                                                <i:InvokeCommandAction Command="{Binding GetIdSettingCommand}"
                                                        CommandParameter="2"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Button>
 
-                                    <Button>
-                                        <materialDesign:PackIcon
+                                    <Button x:Name="btEditS3">
+                                        <materialDesign:PackIcon 
                                             Kind="Pencil" Width="15" Height="15"/>
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="Click">
                                                 <i:InvokeCommandAction Command="{Binding OpenEditDialogCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="MouseMove">
+                                                <i:InvokeCommandAction Command="{Binding GetIdSettingCommand}"
                                                        CommandParameter="3"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Button>
 
-                                    <Button>
+                                    <Button x:Name="btEditS4">
                                         <materialDesign:PackIcon
                                             Kind="Pencil" Width="15" Height="15"/>
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="Click">
                                                 <i:InvokeCommandAction Command="{Binding OpenEditDialogCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="MouseMove">
+                                                <i:InvokeCommandAction Command="{Binding GetIdSettingCommand}"
                                                        CommandParameter="4"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Button>
 
-                                    <Button>
-                                        <materialDesign:PackIcon
+                                    <Button x:Name="btEditS5">
+                                        <materialDesign:PackIcon 
                                             Kind="Pencil" Width="15" Height="15"/>
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="Click">
                                                 <i:InvokeCommandAction Command="{Binding OpenEditDialogCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="MouseMove">
+                                                <i:InvokeCommandAction Command="{Binding GetIdSettingCommand}"
                                                        CommandParameter="5"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Button>
 
-                                    <Button>
+                                    <Button x:Name="btEditS6">
                                         <materialDesign:PackIcon
                                             Kind="Pencil" Width="15" Height="15"/>
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="Click">
                                                 <i:InvokeCommandAction Command="{Binding OpenEditDialogCommand}"
-                                                       CommandParameter="5"/>
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="MouseMove">
+                                                <i:InvokeCommandAction Command="{Binding GetIdSettingCommand}"
+                                                       CommandParameter="6"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Button>
@@ -2585,35 +2613,47 @@ f
                                     <TextBlock Text="Sửa" HorizontalAlignment="Center" Margin="0, 20, 0, 10"/>
                                     <Rectangle Fill="Gray" Height="1" VerticalAlignment="Bottom" />
 
-                                    <Button>
+                                    <Button x:Name="btEditS7">
                                         <materialDesign:PackIcon
                                                 Kind="Pencil" Width="15" Height="15"/>
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="Click">
                                                 <i:InvokeCommandAction Command="{Binding OpenEditDialogCommand}"
-                                                           CommandParameter="6"/>
+                                                           CommandParameter="{Binding ElementName=wdHome}"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="MouseMove">
+                                                <i:InvokeCommandAction Command="{Binding GetIdSettingCommand}"
+                                                       CommandParameter="7"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Button>
 
-                                    <Button>
+                                    <Button x:Name="btEditS8">
                                         <materialDesign:PackIcon
                                                 Kind="Pencil" Width="15" Height="15"/>
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="Click">
                                                 <i:InvokeCommandAction Command="{Binding OpenEditDialogCommand}"
-                                                           CommandParameter="7"/>
+                                                           CommandParameter="{Binding ElementName=wdHome}"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="MouseMove">
+                                                <i:InvokeCommandAction Command="{Binding GetIdSettingCommand}"
+                                                       CommandParameter="8"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Button>
 
-                                    <Button>
+                                    <Button x:Name="btEditS9">
                                         <materialDesign:PackIcon
                                                 Kind="Pencil" Width="15" Height="15"/>
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="Click">
                                                 <i:InvokeCommandAction Command="{Binding OpenEditDialogCommand}"
-                                                           CommandParameter="8"/>
+                                                           CommandParameter="{Binding ElementName=wdHome}"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="MouseMove">
+                                                <i:InvokeCommandAction Command="{Binding GetIdSettingCommand}"
+                                                       CommandParameter="9"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Button>
@@ -2630,11 +2670,13 @@ f
                         GridLinesVisibility="All"
                         VerticalGridLinesBrush="White"
                         SelectionUnit="FullRow"
-                        SelectionMode="Extended"
+                        SelectionMode="Single"
                         Width="350" Height="200"
                         CanUserResizeRows="False"
                         CanUserDeleteRows="False"
                         CanUserAddRows="False" 
+                        AutoGenerateColumns="False"
+                        IsReadOnly="True"
                         BorderBrush="White" BorderThickness="1"
                         Background="Transparent" Foreground="White"
                         VerticalAlignment="Bottom" Margin="0 0 0 100">
@@ -2648,10 +2690,12 @@ f
                         <DataGrid.Columns>
                             <DataGridTextColumn
                                 Header="STT"
-                                Width="100"/>
+                                Width="100"
+                                Binding="{Binding Path=id}"/>
                             <DataGridTextColumn
                                 Header="Loại bàn thắng"
-                                Width="250"/>
+                                Width="248"
+                                Binding="{Binding Path=displayName}"/>
                         </DataGrid.Columns>
 
                     </DataGrid>
@@ -2691,6 +2735,12 @@ f
                             Content="Xoá"
                             Style="{StaticResource MyRedButtonStyle}" 
                             Width="100" Margin="25 0 0 0">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding DeleteGoalTypeCommand}"
+                                                           CommandParameter="{Binding ElementName=wdHome}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                         </Button>
                     </StackPanel>
                 </Grid>

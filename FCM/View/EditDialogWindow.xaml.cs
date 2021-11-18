@@ -9,6 +9,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using FCM.DAO;
+using FCM.DTO;
 
 namespace FCM.View
 {
@@ -17,9 +19,20 @@ namespace FCM.View
     /// </summary>
     public partial class EditDialogWindow : Window
     {
-        public EditDialogWindow(string parameter)
+        public Setting curSetting;
+        public int idSetting;
+        public int idTournament;
+        public EditDialogWindow()
         {
             InitializeComponent();
+        }
+        public EditDialogWindow(int id, int index, Setting parameter)
+        {
+            InitializeComponent();
+            this.curSetting = parameter;
+            this.idSetting = index;
+            this.idTournament = id;
+            this.tbValue.Focus();
         }
     }
 }

@@ -23,6 +23,7 @@ namespace FCM.DTO
         public int scoreWin { get; set; }
         public int scoreDraw { get; set; }
         public int scoreLose { get; set; }
+        public int NumberOfTeamIn { get; set; }
 
         public Setting(DataRow row)
         {
@@ -36,8 +37,9 @@ namespace FCM.DTO
             this.scoreWin = (int)row["score_Win"];
             this.scoreDraw = (int)row["score_Draw"];
             this.scoreLose = (int)row["score_Lose"];
+            this.NumberOfTeamIn = (int)row["NumberOfTeamsIn"];
         }
-        public Setting(int idTournament, int numberOfTeam, int minPlayerOfTeam, int maxPlayerOfTeam,int minAge,int maxForeignPlayers,int scoreWin,int scoreDraw, int scoreLose)
+        public Setting(int idTournament, int numberOfTeam, int minPlayerOfTeam, int maxPlayerOfTeam,int minAge,int maxForeignPlayers,int scoreWin,int scoreDraw, int scoreLose, int numberOfTeamIn)
         {
             this.idTournament = idTournament;
             this.numberOfTeam = numberOfTeam;
@@ -48,6 +50,7 @@ namespace FCM.DTO
             this.scoreWin = scoreWin;
             this.scoreDraw = scoreDraw;
             this.scoreLose = scoreLose;
+            this.NumberOfTeamIn = numberOfTeamIn;
 
         }
     }

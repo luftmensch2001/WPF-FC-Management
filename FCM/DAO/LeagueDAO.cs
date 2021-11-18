@@ -63,6 +63,8 @@ namespace FCM.DAO
             query = "UPDATE Tournaments SET logo = @img WHERE ID = (SELECT MAX(Id) FROM Tournaments)";
             DataProvider.Instance.ExecuteQuery(query, new object[] { league.logo });
             SettingDAO.Instance.CreateSetting(GetNewestLeagurId(), league.countTeam);
+            if (league.countBoard == 1)
+                SettingDAO.Instance.EditSetting(GetNewestLeagurId(), "NumberOfTeamsIn", league.countTeam.ToString());
         }
         public void UpdateLeague(League league)
         {

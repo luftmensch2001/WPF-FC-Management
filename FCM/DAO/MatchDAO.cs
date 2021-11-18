@@ -23,7 +23,8 @@ namespace FCM.DAO
                          "N'" + match.idTournaments + "' ," +
                          "N'" + match.idTeam01 + "' ," +
                          "N'" + match.idTeam02 + "' ," +
-                         "'" + match.date.ToString("dd/MM/yyyy") + "' ," +
+                        // "'" + match.date.ToString("dd/MM/yyyy") + "' ," +
+                         "'" + match.date.ToString("MM/dd/yyyy") + "' ," +
                          "'"  + match.time.ToString("hh:mm") + "' ," +
                          "N'" + match.round + "' ," +
                          "N'" + match.statium + "'" +

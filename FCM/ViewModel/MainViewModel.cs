@@ -18,12 +18,14 @@ namespace FCM.ViewModel
         public ICommand SwitchTabCommand { get; set; }
         public ICommand SwitchTabStatisticsCommand { get; set; }
         public ICommand GetUidCommand { get; set; }
+        public ICommand GetIdSettingCommand { get; set; }
 
         public ICommand OpenAddLeagueWindowCommand { get; set; }
 
         public ICommand OpenEditLeagueWindowCommand { get; set; }
         public ICommand DeleteLeagueCommand { get; set; }
         public ICommand DeleteTeamCommand { get; set; }
+        public ICommand DeleteGoalTypeCommand { get; set; }
         public ICommand OpenAddTeamWindowCommand { get; set; }
         public ICommand OpenEditTeamWindowCommand { get; set; }
         public ICommand OpenAddPlayerWindowCommand { get; set; }
@@ -48,6 +50,11 @@ namespace FCM.ViewModel
 
         public string uid;
 
+        public string idSetting = "";
+
+        List<TypeOfGoal> listTypeOfGoals = new List<TypeOfGoal>();
+
+
         public SolidColorBrush lightGreen = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#52ff00"));
         public SolidColorBrush white = new SolidColorBrush(Colors.White);
         public MainViewModel()
@@ -55,11 +62,13 @@ namespace FCM.ViewModel
             SwitchTabCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SwitchTab(parameter));
             SwitchTabStatisticsCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SwitchTabStatistics(parameter));
             GetUidCommand = new RelayCommand<Button>((parameter) => true, (parameter) => uid = parameter.Uid);
+            GetIdSettingCommand = new RelayCommand<string>((parameter) => true, (parameter) => idSetting = parameter);
             OpenAddLeagueWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenAddLeagueWindow(parameter));
             DeleteLeagueCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => DeleteLeague(parameter));
             DeleteTeamCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => DeleteTeam(parameter));
+            DeleteGoalTypeCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => DeleteGoalType(parameter));
 
-            OpenEditDialogCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenEditDialogWindow(parameter));
+            OpenEditDialogCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenEditDialogWindow(parameter));
             OpenEditLeagueWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenEditLeagueWindow(parameter));
             OpenAddTeamWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenAddTeamWindow(parameter));
             OpenEditTeamWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenEditTeamWindow(parameter));
@@ -200,7 +209,30 @@ namespace FCM.ViewModel
                         parameter.btnSetting.Foreground = lightGreen;
                         parameter.icSetting.Foreground = lightGreen;
                         parameter.grdSettingScreen.Visibility = Visibility.Visible;
+
+                        bool btState = false;
+                        if (TeamDAO.Instance.GetListTeamInLeague(parameter.league.id).Count > 0)
+                            btState = false;
+                        else
+                            btState = true;
+
+                        {
+                            parameter.btEditS0.IsEnabled = btState;
+                            parameter.btEditS1.IsEnabled = btState;
+                            parameter.btEditS2.IsEnabled = btState;
+                            parameter.btEditS3.IsEnabled = btState;
+                            parameter.btEditS4.IsEnabled = btState;
+                            parameter.btEditS5.IsEnabled = btState;
+                            parameter.btEditS6.IsEnabled = btState;
+                            parameter.btEditS7.IsEnabled = btState;
+                            parameter.btEditS8.IsEnabled = btState;
+                            parameter.btEditS9.IsEnabled = btState;
+                            parameter.btnAddGoalType.IsEnabled = btState;
+                            parameter.btnEditGoalType.IsEnabled = btState;
+                            parameter.btnDeleteGoalType.IsEnabled = btState;
+                        }
                         GetDetailSetting(parameter);
+                        LoadTypesOfGoal(parameter);
                     }
                     break;
                 case 7:
@@ -390,6 +422,7 @@ namespace FCM.ViewModel
                 parameter.tbScoreWin.Text = parameter.setting.scoreWin.ToString();
                 parameter.tbScoreDraw.Text = parameter.setting.scoreDraw.ToString();
                 parameter.tbScoreLose.Text = parameter.setting.scoreLose.ToString();
+                parameter.tbNumberOfTeamsIn.Text = parameter.setting.NumberOfTeamIn.ToString();
             }
         }
 
@@ -400,6 +433,14 @@ namespace FCM.ViewModel
             if (parameter.league != null)
             {
                 teams = TeamDAO.Instance.GetListTeamInLeague(parameter.league.id);
+                if (teams.Count == 0)
+                {
+                    ChangeStatus(0, parameter);
+                    parameter.wpTeamsList.Children.Clear();
+                    parameter.wpPlayersList.Children.Clear();
+                    return;
+                }
+
                 foreach (Team team in teams)
                 {
                     ucTeamButton teamButton = new ucTeamButton(team, parameter, this);
@@ -492,6 +533,17 @@ namespace FCM.ViewModel
         {
             if (parameter.currentAccount.roleLevel == 1)
             {
+                if (parameter.wpTeamsList.Children.Count == 0)
+                {
+                    if (MessageBox.Show("Sau thi tạo đội bóng đầu tiên sẽ không thể thay đổi quy định của giải nữa \nXác nhận tạo đội?", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    {
+                        return;
+                    }
+                    else
+                    {
+
+                    }
+                }
                 if (parameter.wpTeamsList.Children.Count == parameter.setting.numberOfTeam)
                 {
                     MessageBox.Show("Số lượng đội bóng đá đạt tối đa");
@@ -635,25 +687,7 @@ namespace FCM.ViewModel
                     break;
             }
         }
-        public void OpenEditDialogWindow(string parameter)
-        {
-            // Dùng parameter để biết đã bấm vào nút Sửa nào
-            EditDialogWindow wd = new EditDialogWindow(parameter);
-            wd.ShowDialog();
-        }
 
-        public void OpenAddGoalTypeWindow(MainWindow parameter)
-        {
-            AddGoalTypeWindow wd = new AddGoalTypeWindow();
-            wd.ShowDialog();
-        }
-        public void OpenEditGoalTypeWindow(MainWindow parameter)
-        {
-            AddGoalTypeWindow wd = new AddGoalTypeWindow();
-            wd.Title = "Sửa thông tin";
-            wd.btnAdd.Content = "Xác nhận";
-            wd.ShowDialog();
-        }
         public void OpenChangePasswordWindow(MainWindow parameter)
         {
             ChangePasswordWindow wd = new ChangePasswordWindow(parameter.currentAccount);
@@ -687,7 +721,7 @@ namespace FCM.ViewModel
             }
 
             // Tiến hành tạo lịch
-            if (MessageBox.Show("Sau khi tiến hành tạo lịch, các thông tin về Quy định giải đấu, Câu lạc bộ, Cầu thủ sẽ không được phép thay đổi nữa!\n" +
+            if (MessageBox.Show("Sau khi tiến hành tạo lịch, các thông tin về Câu lạc bộ, Cầu thủ sẽ không được phép thay đổi nữa!\n" +
                 "Các trận đấu sẽ được tạo ngẫu nhiên theo nguyên tắc vòng tròn tính điểm.\n" +
                 "Bạn có muốn tạo lịch thi đấu?", "Lưu ý", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
@@ -848,6 +882,77 @@ namespace FCM.ViewModel
             ResultRecordingWindow wd = new ResultRecordingWindow(match);
             wd.ShowDialog();
             LoadListMatch(parameter, this.round);
+        }
+        #endregion
+
+        #region Setting (Quy Định)
+        public void LoadTypesOfGoal(MainWindow parameter)
+        {
+            List<TypeOfGoal> data = new List<TypeOfGoal>();
+            data = TypeOfGoalDAO.Instance.GetListTypeOfGoal(parameter.league.id);
+            int i = 1;
+            foreach (TypeOfGoal typeG in data.ToArray())
+            {
+                typeG.id = i;
+                i++;
+            }
+            parameter.dgvTypeOfGoal.ItemsSource = data;
+        }
+        public void OpenEditDialogWindow(MainWindow parameter)
+        {
+            int index = Int32.Parse(idSetting);
+            int idTournament = parameter.league.id;
+            Setting curSetting = parameter.setting;
+            EditDialogWindow wd = new EditDialogWindow(idTournament, index, curSetting);
+            wd.ShowDialog();
+            parameter.setting = SettingDAO.Instance.GetSetting(idTournament);
+            GetDetailSetting(parameter);
+        }
+        public void OpenAddGoalTypeWindow(MainWindow parameter)
+        {
+            AddGoalTypeWindow wd = new AddGoalTypeWindow(parameter, "");
+            wd.ShowDialog();
+            LoadTypesOfGoal(parameter);
+        }
+        public void OpenEditGoalTypeWindow(MainWindow parameter)
+        {
+            if (parameter.dgvTypeOfGoal.SelectedIndex == -1)
+            {
+                MessageBox.Show("Vui lòng chọn loại bàn thắng cần sửa");
+                return;
+            }
+            string name = (parameter.dgvTypeOfGoal.SelectedItem as TypeOfGoal).displayName;
+            AddGoalTypeWindow wd = new AddGoalTypeWindow(parameter, name);
+            wd.Title = "Sửa thông tin";
+            wd.btnAdd.Content = "Xác nhận";
+            wd.ShowDialog();
+            LoadTypesOfGoal(parameter);
+        }
+        public void DeleteGoalType(MainWindow parameter)
+        {
+            if (parameter.dgvTypeOfGoal.SelectedIndex == -1)
+            {
+                MessageBox.Show("Vui lòng chọn loại bàn thắng cần xoá");
+                return;
+            }
+            string name = (parameter.dgvTypeOfGoal.SelectedItem as TypeOfGoal).displayName;
+            if (MessageBox.Show("Bạn có muốn xoá loại bàn thắng \"" + name + "\"", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+                return;
+            }
+            else
+            {
+                try
+                {
+                    TypeOfGoalDAO.Instance.DeleteTypeGoal(parameter.league.id, name);
+                    MessageBox.Show("Xoá loại bàn thắng thành công");
+                }
+                catch
+                {
+                    MessageBox.Show("Lỗi kết nối");
+                }
+                LoadTypesOfGoal(parameter);
+            }
         }
         #endregion
     }

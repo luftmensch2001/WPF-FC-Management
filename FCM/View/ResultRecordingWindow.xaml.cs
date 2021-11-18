@@ -134,7 +134,7 @@ namespace FCM.View
                 this.listSwitchedPlayerTeam1 = SwitchedPlayerDAO.Instance.GetListSwitchedPlayer(this.match.id, this.team1.id);
                 this.listSwitchedPlayerTeam2 = SwitchedPlayerDAO.Instance.GetListSwitchedPlayer(this.match.id, this.team2.id);
 
-                this.typeOfGoals = TypeOfGoalDAO.Instance.GetListTypeOfGoal();
+                this.typeOfGoals = TypeOfGoalDAO.Instance.GetListTypeOfGoal(team1.idTournamnt);
 
                 this.ScoreTeam1 = this.listGoalsTeam1.Count;
                 this.ScoreTeam2 = this.listGoalsTeam2.Count;

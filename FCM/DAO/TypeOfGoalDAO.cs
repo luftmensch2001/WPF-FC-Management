@@ -15,12 +15,13 @@ namespace FCM.DAO
             get { if (instance == null) instance = new TypeOfGoalDAO(); return instance; }
             set => instance = value;
         }
-        public List<TypeOfGoal> GetListTypeOfGoal()
+        public List<TypeOfGoal> GetListTypeOfGoal(int idTournament)
         {
             List<TypeOfGoal> listTypeOfGoals = new List<TypeOfGoal>();
 
             string query = "Select* " +
-                          "From TypeOfGoals";
+                          "From TypeOfGoals " +
+                          "Where idTournaments = " + idTournament;
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
 
             foreach (DataRow row in tb.Rows)
@@ -41,5 +42,44 @@ namespace FCM.DAO
                 return tb.Rows[0]["DisplayName"].ToString();
             return "";
         }
+
+        public void AddTypeGoal(int idTournament, string nameGoalType)
+        {
+            string query = "insert into TypeOfGoals(IdTournaments, DisplayName) values(" +
+                            idTournament +
+                            ", '" + nameGoalType + "')";
+            DataProvider.Instance.ExecuteQuery(query);
+        }
+
+        public bool IsExistNameTypeGoal(int idTournament, string name)
+        {
+            string query = "Select DisplayName " +
+                          "From TypeOfGoals " +
+                          "Where idTournaments = " + idTournament +
+                          " and DisplayName = '" + name + "'";
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+
+            if (tb.Rows.Count != 0)
+                return true;
+            return false;
+        }
+
+        public void EditNameTypeGoal(int idTournament, string name, string oldName)
+        {
+            string query = "update TypeOfGoals " +
+                            "set DisplayName = '" + name + "' " +
+                            "where idTournaments =" + idTournament +
+                            " and DisplayName = '" + oldName + "'";
+            DataProvider.Instance.ExecuteQuery(query);
+        }
+        public void DeleteTypeGoal(int idTournament, string name)
+        {
+            string query = "delete from TypeOfGoals " +
+                            "where idTournaments =" + idTournament +
+                            " and DisplayName = '" + name + "'";
+            DataProvider.Instance.ExecuteQuery(query);
+        }
+
+
     }
 }
