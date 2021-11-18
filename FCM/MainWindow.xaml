@@ -2668,6 +2668,7 @@ f
                         ItemsSource="{Binding Items2}"
                         HorizontalGridLinesBrush="White" 
                         GridLinesVisibility="All"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                         VerticalGridLinesBrush="White"
                         SelectionUnit="FullRow"
                         SelectionMode="Single"
