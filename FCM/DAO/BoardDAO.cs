@@ -56,7 +56,7 @@ namespace FCM.DAO
         {
             string query = "Delete " +
                             "From Board" +
-                            "Where idLeague =" + idTournament;
+                            " Where idLeague =" + idTournament;
             DataProvider.Instance.ExecuteQuery(query);
         }
         public int CountBoardFull(int idTournament)

@@ -50,6 +50,7 @@ namespace FCM.ViewModel
         {
             if (ExcelProcessing.Instance.ImportTeam(parameter))
                 parameter.Close();
+            
         }
         void AddTeam(AddTeamWindow parameter)
         {

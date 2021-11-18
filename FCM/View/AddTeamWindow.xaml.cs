@@ -70,6 +70,8 @@ namespace FCM.View
                 }
                 cbGroups.Items.Add(boards[i].nameBoard);
             }
+            if (team != null)
+                this.cbGroups.Text = team.nameBoard;
         }
     }
 }

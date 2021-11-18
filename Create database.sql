@@ -193,3 +193,25 @@ Create Table Settings
 )
 Go
 
+Create Table TreeMatch
+(
+	Id int identity (1,1) primary key,
+	idLeague int,
+	high int,
+	size int,
+	idfirstnode int,
+
+	foreign key (idLeague) references Tournaments(Id)
+)
+GO
+
+Create Table NodeMatch
+(
+	Id int identity (1,1) primary key,
+	idTree int,
+	idNodeLeft int,
+	idNodeRight int,
+	high int,
+	idTeam int
+)
+GO

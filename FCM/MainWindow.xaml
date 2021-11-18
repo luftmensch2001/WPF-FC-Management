@@ -61,8 +61,9 @@
                 <!--Grid Home-->
                 <Grid x:Name="grdHome"
                       Height="55"
+                      Visibility="Visible"
                       Margin="0 0 0 0">
-                    
+                        
                     
                     <materialDesign:PackIcon 
                         x:Name="icHome"
@@ -103,6 +104,7 @@
 
                 <!--Grid Leagues-->
                 <Grid x:Name="grds"
+                      Visibility="Visible"
                       Height="55"
                       Margin="0 5 0 0">
 
@@ -430,7 +432,7 @@
 
         <Grid Grid.Column="1"
               x:Name="grdHomeScreen"
-              Visibility="Hidden">
+              Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="260"/>
                 <RowDefinition Height="1"/>
@@ -592,7 +594,7 @@
         <Grid
             x:Name="grdHomeNoLeagueScreen"
             Grid.Column="1"
-            Visibility="Visible">
+            Visibility="Hidden">
             <Image 
                 VerticalAlignment="Bottom"
                 Source="/Resource/Images/football6.png" Stretch="Fill"/>
@@ -1647,7 +1649,7 @@ f
             x:Name="grdTeamsScreen"
             Grid.Column="1"
             Background="#3a3a3a"
-            Visibility="Hidden">
+            Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="5*"/>
@@ -1692,6 +1694,12 @@ f
                                 Content="Bảng C" />
                         <ComboBoxItem
                                 Content="Bảng D" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding ChangeBoardCommand}"
+                                                                   CommandParameter="{Binding ElementName=wdHome}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <Border Height="480" Width="230" x:Name="borderTeamList"
                             CornerRadius="12" BorderBrush="White" BorderThickness="1"
@@ -1772,7 +1780,8 @@ f
                                         <TextBlock Text="Sân nhà:" FontSize="14" Foreground="White" Margin="0 10 0 0"/>
                                         <TextBlock Text="Số thành viên:" FontSize="14" Foreground="White" Margin="0 10 0 0"/>
                                         <TextBlock Text="Quốc gia:" FontSize="14" Foreground="White" Margin="0 10 0 0"/>
-                                        <TextBlock Text="Bảng đấu:" FontSize="14" Foreground="White" Margin="0 10 0 0"/>
+                                        <TextBlock Text="Bảng đấu:" FontSize="14" Foreground="White" Margin="0 10 0 0"
+                                                   Name="LbGroup"/>
                                     </StackPanel>
                                     <!--Replace here-->
                                     <StackPanel Width="240" Height="140" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="170 0 0 0">
