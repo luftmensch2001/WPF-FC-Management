@@ -43,6 +43,7 @@ namespace FCM
             {
                 league =  LeagueDAO.Instance.GetLeagueById(currentAccount.idLastLeague);
                 MainViewModel mainViewModel = new MainViewModel();
+                
                 mainViewModel.LoadDetailLeague(league,this);
             }
 

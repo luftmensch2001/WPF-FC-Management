@@ -32,5 +32,12 @@ namespace FCM.DAO
                             "  Where  id = " + tree.id;
             DataTable db = DataProvider.Instance.ExecuteQuery(query);
         }
+        public int GetNewestIdTreeNode()
+        {
+            string query = "Select max(id) as id " +
+                            " From TreeMatch  ";
+            DataTable db = DataProvider.Instance.ExecuteQuery(query);
+            return (int)db.Rows[0]["id"];
+        }
     }
 }

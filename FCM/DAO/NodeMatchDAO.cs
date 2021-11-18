@@ -30,7 +30,7 @@ namespace FCM.DAO
                            " "+ nodeMatch.idTeam + ", "+
                            " "+ nodeMatch.idNodeLeft + ", "+
                            " "+ nodeMatch.idNodeRight + ", "+
-                           " "+ nodeMatch.high + ", "+
+                           " "+ nodeMatch.high + " "+
                            ")  ";
             DataTable db = DataProvider.Instance.ExecuteQuery(query);
         }
@@ -50,6 +50,13 @@ namespace FCM.DAO
             string query = "Delete NodeMatch" +
                           "  Where id = " + node.id;
             DataTable db = DataProvider.Instance.ExecuteQuery(query);
+        }
+        public void SetIdTree(int idTree)
+        {
+            string query = "Update NodeMatch " +
+                        " Set idTree  =" + idTree + "" +
+                        " Where idTree = -1";
+            DataProvider.Instance.ExecuteQuery(query);
         }
     }
 }

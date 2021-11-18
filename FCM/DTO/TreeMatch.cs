@@ -28,6 +28,14 @@ namespace FCM.DTO
         public TreeMatch(int idLeague, int size, List<int> idTeams)
         {
             this.idLeague = idLeague;
+            if (size <= 4)
+                size = 4;
+            else
+                if (size < 8)
+                size = 8;
+            else
+                if (size < 16)
+                size = 16;
             this.size = size;
             this.idTeams = idTeams;
             switch (size)
@@ -42,18 +50,18 @@ namespace FCM.DTO
                     this.high = 5;
                     break;
             }
-            this.idFirstNode = CreateTree(high);
+            this.idFirstNode = CreateTree(1);
         }
         public int CreateTree(int high)
         {
             NodeMatch nodeMatch;
             if (high < this.high)
             {
-                nodeMatch = new NodeMatch(this.id, -1, CreateTree(high + 1), CreateTree(high + 1), this.high);
+                nodeMatch = new NodeMatch(-1, -1, CreateTree(high + 1), CreateTree(high + 1), high);
             }
             else
             {
-                nodeMatch = new NodeMatch(this.id, idTeams[0], -1, -1, this.high);
+                nodeMatch = new NodeMatch(-1, idTeams[0], -1, -1, high);
                 idTeams.RemoveAt(0);
             }
             NodeMatchDAO.Instance.CreateNodeMatch(nodeMatch);
