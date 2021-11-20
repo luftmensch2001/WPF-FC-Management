@@ -47,7 +47,7 @@ namespace FCM.DAO
         {
             string query = "insert into TypeOfGoals(IdTournaments, DisplayName) values(" +
                             idTournament +
-                            ", '" + nameGoalType + "')";
+                            ", N'" + nameGoalType + "')";
             DataProvider.Instance.ExecuteQuery(query);
         }
 
@@ -56,7 +56,7 @@ namespace FCM.DAO
             string query = "Select DisplayName " +
                           "From TypeOfGoals " +
                           "Where idTournaments = " + idTournament +
-                          " and DisplayName = '" + name + "'";
+                          " and DisplayName = N'" + name + "'";
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
 
             if (tb.Rows.Count != 0)
@@ -67,16 +67,16 @@ namespace FCM.DAO
         public void EditNameTypeGoal(int idTournament, string name, string oldName)
         {
             string query = "update TypeOfGoals " +
-                            "set DisplayName = '" + name + "' " +
+                            "set DisplayName = N'" + name + "' " +
                             "where idTournaments =" + idTournament +
-                            " and DisplayName = '" + oldName + "'";
+                            " and DisplayName = N'" + oldName + "'";
             DataProvider.Instance.ExecuteQuery(query);
         }
         public void DeleteTypeGoal(int idTournament, string name)
         {
             string query = "delete from TypeOfGoals " +
                             "where idTournaments =" + idTournament +
-                            " and DisplayName = '" + name + "'";
+                            " and DisplayName = N'" + name + "'";
             DataProvider.Instance.ExecuteQuery(query);
         }
 

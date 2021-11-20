@@ -1994,7 +1994,7 @@ f
             x:Name="grdStandingScreen"
             Grid.Column="1"
             Background="#3a3a3a"
-            Visibility="Hidden">
+            Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="4*"/>
@@ -2045,13 +2045,20 @@ f
             <!--Body-->
             <Grid Grid.Row="1">
                 <DataGrid
-                    ItemsSource="{Binding Items2}"
-                    SelectionUnit="FullRow"
-                    SelectionMode="Extended"
-                    Width="900" Height="550"
-                    CanUserResizeRows="False"
-                    CanUserDeleteRows="False"
-                    CanUserAddRows="False">
+                    Name="dgvRanking"
+                    ItemsSource="{Binding Item2}"
+                    HorizontalGridLinesBrush="LightPink" 
+                        GridLinesVisibility="Horizontal"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        VerticalGridLinesBrush="Black"
+                        SelectionUnit="FullRow"
+                        SelectionMode="Single"
+                        Width="900" Height="550"
+                        CanUserResizeRows="False"
+                        CanUserDeleteRows="False"
+                        CanUserAddRows="False" 
+                        AutoGenerateColumns="False"
+                        IsReadOnly="True">
                     <DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
                             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -2061,31 +2068,46 @@ f
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Header="Hạng"
-                            Width="90"/>
+                            Width="90"
+                            Binding="{Binding Path=rankTeam}"/>
                         <DataGridTextColumn
                             Header="Đội"
-                            Width="130"/>
+                            Width="130"
+                            Binding="{Binding Path=nameTeam}"/>
                         <DataGridTextColumn
                             Header="Số trận"
-                            Width="90"/>
+                            Width="90"
+                            Binding="{Binding Path=m}"/>
                         <DataGridTextColumn
                             Header="Thắng"
-                            Width="90"/>
+                            Width="90"
+                            Binding="{Binding Path=w}"/>
                         <DataGridTextColumn
                             Header="Hoà"
-                            Width="90"/>
+                            Width="90"
+                            Binding="{Binding Path=d}"/>
                         <DataGridTextColumn
                             Header="Thua"
-                            Width="90"/>
+                            Width="90"
+                            Binding="{Binding Path=l}"/>
                         <DataGridTextColumn
                             Header="Điểm"
-                            Width="90"/>
+                            Width="90"
+                            Binding="{Binding Path=pts}"/>
                         <DataGridTextColumn
                             Header="Hiệu số"
-                            Width="90"/>
-                        <DataGridTextColumn
-                            Header="5 trận gần nhất"
-                            Width="140"/>
+                            Width="90"
+                            Binding="{Binding Path=gD}"/>
+                        <DataGridTemplateColumn 
+                            Header="5 trận gần nhất" 
+                            Width="140"
+                            IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding Path=logo}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                     
                 </DataGrid>

@@ -61,6 +61,21 @@ namespace FCM.DAO
                 " WHERE IdMatchs = " + idMatch;
             DataProvider.Instance.ExecuteQuery(query);
         }
-       
+        public List<Goal> GetListGoalsByIDMatch(int idMatchs)
+        {
+            List<Goal> goals = new List<Goal>();
+
+            string query = "Select* " +
+                          "From Goals  " +
+                          " Where IdMatchs = " + idMatchs;
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+
+            foreach (DataRow row in tb.Rows)
+            {
+                Goal goal = new Goal(row);
+                goals.Add(goal);
+            }
+            return goals;
+        }
     }
 }

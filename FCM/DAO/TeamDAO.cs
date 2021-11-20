@@ -133,5 +133,13 @@ namespace FCM.DAO
             DataTable db = DataProvider.Instance.ExecuteQuery(query);
             return (int)db.Rows[0]["id"];
         }
+
+        public int GetTeamIDByName(int idTournament, string teamName)
+        {
+            string query = "Select id From Teams where idTournaments = " + idTournament +
+                           " and DisplayName = N'" + teamName +"'";
+            DataTable db = DataProvider.Instance.ExecuteQuery(query);
+            return (int)db.Rows[0]["id"];
+        }
     }
 }

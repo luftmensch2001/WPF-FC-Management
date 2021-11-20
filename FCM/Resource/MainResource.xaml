@@ -16,5 +16,4 @@
     <viewmodel:AddGoalTypeViewModel x:Key="AddGoalTypeVM"/>
 
     <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#222"/>
-
 </ResourceDictionary>

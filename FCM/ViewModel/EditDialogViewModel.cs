@@ -105,6 +105,16 @@ namespace FCM.ViewModel
                         MessageBox.Show("Số lượng tối thiểu là 2", "Lỗi");
                         return;
                     }
+                    if (value % 2 != 0)
+                    {
+                        MessageBox.Show("Số lượng đội phải chia hết cho 2", "Lỗi");
+                        return;
+                    }
+                    if (value >= parameter.curSetting.numberOfTeam)
+                    {
+                        MessageBox.Show("Số lượng đội vào vòng trong phải nhỏ hơn số đội tham gia giải", "Lỗi");
+                        return;
+                    }
                     break;
                 case 7:
                     if (value <= parameter.curSetting.scoreDraw || value <= parameter.curSetting.scoreLose)

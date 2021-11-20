@@ -52,8 +52,6 @@ namespace FCM.ViewModel
 
         public string idSetting = "";
 
-        List<TypeOfGoal> listTypeOfGoals = new List<TypeOfGoal>();
-
 
         public SolidColorBrush lightGreen = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#52ff00"));
         public SolidColorBrush white = new SolidColorBrush(Colors.White);
@@ -197,6 +195,7 @@ namespace FCM.ViewModel
                     parameter.btnStanding.Foreground = lightGreen;
                     parameter.icStanding.Foreground = lightGreen;
                     parameter.grdStandingScreen.Visibility = Visibility.Visible;
+                    LoadRanking(parameter);
                     break;
                 case 5:
                     parameter.btnStatistics.Foreground = lightGreen;
@@ -255,13 +254,117 @@ namespace FCM.ViewModel
                     break;
             }
         }
-        void ExportTeam(MainWindow parameter)
+        public void SwitchTabStatistics(MainWindow parameter)
         {
-            if (parameter.team != null)
+            int index = int.Parse(uid); // tab index
+            //Move Stroke Tab
+            parameter.rtStroke.Margin = new Thickness((20 + 120 * index), 0, 0, 5);
+
+            // Reset color
+            parameter.btnSttTeams.Foreground = white;
+            parameter.btnSttPlayers.Foreground = white;
+            parameter.btnSttCards.Foreground = white;
+
+            // Hide all screens
+            parameter.grdSttTeams.Visibility = Visibility.Hidden;
+            parameter.grdSttPlayers.Visibility = Visibility.Hidden;
+            parameter.grdSttCards.Visibility = Visibility.Hidden;
+
+            switch (index)
             {
-                ExcelProcessing.Instance.ExportFile(parameter.team);
+                case 0:
+                    parameter.btnSttTeams.Foreground = lightGreen;
+                    parameter.grdSttTeams.Visibility = Visibility.Visible;
+                    break;
+                case 1:
+                    parameter.btnSttPlayers.Foreground = lightGreen;
+                    parameter.grdSttPlayers.Visibility = Visibility.Visible;
+                    break;
+                case 2:
+                    parameter.btnSttCards.Foreground = lightGreen;
+                    parameter.grdSttCards.Visibility = Visibility.Visible;
+                    break;
             }
         }
+        public void ChangeStatus(int status, MainWindow parameter)
+        {
+            switch (status)
+            {
+                case -1:
+                    parameter.btnSchedule.IsEnabled = false;
+                    parameter.btnReport.IsEnabled = false;
+                    parameter.btnTeams.IsEnabled = false;
+                    parameter.btnStanding.IsEnabled = false;
+                    parameter.btnSetting.IsEnabled = false;
+                    break;
+                case 0:
+                    parameter.btnSchedule.IsEnabled = false;
+                    parameter.btnReport.IsEnabled = false;
+                    parameter.btnTeams.IsEnabled = true;
+                    parameter.btnStanding.IsEnabled = false;
+                    parameter.btnStanding.IsEnabled = true;
+                    parameter.btnSetting.IsEnabled = true;
+                    break;
+                case 1:
+                    parameter.btnSchedule.IsEnabled = true;
+                    parameter.btnReport.IsEnabled = true;
+                    parameter.btnTeams.IsEnabled = true;
+                    parameter.btnStanding.IsEnabled = true;
+                    parameter.btnSetting.IsEnabled = true;
+                    break;
+                case 2:
+                    parameter.btnSchedule.IsEnabled = true;
+                    parameter.btnReport.IsEnabled = true;
+                    parameter.btnTeams.IsEnabled = true;
+                    parameter.btnStanding.IsEnabled = true;
+                    parameter.btnSetting.IsEnabled = true;
+                    break;
+            }
+        }
+        public void GetBoards(MainWindow mainWindow)
+        {
+            mainWindow.cbGroup.Items.Clear();
+            mainWindow.cbGroup.Items.Add("Tất cả");
+            mainWindow.cbGroup.SelectedItem = 0;
+            foreach (Board board in mainWindow.boards)
+            {
+                mainWindow.cbGroup.Items.Add(board.nameBoard);
+            }    
+        }
+        public void SearchBoard(MainWindow mainWindow)
+        {
+            if (mainWindow.cbGroup.SelectedItem!=null)
+                ShowTeam(mainWindow, mainWindow.cbGroup.SelectedItem.ToString());
+
+        }
+        public int CountNationatily(MainWindow parameter)
+        {
+            int s = 0;
+            foreach (ucPlayer ucPlayer in parameter.wpPlayersList.Children)
+            {
+                if (ucPlayer.player.nationality != parameter.team.nation)
+                    s++;
+
+            }
+            return s;
+        }
+        public void OpenChangePasswordWindow(MainWindow parameter)
+        {
+            ChangePasswordWindow wd = new ChangePasswordWindow(parameter.currentAccount);
+            wd.ShowDialog();
+        }
+        public void OpenLoginWindow(MainWindow parameter)
+        {
+            LoginWindow loginWindow = new LoginWindow();
+            parameter.Hide();
+            loginWindow.Show();
+            parameter.Close();
+        }
+
+
+        #region League
+
+        public List<League> leagues;
         public void OpenAddLeagueWindow(MainWindow parameter)
         {
             if (parameter.currentAccount.roleLevel == 1)
@@ -271,7 +374,6 @@ namespace FCM.ViewModel
                 LoadListLeague(parameter);
             }
         }
-        public List<League> leagues;
         public void LoadListLeague(MainWindow parameter)
         {
             leagues = LeagueDAO.Instance.GetListLeagues();
@@ -324,41 +426,6 @@ namespace FCM.ViewModel
             window.tblLeagueTime.Text = "Thời gian: " + league.dateTime.ToString("M/d/yyyy");
             LoadListTeams(window);
         }
-        public void ChangeStatus(int status, MainWindow parameter)
-        {
-            switch (status)
-            {
-                case -1:
-                    parameter.btnSchedule.IsEnabled = false;
-                    parameter.btnReport.IsEnabled = false;
-                    parameter.btnTeams.IsEnabled = false;
-                    parameter.btnStanding.IsEnabled = false;
-                    parameter.btnSetting.IsEnabled = false;
-                    break;
-                case 0:
-                    parameter.btnSchedule.IsEnabled = false;
-                    parameter.btnReport.IsEnabled = false;
-                    parameter.btnTeams.IsEnabled = true;
-                    parameter.btnStanding.IsEnabled = false;
-                    parameter.btnStanding.IsEnabled = true;
-                    parameter.btnSetting.IsEnabled = true;
-                    break;
-                case 1:
-                    parameter.btnSchedule.IsEnabled = true;
-                    parameter.btnReport.IsEnabled = true;
-                    parameter.btnTeams.IsEnabled = true;
-                    parameter.btnStanding.IsEnabled = true;
-                    parameter.btnSetting.IsEnabled = true;
-                    break;
-                case 2:
-                    parameter.btnSchedule.IsEnabled = true;
-                    parameter.btnReport.IsEnabled = true;
-                    parameter.btnTeams.IsEnabled = true;
-                    parameter.btnStanding.IsEnabled = true;
-                    parameter.btnSetting.IsEnabled = true;
-                    break;
-            }
-        }
         public void DeleteLeague(MainWindow parameter)
         {
             if (parameter.currentAccount.roleLevel == 1)
@@ -402,7 +469,6 @@ namespace FCM.ViewModel
                 }
             }
         }
-
         public void SearchLeague(MainWindow parameter)
         {
             string name = InputFormat.Instance.FomartSpace(parameter.tbSearchLeague.Text);
@@ -415,10 +481,13 @@ namespace FCM.ViewModel
             LoadListLeagueToScreen(listLeague, parameter);
         }
 
+        #endregion
+
+        #region Team
         List<Team> teams;
         public void LoadListTeams(MainWindow parameter)
         {
-            
+
             if (parameter.league != null)
             {
                 teams = TeamDAO.Instance.GetListTeamInLeague(parameter.league.id);
@@ -458,42 +527,26 @@ namespace FCM.ViewModel
                     ShowTeam(parameter, parameter.cbGroup.Text);
             }
         }
-        public void GetBoards(MainWindow mainWindow)
-        {
-            mainWindow.cbGroup.Items.Clear();
-            mainWindow.cbGroup.Items.Add("Tất cả");
-            mainWindow.cbGroup.SelectedItem = 0;
-            foreach (Board board in mainWindow.boards)
-            {
-                mainWindow.cbGroup.Items.Add(board.nameBoard);
-            }    
-        }
-        public void SearchBoard(MainWindow mainWindow)
-        {
-            if (mainWindow.cbGroup.SelectedItem!=null)
-                ShowTeam(mainWindow, mainWindow.cbGroup.SelectedItem.ToString());
-
-        }
         public void ShowTeam(MainWindow mainWindow, string name)
         {
             if (teams == null)
                 return;
             mainWindow.wpTeamsList.Children.Clear();
             if (name == "Tất cả")
-            foreach (Team team in teams)
-            {
-                ucTeamButton teamButton = new ucTeamButton(team, mainWindow, this);
-                mainWindow.wpTeamsList.Children.Add(teamButton);
-            }
-            else
-            {
                 foreach (Team team in teams)
-                if (team.nameBoard == name)
                 {
                     ucTeamButton teamButton = new ucTeamButton(team, mainWindow, this);
                     mainWindow.wpTeamsList.Children.Add(teamButton);
                 }
-            }    
+            else
+            {
+                foreach (Team team in teams)
+                    if (team.nameBoard == name)
+                    {
+                        ucTeamButton teamButton = new ucTeamButton(team, mainWindow, this);
+                        mainWindow.wpTeamsList.Children.Add(teamButton);
+                    }
+            }
         }
         public void LoadDetailTeam(MainWindow parameter, Team team)
         {
@@ -507,22 +560,11 @@ namespace FCM.ViewModel
             parameter.tblCountOfMembers.Text = parameter.wpPlayersList.Children.Count.ToString();
             parameter.tblStatus.Text = parameter.team.nameBoard;
         }
-        public int CountNationatily(MainWindow parameter)
-        {
-            int s = 0;
-            foreach (ucPlayer ucPlayer in parameter.wpPlayersList.Children)
-            {
-                if (ucPlayer.player.nationality != parameter.team.nation)
-                    s++;
-
-            }
-            return s;
-        }
         public void OpenAddTeamWindow(MainWindow parameter)
         {
             if (parameter.currentAccount.roleLevel == 1)
             {
-                if (parameter.wpTeamsList.Children.Count == 0)
+                if (TeamDAO.Instance.GetListTeamInLeague(parameter.league.id).Count == 0)
                 {
                     if (MessageBox.Show("Sau thi tạo đội bóng đầu tiên sẽ không thể thay đổi quy định của giải nữa \nXác nhận tạo đội?", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                     {
@@ -587,6 +629,17 @@ namespace FCM.ViewModel
                 }
             }
         }
+        void ExportTeam(MainWindow parameter)
+        {
+            if (parameter.team != null)
+            {
+                ExcelProcessing.Instance.ExportFile(parameter.team);
+            }
+        }
+
+        #endregion
+
+        #region Player
 
         public void OpenAddPlayerWindow(MainWindow parameter)
         {
@@ -644,53 +697,7 @@ namespace FCM.ViewModel
             }
         }
 
-        public void SwitchTabStatistics(MainWindow parameter)
-        {
-            int index = int.Parse(uid); // tab index
-            //Move Stroke Tab
-            parameter.rtStroke.Margin = new Thickness((20 + 120 * index), 0, 0, 5);
-
-            // Reset color
-            parameter.btnSttTeams.Foreground = white;
-            parameter.btnSttPlayers.Foreground = white;
-            parameter.btnSttCards.Foreground = white;
-
-            // Hide all screens
-            parameter.grdSttTeams.Visibility = Visibility.Hidden;
-            parameter.grdSttPlayers.Visibility = Visibility.Hidden;
-            parameter.grdSttCards.Visibility = Visibility.Hidden;
-
-            switch (index)
-            {
-                case 0:
-                    parameter.btnSttTeams.Foreground = lightGreen;
-                    parameter.grdSttTeams.Visibility = Visibility.Visible;
-                    break;
-                case 1:
-                    parameter.btnSttPlayers.Foreground = lightGreen;
-                    parameter.grdSttPlayers.Visibility = Visibility.Visible;
-                    break;
-                case 2:
-                    parameter.btnSttCards.Foreground = lightGreen;
-                    parameter.grdSttCards.Visibility = Visibility.Visible;
-                    break;
-            }
-        }
-
-        public void OpenChangePasswordWindow(MainWindow parameter)
-        {
-            ChangePasswordWindow wd = new ChangePasswordWindow(parameter.currentAccount);
-            wd.ShowDialog();
-        }
-        public void OpenLoginWindow(MainWindow parameter)
-        {
-            LoginWindow loginWindow = new LoginWindow();
-            parameter.Hide();
-            loginWindow.Show();
-            parameter.Close();
-        }
-
-
+        #endregion
 
         #region SCHEDULE (Lịch thi đấu)
         // Tạo lịch thi đấu
@@ -960,6 +967,231 @@ namespace FCM.ViewModel
                 LoadTypesOfGoal(parameter);
             }
         }
+        #endregion
+
+        #region Ranking
+        const string Pts = "Điểm";
+        const string GD = "Hiệu số bàn thắng";
+        const string Vs = "Hiệu số đối đầu";
+        const string Fg = "Tổng số bàn thắng";
+        const string Wn = "Tổng số trận thắng";
+        //System.Drawing.Image imgwin = FCM.Properties.Resources.imgwin;
+        //System.Drawing.Image imgDraw = global::FCM.Properties.Resources.imgDraw;
+        //System.Drawing.Image imgLose = System.Drawing.Image.FromFile(@"./Resource/Images/imgLose.png");
+        //BitmapImage imgEmpty = new BitmapImage("/Resource/Images/imgEmpty.png"));
+        void LoadRanking(MainWindow parameter)
+        {
+            if (parameter.league != null)
+            {
+                teams = TeamDAO.Instance.GetListTeamInLeague(parameter.league.id);
+            }
+            ///Calc
+            int i = -1;
+            GetDetailSetting(parameter); 
+            List<TeamScoreDetails> rank = new List<TeamScoreDetails>();
+
+            foreach (Team t in teams)
+            {
+                BitmapImage logoteam = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(t.logo));
+                //logoteam = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(ImageProcessing.Instance.convertImgToByte(imgLose)));
+                //logoteam = ImageProcessing.Instance.ScaleBitmap((System.Drawing.Bitmap)logoteam);
+                rank.Add(new TeamScoreDetails(t.nameTeam, logoteam));
+                i++;
+                List<Match> matches = MatchDAO.Instance.GetListMatchByIDTeamWithOrder(t.idTournamnt, t.id);
+
+                //Tính 
+                foreach (Match m in matches)
+                {
+                    int gF = 0; //Bàn thắng
+                    int gA = 0; //Bàn thua
+                    List<Goal> goals = GoalDAO.Instance.GetListGoalsByIDMatch(m.id);
+                    foreach (Goal g in goals)
+                    {
+                        if (g.idTeams == t.id) //ghi bàn
+                            gF++;
+                        else
+                            gA++;
+                    }
+                    // + điểm
+                    if (gF > gA)
+                        rank[i].pts += parameter.setting.scoreWin;
+                    if (gF == gA)
+                        rank[i].pts += parameter.setting.scoreDraw;
+                    if (gF < gA)
+                        rank[i].pts += parameter.setting.scoreLose;
+
+                    rank[i].CalcDetails(gF, gA); //Tính hiệu số
+
+                }
+            }
+
+            //Sort Rank
+            CaculateRanking(parameter.league.id, rank);
+
+            parameter.dgvRanking.ItemsSource = rank;
+        }
+        void CaculateRanking(int idTournament, List<TeamScoreDetails> listTeamScoreDetails)
+        {
+            List<string> listPriorRank = new List<string>();
+            listPriorRank.Add(Pts);
+            listPriorRank.Add(GD);
+            listPriorRank.Add(Vs);
+            listPriorRank.Add(Fg);
+            listPriorRank.Add(Wn);
+            TeamScoreDetails tmp;
+            int index = listTeamScoreDetails.Count;
+            for (int i = 0; i < index - 1; i++)
+                for (int j = i + 1; j < index; j++)
+                {
+                    foreach (string condition in listPriorRank)
+                    {
+                        int res = CheckCondition(condition, listTeamScoreDetails[i], listTeamScoreDetails[j], idTournament);
+                        if (res == 0)
+                            continue;
+                        if (res == 2)
+                        {
+                            tmp = listTeamScoreDetails[i];
+                            listTeamScoreDetails[i] = listTeamScoreDetails[j];
+                            listTeamScoreDetails[j] = tmp;
+                        }
+                        break;
+                    }
+                }
+            for (int i = 0; i < listTeamScoreDetails.Count; i++)
+                listTeamScoreDetails[i].rankTeam = i + 1;
+        }
+        int CheckCondition(string condition, TeamScoreDetails team1, TeamScoreDetails team2, int idTournament)
+        {
+            switch (condition)
+            {
+                case Pts:
+                    if (team1.pts == team2.pts)
+                        return 0;
+                    if (team1.pts < team2.pts)
+                        return 2;
+                    break;
+                case GD:
+                    if (team1.gD == team2.gD)
+                        return 0;
+                    if (team1.gD < team2.gD)
+                        return 2;
+                    break;
+                case Fg:
+                    if (team1.f == team2.f)
+                        return 0;
+                    if (team1.f < team2.f)
+                        return 2;
+                    break;
+                case Wn:
+                    if (team1.w == team2.w)
+                        return 0;
+                    if (team1.w < team2.w)
+                        return 2;
+                    break;
+                case Vs:
+                    return CheckVersus(idTournament, team1.nameTeam, team2.nameTeam);
+            }
+            return 1;
+        }  
+        int CheckVersus(int idTournament, string nameTeam1, string nameTeam2)
+        {
+            int idTeam1 = TeamDAO.Instance.GetTeamIDByName(idTournament, nameTeam1);
+            int idTeam2 = TeamDAO.Instance.GetTeamIDByName(idTournament, nameTeam2);
+            List<Match> matchid1 = MatchDAO.Instance.GetListMatchByID2Team(idTournament, idTeam1, idTeam2);
+            List<Match> matchid2 = MatchDAO.Instance.GetListMatchByID2Team(idTournament, idTeam2, idTeam1);
+            int gFH1 = 0; //Bàn thắng sân nhà team 1
+            int gFH2 = 0; //Bàn thắng sân nhà team 2
+            int gAH1 = 0; //Bàn thua sân nhà team 1
+            int gAH2 = 0; //Bàn thua sân nhà team 2
+            int W1 = 0; //Trận thắng team 1
+            int W2 = 0; //Trận thắng team 2
+            foreach (Match mid in matchid1) //Team 1 chủ nhà
+            {
+                int gF = 0;
+                int gA = 0;
+                List<Goal> goals = GoalDAO.Instance.GetListGoalsByIDMatch(mid.id);
+                foreach (Goal g in goals)
+                {
+                    if (g.idTeams == idTeam1) //ghi bàn
+                        gF++;
+                    else
+                        gA++;
+                }
+                if (gF > gA)
+                {
+                    W1++;
+                }
+                else
+                {
+                    W2++;
+                }
+                gFH1 += gF;
+                gAH1 += gA;
+            }
+            foreach (Match mid in matchid2) //Team 2 chủ nhà
+            {
+                int gF = 0;
+                int gA = 0;
+                List<Goal> goals = GoalDAO.Instance.GetListGoalsByIDMatch(mid.id);
+                foreach (Goal g in goals)
+                {
+                    if (g.idTeams == idTeam2) //ghi bàn
+                        gF++;
+                    else
+                        gA++;
+                }
+                if (gF > gA)
+                {
+                    W2++;
+                }
+                else
+                {
+                    W1++;
+                }
+                gFH2 += gF;
+                gAH2 += gA;
+            }
+            if (W1 < W2)
+                return 2;
+            if (W1 == W2)
+            {
+                if (gAH1 > gAH2)
+                    return 2;
+            }
+            return 0;
+        }
+        //Image ImageFlm(string res)
+        //{
+        //    int space = 4;
+        //    int width = imgwin.width * 6 + space * 7;
+        //    int height = imgwin.width + space * 2;
+
+        //    Bitmap imgres = new Bitmap(width, height);
+        //    Graphics g = Graphics.FromImage(imgres);
+
+        //    for (int i = 0; i < 5; i++)
+        //    {
+        //        //get image
+        //        Image imgResOfmatch = imgwin;
+        //        if (i > res.length - 1)
+        //            imgResOfmatch = imgEmpty;
+        //        else
+        //        {
+        //            if (res[i] == 'V')
+        //                imgResOfmatch = imgwin;
+        //            if (res[i] == '-')
+        //                imgResOfmatch = imgDraw;
+        //            if (res[i] == 'X')
+        //                imgResOfmatch = imglose;
+        //        }
+        //        //draw image
+        //        g.DrawImage(imgResOfmatch, new Point(i * height + space, 2));
+        //    }
+
+        //    g.Dispose();
+
+        //    return imgres;
+        //}
         #endregion
     }
 }
