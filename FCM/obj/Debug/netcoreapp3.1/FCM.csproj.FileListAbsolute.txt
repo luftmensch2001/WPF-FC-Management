@@ -463,3 +463,5 @@ E:\U\SE100_PMHDT\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.CopyCo
 E:\U\SE100_PMHDT\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.dll
 E:\U\SE100_PMHDT\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.pdb
 E:\U\SE100_PMHDT\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.genruntimeconfig.cache
+E:\U\SE100_PMHDT\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
+E:\U\SE100_PMHDT\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\itextsharp.dll

@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "0njGQ2mbS+7tjvHrGYZOype+Ps8Fhfhwvvr5BtE3+WTlswAByETkV689Y8b9qYqfOOlFW4LP90GuQckQlhIyLA==",
+  "dgSpecHash": "NzGrY47LezXQHMwc6xKptFFwWvWtneCJvOIeuhERy3S0f2i26Ud29ARahxUM9z+9uVk/XoU7FqGBiObi+AYKAA==",
   "success": true,
   "projectFilePath": "E:\\U\\SE100_PMHDT\\WPF-FC-Management\\FCM\\FCM.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\813\\.nuget\\packages\\bouncycastle\\1.8.6.1\\bouncycastle.1.8.6.1.nupkg.sha512",
     "C:\\Users\\813\\.nuget\\packages\\epplus\\5.8.2\\epplus.5.8.2.nupkg.sha512",
+    "C:\\Users\\813\\.nuget\\packages\\itextsharp\\5.5.13.2\\itextsharp.5.5.13.2.nupkg.sha512",
     "C:\\Users\\813\\.nuget\\packages\\materialdesigncolors\\2.0.3\\materialdesigncolors.2.0.3.nupkg.sha512",
     "C:\\Users\\813\\.nuget\\packages\\materialdesignthemes\\4.2.1\\materialdesignthemes.4.2.1.nupkg.sha512",
     "C:\\Users\\813\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.10\\microsoft.extensions.configuration.3.1.10.nupkg.sha512",
@@ -95,6 +97,26 @@
     "C:\\Users\\813\\.nuget\\packages\\system.xml.xpath.xmldocument\\4.3.0\\system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
   ],
   "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'BouncyCastle 1.8.6.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "BouncyCastle",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'iTextSharp 5.5.13.2' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "iTextSharp",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    },
     {
       "code": "NU1701",
       "level": "Warning",

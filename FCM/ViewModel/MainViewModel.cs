@@ -11,6 +11,10 @@ using FCM.UserControls;
 using System.Windows.Media.Imaging;
 using System.Drawing;
 using System.IO;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using Microsoft.Win32;
+using System.Collections;
 
 namespace FCM.ViewModel
 {
@@ -43,6 +47,7 @@ namespace FCM.ViewModel
         public ICommand ExportTeamCommand { get; set; }
         public ICommand ChangeBoardCommand { get; set; }
         public ICommand ChangeRankingBoardCommand { get; set; }
+        public ICommand ExportRankingBoardCommand { get; set; }
 
         //public ICommand OpenEditMatchWindowCommand { get; set; }
         //public ICommand OpenResultRecordWindowCommand { get; set; }
@@ -54,6 +59,7 @@ namespace FCM.ViewModel
 
         public string idSetting = "";
 
+        bool isClickExportRanking = false;
 
         public SolidColorBrush lightGreen = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#52ff00"));
         public SolidColorBrush white = new SolidColorBrush(Colors.White);
@@ -85,6 +91,7 @@ namespace FCM.ViewModel
             ExportTeamCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => ExportTeam(parameter));
             ChangeBoardCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SearchBoard(parameter));
             ChangeRankingBoardCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => LoadRanking(parameter));
+            ExportRankingBoardCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => ExportRanking(parameter));
 
             //OpenEditMatchWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenEditMatchInfoWindow(parameter));
             //OpenResultRecordWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenResultRecordingWindow(parameter));
@@ -191,7 +198,7 @@ namespace FCM.ViewModel
                         parameter.LbGroup.Text = "Bảng đấu";
                         GetBoards(parameter);
                     }
-                    LoadListTeams(parameter);
+                    //LoadListTeams(parameter);
 
                     break;
                 case 4:
@@ -986,6 +993,12 @@ namespace FCM.ViewModel
         System.Drawing.Image imgLose;
         System.Drawing.Image imgEmpty;
 
+        void ExportRanking(MainWindow parameter)
+        {
+            isClickExportRanking = true;
+            LoadRanking(parameter);
+            isClickExportRanking = false;
+        }
         void InitCbbRanking(MainWindow parameter)
         {
             //Load Board
@@ -1076,6 +1089,13 @@ namespace FCM.ViewModel
                 CaculateRanking(parameter.league.id, rank);
 
                 parameter.dgvRanking.ItemsSource = rank;
+                if (isClickExportRanking)
+                {
+                    string nB = "";
+                    if (parameter.league.countBoard > 1)
+                        nB = " " + parameter.cbSelectedGroupsStanding.SelectedItem.ToString();
+                    ExportToPdf(parameter.dgvRanking, rank, nB);
+                }
             }
             catch
             {
@@ -1216,7 +1236,7 @@ namespace FCM.ViewModel
         System.Drawing.Image ResToImageFLM(string res)
         {
             int space = 2;
-            int width = imgWin.Width * 6 + space * 7;
+            int width = imgWin.Width * 6 + space * 2;
             int height = imgWin.Width + space * 2;
 
             System.Drawing.Bitmap imgres = new System.Drawing.Bitmap(width, height);
@@ -1225,7 +1245,7 @@ namespace FCM.ViewModel
             for (int i = 0; i < 5; i++)
             {
                 //get image
-                Image imgResOfmatch = imgWin;
+                System.Drawing.Image imgResOfmatch = imgWin;
                 if (i > res.Length - 1)
                     imgResOfmatch = imgEmpty;
                 else
@@ -1244,6 +1264,126 @@ namespace FCM.ViewModel
             g.Dispose();
 
             return imgres;
+        }
+        private void ExportToPdf(System.Windows.Controls.DataGrid grid, List<TeamScoreDetails> rank, string nameBoard)
+        {
+            //Add Header
+            BaseFont bff = BaseFont.CreateFont(Environment.GetEnvironmentVariable("windir") + @"\\fonts\times.ttf", BaseFont.IDENTITY_H, true);
+            iTextSharp.text.Font NormalFont = new iTextSharp.text.Font(bff, 20, iTextSharp.text.Font.NORMAL);
+            Paragraph prgHeading = new Paragraph();
+            prgHeading.Alignment = Element.ALIGN_CENTER;
+            string strHeader = "Bảng xếp hạng";
+            prgHeading.Add(new Chunk(strHeader.ToUpper(), NormalFont));
+
+
+            // Add Table
+            PdfPTable pdfPTable = new PdfPTable(grid.Columns.Count);
+            pdfPTable.SpacingBefore = 10f;
+            pdfPTable.DefaultCell.Padding = 3;
+            pdfPTable.WidthPercentage = 100;
+            pdfPTable.HorizontalAlignment = Element.ALIGN_CENTER;
+            pdfPTable.DefaultCell.BorderWidth = 1;
+            pdfPTable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            pdfPTable.DefaultCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+            pdfPTable.SetWidths(new float[] { 70, 40, 140, 70, 70, 70, 70, 70, 70, 140});
+
+
+
+            iTextSharp.text.Font text = new iTextSharp.text.Font(bff, 10, iTextSharp.text.Font.NORMAL);
+            PdfPTable table = new PdfPTable(grid.Columns.Count);
+            //Add header
+            foreach (System.Windows.Controls.DataGridColumn column in grid.Columns)
+            {
+                //MessageBox.Show(column.Header.ToString());
+                PdfPCell cell = new PdfPCell(new Phrase(column.Header.ToString(), text));
+                cell.BackgroundColor = new iTextSharp.text.BaseColor(240, 240, 240);
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                pdfPTable.AddCell(cell);
+            }
+            //Add datarow
+            int rCnt = 0;
+            foreach (TeamScoreDetails team in rank)
+            {
+                //Rank
+                pdfPTable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                pdfPTable.DefaultCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                pdfPTable.AddCell(new Phrase(rank[rCnt].rankTeam.ToString(), text));
+
+                //Logo
+                pdfPTable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                pdfPTable.DefaultCell.VerticalAlignment = Element.ALIGN_BOTTOM;
+                byte[] imageByte = ImageProcessing.Instance.convertBitmapImageToByte(rank[rCnt].logo);
+                iTextSharp.text.Image myImage = iTextSharp.text.Image.GetInstance(imageByte);
+                myImage.ScaleAbsolute(20, 20);
+                pdfPTable.AddCell(new Phrase(new Chunk(myImage, 0f, 0f, false)));
+
+                //NameTeam
+                pdfPTable.DefaultCell.HorizontalAlignment = Element.ALIGN_LEFT;
+                pdfPTable.DefaultCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                pdfPTable.AddCell(new Phrase(rank[rCnt].nameTeam.ToString(), text));
+
+                //Match
+                pdfPTable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                pdfPTable.DefaultCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                pdfPTable.AddCell(new Phrase(rank[rCnt].m.ToString(), text));
+
+                //Win
+                pdfPTable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                pdfPTable.DefaultCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                pdfPTable.AddCell(new Phrase(rank[rCnt].w.ToString(), text));
+
+                //Draw
+                pdfPTable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                pdfPTable.DefaultCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                pdfPTable.AddCell(new Phrase(rank[rCnt].d.ToString(), text));
+
+                //Lose
+                pdfPTable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                pdfPTable.DefaultCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                pdfPTable.AddCell(new Phrase(rank[rCnt].l.ToString(), text));
+
+                //Point
+                pdfPTable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                pdfPTable.DefaultCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                pdfPTable.AddCell(new Phrase(rank[rCnt].pts.ToString(), text));
+
+                //GoalDraw
+                pdfPTable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                pdfPTable.DefaultCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                pdfPTable.AddCell(new Phrase(rank[rCnt].gD.ToString(), text));
+
+                //ImageFLM
+                imageByte = ImageProcessing.Instance.convertBitmapImageToByte(rank[rCnt].imageFLM);
+                myImage = iTextSharp.text.Image.GetInstance(imageByte);
+                pdfPTable.AddCell(myImage);
+
+                rCnt++;
+            }
+
+            //save file;
+            var savefiledialoge = new SaveFileDialog();
+            savefiledialoge.FileName = "BXH" + nameBoard ;
+            savefiledialoge.DefaultExt = ".pdf";
+
+            if (savefiledialoge.ShowDialog() == true)
+            {
+                using (FileStream stream = new FileStream(savefiledialoge.FileName, FileMode.Create))
+                {
+                    Document pdfdoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
+                    PdfWriter.GetInstance(pdfdoc, stream);
+                    pdfdoc.Open();
+                    pdfdoc.Add(prgHeading);
+                    if (nameBoard != "")
+                    {
+                        Paragraph p = new Paragraph(nameBoard, text);
+                        p.Alignment = Element.ALIGN_CENTER;
+                        pdfdoc.Add(p);
+                    }
+                    pdfdoc.Add(pdfPTable);
+                    pdfdoc.Close();
+                    stream.Close();
+                }
+            }
         }
         #endregion
     }

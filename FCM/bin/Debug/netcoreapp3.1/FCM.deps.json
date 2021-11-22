@@ -13,10 +13,19 @@
           "MaterialDesignThemes": "4.2.1",
           "System.Data.SqlClient": "4.8.3",
           "System.Drawing.Common": "5.0.0",
-          "System.Windows.Interactivity.WPF": "2.0.20525"
+          "System.Windows.Interactivity.WPF": "2.0.20525",
+          "iTextSharp": "5.5.13.2"
         },
         "runtime": {
           "FCM.dll": {}
+        }
+      },
+      "BouncyCastle/1.8.6.1": {
+        "runtime": {
+          "lib/BouncyCastle.Crypto.dll": {
+            "assemblyVersion": "1.8.6.0",
+            "fileVersion": "1.8.20052.1"
+          }
         }
       },
       "EPPlus/5.8.2": {
@@ -39,6 +48,17 @@
           "lib/netstandard2.1/EPPlus.dll": {
             "assemblyVersion": "5.8.2.0",
             "fileVersion": "5.8.2.0"
+          }
+        }
+      },
+      "iTextSharp/5.5.13.2": {
+        "dependencies": {
+          "BouncyCastle": "1.8.6.1"
+        },
+        "runtime": {
+          "lib/itextsharp.dll": {
+            "assemblyVersion": "5.5.13.2",
+            "fileVersion": "5.5.13.2"
           }
         }
       },
@@ -828,12 +848,26 @@
       "serviceable": false,
       "sha512": ""
     },
+    "BouncyCastle/1.8.6.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rkqpuKmJkdcfTMBkIj1b5nMdBAWKwAyh+I/BQYeqqSD2jkIlhwc9qBNKmSbnpmmm5c29qHZGLpvBSTNWvDLtQA==",
+      "path": "bouncycastle/1.8.6.1",
+      "hashPath": "bouncycastle.1.8.6.1.nupkg.sha512"
+    },
     "EPPlus/5.8.2": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-3AlADk2p5+jBqmeoxzTtfmTGr86W0xS75octvw6eCUdE+L3/t7tgLvb5Sq18H7L7FpD0RNGdl0cfh1DIgeM5HQ==",
       "path": "epplus/5.8.2",
       "hashPath": "epplus.5.8.2.nupkg.sha512"
+    },
+    "iTextSharp/5.5.13.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8m9oT1nh9F4Z1tzWUey/8lEzZtMGFCDXQY5+8/SSmPgUWAAAWniRo8pimKUZyteNqJr5vtFBxjAhRwLxG7Q0zQ==",
+      "path": "itextsharp/5.5.13.2",
+      "hashPath": "itextsharp.5.5.13.2.nupkg.sha512"
     },
     "MaterialDesignColors/2.0.3": {
       "type": "package",
