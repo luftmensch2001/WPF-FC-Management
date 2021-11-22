@@ -99,11 +99,12 @@ Create Table Matchs
 Go
 
 ALTER TABLE Matchs
-ADD PenaltyTeam1 int 
+ADD PenaltyTeam1 int not null default 0
 Go
 ALTER TABLE Matchs
-ADD PenaltyTeam2 int 
+ADD PenaltyTeam2 int not null default 0
 Go
+
 
 
 
