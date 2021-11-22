@@ -23,8 +23,8 @@ namespace FCM.DAO
                          "N'" + match.idTournaments + "' ," +
                          "N'" + match.idTeam01 + "' ," +
                          "N'" + match.idTeam02 + "' ," +
-                         "'" + match.date.ToString("dd/MM/yyyy") + "' ," +
-                         "'"  + match.time.ToString("hh:mm") + "' ," +
+                         "N'" + match.date.ToString("yyyy-MM-dd HH:mm:ss") + "' ," +
+                         "N'" + match.time.ToString("yyyy-MM-dd HH:mm:ss") + "' ," +
                          "N'" + match.round + "' ," +
                          "N'" + match.statium + "'" +
                          ")";
@@ -33,9 +33,11 @@ namespace FCM.DAO
         public void UpdateMatch(Match match)
         {
             string query = "Update Matchs " +
-                            "Set Date = '" + match.date.ToString("dd/MM/yyyy") + "' , " +
-                            " Time = '" + match.time.ToString("hh:mm") + "' , " +
-                            " Stadium = '" + match.statium + "' " +
+                            "Set Date = '" + match.date.ToString("yyyy-MM-dd HH:mm:ss") + "' , " +
+                            " Time = N'" + match.time.ToString("yyyy-MM-dd HH:mm:ss") + "' , " +
+                            " Stadium = N'" + match.statium + "' ," +
+                            " PenaltyTeam1 = " + match.PenaltyTeam1 + " , " +
+                            " PenaltyTeam2 = " + match.PenaltyTeam2 +  
                             " Where ID = " + match.id;
             DataProvider.Instance.ExecuteQuery(query);
         }

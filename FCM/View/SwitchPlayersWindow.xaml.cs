@@ -45,6 +45,13 @@ namespace FCM.View
                 }    
                 for (int i = 0; i < this.resultWD.listLineups_Prep_Team1.Count; i++)
                 {
+                    Player player = PlayerDAO.Instance.GetPlayerById(this.resultWD.listLineups_Prep_Team1[i].idPlayer);
+
+                    if (this.resultWD.GetTimePlayerReceiveRedCard(player) != int.MaxValue)
+                    {
+                        continue;
+                    }    
+
                     this.cbPlayer2.Items.Add(getNumberAndNameOfPlayer(this.resultWD.listLineups_Prep_Team1[i]));
                 }
             }    
@@ -56,6 +63,13 @@ namespace FCM.View
                 }
                 for (int i = 0; i < this.resultWD.listLineups_Prep_Team2.Count; i++)
                 {
+                    Player player = PlayerDAO.Instance.GetPlayerById(this.resultWD.listLineups_Prep_Team2[i].idPlayer);
+
+                    if (this.resultWD.GetTimePlayerReceiveRedCard(player) != int.MaxValue)
+                    {
+                        continue;
+                    }
+
                     this.cbPlayer2.Items.Add(getNumberAndNameOfPlayer(this.resultWD.listLineups_Prep_Team2[i]));
                 }
             }

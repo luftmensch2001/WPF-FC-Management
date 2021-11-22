@@ -50,7 +50,7 @@ namespace FCM.DAO
 
             string query = "Select* " +
                             "From Teams " +
-                            "Where nameBoard = " + nameBoard;
+                            "Where nameBoard = N'" + nameBoard + "'";
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
             foreach (DataRow row in tb.Rows)
             {

@@ -33,25 +33,29 @@ namespace FCM.DAO
         }
         public void UpdateGoal(Goal goal)
         {
+            DateTime time = new DateTime(1900, 1, 1, 0, Int32.Parse(goal.time), 0);
+
             string query = "Update Goals" +
                 "Set IdPlayerGoals = " + goal.idPlayerGoals + " , " +
                 " IdPlayerAssist = " + goal.idPlayerAssist + " , " +
                 " IdTypeOfGoals = " + goal.idTypeOfGoals + " , " +
-                " Time = " + " N'" + goal.time + "' " +
+                " Time = " + " N'" + time.ToString("yyyy-MM-dd HH:mm:ss") + "' " +
                 " Where IdMatchs = " + goal.idMatchs + " AND " + " IdTeams = " + goal.idTeams;
             DataProvider.Instance.ExecuteQuery(query);
         }
 
         public void AddGoal(Goal g)
         {
+            DateTime time = new DateTime(1900, 1, 1, 0, Int32.Parse(g.time), 0);
+
             string query = "insert into Goals(IdMatchs, IdPlayerGoals, IdPlayerAssist, IdTeams, IdTypeOfGoals, Time) values (" +
                 g.idMatchs + " , "
                 + g.idPlayerGoals + " , "
                 + g.idPlayerAssist + " , "
                 + g.idTeams + " , "
                 + g.idTypeOfGoals + " , "
-                + g.time
-                + ") ";
+                + " '" + time.ToString("yyyy-MM-dd HH:mm:ss")
+                + "') ";
             DataProvider.Instance.ExecuteQuery(query);
         }
 

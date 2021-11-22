@@ -97,5 +97,15 @@ namespace FCM.DAO
             query = "UPDATE players SET imagee = @img WHERE ID = " + player.id;
             DataProvider.Instance.ExecuteQuery(query, new object[] { player.image });
         }
+
+        public Player GetPlayerByUniformNumber(int uniformNumber, int idTeam)
+        {
+            string query = "Select* " +
+                         "From Players " +
+                         "Where idTeams = " + idTeam + " AND UniformNumber = " + uniformNumber;
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+            Player player = new Player(tb.Rows[0]);
+            return player;
+        }
     }
 }

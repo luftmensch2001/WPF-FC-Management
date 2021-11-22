@@ -24,6 +24,7 @@ namespace FCM.View
         public ResultRecordingWindow resultWD;
         public bool isTeam1;
         public List<Player> players;
+      
         public AddCardWindow(ResultRecordingWindow resultWD, bool isTeam1, Team team, bool isEdit = false)
         {
             InitializeComponent();
@@ -48,8 +49,37 @@ namespace FCM.View
 
             for (int i = 0; i < players.Count; i++)
             {
+                if (this.resultWD.GetTimePlayerReceiveRedCard(players[i]) != int.MaxValue)
+                {
+                    continue;
+                }
                 this.cbPlayer.Items.Add(players[i].namePlayer.ToString());
             }
+        }
+
+        public Player GetPlayerBySelectedIndex(int selectedIndex)
+        {
+            int j = 0;
+
+            Player player = new Player();
+
+            for (int i = 0; i < players.Count; i++)
+            {
+                if (this.resultWD.GetTimePlayerReceiveRedCard(players[i]) != int.MaxValue)
+                {
+                    continue;
+                }
+
+                if (j == selectedIndex)
+                {
+                    player = players[i];
+                    break;
+                }
+
+                j++;
+            }
+
+            return player;
         }
     }
 }

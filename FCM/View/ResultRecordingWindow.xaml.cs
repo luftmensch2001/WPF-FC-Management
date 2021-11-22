@@ -26,6 +26,8 @@ namespace FCM.View
         public bool isTeam1 = true;
         public int round;
 
+        public int penaltyTeam1, penaltyTeam2;
+
         public List<Goal> listGoalsTeam1 = new List<Goal>();
         public List<Goal> listGoalsTeam2 = new List<Goal>();
 
@@ -57,7 +59,42 @@ namespace FCM.View
 
             Init(match);
         }
-
+        public int GetTimePlayerReceiveRedCard(Player p)
+        {
+            for (int i = 0; i < listCardsTeam1.Count; i++)
+            {
+                if (listCardsTeam1[i].idPlayer == p.id && listCardsTeam1[i].typeOfCard == "Thẻ đỏ")
+                {
+                    return Int32.Parse(listCardsTeam1[i].time);
+                }    
+            }
+            for (int i = 0; i < listCardsTeam2.Count; i++)
+            {
+                if (listCardsTeam2[i].idPlayer == p.id && listCardsTeam2[i].typeOfCard == "Thẻ đỏ")
+                {
+                    return Int32.Parse(listCardsTeam2[i].time);
+                }
+            }
+            return int.MaxValue;
+        }
+        public bool HaveAYellowCard(Player p)
+        {
+            for (int i = 0; i < listCardsTeam1.Count; i++)
+            {
+                if (listCardsTeam1[i].idPlayer == p.id && listCardsTeam1[i].typeOfCard == "Thẻ vàng")
+                {
+                    return true;
+                }
+            }
+            for (int i = 0; i < listCardsTeam2.Count; i++)
+            {
+                if (listCardsTeam2[i].idPlayer == p.id && listCardsTeam2[i].typeOfCard == "Thẻ vàng")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         void setCardInfor()
         {
             for (int i = 0; i < this.listLineups_Offical_Team1.Count; i++)
@@ -139,12 +176,24 @@ namespace FCM.View
                 this.ScoreTeam1 = this.listGoalsTeam1.Count;
                 this.ScoreTeam2 = this.listGoalsTeam2.Count;
 
-                
+                this.penaltyTeam1 = this.match.PenaltyTeam1;
+                this.penaltyTeam2 = this.match.PenaltyTeam2;
+
+                ShowPenaltyResult();
             }
             LoadLineups(0);
             LoadCard();
             LoadGoalListToWindow();
 
+        }
+        public void ShowPenaltyResult()
+        {
+            this.tblPenaltyScore.Text = this.penaltyTeam1.ToString() + "     -     " + this.penaltyTeam2.ToString();
+        }
+        public void ShowResultMatch()
+        {
+            this.tblScore1.Text = this.ScoreTeam1.ToString();
+            this.tblScore2.Text = this.ScoreTeam2.ToString();
         }
         public void UpdateDatabase()
         {
@@ -196,6 +245,10 @@ namespace FCM.View
             {
                 SwitchedPlayerDAO.Instance.AddSwitchPlayer(s);
             }
+
+            this.match.PenaltyTeam1 = this.penaltyTeam1;
+            this.match.PenaltyTeam2 = this.penaltyTeam2;
+            MatchDAO.Instance.UpdateMatch(this.match);
 
         }
         public void WhatTeamIsChosen()
@@ -659,8 +712,7 @@ namespace FCM.View
                     PlayerDAO.Instance.GetPlayerById(this.listSwitchedPlayerTeam2[i].idPlayerOut).namePlayer);
             }
         }
-
-        void InsertIntoPrep(Player p)
+        public void InsertIntoPrep(Player p)
         {
             if (p.idTeam == this.team1.id)
             {
@@ -691,7 +743,7 @@ namespace FCM.View
                 this.listLineups_Prep_Team2.Add(l);
             }
         }
-        void DeleteFromPrep(Player p)
+        public void DeleteFromPrep(Player p)
         {
             for (int i = 0; i < this.listLineups_Prep_Team1.Count; i++)
             {
@@ -709,8 +761,8 @@ namespace FCM.View
                     break;
                 }
             }
-        }    
-        void InsertIntoOfficial(Player p)
+        }
+        public void InsertIntoOfficial(Player p)
         {
             if (p.idTeam == this.team1.id)
             {
@@ -741,7 +793,7 @@ namespace FCM.View
                 this.listLineups_Offical_Team2.Add(l);
             }    
         }
-        void DeleteFromOfficial(Player p)
+        public void DeleteFromOfficial(Player p)
         {
             for (int i = 0; i < this.listLineups_Offical_Team1.Count; i++)
             {
@@ -760,7 +812,7 @@ namespace FCM.View
                 }
             }
         }
-        string getCardFromPlayer(Player p)
+        public string getCardFromPlayer(Player p)
         {
             string cardname = "";
 

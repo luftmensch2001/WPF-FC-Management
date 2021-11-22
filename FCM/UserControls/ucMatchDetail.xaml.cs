@@ -39,7 +39,7 @@ namespace FCM.UserControls
 
             this.tblSTT.Text = stt.ToString();
             this.tblDate.Text = match.date.ToString("dd/MM/yyyy");
-            this.tblTime.Text = match.time.ToString("hh:mm");
+            this.tblTime.Text = match.time.ToString("HH:mm");
             this.tblTeam1.Text = TeamDAO.Instance.GetTeamById(match.idTeam01).nameTeam;
             
             this.tblTeam2.Text = TeamDAO.Instance.GetTeamById(match.idTeam02).nameTeam;

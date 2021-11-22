@@ -1,4 +1,5 @@
-﻿using FCM.DTO;
+﻿using FCM.DAO;
+using FCM.DTO;
 using FCM.UserControls;
 using FCM.View;
 using System;
@@ -37,10 +38,10 @@ namespace FCM.ViewModel
         public ICommand OKSwitchedPlayersCommand { get; set; }
         public ICommand CancelSwitchedPlayersCommand { get; set; }
 
+        public ICommand OpenPenaltyWindowCommand { get; set; }
+        public ICommand ExitPenaltyCommand { get; set; }
+        public ICommand SavePenaltyCommand { get; set; }
         
-        
-
-
         public SolidColorBrush lightGreen = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#52ff00"));
         public SolidColorBrush white = new SolidColorBrush(Colors.White);
 
@@ -74,8 +75,50 @@ namespace FCM.ViewModel
 
             OKSwitchedPlayersCommand = new RelayCommand<SwitchPlayersWindow>((parameter) => true, (parameter) => OKSwitchedPlayers(parameter));
             CancelSwitchedPlayersCommand = new RelayCommand<SwitchPlayersWindow>((parameter) => true, (parameter) => CancelSwitchedPlayers(parameter));
+
+            OpenPenaltyWindowCommand = new RelayCommand<ResultRecordingWindow>((parameter) => true, (parameter) => OpenPenaltyWindow(parameter));
+            ExitPenaltyCommand = new RelayCommand<PenaltyWindow>((parameter) => true, (parameter) => ClosePenaltyWindow(parameter));
+            SavePenaltyCommand = new RelayCommand<PenaltyWindow>((parameter) => true, (parameter) => SavePenaltyWindow(parameter));
         }
-    
+
+        public void SavePenaltyWindow(PenaltyWindow parameter)
+        {
+            int penaltyScoreTeam1 = parameter.cbScoreTeam1.SelectedIndex;
+            int penaltyScoreTeam2 = parameter.cbScoreTeam2.SelectedIndex;
+
+            if (penaltyScoreTeam1 == penaltyScoreTeam2)
+            {
+                MessageBox.Show("Kết quả luân lưu không thể hòa", "Lưu ý", MessageBoxButton.OK, MessageBoxImage.Information);
+            }    
+            else
+            {
+                parameter.resultWD.penaltyTeam1 = penaltyScoreTeam1;
+                parameter.resultWD.penaltyTeam2 = penaltyScoreTeam2;
+
+                parameter.resultWD.ShowPenaltyResult();
+
+                ClosePenaltyWindow(parameter);
+            }    
+        }
+
+        public void ClosePenaltyWindow(PenaltyWindow parameter)
+        {
+            parameter.Close();
+        }
+
+        public void OpenPenaltyWindow(ResultRecordingWindow parameter)
+        {
+            if (parameter.ScoreTeam1 == parameter.ScoreTeam2)
+            {
+                PenaltyWindow wd = new PenaltyWindow(parameter);
+                wd.ShowDialog();
+            }    
+            else
+            {
+                MessageBox.Show("Bạn chỉ cần lưu kết quả luân lưu khi 2 đội hòa", "Lưu ý", MessageBoxButton.OK, MessageBoxImage.Information);
+            }   
+        }
+
         public void SwitchTab(ResultRecordingWindow parameter)
         {
             int index = int.Parse(uid); // tab index
@@ -175,8 +218,18 @@ namespace FCM.ViewModel
                                                     parameter.goal.idTeams,
                                                     parameter.goal.idTypeOfGoals,
                                                     parameter.tblTime.Text));
+
+            if (parameter.resultWD.match.idTeam01 == parameter.goal.idTeams)
+            {
+                parameter.resultWD.ScoreTeam1--;
+            }
+            else
+            {
+                parameter.resultWD.ScoreTeam2--;
+            }
+
+            parameter.resultWD.ShowResultMatch();
         }
-        
         public void DeleteCard(ucCard parameter)
         {
             Card c = new Card(parameter.resultWD.match.id,
@@ -191,19 +244,53 @@ namespace FCM.ViewModel
 
             
         }
-        
         public void AddGoal(AddGoalWindow parameter)
         {
-            if (parameter.cbAsssist.SelectedIndex >= 0 && parameter.cbTypeOfGoal.SelectedIndex >= 0 && parameter.tbTime.Text != null)
+            if (parameter.cbTypeOfGoal.SelectedIndex < 0)
             {
-                int idTeam = parameter.isTeam1 ? parameter.resultWD.team1.id : parameter.resultWD.team2.id;
-                parameter.resultWD.AddNewGoal(parameter.isTeam1, new Goal(parameter.resultWD.match.id,
-                                                                          parameter.players[parameter.cbScored.SelectedIndex].id,
-                                                                          parameter.players[parameter.cbAsssist.SelectedIndex].id,
-                                                                          idTeam,
-                                                                          parameter.typeOfGoals[parameter.cbTypeOfGoal.SelectedIndex].id,
-                                                                          parameter.tbTime.Text)
-                    );
+                MessageBox.Show("Thiếu thông tin về loại bàn thắng", "Thiếu thông tin", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (!isExactTime(parameter.tbTime.Text))
+            {
+                MessageBox.Show("Thông tin về thời gian phải là định dạng số và nằm trong khoảng [0,120]", "Sai thông tin", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            int idMatch = parameter.resultWD.match.id;
+            int idPlayerScored = parameter.players[parameter.cbScored.SelectedIndex].id;
+            int idPlayerAssist = parameter.cbAsssist.SelectedIndex == -1 ? idPlayerScored : parameter.players[parameter.cbAsssist.SelectedIndex].id;
+            int idTeam = parameter.isTeam1 ? parameter.resultWD.team1.id : parameter.resultWD.team2.id;
+            int idTypeOfGoal = parameter.typeOfGoals[parameter.cbTypeOfGoal.SelectedIndex].id;
+            string timeGoal = parameter.tbTime.Text;
+
+            Player playerScore = PlayerDAO.Instance.GetPlayerById(idPlayerScored);
+            Player playerAssist = PlayerDAO.Instance.GetPlayerById(idPlayerAssist);
+
+            int timeReveiveRedCardOfScorePlayer = parameter.resultWD.GetTimePlayerReceiveRedCard(playerScore);
+            int timeReveiveRedCardOfAssistPlayer = parameter.resultWD.GetTimePlayerReceiveRedCard(playerAssist);
+
+
+            if (Int32.Parse(timeGoal) > timeReveiveRedCardOfScorePlayer)
+            {
+                MessageBox.Show("Cầu thủ ghi bàn đã bị nhận thẻ đỏ và ra khỏi sân trước đó!\nDo đó cầu thủ này không thể ghi bàn", "Sai thông tin thời gian", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (Int32.Parse(timeGoal) > timeReveiveRedCardOfAssistPlayer)
+            {
+                MessageBox.Show("Cầu thủ kiến tạo đã bị nhận thẻ đỏ và ra khỏi sân trước đó!\nDo đó cầu thủ này không thể kiến tạo", "Sai thông tin thời gian", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (parameter.tbTime.Text != null)
+            {
+                
+
+                Goal goal = new Goal(idMatch, idPlayerScored, idPlayerAssist, idTeam, idTypeOfGoal, timeGoal);
+
+                parameter.resultWD.AddNewGoal(parameter.isTeam1, goal);
                 parameter.Close();
             }
         }
@@ -213,18 +300,47 @@ namespace FCM.ViewModel
         }
         public void AddCard(AddCardWindow parameter)
         {
-            if (parameter.cbPlayer.SelectedIndex >= 0 && parameter.cbTypeOfCard.SelectedIndex >= 0 && parameter.tbTime != null)
+            if (!isExactTime(parameter.tbTime.Text))
+            {
+                MessageBox.Show("Thông tin về thời gian phải là định dạng số và nằm trong khoảng [0,120]", "Sai thông tin", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (parameter.cbPlayer.SelectedIndex >= 0 && parameter.cbTypeOfCard.SelectedIndex >= 0)
             {
                 ComboBoxItem cbxTypeOfCard = (ComboBoxItem)parameter.cbTypeOfCard.SelectedItem;
                 string typeOfCard = cbxTypeOfCard.Content.ToString();
 
-                Card c = new Card(parameter.resultWD.match.id,
-                             parameter.players[parameter.cbPlayer.SelectedIndex].id,
-                             (parameter.isTeam1 ? parameter.resultWD.team1.id : parameter.resultWD.team2.id),
-                             typeOfCard,
-                             parameter.tbTime.Text);
+                int idTeam = parameter.isTeam1 ? parameter.resultWD.team1.id : parameter.resultWD.team2.id;
+
+                Player player = parameter.GetPlayerBySelectedIndex(parameter.cbPlayer.SelectedIndex);
+
+                bool isRedCard = false;
+
+                Card c = new Card(parameter.resultWD.match.id, player.id, idTeam,  typeOfCard, parameter.tbTime.Text);
 
                 parameter.resultWD.AddCard(parameter.isTeam1, c);
+
+                // Nếu đã từng nhận 1 thẻ vàng trước đó, bây giờ nhận tiếp 1 thẻ vàng thì trực tiếp thêm 1 thẻ đỏ
+                if (typeOfCard == "Thẻ vàng" && parameter.resultWD.HaveAYellowCard(player) == true)
+                {
+                    c = new Card(parameter.resultWD.match.id, player.id, idTeam, "Thẻ đỏ", parameter.tbTime.Text);
+
+                    isRedCard = true;
+
+                    parameter.resultWD.AddCard(parameter.isTeam1, c);
+                }    
+
+                if (typeOfCard == "Thẻ đỏ")
+                {
+                    isRedCard = true;
+                }    
+
+                if (isRedCard)
+                {
+                    parameter.resultWD.DeleteFromOfficial(player);
+                    parameter.resultWD.InsertIntoPrep(player);
+                }    
 
                 parameter.resultWD.ChangeLineupsWhenChangeCardInfor(c);
 
@@ -237,7 +353,13 @@ namespace FCM.ViewModel
         }
         public void OKSwitchedPlayers(SwitchPlayersWindow parameter)
         {
-            if (parameter.cbPlayer2.SelectedIndex >= 0 && parameter.cbPlayer1.SelectedIndex >= 0 && parameter.tbTime.Text != "")
+            if (!isExactTime(parameter.tbTime.Text))
+            {
+                MessageBox.Show("Thông tin về thời gian phải là định dạng số và nằm trong khoảng [0,120]", "Sai thông tin", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (parameter.cbPlayer2.SelectedIndex >= 0 && parameter.cbPlayer1.SelectedIndex >= 0)
             {
                 parameter.resultWD.SwitchPlayer(parameter.cbPlayer2.SelectedIndex, parameter.cbPlayer1.SelectedIndex, parameter.tbTime.Text.ToString());
                 parameter.Close();
@@ -246,6 +368,28 @@ namespace FCM.ViewModel
         public void CancelSwitchedPlayers(SwitchPlayersWindow parameter)
         {
             parameter.Close();
+        }
+
+        bool isExactTime(string s)
+        {
+            if (s == "") return false;
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] < '0' || s[i] > '9')
+                {
+                    return false;
+                }
+            }
+
+            int time = Int32.Parse(s);
+            
+            if (time > 120 || time < 0)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

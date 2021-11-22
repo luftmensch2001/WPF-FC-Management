@@ -44,7 +44,7 @@ namespace FCM.View
 
             // Thời gian
             //this.tpTime.SelectedTime = match.time.ToString("hh:mm");
-            this.tpTime.SelectedTime = DateTime.ParseExact(match.time.ToString("hh:mm"), "hh:mm", System.Globalization.CultureInfo.InvariantCulture);
+            this.tpTime.SelectedTime = match.time;
 
             InitializeComponent();
 

@@ -30,7 +30,10 @@ namespace FCM.DTO
             this.idPlayerIn = (int)row["IdPlayerIn"];
             this.idPlayerOut = (int)row["IdPlayerOut"];
             this.idTeam = (int)row["IdTeams"];
-            this.time = (string)row["Time"];
+
+            DateTime time = (DateTime)row["Time"];
+
+            this.time = time.Minute.ToString();
         }
 
 

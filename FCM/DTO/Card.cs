@@ -24,7 +24,10 @@ namespace FCM.DTO
             this.idPlayer = (int)row["IdPlayers"];
             this.idTeams = (int)row["IdTeams"];
             this.typeOfCard = (string)row["TypeOfCard"];
-            this.time = (string)row["Time"];
+
+            DateTime time = (DateTime)row["Time"];
+
+            this.time = time.Minute.ToString();
         }
     }
 }

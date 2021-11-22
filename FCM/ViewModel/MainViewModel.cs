@@ -412,7 +412,9 @@ namespace FCM.ViewModel
                 if (parameter.wpTeamsList.Children.Count > 0)
                 {
                     if (parameter.team == null)
-                        LoadDetailTeam(parameter, teams[0]);
+                    {
+                        //LoadDetailTeam(parameter, teams[0]);
+                    }    
                     else
                         LoadDetailTeam(parameter, parameter.team);
                 }
@@ -691,12 +693,22 @@ namespace FCM.ViewModel
                 "Các trận đấu sẽ được tạo ngẫu nhiên theo nguyên tắc vòng tròn tính điểm.\n" +
                 "Bạn có muốn tạo lịch thi đấu?", "Lưu ý", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                // Hàm tạo lịch theo Vòng tròn tính điểm
-                CreateScheduleWithCircle(parameter);
+
+                // trường hợp đấu vòng tròn
+                if (parameter.league.typeLeague == 0)
+                {
+                    // Hàm tạo lịch theo Vòng tròn tính điểm
+                    CreateScheduleWithCircle(parameter);
+                }
+                // trường hợp đấu bảng
+                if (parameter.league.typeLeague == 2)
+                {
+                    // Hàm tạo lịch theo bảng đấu
+                    CreateScheduleWithBoard(parameter);
+                }
 
                 // Thay đổi status của giải đấu = 2 (Đã bắt đầu khởi tranh)
                 LeagueDAO.Instance.UpdateStatusOfLeague(parameter.league.id, 2);
-
 
                 MessageBox.Show("Tạo lịch thi đấu thành công!", "Thành công", MessageBoxButton.OK);
 
@@ -704,8 +716,95 @@ namespace FCM.ViewModel
             }
         }
 
-        // Tạo lịch thi đấu với cách vòng tròn tính điểm
-        // Viết riêng hàm cho đẹp, hơn nữa để phát triển thêm nhiều các sắp lịch khác (nếu có phát triển thêm)
+        // Tạo lịch thi đấu vòng tròn tại mỗi bảng đấu (Cho trường hợp giải đấu chia bảng)
+        public void CreateScheduleWithBoard(MainWindow parameter)
+        {
+            List<Board> boards = BoardDAO.Instance.GetListBoard(parameter.league.id);
+
+            int nBoard = boards.Count;
+
+            // Duyệt qua mỗi bảng đấu và tạo lịch
+            for (int iBoard = 0; iBoard < nBoard; iBoard++)
+            {
+                List<Team> teams = TeamDAO.Instance.GetListTeam(boards[iBoard].nameBoard);
+                int nTeams = teams.Count;
+
+                bool[,] haveMet = new bool[nTeams, nTeams];
+                // lưu trữ xem đội i đã từng đá với đội j (sân nhà đội i) hay chưa. have[i,j] = true : đã gặp nhau trên sân của i
+                for (int i = 0; i < nTeams; i++) for (int j = 0; j < nTeams; j++) haveMet[i, j] = false;
+
+                int nRound = nTeams % 2 == 0 ? (nTeams - 1) * 2 : nTeams * 2;
+
+                bool[] isAttended = new bool[nTeams + 1];
+                // Tại 1 vòng đấu nào đóm đội i nếu đã tham gia thì isAttended[i] = true;
+
+                // Danh sách trận đấu
+                Match[] matches = new Match[nRound * (nTeams / 2) + 1];
+                int nMatch = 0;
+
+                // Duyệt qua mỗi vòng đấu và tạo lịch
+                for (int iRound = 1; iRound <= nRound/2; iRound++)
+                {
+                    // Đánh dấu rằng: tại vòng đấu thứ round, tất cả các đội bóng đều chưa tham gia
+                    for (int attended = 0; attended <= nTeams; attended++)
+                    {
+                        isAttended[attended] = false;
+                    }
+
+                    for (int iTeam1 = 0; iTeam1 < nTeams; iTeam1++)
+                    {
+                        if (!isAttended[iTeam1])        //  Nếu đội iTeam1 chưa tham gia trong vòng đấu này
+                        {
+                            for (int iTeam2 = iTeam1 + 1; iTeam2 < nTeams; iTeam2++)
+                            {
+                                if (!isAttended[iTeam2])    // Nếu đội iTeam2 chưa tham gia vòng đấu này
+                                {
+                                    if (!haveMet[iTeam1, iTeam2])
+                                    {
+                                        Match match = new Match(parameter.league.id, teams[iTeam1].id, teams[iTeam2].id, iRound, teams[iTeam1].stadium);
+
+                                        matches[nMatch] = match;
+
+                                        nMatch++;
+
+                                        // đánh dấu lại iTeam1 và iTeam2 đã tham gia vòng đấu thứ iRound và lưu lại trận iTeam1 vs iTeam2 đã diễn ra
+                                        // đồng thời thoát khỏi vòng lặp
+                                        isAttended[iTeam1] = true;
+                                        isAttended[iTeam2] = true;
+                                        haveMet[iTeam1, iTeam2] = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Thêm vào database danh sách trận đấu (lượt đi)
+                for (int iMatch = 0; iMatch < nMatch; iMatch++)
+                {
+                    Match match = matches[iMatch];
+                    match.date = DateTime.Now;
+                    match.time = DateTime.Now;
+
+                    MatchDAO.Instance.AddMatch(match);
+                }
+
+                // Thêm vào database danh sách trận đấu (lượt về)
+                for (int iMatch = 0; iMatch < nMatch; iMatch++)
+                {
+                    // Đổi ngược lại vị trí idTeam1 và idTeam2, đồng thời đổi cả sân đấu
+                    string stadium = TeamDAO.Instance.GetTeamById(matches[iMatch].idTeam02).stadium;
+                    Match match = new Match(parameter.league.id, matches[iMatch].idTeam02, matches[iMatch].idTeam01, matches[iMatch].round + nRound / 2, stadium);
+                    match.date = DateTime.Now;
+                    match.time = DateTime.Now;
+
+                    MatchDAO.Instance.AddMatch(match);
+                }
+            }
+        }
+
+        // Tạo lịch thi đấu với cách vòng tròn tính điểm (Cho trường hợp giải đấu vòng tròn tính điểm)
         public void CreateScheduleWithCircle(MainWindow parameter)
         {
             // Lưu ý: số lượng đội bóng BẮT BUỘC PHẢI là số CHẴN
@@ -722,7 +821,6 @@ namespace FCM.ViewModel
             // homeStadium[i,j] = true  : đã có 1 trận đấu đội i vs j và sân là sân nhà của đội i, = false : chưa diễn ra trận đấu giữa đội i và j
             for (int i = 0; i <= nTeams; i++) for (int j = 0; j <= nTeams; j++) homeStadium[i, j] = false;
 
-
             bool[] isAttended = new bool[nTeams + 1];
             // Tại 1 vòng đấu nào đóm đội i nếu đã tham gia thì isAttended[i] = true;
 
@@ -737,23 +835,6 @@ namespace FCM.ViewModel
                 {
                     isAttended[attended] = false;
                 }
-
-                //for (int i = 0; i < nTeams; i++)
-                //{
-                //    for (int j = i + 1; j < nTeams; j++)
-                //    {
-                //        if (i == j || isAttended[i] || isAttended[j] || homeStadium[i,j])
-                //        {
-                //            continue;
-                //        }
-
-                //        isAttended[i] = true;
-                //        isAttended[j] = true;
-                //        homeStadium[i, j] = true;
-                //        nTrandau++;
-                //        matches[nTrandau] = new Match(parameter.league.id, teams[i].id, teams[j].id, vongdau, teams[i].stadium);
-                //    }    
-                //}   
 
                 int nAttended = 0; // Số đội bóng đã tham gia vòng đấu hiện tại
 
@@ -785,8 +866,8 @@ namespace FCM.ViewModel
             for (int i = 1; i <= nTrandau; i++)
             {
                 //matches[i].date = DateTime.Now.Date;
-                matches[i].date = DateTime.ParseExact(DateTime.Now.ToString("dd/MM/yyyy"), "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
-                matches[i].time = DateTime.ParseExact(DateTime.Now.ToString("HH:mm"), "HH:mm", System.Globalization.CultureInfo.InvariantCulture);
+                matches[i].date = DateTime.Now;
+                matches[i].time = DateTime.Now;
                 MatchDAO.Instance.AddMatch(matches[i]);
             }
         }

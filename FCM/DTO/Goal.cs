@@ -26,7 +26,10 @@ namespace FCM.DTO
             this.idPlayerAssist = (int)row["IdPlayerAssist"];
             this.idTeams = (int)row["IdTeams"];
             this.idTypeOfGoals = (int)row["IdTypeOfGoals"];
-            this.time = (string)row["Time"];
+
+            DateTime time = (DateTime)row["Time"];
+
+            this.time = time.Minute.ToString();
         }
     }
 }

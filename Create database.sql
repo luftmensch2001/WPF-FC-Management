@@ -32,7 +32,7 @@ Create Table Tournaments
 	Status int,
 	Logo Image,
 	countTeam int,
-	typeLeague int,
+	typeLeague int,															-- 0: vòng tròn, 1: đấu loại, 2: chia bảng
 	countBoard int
 )
 Go
@@ -98,6 +98,13 @@ Create Table Matchs
 )
 Go
 
+ALTER TABLE Matchs
+ADD PenaltyTeam1 int 
+Go
+ALTER TABLE Matchs
+ADD PenaltyTeam2 int 
+Go
+
 
 
 -- Đội hình/thành viên đưuọc đăng ký thi đấu -
@@ -108,7 +115,7 @@ Create Table Lineups
 	IdMatchs int,
 	IdPlayers int,
 	IdTeams int,
-	isOffical int,			-- 1: cầu thủ chính thức, 0: cầu thủ dự bị
+	isOfficial int,			-- 1: cầu thủ chính thức, 0: cầu thủ dự bị
 
 	foreign key (IdMatchs) references Matchs(Id),
 	foreign key (IdPlayers) references Players(Id),
@@ -124,6 +131,14 @@ Create Table TypeOfGoals
 	DisplayName nvarchar(100)
 )
 Go
+Insert into TypeOfGoals (DisplayName)
+values (N'Ghi bàn thông thường') 
+Insert into TypeOfGoals (DisplayName)
+values (N'Đánh đầu') 
+Insert into TypeOfGoals (DisplayName)
+values (N'Đá phạt trực tiếp') 
+Insert into TypeOfGoals (DisplayName)
+values (N'Penalty') 
 
 -- Bàn thắng -- 
 Create Table Goals

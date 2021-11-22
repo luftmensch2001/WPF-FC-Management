@@ -170,13 +170,13 @@
                 Grid.Column="1"
                 Grid.ColumnSpan="3">
                 <TextBlock 
-                    Text="Penalty" FontSize="16"
+                    Text="Kết quả luân lưu" FontSize="12"
                     Style="{StaticResource H2}"
                     VerticalAlignment="Bottom"
                     Margin="0 0 0 50"/>
                 <TextBlock 
                     x:Name="tblPenaltyScore"
-                    Text="3     -     5" FontSize="18"
+                    Text="0     -     0" FontSize="16"
                     Style="{StaticResource H2}"
                     VerticalAlignment="Bottom"
                     Margin="0 0 0 23"/>
@@ -188,6 +188,13 @@
                     Padding="0" Margin="0 0 0 2"
                     VerticalAlignment="Bottom">
                     <materialDesign:PackIcon Kind="Pencil" />
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding OpenPenaltyWindowCommand}"
+                                                    CommandParameter="{Binding ElementName=wdResultRecording}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
             </Grid>
             <Rectangle Fill="Gray" Height="1" VerticalAlignment="Bottom" Grid.ColumnSpan="5" Margin="0 0 0 0"/>
