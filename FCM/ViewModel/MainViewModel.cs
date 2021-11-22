@@ -1083,7 +1083,6 @@ namespace FCM.ViewModel
                 return;
             }
         }
-
         void CaculateRanking(int idTournament, List<TeamScoreDetails> listTeamScoreDetails)
         {
             List<string> listPriorRank = new List<string>();

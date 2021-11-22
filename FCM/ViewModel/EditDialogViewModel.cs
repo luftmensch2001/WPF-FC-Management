@@ -187,7 +187,7 @@ namespace FCM.ViewModel
                         SettingDAO.Instance.EditSetting(parameter.idTournament, "NumberOfTeamsIn", parameter.tbValue.Text);
                 }
 
-                MessageBox.Show("Cập nhập quy định thành công");
+                MessageBox.Show("Cập nhật quy định thành công");
                 parameter.Close();
             }
             catch
