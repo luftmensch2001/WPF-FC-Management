@@ -25,6 +25,7 @@ namespace FCM.DTO
         public int gD { get; set; }
         public string fLM { get; set; }
         public BitmapImage logo { get; set; }
+        public BitmapImage imageFLM { get; set; }
 
         public TeamScoreDetails(string teamName, BitmapImage lg)
         {

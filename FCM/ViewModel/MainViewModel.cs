@@ -3,13 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using FCM.DAO;
 using FCM.DTO;
 using FCM.UserControls;
 using System.Windows.Media.Imaging;
+using System.Drawing;
+using System.IO;
 
 namespace FCM.ViewModel
 {
@@ -41,6 +42,7 @@ namespace FCM.ViewModel
         public ICommand ChangeRoundCommand { get; set; }
         public ICommand ExportTeamCommand { get; set; }
         public ICommand ChangeBoardCommand { get; set; }
+        public ICommand ChangeRankingBoardCommand { get; set; }
 
         //public ICommand OpenEditMatchWindowCommand { get; set; }
         //public ICommand OpenResultRecordWindowCommand { get; set; }
@@ -53,13 +55,13 @@ namespace FCM.ViewModel
         public string idSetting = "";
 
 
-        public SolidColorBrush lightGreen = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#52ff00"));
+        public SolidColorBrush lightGreen = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#52ff00"));
         public SolidColorBrush white = new SolidColorBrush(Colors.White);
         public MainViewModel()
         {
             SwitchTabCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SwitchTab(parameter));
             SwitchTabStatisticsCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SwitchTabStatistics(parameter));
-            GetUidCommand = new RelayCommand<Button>((parameter) => true, (parameter) => uid = parameter.Uid);
+            GetUidCommand = new RelayCommand<System.Windows.Controls.Button>((parameter) => true, (parameter) => uid = parameter.Uid);
             GetIdSettingCommand = new RelayCommand<string>((parameter) => true, (parameter) => idSetting = parameter);
             OpenAddLeagueWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenAddLeagueWindow(parameter));
             DeleteLeagueCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => DeleteLeague(parameter));
@@ -82,6 +84,7 @@ namespace FCM.ViewModel
 
             ExportTeamCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => ExportTeam(parameter));
             ChangeBoardCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SearchBoard(parameter));
+            ChangeRankingBoardCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => LoadRanking(parameter));
 
             //OpenEditMatchWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenEditMatchInfoWindow(parameter));
             //OpenResultRecordWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenResultRecordingWindow(parameter));
@@ -195,6 +198,7 @@ namespace FCM.ViewModel
                     parameter.btnStanding.Foreground = lightGreen;
                     parameter.icStanding.Foreground = lightGreen;
                     parameter.grdStandingScreen.Visibility = Visibility.Visible;
+                    InitCbbRanking(parameter);
                     LoadRanking(parameter);
                     break;
                 case 5:
@@ -975,61 +979,111 @@ namespace FCM.ViewModel
         const string Vs = "Hiệu số đối đầu";
         const string Fg = "Tổng số bàn thắng";
         const string Wn = "Tổng số trận thắng";
-        //System.Drawing.Image imgwin = FCM.Properties.Resources.imgwin;
-        //System.Drawing.Image imgDraw = global::FCM.Properties.Resources.imgDraw;
-        //System.Drawing.Image imgLose = System.Drawing.Image.FromFile(@"./Resource/Images/imgLose.png");
-        //BitmapImage imgEmpty = new BitmapImage("/Resource/Images/imgEmpty.png"));
+        string pathProject;
+
+        System.Drawing.Image imgWin;
+        System.Drawing.Image imgDraw;
+        System.Drawing.Image imgLose;
+        System.Drawing.Image imgEmpty;
+
+        void InitCbbRanking(MainWindow parameter)
+        {
+            //Load Board
+            parameter.cbSelectedGroupsStanding.Items.Clear();
+            foreach (Board board in parameter.boards)
+            {
+                parameter.cbSelectedGroupsStanding.Items.Add(board.nameBoard);
+            }
+            if (parameter.boards.Count > 1)
+                parameter.cbSelectedGroupsStanding.Visibility = Visibility.Visible;
+            else
+                parameter.cbSelectedGroupsStanding.Visibility = Visibility.Hidden;
+            if (parameter.boards.Count >= 0)
+                parameter.cbSelectedGroupsStanding.SelectedIndex = 0;
+        }
         void LoadRanking(MainWindow parameter)
         {
-            if (parameter.league != null)
+            //Get Image
+            pathProject = System.IO.Directory.GetCurrentDirectory();
+            try
             {
-                teams = TeamDAO.Instance.GetListTeamInLeague(parameter.league.id);
+                while (!File.Exists(pathProject + @"\Resource\Images\imgEmpty.png") && System.IO.Directory.GetParent(pathProject) != null)
+                {
+                    pathProject = System.IO.Directory.GetParent(pathProject).ToString();
+                }
+                imgWin = System.Drawing.Image.FromFile(pathProject + @"\Resource\Images\imgWin.png");
+                imgDraw = System.Drawing.Image.FromFile(pathProject + @"\Resource\Images\imgDraw.png");
+                imgLose = System.Drawing.Image.FromFile(pathProject + @"\Resource\Images\imgLose.png");
+                imgEmpty = System.Drawing.Image.FromFile(pathProject + @"\Resource\Images\imgEmpty.png");
+            }
+            catch
+            {
+                MessageBox.Show("Không tìm thấy file, vui lòng liên hệ hỗ trợ hoặc cài đặt lại phần mềm");
+                return;
             }
             ///Calc
-            int i = -1;
-            GetDetailSetting(parameter); 
-            List<TeamScoreDetails> rank = new List<TeamScoreDetails>();
-
-            foreach (Team t in teams)
+            try
             {
-                BitmapImage logoteam = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(t.logo));
-                //logoteam = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(ImageProcessing.Instance.convertImgToByte(imgLose)));
-                //logoteam = ImageProcessing.Instance.ScaleBitmap((System.Drawing.Bitmap)logoteam);
-                rank.Add(new TeamScoreDetails(t.nameTeam, logoteam));
-                i++;
-                List<Match> matches = MatchDAO.Instance.GetListMatchByIDTeamWithOrder(t.idTournamnt, t.id);
-
-                //Tính 
-                foreach (Match m in matches)
+                int i = -1;
+                if (parameter.league != null)
                 {
-                    int gF = 0; //Bàn thắng
-                    int gA = 0; //Bàn thua
-                    List<Goal> goals = GoalDAO.Instance.GetListGoalsByIDMatch(m.id);
-                    foreach (Goal g in goals)
-                    {
-                        if (g.idTeams == t.id) //ghi bàn
-                            gF++;
-                        else
-                            gA++;
-                    }
-                    // + điểm
-                    if (gF > gA)
-                        rank[i].pts += parameter.setting.scoreWin;
-                    if (gF == gA)
-                        rank[i].pts += parameter.setting.scoreDraw;
-                    if (gF < gA)
-                        rank[i].pts += parameter.setting.scoreLose;
-
-                    rank[i].CalcDetails(gF, gA); //Tính hiệu số
-
+                    teams = TeamDAO.Instance.GetListTeamInLeague(parameter.league.id);
                 }
+                else
+                    return;
+                GetDetailSetting(parameter);
+                List<TeamScoreDetails> rank = new List<TeamScoreDetails>();
+                if (parameter.cbSelectedGroupsStanding.SelectedItem == null)
+                    return;
+                foreach (Team t in teams)
+                {
+                    if (t.nameBoard != parameter.cbSelectedGroupsStanding.SelectedItem.ToString())
+                        continue;
+                    BitmapImage logoteam = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(t.logo));
+                    rank.Add(new TeamScoreDetails(t.nameTeam, logoteam));
+                    i++;
+                    List<Match> matches = MatchDAO.Instance.GetListMatchByIDTeamWithOrder(t.idTournamnt, t.id);
+
+                    //Tính 
+                    foreach (Match m in matches)
+                    {
+                        int gF = 0; //Bàn thắng
+                        int gA = 0; //Bàn thua
+                        List<Goal> goals = GoalDAO.Instance.GetListGoalsByIDMatch(m.id);
+                        foreach (Goal g in goals)
+                        {
+                            if (g.idTeams == t.id) //ghi bàn
+                                gF++;
+                            else
+                                gA++;
+                        }
+                        // + điểm
+                        if (gF > gA)
+                            rank[i].pts += parameter.setting.scoreWin;
+                        if (gF == gA)
+                            rank[i].pts += parameter.setting.scoreDraw;
+                        if (gF < gA)
+                            rank[i].pts += parameter.setting.scoreLose;
+
+                        rank[i].CalcDetails(gF, gA); //Tính hiệu số
+
+                    }
+
+                    rank[i].imageFLM = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(ImageProcessing.Instance.convertImgToByte(ResToImageFLM(rank[i].fLM))));
+                }
+
+                //Sort Rank
+                CaculateRanking(parameter.league.id, rank);
+
+                parameter.dgvRanking.ItemsSource = rank;
             }
-
-            //Sort Rank
-            CaculateRanking(parameter.league.id, rank);
-
-            parameter.dgvRanking.ItemsSource = rank;
+            catch
+            {
+                MessageBox.Show("Lỗi kết nối dữ liệu");
+                return;
+            }
         }
+
         void CaculateRanking(int idTournament, List<TeamScoreDetails> listTeamScoreDetails)
         {
             List<string> listPriorRank = new List<string>();
@@ -1160,38 +1214,38 @@ namespace FCM.ViewModel
             }
             return 0;
         }
-        //Image ImageFlm(string res)
-        //{
-        //    int space = 4;
-        //    int width = imgwin.width * 6 + space * 7;
-        //    int height = imgwin.width + space * 2;
+        System.Drawing.Image ResToImageFLM(string res)
+        {
+            int space = 2;
+            int width = imgWin.Width * 6 + space * 7;
+            int height = imgWin.Width + space * 2;
 
-        //    Bitmap imgres = new Bitmap(width, height);
-        //    Graphics g = Graphics.FromImage(imgres);
+            System.Drawing.Bitmap imgres = new System.Drawing.Bitmap(width, height);
+            Graphics g = Graphics.FromImage(imgres);
 
-        //    for (int i = 0; i < 5; i++)
-        //    {
-        //        //get image
-        //        Image imgResOfmatch = imgwin;
-        //        if (i > res.length - 1)
-        //            imgResOfmatch = imgEmpty;
-        //        else
-        //        {
-        //            if (res[i] == 'V')
-        //                imgResOfmatch = imgwin;
-        //            if (res[i] == '-')
-        //                imgResOfmatch = imgDraw;
-        //            if (res[i] == 'X')
-        //                imgResOfmatch = imglose;
-        //        }
-        //        //draw image
-        //        g.DrawImage(imgResOfmatch, new Point(i * height + space, 2));
-        //    }
+            for (int i = 0; i < 5; i++)
+            {
+                //get image
+                Image imgResOfmatch = imgWin;
+                if (i > res.Length - 1)
+                    imgResOfmatch = imgEmpty;
+                else
+                {
+                    if (res[i] == 'V')
+                        imgResOfmatch = imgWin;
+                    if (res[i] == '-')
+                        imgResOfmatch = imgDraw;
+                    if (res[i] == 'X')
+                        imgResOfmatch = imgLose;
+                }
+                //draw image
+                g.DrawImage(imgResOfmatch, new System.Drawing.Point(i * height + space, 2));
+            }
 
-        //    g.Dispose();
+            g.Dispose();
 
-        //    return imgres;
-        //}
+            return imgres;
+        }
         #endregion
     }
 }

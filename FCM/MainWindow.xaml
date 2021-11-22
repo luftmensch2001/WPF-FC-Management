@@ -2034,6 +2034,12 @@ f
                     <ComboBoxItem Content="Bảng B" />
                     <ComboBoxItem Content="Bảng C" />
                     <ComboBoxItem Content="Bảng D" />
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding ChangeRankingBoardCommand}"
+                                                                   CommandParameter="{Binding ElementName=wdHome}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
 
                 </ComboBox>
                 <Image Height="100" Width="100" Margin="90 0 0 0"
@@ -2068,43 +2074,95 @@ f
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Header="Hạng"
-                            Width="90"
-                            Binding="{Binding Path=rankTeam}"/>
+                            Width="70"
+                            Binding="{Binding Path=rankTeam}">
+                            <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                            </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTemplateColumn 
+                            Header="" 
+                            Width="48"
+                            IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding Path=logo}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTextColumn
                             Header="Đội"
-                            Width="130"
+                            Width="170"
                             Binding="{Binding Path=nameTeam}"/>
                         <DataGridTextColumn
                             Header="Số trận"
-                            Width="90"
-                            Binding="{Binding Path=m}"/>
+                            Width="80"
+                            Binding="{Binding Path=m}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Header="Thắng"
-                            Width="90"
-                            Binding="{Binding Path=w}"/>
+                            Width="80"
+                            Binding="{Binding Path=w}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Header="Hoà"
-                            Width="90"
-                            Binding="{Binding Path=d}"/>
+                            Width="80"
+                            Binding="{Binding Path=d}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Header="Thua"
-                            Width="90"
-                            Binding="{Binding Path=l}"/>
+                            Width="80"
+                            Binding="{Binding Path=l}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Header="Điểm"
-                            Width="90"
-                            Binding="{Binding Path=pts}"/>
+                            Width="80"
+                            Binding="{Binding Path=pts}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Header="Hiệu số"
-                            Width="90"
-                            Binding="{Binding Path=gD}"/>
+                            Width="85"
+                            Binding="{Binding Path=gD}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTemplateColumn 
                             Header="5 trận gần nhất" 
                             Width="140"
                             IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Image Source="{Binding Path=logo}" />
+                                    <Image Source="{Binding Path=imageFLM}" HorizontalAlignment="Stretch"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
