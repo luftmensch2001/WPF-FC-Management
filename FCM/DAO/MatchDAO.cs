@@ -38,7 +38,9 @@ namespace FCM.DAO
                             " Stadium = N'" + match.statium + "' ," +
                             " PenaltyTeam1 = " + match.PenaltyTeam1 + " , " +
                             " PenaltyTeam2 = " + match.PenaltyTeam2 + ", " +
-                            " isStarted = '" + match.isStarted + "'" +
+                            " isStarted = '" + match.isStarted + "' , " +
+                            " Score1 = " + match.Score1 + " , " +
+                            " Score2 = " + match.Score2 + " " +
                             " Where ID = " + match.id;
             DataProvider.Instance.ExecuteQuery(query);
         }

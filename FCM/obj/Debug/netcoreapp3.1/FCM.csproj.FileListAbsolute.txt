@@ -1,277 +1,28 @@
-G:\Nam 3\OOP\Project\FCM\FCM\bin\Debug\netcoreapp3.1\FCM.exe
-G:\Nam 3\OOP\Project\FCM\FCM\bin\Debug\netcoreapp3.1\FCM.deps.json
-G:\Nam 3\OOP\Project\FCM\FCM\bin\Debug\netcoreapp3.1\FCM.runtimeconfig.json
-G:\Nam 3\OOP\Project\FCM\FCM\bin\Debug\netcoreapp3.1\FCM.runtimeconfig.dev.json
-G:\Nam 3\OOP\Project\FCM\FCM\bin\Debug\netcoreapp3.1\FCM.dll
-G:\Nam 3\OOP\Project\FCM\FCM\bin\Debug\netcoreapp3.1\FCM.pdb
-G:\Nam 3\OOP\Project\FCM\FCM\bin\Debug\netcoreapp3.1\MaterialDesignColors.dll
-G:\Nam 3\OOP\Project\FCM\FCM\bin\Debug\netcoreapp3.1\MaterialDesignThemes.Wpf.dll
-G:\Nam 3\OOP\Project\FCM\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.AssemblyReference.cache
-G:\Nam 3\OOP\Project\FCM\FCM\obj\Debug\netcoreapp3.1\MainWindow.g.cs
-G:\Nam 3\OOP\Project\FCM\FCM\obj\Debug\netcoreapp3.1\App.g.cs
-G:\Nam 3\OOP\Project\FCM\FCM\obj\Debug\netcoreapp3.1\FCM_MarkupCompile.cache
-G:\Nam 3\OOP\Project\FCM\FCM\obj\Debug\netcoreapp3.1\FCM_MarkupCompile.lref
-G:\Nam 3\OOP\Project\FCM\FCM\obj\Debug\netcoreapp3.1\App.baml
-G:\Nam 3\OOP\Project\FCM\FCM\obj\Debug\netcoreapp3.1\MainWindow.baml
-G:\Nam 3\OOP\Project\FCM\FCM\obj\Debug\netcoreapp3.1\FCM.g.resources
-G:\Nam 3\OOP\Project\FCM\FCM\obj\Debug\netcoreapp3.1\FCM.GeneratedMSBuildEditorConfig.editorconfig
-G:\Nam 3\OOP\Project\FCM\FCM\obj\Debug\netcoreapp3.1\FCM.AssemblyInfoInputs.cache
-G:\Nam 3\OOP\Project\FCM\FCM\obj\Debug\netcoreapp3.1\FCM.AssemblyInfo.cs
-G:\Nam 3\OOP\Project\FCM\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.CoreCompileInputs.cache
-G:\Nam 3\OOP\Project\FCM\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.CopyComplete
-G:\Nam 3\OOP\Project\FCM\FCM\obj\Debug\netcoreapp3.1\FCM.dll
-G:\Nam 3\OOP\Project\FCM\FCM\obj\Debug\netcoreapp3.1\FCM.pdb
-G:\Nam 3\OOP\Project\FCM\FCM\obj\Debug\netcoreapp3.1\FCM.genruntimeconfig.cache
-G:\Nam 3\OOP\Project\FCM\FCM\obj\Debug\netcoreapp3.1\GeneratedInternalTypeHelper.g.cs
-G:\Nam 3\OOP\Project\FCM\FCM\obj\Debug\netcoreapp3.1\ResourceXAML\MainResource.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.exe
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.deps.json
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.runtimeconfig.json
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.runtimeconfig.dev.json
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.dll
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.pdb
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\MaterialDesignColors.dll
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\MaterialDesignThemes.Wpf.dll
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.AssemblyReference.cache
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\MainWindow.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\App.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\GeneratedInternalTypeHelper.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM_MarkupCompile.cache
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM_MarkupCompile.lref
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\App.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\MainWindow.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.g.resources
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.GeneratedMSBuildEditorConfig.editorconfig
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.AssemblyInfoInputs.cache
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.AssemblyInfo.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.CoreCompileInputs.cache
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.CopyComplete
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.dll
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.pdb
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.genruntimeconfig.cache
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Expression.Interactions.dll
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Windows.Interactivity.dll
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\Resource\MainResource.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.exe
-G:\Nam 3\OOP\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.deps.json
-G:\Nam 3\OOP\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.runtimeconfig.json
-G:\Nam 3\OOP\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.runtimeconfig.dev.json
-G:\Nam 3\OOP\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.dll
-G:\Nam 3\OOP\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.pdb
-G:\Nam 3\OOP\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\MaterialDesignColors.dll
-G:\Nam 3\OOP\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\MaterialDesignThemes.Wpf.dll
-G:\Nam 3\OOP\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Expression.Interactions.dll
-G:\Nam 3\OOP\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Windows.Interactivity.dll
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.AssemblyReference.cache
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\MainWindow.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\App.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\GeneratedInternalTypeHelper.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM_MarkupCompile.cache
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM_MarkupCompile.lref
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\App.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\MainWindow.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\Resource\MainResource.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.g.resources
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.GeneratedMSBuildEditorConfig.editorconfig
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.AssemblyInfoInputs.cache
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.AssemblyInfo.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.CoreCompileInputs.cache
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.CopyComplete
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.dll
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.pdb
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.genruntimeconfig.cache
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucMatchDetailNoEdit.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucMatchDetailNoEdit.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\Resource\ButtonStyle.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\LoginWindow.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\LoginWindow.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucLeagueCard.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucLeagueCard.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\Resource\ScrollBarStyle.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddLeagueWindow.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddLeagueWindow.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\Resource\TextStyle.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucMatchDetail.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucMatchDetail.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\ResultRecordingWindow.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\ResultRecordingWindow.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucGoal.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucGoal.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucCard.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucCard.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddGoalWindow.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddGoalWindow.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddCardWindow.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddCardWindow.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\EditMatchInforWindow.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\EditMatchInforWindow.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucFootballer.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucFootballer.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucSwitchedPlayers.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucSwitchedPlayers.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\SwitchPlayersWindow.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\SwitchPlayersWindow.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucTeamButton.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucTeamButton.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucPlayer.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucPlayer.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddTeamWindow.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddTeamWindow.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddPlayerWindow.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddPlayerWindow.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\EditDialogWindow.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\EditDialogWindow.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddGoalTypeWindow.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddGoalTypeWindow.baml
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\ChangePasswordWindow.g.cs
-G:\Nam 3\OOP\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\ChangePasswordWindow.baml
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.exe
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.deps.json
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.runtimeconfig.json
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.runtimeconfig.dev.json
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.pdb
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\MaterialDesignColors.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\MaterialDesignThemes.Wpf.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Expression.Interactions.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Windows.Interactivity.dll
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\Resource\ButtonStyle.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\Resource\ScrollBarStyle.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\Resource\TextStyle.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucCard.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucGoal.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\MainWindow.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucCard.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucFootballer.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucGoal.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucLeagueCard.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucMatchDetail.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucMatchDetailNoEdit.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucPlayer.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucSwitchedPlayers.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucTeamButton.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddCardWindow.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddGoalTypeWindow.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddGoalWindow.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddLeagueWindow.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddPlayerWindow.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddTeamWindow.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\ChangePasswordWindow.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\EditDialogWindow.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\EditMatchInforWindow.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\LoginWindow.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\ResultRecordingWindow.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\SwitchPlayersWindow.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\App.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\GeneratedInternalTypeHelper.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM_MarkupCompile.cache
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM_MarkupCompile.lref
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\App.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\MainWindow.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\Resource\MainResource.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucFootballer.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucLeagueCard.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucMatchDetail.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucMatchDetailNoEdit.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucPlayer.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucSwitchedPlayers.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucTeamButton.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddCardWindow.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddGoalTypeWindow.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddGoalWindow.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddLeagueWindow.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddPlayerWindow.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddTeamWindow.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\ChangePasswordWindow.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\EditDialogWindow.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\EditMatchInforWindow.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\LoginWindow.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\ResultRecordingWindow.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\SwitchPlayersWindow.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.g.resources
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.AssemblyInfoInputs.cache
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.AssemblyInfo.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.CoreCompileInputs.cache
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.CopyComplete
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.dll
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.pdb
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.genruntimeconfig.cache
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\Resource\ButtonStyle.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\Resource\ScrollBarStyle.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\Resource\TextStyle.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucCard.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucGoal.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucCard.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucFootballer.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucGoal.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucLeagueCard.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucMatchDetail.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucMatchDetailNoEdit.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucPlayer.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucSwitchedPlayers.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucTeamButton.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddCardWindow.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddGoalTypeWindow.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddGoalWindow.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddLeagueWindow.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddPlayerWindow.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddTeamWindow.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\ChangePasswordWindow.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\EditDialogWindow.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\EditMatchInforWindow.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\LoginWindow.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\ResultRecordingWindow.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\SwitchPlayersWindow.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucFootballer.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucLeagueCard.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucMatchDetail.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucMatchDetailNoEdit.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucPlayer.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucSwitchedPlayers.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\UserControls\ucTeamButton.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddCardWindow.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddGoalTypeWindow.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddGoalWindow.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddLeagueWindow.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddPlayerWindow.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\AddTeamWindow.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\ChangePasswordWindow.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\EditDialogWindow.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\EditMatchInforWindow.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\LoginWindow.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\ResultRecordingWindow.baml
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\SwitchPlayersWindow.baml
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.AssemblyReference.cache
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.exe
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.deps.json
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.runtimeconfig.json
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.runtimeconfig.dev.json
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.dll
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\FCM.pdb
+C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\EPPlus.dll
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\MaterialDesignColors.dll
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\MaterialDesignThemes.Wpf.dll
+C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
+C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Json.dll
+C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Physical.dll
+C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileSystemGlobbing.dll
+C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
+C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.IO.RecyclableMemoryStream.dll
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Text.Encoding.CodePages.dll
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Expression.Interactions.dll
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Windows.Interactivity.dll
+C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Xml.XPath.XmlDocument.dll
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
@@ -280,6 +31,7 @@ C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\ru
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Text.Encoding.CodePages.dll
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.AssemblyReference.cache
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\Resource\ButtonStyle.baml
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\Resource\ScrollBarStyle.baml
@@ -306,6 +58,7 @@ C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\Vi
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\EditDialogWindow.g.cs
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\EditMatchInforWindow.g.cs
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\LoginWindow.g.cs
+C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\PenaltyWindow.g.cs
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\ResultRecordingWindow.g.cs
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\SwitchPlayersWindow.g.cs
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\App.g.cs
@@ -332,6 +85,7 @@ C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\Vi
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\EditDialogWindow.baml
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\EditMatchInforWindow.baml
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\LoginWindow.baml
+C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\PenaltyWindow.baml
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\ResultRecordingWindow.baml
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\SwitchPlayersWindow.baml
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.g.resources
@@ -342,40 +96,3 @@ C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FC
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.dll
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.pdb
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.genruntimeconfig.cache
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\PenaltyWindow.g.cs
-G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\PenaltyWindow.baml
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\PenaltyWindow.g.cs
-F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\PenaltyWindow.baml
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\EPPlus.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.FileExtensions.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Json.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Abstractions.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Physical.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileSystemGlobbing.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.IO.RecyclableMemoryStream.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Text.Encoding.CodePages.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Xml.XPath.XmlDocument.dll
-F:\Clone\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Text.Encoding.CodePages.dll
-C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\EPPlus.dll
-C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
-C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
-C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.FileExtensions.dll
-C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Json.dll
-C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Abstractions.dll
-C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Physical.dll
-C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileSystemGlobbing.dll
-C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
-C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Microsoft.IO.RecyclableMemoryStream.dll
-C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Text.Encoding.CodePages.dll
-C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\System.Xml.XPath.XmlDocument.dll
-C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Text.Encoding.CodePages.dll
-C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\PenaltyWindow.g.cs
-C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\PenaltyWindow.baml

@@ -104,7 +104,18 @@ Go
 ALTER TABLE Matchs
 ADD PenaltyTeam2 int not null default 0
 Go
-
+ALTER TABLE Matchs
+ADD isStarted bit not null default 'FALSE'
+Go
+ALTER TABLE Matchs
+ADD Score1 int not null default 0
+Go
+ALTER TABLE Matchs
+ADD Score2 int not null default 0
+Go
+ALTER TABLE Matchs
+ADD AllowDraw bit not null default 'TRUE'
+Go
 
 
 

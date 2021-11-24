@@ -108,6 +108,12 @@ namespace FCM.ViewModel
 
         public void OpenPenaltyWindow(ResultRecordingWindow parameter)
         {
+            if (parameter.match.allowDraw == true)
+            {
+                MessageBox.Show("Trận đấu này được phép hòa, do đó không cần tới kết quả luân lưu", "Lưu ý", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }    
+
             if (parameter.ScoreTeam1 == parameter.ScoreTeam2)
             {
                 PenaltyWindow wd = new PenaltyWindow(parameter);

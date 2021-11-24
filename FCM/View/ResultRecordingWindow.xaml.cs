@@ -156,7 +156,7 @@ namespace FCM.View
             this.listLineups_Prep_Team2 = LineupsDAO.Instance.GetListLineups(this.match.id, this.team2.id, 0);
 
             // Trận đấu chưa diễn ra
-            if (this.listLineups_Prep_Team1.Count == 0 && this.listLineups_Prep_Team2.Count == 0 && this.listLineups_Offical_Team1.Count == 0 && this.listLineups_Offical_Team2.Count == 0)
+            if (this.match.isStarted == false)
             {
                 SetLineupsWhenNotStarted();
             }
@@ -173,11 +173,11 @@ namespace FCM.View
 
                 this.typeOfGoals = TypeOfGoalDAO.Instance.GetListTypeOfGoal();
 
-                this.ScoreTeam1 = this.listGoalsTeam1.Count;
-                this.ScoreTeam2 = this.listGoalsTeam2.Count;
-
                 this.penaltyTeam1 = this.match.PenaltyTeam1;
                 this.penaltyTeam2 = this.match.PenaltyTeam2;
+
+                this.ScoreTeam1 = this.match.Score1;
+                this.ScoreTeam2 = this.match.Score2;
 
                 ShowPenaltyResult();
             }
@@ -195,6 +195,11 @@ namespace FCM.View
             this.tblScore1.Text = this.ScoreTeam1.ToString();
             this.tblScore2.Text = this.ScoreTeam2.ToString();
         }
+
+        public bool isDraw()
+        {
+            return this.ScoreTeam1 == this.ScoreTeam2;
+        }
         // Xóa bỏ dữ liệu cũ
         public void DeleteOldInfor()
         {
@@ -205,6 +210,8 @@ namespace FCM.View
 
             this.match.PenaltyTeam1 = 0;
             this.match.PenaltyTeam2 = 0;
+            this.match.Score1 = 0;
+            this.match.Score2 = 0;
             this.match.isStarted = false;
             MatchDAO.Instance.UpdateMatch(this.match);
 
@@ -212,6 +219,23 @@ namespace FCM.View
         // Cập nhật dữ liệu mới
         public void UpdateDatabase()
         {
+            if (this.match.allowDraw == false)
+            {
+                if (isDraw())
+                {
+                    MessageBox.Show("Trận đấu này yêu cầu không được có kết quả hòa!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                } else
+                {
+                    if (this.penaltyTeam1 != 0 || this.penaltyTeam2 != 0)
+                    {
+                        MessageBox.Show("Kết quả hiện tại không hòa\nDo đó kết quả luân lưu phải là 0 - 0!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                }    
+            }
+
+
             // Xóa bỏ dữ liệu cũ
             DeleteOldInfor();
 
@@ -260,6 +284,8 @@ namespace FCM.View
 
             this.match.PenaltyTeam1 = this.penaltyTeam1;
             this.match.PenaltyTeam2 = this.penaltyTeam2;
+            this.match.Score1 = this.ScoreTeam1;
+            this.match.Score2 = this.ScoreTeam2;
             this.match.isStarted = true;
             MatchDAO.Instance.UpdateMatch(this.match);
 
