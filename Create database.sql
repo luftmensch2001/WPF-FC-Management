@@ -231,3 +231,12 @@ Create Table NodeMatch
 	idTeam int
 )
 GO
+
+Create table TeamIntoNextQualifyingRound
+(
+	IdTournaments int,
+	IdTeams int,
+
+	foreign key (IdTournaments) references Tournaments(Id),
+	foreign key (IdTeams) references Teams(Id)
+)

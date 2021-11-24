@@ -195,13 +195,25 @@ namespace FCM.View
             this.tblScore1.Text = this.ScoreTeam1.ToString();
             this.tblScore2.Text = this.ScoreTeam2.ToString();
         }
-        public void UpdateDatabase()
+        // Xóa bỏ dữ liệu cũ
+        public void DeleteOldInfor()
         {
-            // Xóa bỏ dữ liệu cũ
             LineupsDAO.Instance.DeleteLineupsByMatchID(this.match.id);
             GoalDAO.Instance.DeleteGoalByMatchID(this.match.id);
             CardDAO.Instance.DeleteCardByMatchID(this.match.id);
             SwitchedPlayerDAO.Instance.DeleteSwitchedPlayersByMatchID(this.match.id);
+
+            this.match.PenaltyTeam1 = 0;
+            this.match.PenaltyTeam2 = 0;
+            this.match.isStarted = false;
+            MatchDAO.Instance.UpdateMatch(this.match);
+
+        }
+        // Cập nhật dữ liệu mới
+        public void UpdateDatabase()
+        {
+            // Xóa bỏ dữ liệu cũ
+            DeleteOldInfor();
 
             // Đổ vào dữ liệu mới
             foreach (Lineups l in this.listLineups_Offical_Team1)
@@ -248,6 +260,7 @@ namespace FCM.View
 
             this.match.PenaltyTeam1 = this.penaltyTeam1;
             this.match.PenaltyTeam2 = this.penaltyTeam2;
+            this.match.isStarted = true;
             MatchDAO.Instance.UpdateMatch(this.match);
 
         }

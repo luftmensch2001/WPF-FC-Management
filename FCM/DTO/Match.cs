@@ -14,6 +14,8 @@ namespace FCM.DTO
         public int round { get; set; }
 
         public int PenaltyTeam1, PenaltyTeam2;
+
+        public bool isStarted;
         public DateTime date { get; set; }
         public DateTime time { get; set; }
         public string statium { get; set; }
@@ -29,6 +31,7 @@ namespace FCM.DTO
             this.statium = (string)row["Stadium"];
             this.PenaltyTeam1 = (int)row["PenaltyTeam1"];
             this.PenaltyTeam2 = (int)row["PenaltyTeam2"];
+            this.isStarted = (bool)row["isStarted"];
         }
         public Match(int id, int idTournaments, int idTeam01, int idTeam02, int round,DateTime date, DateTime time, string stadium)
         {
@@ -41,7 +44,7 @@ namespace FCM.DTO
             this.time = time;
             this.statium = stadium;
         }
-        public Match(int id, int idTournaments, int idTeam01, int idTeam02, int round, DateTime date, DateTime time, string stadium, int penaltyTeam1, int penaltyTeam2)
+        public Match(int id, int idTournaments, int idTeam01, int idTeam02, int round, DateTime date, DateTime time, string stadium, int penaltyTeam1, int penaltyTeam2, bool isStarted)
         {
             this.id = id;
             this.idTournaments = idTournaments;
@@ -53,6 +56,7 @@ namespace FCM.DTO
             this.statium = stadium;
             this.PenaltyTeam1 = penaltyTeam1;
             this.PenaltyTeam2 = penaltyTeam2;
+            this.isStarted = isStarted;
         }
         public Match(int idTournaments, int idTeam01, int idTeam02, int round, string stadium)
         {

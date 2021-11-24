@@ -37,7 +37,8 @@ namespace FCM.DAO
                             " Time = N'" + match.time.ToString("yyyy-MM-dd HH:mm:ss") + "' , " +
                             " Stadium = N'" + match.statium + "' ," +
                             " PenaltyTeam1 = " + match.PenaltyTeam1 + " , " +
-                            " PenaltyTeam2 = " + match.PenaltyTeam2 +  
+                            " PenaltyTeam2 = " + match.PenaltyTeam2 + ", " +
+                            " isStarted = '" + match.isStarted + "'" +
                             " Where ID = " + match.id;
             DataProvider.Instance.ExecuteQuery(query);
         }

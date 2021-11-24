@@ -99,7 +99,7 @@
                 Style="{StaticResource MyGreenButtonStyle}"
                 Background="#4554ff"
                 Width="70"
-                Height="24"
+                Height="20"
                 MinWidth="0"
                 Padding="0">
 
@@ -124,7 +124,7 @@
                 x:Name="btnRecordResult"
                 Style="{StaticResource MyGreenButtonStyle}"
                 Width="70"
-                Height="24"
+                Height="20"
                 MinWidth="0"
                 Padding="0">
 
@@ -140,6 +140,31 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i:InvokeCommandAction Command="{Binding OpenResultRecordWindowCommand}"
+                                                       CommandParameter="{Binding ElementName=wcMatchDetailCard}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                
+                <Button 
+                x:Name="btnCancelResult"
+                Style="{StaticResource MyRedButtonStyle}"
+                Width="70"
+                Height="20"
+                MinWidth="0"
+                Padding="0">
+
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                        Width="15"
+                        Height="15"
+                        Kind="FileEdit"
+                        Margin="0 0 4 0"/>
+                        <TextBlock Text="Hủy KQ" 
+                               FontSize="12"/>
+                    </StackPanel>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding CancelResultCommand}"
                                                        CommandParameter="{Binding ElementName=wcMatchDetailCard}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>

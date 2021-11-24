@@ -46,19 +46,24 @@ namespace FCM.UserControls
             this.tblStadium.Text = MatchDAO.Instance.getMatchByID(match.id).statium.ToString();
             this.tblRound.Text = MatchDAO.Instance.getMatchByID(match.id).round.ToString();
 
+            if (match.isStarted == false)
+            {
+                this.tblScore.Text = "Chưa diễn ra";
+            }    
+            else
+            {
+                // Tính tỉ số
+                int score1 = 0;
+                int score2 = 0;
 
-            // Tính tỉ số
-            int score1 = 0;
-            int score2 = 0;
+                List<Goal> g1 = GoalDAO.Instance.GetListGoals(match.id, match.idTeam01);
+                List<Goal> g2 = GoalDAO.Instance.GetListGoals(match.id, match.idTeam02);
 
-            List<Goal> g1 = GoalDAO.Instance.GetListGoals(match.id, match.idTeam01);
-            List<Goal> g2 = GoalDAO.Instance.GetListGoals(match.id, match.idTeam02);
+                score1 = g1.Count;
+                score2 = g2.Count;
 
-            score1 = g1.Count;
-            score2 = g2.Count;
-
-            this.tblScore.Text = score1 + " - " + score2;
-
+                this.tblScore.Text = score1 + " - " + score2;
+            }    
         }
     }
 }

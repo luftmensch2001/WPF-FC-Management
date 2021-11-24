@@ -671,7 +671,6 @@ namespace FCM.ViewModel
 
 
 
-        #region SCHEDULE (Lịch thi đấu)
         // Tạo lịch thi đấu
         public void CreateSchedule(MainWindow parameter)
         {
@@ -884,7 +883,15 @@ namespace FCM.ViewModel
             }
         }
 
+        // Hủy kết quả trận đấu
+        public void CancelResultMatch(MainWindow parameter, Match match)
+        {
+            ResultRecordingWindow resultWD = new ResultRecordingWindow(match);
 
+            resultWD.DeleteOldInfor();
+
+            LoadListMatch(parameter, parameter.cbxRound.SelectedIndex);
+        }
         // Hiển thị danh sách trận đấu
         List<Match> listMatches;
         public void LoadListMatch(MainWindow parameter, int round)
@@ -930,6 +937,5 @@ namespace FCM.ViewModel
             wd.ShowDialog();
             LoadListMatch(parameter, this.round);
         }
-        #endregion
     }
 }
