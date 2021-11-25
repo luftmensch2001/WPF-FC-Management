@@ -82,5 +82,11 @@ namespace FCM.DAO
                          "Values ( " + idTournament + " , " + idTeam +  ")";
             DataProvider.Instance.ExecuteQuery(query);
         }
+        public void DeleteKOBoard(int idTournament)
+        {
+            string query = "Delete From TeamIntoNextQualifyingRound " +
+                         "Where idTournaments = " + idTournament;
+            DataProvider.Instance.ExecuteQuery(query);
+        }
     }
 }

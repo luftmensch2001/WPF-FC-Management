@@ -1465,31 +1465,40 @@ namespace FCM.ViewModel
             List<string> listName = new List<string>();
             List<TeamScoreDetails> listTeamCalc = new List<TeamScoreDetails>();
 
-            //Get list top
-            for (int i = 0; i< cntBoard; i++)
+            try
             {
-                string nameBoard = parameter.cbSelectedGroupsStanding.Items[i].ToString();
-                List<TeamScoreDetails> list = CalcDetails(parameter, nameBoard);
-                list = CalcRanking(parameter.league.id, list);
-                for (int ii = 0; ii<teamPerGroupIn; ii++)
+                //Get list top
+                for (int i = 0; i < cntBoard; i++)
                 {
-                    listName.Add(list[ii].nameTeam);
+                    string nameBoard = parameter.cbSelectedGroupsStanding.Items[i].ToString();
+                    List<TeamScoreDetails> list = CalcDetails(parameter, nameBoard);
+                    list = CalcRanking(parameter.league.id, list);
+                    for (int ii = 0; ii < teamPerGroupIn; ii++)
+                    {
+                        listName.Add(list[ii].nameTeam);
+                    }
+                    if (list.Count > teamPerGroupIn)
+                        listTeamCalc.Add(list[teamPerGroupIn]);
                 }
-                if (list.Count > teamPerGroupIn)
-                    listTeamCalc.Add(list[teamPerGroupIn]);
+                //Get list left
+                if (slotLeft > 0)
+                {
+                    listTeamCalc = CalcRanking(parameter.league.id, listTeamCalc);
+                    for (int i = 0; i < slotLeft; i++)
+                        listName.Add(listTeamCalc[i].nameTeam);
+                }
+                //Add to board
+                BoardDAO.Instance.DeleteKOBoard(parameter.league.id);
+                for (int i = 0; i < listName.Count; i++)
+                {
+                    int idTeam = TeamDAO.Instance.GetTeamIDByName(parameter.league.id, listName[i]);
+                    BoardDAO.Instance.AddToKOBoard(parameter.league.id, idTeam);
+                }
+                MessageBox.Show("Tạo danh sách vào vòng loại trực tiếp thành công");
             }
-            //Get list left
-            if (slotLeft > 0)
+            catch
             {
-                listTeamCalc = CalcRanking(parameter.league.id, listTeamCalc);
-                for (int i = 0; i < slotLeft; i++)
-                    listName.Add(listTeamCalc[i].nameTeam);
-            }
-            //Add to board
-            for (int i = 0; i < listName.Count; i++)
-            {
-                int idTeam = TeamDAO.Instance.GetTeamIDByName(parameter.league.id, listName[i]);
-                BoardDAO.Instance.AddToKOBoard(parameter.league.id, idTeam);
+                MessageBox.Show("Lỗi kết nối dữ liệu");
             }
         }
     }
