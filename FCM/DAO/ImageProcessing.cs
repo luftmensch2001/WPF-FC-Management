@@ -49,5 +49,33 @@ namespace FCM.DAO
                 return bitmapImage;
             }
         }
+        public byte[] convertBitmapImageToByte(BitmapImage bitmapImage)
+        {
+            byte[] data;
+            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+            using (MemoryStream ms = new MemoryStream())
+            {
+                encoder.Save(ms);
+                data = ms.ToArray();
+            }
+            return data;
+        }
+        public Bitmap ScaleBitmap(Bitmap bmp, int maxWidth, int maxHeight)
+        {
+            var ratioX = (double)maxWidth / bmp.Width;
+            var ratioY = (double)maxHeight / bmp.Height;
+            var ratio = Math.Min(ratioX, ratioY);
+
+            var newWidth = (int)(bmp.Width * ratio);
+            var newHeight = (int)(bmp.Height * ratio);
+
+            var newImage = new Bitmap(newWidth, newHeight);
+
+            using (var graphics = Graphics.FromImage(newImage))
+                graphics.DrawImage(bmp, 0, 0, newWidth, newHeight);
+
+            return newImage;
+        }
     }
 }

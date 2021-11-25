@@ -3,13 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using FCM.DAO;
 using FCM.DTO;
 using FCM.UserControls;
 using System.Windows.Media.Imaging;
+using System.Drawing;
+using System.IO;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using Microsoft.Win32;
+using System.Collections;
 
 namespace FCM.ViewModel
 {
@@ -18,12 +23,14 @@ namespace FCM.ViewModel
         public ICommand SwitchTabCommand { get; set; }
         public ICommand SwitchTabStatisticsCommand { get; set; }
         public ICommand GetUidCommand { get; set; }
+        public ICommand GetIdSettingCommand { get; set; }
 
         public ICommand OpenAddLeagueWindowCommand { get; set; }
 
         public ICommand OpenEditLeagueWindowCommand { get; set; }
         public ICommand DeleteLeagueCommand { get; set; }
         public ICommand DeleteTeamCommand { get; set; }
+        public ICommand DeleteGoalTypeCommand { get; set; }
         public ICommand OpenAddTeamWindowCommand { get; set; }
         public ICommand OpenEditTeamWindowCommand { get; set; }
         public ICommand OpenAddPlayerWindowCommand { get; set; }
@@ -39,6 +46,8 @@ namespace FCM.ViewModel
         public ICommand ChangeRoundCommand { get; set; }
         public ICommand ExportTeamCommand { get; set; }
         public ICommand ChangeBoardCommand { get; set; }
+        public ICommand ChangeRankingBoardCommand { get; set; }
+        public ICommand ExportRankingBoardCommand { get; set; }
 
         //public ICommand OpenEditMatchWindowCommand { get; set; }
         //public ICommand OpenResultRecordWindowCommand { get; set; }
@@ -48,24 +57,30 @@ namespace FCM.ViewModel
 
         public string uid;
 
-        public SolidColorBrush lightGreen = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#52ff00"));
+        public string idSetting = "";
+
+        bool isClickExportRanking = false;
+
+        public SolidColorBrush lightGreen = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#52ff00"));
         public SolidColorBrush white = new SolidColorBrush(Colors.White);
         public MainViewModel()
         {
             SwitchTabCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SwitchTab(parameter));
             SwitchTabStatisticsCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SwitchTabStatistics(parameter));
-            GetUidCommand = new RelayCommand<Button>((parameter) => true, (parameter) => uid = parameter.Uid);
+            GetUidCommand = new RelayCommand<System.Windows.Controls.Button>((parameter) => true, (parameter) => uid = parameter.Uid);
+            GetIdSettingCommand = new RelayCommand<string>((parameter) => true, (parameter) => idSetting = parameter);
             OpenAddLeagueWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenAddLeagueWindow(parameter));
             DeleteLeagueCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => DeleteLeague(parameter));
             DeleteTeamCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => DeleteTeam(parameter));
 
-            OpenEditDialogCommand = new RelayCommand<string>((parameter) => true, (parameter) => OpenEditDialogWindow(parameter));
+            OpenEditDialogCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenEditDialogWindow(parameter));
             OpenEditLeagueWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenEditLeagueWindow(parameter));
             OpenAddTeamWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenAddTeamWindow(parameter));
             OpenEditTeamWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenEditTeamWindow(parameter));
             OpenAddPlayerWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenAddPlayerWindow(parameter));
             OpenAddGoalTypeCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenAddGoalTypeWindow(parameter));
             OpenEditGoalTypeCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenEditGoalTypeWindow(parameter));
+            DeleteGoalTypeCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => DeleteGoalType(parameter));
             OpenChangePasswordCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenChangePasswordWindow(parameter));
             OpenLoginCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenLoginWindow(parameter));
             SearchLeagueCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SearchLeague(parameter));
@@ -75,9 +90,12 @@ namespace FCM.ViewModel
 
             ExportTeamCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => ExportTeam(parameter));
             ChangeBoardCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => SearchBoard(parameter));
+            ChangeRankingBoardCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => LoadRanking(parameter));
+            ExportRankingBoardCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => ExportRanking(parameter));
 
             //OpenEditMatchWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenEditMatchInfoWindow(parameter));
             //OpenResultRecordWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenResultRecordingWindow(parameter));
+            GetImageResultMatch();
         }
         public void SwitchTab(MainWindow parameter)
         {
@@ -188,6 +206,9 @@ namespace FCM.ViewModel
                     parameter.btnStanding.Foreground = lightGreen;
                     parameter.icStanding.Foreground = lightGreen;
                     parameter.grdStandingScreen.Visibility = Visibility.Visible;
+                    InitCbbRanking(parameter);
+                    GetDetailSetting(parameter);
+                    LoadRanking(parameter);
                     break;
                 case 5:
                     parameter.btnStatistics.Foreground = lightGreen;
@@ -200,7 +221,35 @@ namespace FCM.ViewModel
                         parameter.btnSetting.Foreground = lightGreen;
                         parameter.icSetting.Foreground = lightGreen;
                         parameter.grdSettingScreen.Visibility = Visibility.Visible;
+
+                        bool btState = false;
+                        if (TeamDAO.Instance.GetListTeamInLeague(parameter.league.id).Count > 0)
+                            btState = false;
+                        else
+                            btState = true;
+
+                        {
+                            parameter.btEditS0.IsEnabled = btState;
+                            parameter.btEditS1.IsEnabled = btState;
+                            parameter.btEditS2.IsEnabled = btState;
+                            parameter.btEditS3.IsEnabled = btState;
+                            parameter.btEditS4.IsEnabled = btState;
+                            parameter.btEditS5.IsEnabled = btState;
+                            if (parameter.league.typeLeague == 0)
+                            {
+                                parameter.btEditS6.IsEnabled = false;
+                            }
+                            else
+                                parameter.btEditS6.IsEnabled = btState;
+                            parameter.btEditS7.IsEnabled = btState;
+                            parameter.btEditS8.IsEnabled = btState;
+                            parameter.btEditS9.IsEnabled = btState;
+                            parameter.btnAddGoalType.IsEnabled = btState;
+                            parameter.btnEditGoalType.IsEnabled = btState;
+                            parameter.btnDeleteGoalType.IsEnabled = btState;
+                        }
                         GetDetailSetting(parameter);
+                        LoadTypesOfGoal(parameter);
                     }
                     break;
                 case 7:
@@ -377,21 +426,6 @@ namespace FCM.ViewModel
             }
             LoadListLeagueToScreen(listLeague, parameter);
         }
-        public void GetDetailSetting(MainWindow parameter)
-        {
-            if (parameter.setting != null)
-            {
-                parameter.tblCountOfTeams.Text = parameter.setting.numberOfTeam.ToString();
-                parameter.tblMinCountPlayers.Text = parameter.setting.minPlayerOfTeam.ToString();
-                parameter.tblMaxCountPlayers.Text = parameter.setting.maxPlayerOfTeam.ToString();
-                parameter.tblMinAge.Text = parameter.setting.minAge.ToString();
-                parameter.tblMaxAge.Text = parameter.setting.maxAge.ToString();
-                parameter.tblMaxForeign.Text = parameter.setting.maxForeignPlayers.ToString();
-                parameter.tbScoreWin.Text = parameter.setting.scoreWin.ToString();
-                parameter.tbScoreDraw.Text = parameter.setting.scoreDraw.ToString();
-                parameter.tbScoreLose.Text = parameter.setting.scoreLose.ToString();
-            }
-        }
 
         List<Team> teams;
         public void LoadListTeams(MainWindow parameter)
@@ -435,6 +469,7 @@ namespace FCM.ViewModel
             mainWindow.cbGroup.Items.Clear();
             mainWindow.cbGroup.Items.Add("Tất cả");
             mainWindow.cbGroup.SelectedItem = 0;
+            mainWindow.cbGroup.SelectedIndex = 0;
             foreach (Board board in mainWindow.boards)
             {
                 mainWindow.cbGroup.Items.Add(board.nameBoard);
@@ -494,6 +529,17 @@ namespace FCM.ViewModel
         {
             if (parameter.currentAccount.roleLevel == 1)
             {
+                if (TeamDAO.Instance.GetListTeamInLeague(parameter.league.id).Count == 0)
+                {
+                    if (MessageBox.Show("Sau khi tạo đội bóng đầu tiên sẽ không thể thay đổi quy định của giải nữa \nXác nhận tạo đội?", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    {
+                        return;
+                    }
+                    else
+                    {
+
+                    }
+                }
                 if (parameter.wpTeamsList.Children.Count == parameter.setting.numberOfTeam)
                 {
                     MessageBox.Show("Số lượng đội bóng đá đạt tối đa");
@@ -637,25 +683,7 @@ namespace FCM.ViewModel
                     break;
             }
         }
-        public void OpenEditDialogWindow(string parameter)
-        {
-            // Dùng parameter để biết đã bấm vào nút Sửa nào
-            EditDialogWindow wd = new EditDialogWindow(parameter);
-            wd.ShowDialog();
-        }
 
-        public void OpenAddGoalTypeWindow(MainWindow parameter)
-        {
-            AddGoalTypeWindow wd = new AddGoalTypeWindow();
-            wd.ShowDialog();
-        }
-        public void OpenEditGoalTypeWindow(MainWindow parameter)
-        {
-            AddGoalTypeWindow wd = new AddGoalTypeWindow();
-            wd.Title = "Sửa thông tin";
-            wd.btnAdd.Content = "Xác nhận";
-            wd.ShowDialog();
-        }
         public void OpenChangePasswordWindow(MainWindow parameter)
         {
             ChangePasswordWindow wd = new ChangePasswordWindow(parameter.currentAccount);
@@ -688,7 +716,7 @@ namespace FCM.ViewModel
             }
 
             // Tiến hành tạo lịch
-            if (MessageBox.Show("Sau khi tiến hành tạo lịch, các thông tin về Quy định giải đấu, Câu lạc bộ, Cầu thủ sẽ không được phép thay đổi nữa!\n" +
+            if (MessageBox.Show("Sau khi tiến hành tạo lịch, các thông tin về Câu lạc bộ, Cầu thủ sẽ không được phép thay đổi nữa!\n" +
                 "Các trận đấu sẽ được tạo ngẫu nhiên theo nguyên tắc vòng tròn tính điểm.\n" +
                 "Bạn có muốn tạo lịch thi đấu?", "Lưu ý", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
@@ -936,6 +964,533 @@ namespace FCM.ViewModel
             ResultRecordingWindow wd = new ResultRecordingWindow(match);
             wd.ShowDialog();
             LoadListMatch(parameter, this.round);
+        }
+
+        #region Setting (Quy Định)
+
+        public void GetDetailSetting(MainWindow parameter)
+        {
+            if (parameter.setting != null)
+            {
+                parameter.tblCountOfTeams.Text = parameter.setting.numberOfTeam.ToString();
+                parameter.tblMinCountPlayers.Text = parameter.setting.minPlayerOfTeam.ToString();
+                parameter.tblMaxCountPlayers.Text = parameter.setting.maxPlayerOfTeam.ToString();
+                parameter.tblMinAge.Text = parameter.setting.minAge.ToString();
+                parameter.tblMaxAge.Text = parameter.setting.maxAge.ToString();
+                parameter.tblMaxForeign.Text = parameter.setting.maxForeignPlayers.ToString();
+                parameter.tbScoreWin.Text = parameter.setting.scoreWin.ToString();
+                parameter.tbScoreDraw.Text = parameter.setting.scoreDraw.ToString();
+                parameter.tbScoreLose.Text = parameter.setting.scoreLose.ToString();
+                parameter.tbNumberOfTeamsIn.Text = parameter.setting.NumberOfTeamIn.ToString();
+            }
+        }
+        public void LoadTypesOfGoal(MainWindow parameter)
+        {
+            List<TypeOfGoal> data = new List<TypeOfGoal>();
+            data = TypeOfGoalDAO.Instance.GetListTypeOfGoal(parameter.league.id);
+            int i = 1;
+            foreach (TypeOfGoal typeG in data.ToArray())
+            {
+                typeG.id = i;
+                i++;
+            }
+            parameter.dgvTypeOfGoal.ItemsSource = data;
+        }
+        public void OpenEditDialogWindow(MainWindow parameter)
+        {
+            int index = Int32.Parse(idSetting);
+            int idTournament = parameter.league.id;
+            Setting curSetting = parameter.setting;
+            EditDialogWindow wd = new EditDialogWindow(idTournament, index, curSetting);
+            wd.ShowDialog();
+            parameter.setting = SettingDAO.Instance.GetSetting(idTournament);
+            GetDetailSetting(parameter);
+        }
+        public void OpenAddGoalTypeWindow(MainWindow parameter)
+        {
+            AddGoalTypeWindow wd = new AddGoalTypeWindow(parameter, "");
+            wd.ShowDialog();
+            LoadTypesOfGoal(parameter);
+        }
+        public void OpenEditGoalTypeWindow(MainWindow parameter)
+        {
+            if (parameter.dgvTypeOfGoal.SelectedIndex == -1)
+            {
+                MessageBox.Show("Vui lòng chọn loại bàn thắng cần sửa");
+                return;
+            }
+            string name = (parameter.dgvTypeOfGoal.SelectedItem as TypeOfGoal).displayName;
+            AddGoalTypeWindow wd = new AddGoalTypeWindow(parameter, name);
+            wd.Title = "Sửa thông tin";
+            wd.btnAdd.Content = "Xác nhận";
+            wd.ShowDialog();
+            LoadTypesOfGoal(parameter);
+        }
+        public void DeleteGoalType(MainWindow parameter)
+        {
+            if (parameter.dgvTypeOfGoal.SelectedIndex == -1)
+            {
+                MessageBox.Show("Vui lòng chọn loại bàn thắng cần xoá");
+                return;
+            }
+            string name = (parameter.dgvTypeOfGoal.SelectedItem as TypeOfGoal).displayName;
+            if (MessageBox.Show("Bạn có muốn xoá loại bàn thắng \"" + name + "\"", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+                return;
+            }
+            else
+            {
+                try
+                {
+                    TypeOfGoalDAO.Instance.DeleteTypeGoal(parameter.league.id, name);
+                    MessageBox.Show("Xoá loại bàn thắng thành công");
+                }
+                catch
+                {
+                    MessageBox.Show("Lỗi kết nối");
+                }
+                LoadTypesOfGoal(parameter);
+            }
+        }
+        #endregion
+
+        #region Ranking
+        const string Pts = "Điểm";
+        const string GD = "Hiệu số bàn thắng";
+        const string Vs = "Hiệu số đối đầu";
+        const string Fg = "Tổng số bàn thắng";
+        const string Wn = "Tổng số trận thắng";
+        string pathProject;
+
+        System.Drawing.Image imgWin;
+        System.Drawing.Image imgDraw;
+        System.Drawing.Image imgLose;
+        System.Drawing.Image imgEmpty;
+
+        void ExportRanking(MainWindow parameter)
+        {
+            //if (parameter.cbSelectedGroupsStanding.SelectedItem == null)
+            //    return;
+            //string nameBoard = "";
+            //if (parameter.league.countBoard > 1)
+            //    nameBoard = parameter.cbSelectedGroupsStanding.SelectedItem.ToString();
+            //List<TeamScoreDetails> rank = CalcDetails(parameter, nameBoard);
+            //rank = CalcRanking(parameter.league.id, rank);
+            //ExportToPdf(parameter.dgvRanking, rank, " " + nameBoard);
+            CreateBoardKnockOut(parameter);
+        }
+        void InitCbbRanking(MainWindow parameter)
+        {
+            //Load Board
+            parameter.cbSelectedGroupsStanding.Items.Clear();
+            foreach (Board board in parameter.boards)
+            {
+                parameter.cbSelectedGroupsStanding.Items.Add(board.nameBoard);
+            }
+            if (parameter.boards.Count > 1)
+                parameter.cbSelectedGroupsStanding.Visibility = Visibility.Visible;
+            else
+                parameter.cbSelectedGroupsStanding.Visibility = Visibility.Hidden;
+            if (parameter.boards.Count >= 0)
+                parameter.cbSelectedGroupsStanding.SelectedIndex = 0;
+        }
+        void LoadRanking(MainWindow parameter)
+        {
+            try
+            {
+                if (parameter.cbSelectedGroupsStanding.SelectedItem == null)
+                    return;
+                string nameBoard = parameter.cbSelectedGroupsStanding.SelectedItem.ToString();
+                GetDetailSetting(parameter);
+                List<TeamScoreDetails> rank = CalcDetails(parameter, nameBoard);         
+                rank = CalcRanking(parameter.league.id, rank);
+            foreach (TeamScoreDetails t in rank)
+            {
+                t.imageFLM = ImageProcessing.Instance.Convert(ResToImageFLM(t.fLM));
+            }
+                parameter.dgvRanking.ItemsSource = rank;
+        }
+            catch
+            {
+                MessageBox.Show("Lỗi kết nối dữ liệu");
+                return;
+            }
+}
+        List<TeamScoreDetails> CalcDetails(MainWindow parameter, string nameBoard)
+        {
+            List<TeamScoreDetails> list = new List<TeamScoreDetails>();
+            List<Team> team = TeamDAO.Instance.GetListTeamInBoard(parameter.league.id, nameBoard);
+            int i = -1;
+            foreach (Team t in team)
+            {
+                BitmapImage logoteam = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(t.logo));
+                list.Add(new TeamScoreDetails(t.nameTeam, logoteam));
+                i++;
+                List<Match> matches = MatchDAO.Instance.GetListMatchStartedByIDTeamWithOrder(t.idTournamnt, t.id);
+
+                //Tính 
+                foreach (Match m in matches)
+                {
+
+                    int gF = 0; //Bàn thắng
+                    int gA = 0; //Bàn thua
+
+                    if (m.idTeam01 == t.id)
+                    {
+                        gF = m.Score1;
+                        gA = m.Score2;
+                    }
+                    else
+                    {
+                        gF = m.Score2;
+                        gA = m.Score1;
+                    }
+
+                    // + điểm
+                    if (gF > gA)
+                        list[i].pts += parameter.setting.scoreWin;
+                    if (gF == gA)
+                        list[i].pts += parameter.setting.scoreDraw;
+                    if (gF < gA)
+                        list[i].pts += parameter.setting.scoreLose;
+
+                    list[i].CalcDetails(gF, gA); //Tính hiệu số
+
+                }
+            }
+            return list;
+        }
+        List<TeamScoreDetails> CalcRanking(int idTournament, List<TeamScoreDetails> listTeamScoreDetails)
+        {
+            List<string> listPriorRank = new List<string>();
+            listPriorRank.Add(Pts);
+            listPriorRank.Add(GD);
+            listPriorRank.Add(Vs);
+            listPriorRank.Add(Fg);
+            listPriorRank.Add(Wn);
+            TeamScoreDetails tmp;
+            int index = listTeamScoreDetails.Count;
+            for (int i = 0; i < index - 1; i++)
+                for (int j = i + 1; j < index; j++)
+                {
+                    foreach (string condition in listPriorRank)
+                    {
+                        int res = CheckCondition(condition, listTeamScoreDetails[i], listTeamScoreDetails[j], idTournament);
+                        if (res == 0)
+                            continue;
+                        if (res == 2)
+                        {
+                            tmp = listTeamScoreDetails[i];
+                            listTeamScoreDetails[i] = listTeamScoreDetails[j];
+                            listTeamScoreDetails[j] = tmp;
+                        }
+                        break;
+                    }
+                }
+            for (int i = 0; i < listTeamScoreDetails.Count; i++)
+                listTeamScoreDetails[i].rankTeam = i + 1;
+            return listTeamScoreDetails;
+        }
+        int CheckCondition(string condition, TeamScoreDetails team1, TeamScoreDetails team2, int idTournament)
+        {
+            switch (condition)
+            {
+                case Pts:
+                    if (team1.pts == team2.pts)
+                        return 0;
+                    if (team1.pts < team2.pts)
+                        return 2;
+                    break;
+                case GD:
+                    if (team1.gD == team2.gD)
+                        return 0;
+                    if (team1.gD < team2.gD)
+                        return 2;
+                    break;
+                case Fg:
+                    if (team1.f == team2.f)
+                        return 0;
+                    if (team1.f < team2.f)
+                        return 2;
+                    break;
+                case Wn:
+                    if (team1.w == team2.w)
+                        return 0;
+                    if (team1.w < team2.w)
+                        return 2;
+                    break;
+                case Vs:
+                    return CheckVersus(idTournament, team1.nameTeam, team2.nameTeam);
+            }
+            return 1;
+        }
+        int CheckVersus(int idTournament, string nameTeam1, string nameTeam2)
+        {
+            int idTeam1 = TeamDAO.Instance.GetTeamIDByName(idTournament, nameTeam1);
+            int idTeam2 = TeamDAO.Instance.GetTeamIDByName(idTournament, nameTeam2);
+            List<Match> matchid1 = MatchDAO.Instance.GetListMatchStartedByID2Team(idTournament, idTeam1, idTeam2);
+            List<Match> matchid2 = MatchDAO.Instance.GetListMatchStartedByID2Team(idTournament, idTeam2, idTeam1);
+            int gFH1 = 0; //Bàn thắng sân nhà team 1
+            int gFH2 = 0; //Bàn thắng sân nhà team 2
+            int gAH1 = 0; //Bàn thua sân nhà team 1
+            int gAH2 = 0; //Bàn thua sân nhà team 2
+            int W1 = 0; //Trận thắng team 1
+            int W2 = 0; //Trận thắng team 2
+            foreach (Match mid in matchid1) //Team 1 chủ nhà
+            {
+                int gF = mid.Score1;
+                int gA = mid.Score2;
+
+                if (gF > gA)
+                {
+                    W1++;
+                }
+                else
+                {
+                    W2++;
+                }
+                gFH1 += gF;
+                gAH1 += gA;
+            }
+            foreach (Match mid in matchid2) //Team 2 chủ nhà
+            {
+                int gF = mid.Score1;
+                int gA = mid.Score2;
+                
+                if (gF > gA)
+                {
+                    W2++;
+                }
+                else
+                {
+                    W1++;
+                }
+                gFH2 += gF;
+                gAH2 += gA;
+            }
+            if (W1 < W2)
+                return 2;
+            if (W1 == W2)
+            {
+                if (gAH1 > gAH2)
+                    return 2;
+            }
+            return 0;
+        }
+        System.Drawing.Image ResToImageFLM(string res)
+        {
+            int space = 2;
+            int width = imgWin.Width * 6 + space * 2;
+            int height = imgWin.Width + space * 2;
+
+            System.Drawing.Bitmap imgres = new System.Drawing.Bitmap(width, height);
+            Graphics g = Graphics.FromImage(imgres);
+
+            for (int i = 0; i < 5; i++)
+            {
+                //get image
+                System.Drawing.Image imgResOfmatch = imgWin;
+                if (i > res.Length - 1)
+                    imgResOfmatch = imgEmpty;
+                else
+                {
+                    if (res[i] == 'V')
+                        imgResOfmatch = imgWin;
+                    if (res[i] == '-')
+                        imgResOfmatch = imgDraw;
+                    if (res[i] == 'X')
+                        imgResOfmatch = imgLose;
+                }
+                //draw image
+                g.DrawImage(imgResOfmatch, new System.Drawing.Point(i * height + space, 2));
+            }
+
+            g.Dispose();
+
+            return imgres;
+        }
+        void ExportToPdf(System.Windows.Controls.DataGrid grid, List<TeamScoreDetails> rank, string nameBoard)
+        {
+            //Add Header
+            BaseFont bff = BaseFont.CreateFont(Environment.GetEnvironmentVariable("windir") + @"\\fonts\times.ttf", BaseFont.IDENTITY_H, true);
+            iTextSharp.text.Font NormalFont = new iTextSharp.text.Font(bff, 20, iTextSharp.text.Font.NORMAL);
+            Paragraph prgHeading = new Paragraph();
+            prgHeading.Alignment = Element.ALIGN_CENTER;
+            string strHeader = "Bảng xếp hạng";
+            prgHeading.Add(new Chunk(strHeader.ToUpper(), NormalFont));
+
+
+            // Add Table
+            PdfPTable pdfPTable = new PdfPTable(grid.Columns.Count);
+            pdfPTable.SpacingBefore = 10f;
+            pdfPTable.DefaultCell.Padding = 3;
+            pdfPTable.WidthPercentage = 100;
+            pdfPTable.HorizontalAlignment = Element.ALIGN_CENTER;
+            pdfPTable.DefaultCell.BorderWidth = 1;
+            pdfPTable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            pdfPTable.DefaultCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+            pdfPTable.SetWidths(new float[] { 70, 40, 140, 70, 70, 70, 70, 70, 70, 140 });
+
+
+
+            iTextSharp.text.Font text = new iTextSharp.text.Font(bff, 10, iTextSharp.text.Font.NORMAL);
+            PdfPTable table = new PdfPTable(grid.Columns.Count);
+            //Add header
+            foreach (System.Windows.Controls.DataGridColumn column in grid.Columns)
+            {
+                //MessageBox.Show(column.Header.ToString());
+                PdfPCell cell = new PdfPCell(new Phrase(column.Header.ToString(), text));
+                cell.BackgroundColor = new iTextSharp.text.BaseColor(240, 240, 240);
+                cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                cell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                pdfPTable.AddCell(cell);
+            }
+            //Add datarow
+            int rCnt = 0;
+            foreach (TeamScoreDetails team in rank)
+            {
+                //Rank
+                pdfPTable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                pdfPTable.DefaultCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                pdfPTable.AddCell(new Phrase(rank[rCnt].rankTeam.ToString(), text));
+
+                //Logo
+                pdfPTable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                pdfPTable.DefaultCell.VerticalAlignment = Element.ALIGN_BOTTOM;
+                byte[] imageByte = ImageProcessing.Instance.convertBitmapImageToByte(rank[rCnt].logo);
+                iTextSharp.text.Image myImage = iTextSharp.text.Image.GetInstance(imageByte);
+                myImage.ScaleAbsolute(20, 20);
+                pdfPTable.AddCell(new Phrase(new Chunk(myImage, 0f, 0f, false)));
+
+                //NameTeam
+                pdfPTable.DefaultCell.HorizontalAlignment = Element.ALIGN_LEFT;
+                pdfPTable.DefaultCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                pdfPTable.AddCell(new Phrase(rank[rCnt].nameTeam.ToString(), text));
+
+                //Match
+                pdfPTable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                pdfPTable.DefaultCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                pdfPTable.AddCell(new Phrase(rank[rCnt].m.ToString(), text));
+
+                //Win
+                pdfPTable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                pdfPTable.DefaultCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                pdfPTable.AddCell(new Phrase(rank[rCnt].w.ToString(), text));
+
+                //Draw
+                pdfPTable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                pdfPTable.DefaultCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                pdfPTable.AddCell(new Phrase(rank[rCnt].d.ToString(), text));
+
+                //Lose
+                pdfPTable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                pdfPTable.DefaultCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                pdfPTable.AddCell(new Phrase(rank[rCnt].l.ToString(), text));
+
+                //Point
+                pdfPTable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                pdfPTable.DefaultCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                pdfPTable.AddCell(new Phrase(rank[rCnt].pts.ToString(), text));
+
+                //GoalDraw
+                pdfPTable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                pdfPTable.DefaultCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                pdfPTable.AddCell(new Phrase(rank[rCnt].gD.ToString(), text));
+
+                //ImageFLM
+                imageByte = ImageProcessing.Instance.convertBitmapImageToByte(rank[rCnt].imageFLM);
+                myImage = iTextSharp.text.Image.GetInstance(imageByte);
+                pdfPTable.AddCell(myImage);
+
+                rCnt++;
+            }
+
+            //save file;
+            var savefiledialoge = new SaveFileDialog();
+            savefiledialoge.FileName = "BXH" + nameBoard;
+            savefiledialoge.DefaultExt = ".pdf";
+
+            if (savefiledialoge.ShowDialog() == true)
+            {
+                using (FileStream stream = new FileStream(savefiledialoge.FileName, FileMode.Create))
+                {
+                    Document pdfdoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
+                    PdfWriter.GetInstance(pdfdoc, stream);
+                    pdfdoc.Open();
+                    pdfdoc.Add(prgHeading);
+                    if (nameBoard != " ")
+                    {
+                        Paragraph p = new Paragraph(nameBoard, text);
+                        p.Alignment = Element.ALIGN_CENTER;
+                        pdfdoc.Add(p);
+                    }
+                    pdfdoc.Add(pdfPTable);
+                    pdfdoc.Close();
+                    stream.Close();
+                }
+            }
+        }
+        void GetImageResultMatch()
+        {
+            //Get Image
+            pathProject = System.IO.Directory.GetCurrentDirectory();
+            try
+            {
+                while (!File.Exists(pathProject + @"\Resource\Images\imgEmpty.png") && System.IO.Directory.GetParent(pathProject) != null)
+                {
+                    pathProject = System.IO.Directory.GetParent(pathProject).ToString();
+                }
+                imgWin = System.Drawing.Image.FromFile(pathProject + @"\Resource\Images\imgWin.png");
+                imgDraw = System.Drawing.Image.FromFile(pathProject + @"\Resource\Images\imgDraw.png");
+                imgLose = System.Drawing.Image.FromFile(pathProject + @"\Resource\Images\imgLose.png");
+                imgEmpty = System.Drawing.Image.FromFile(pathProject + @"\Resource\Images\imgEmpty.png");
+            }
+            catch
+            {
+                MessageBox.Show("Không tìm thấy file, vui lòng liên hệ hỗ trợ hoặc cài đặt lại phần mềm");
+                return;
+            }
+        }
+        #endregion
+
+        void CreateBoardKnockOut(MainWindow parameter)
+        {
+            int cntBoard = parameter.cbSelectedGroupsStanding.Items.Count;
+            if (cntBoard == 0)
+                return;
+            GetDetailSetting(parameter);
+            int teamIn = parameter.setting.NumberOfTeamIn;
+            int teamPerGroupIn = teamIn / cntBoard;
+            int slotLeft = teamIn - teamPerGroupIn * cntBoard;
+            List<string> listName = new List<string>();
+            List<TeamScoreDetails> listTeamCalc = new List<TeamScoreDetails>();
+
+            //Get list top
+            for (int i = 0; i< cntBoard; i++)
+            {
+                string nameBoard = parameter.cbSelectedGroupsStanding.Items[i].ToString();
+                List<TeamScoreDetails> list = CalcDetails(parameter, nameBoard);
+                list = CalcRanking(parameter.league.id, list);
+                for (int ii = 0; ii<teamPerGroupIn; ii++)
+                {
+                    listName.Add(list[ii].nameTeam);
+                }
+                if (list.Count > teamPerGroupIn)
+                    listTeamCalc.Add(list[teamPerGroupIn]);
+            }
+            //Get list left
+            if (slotLeft > 0)
+            {
+                listTeamCalc = CalcRanking(parameter.league.id, listTeamCalc);
+                for (int i = 0; i < slotLeft; i++)
+                    listName.Add(listTeamCalc[i].nameTeam);
+            }
+            //Add to board
+            for (int i = 0; i < listName.Count; i++)
+            {
+                int idTeam = TeamDAO.Instance.GetTeamIDByName(parameter.league.id, listName[i]);
+                BoardDAO.Instance.AddToKOBoard(parameter.league.id, idTeam);
+            }
         }
     }
 }

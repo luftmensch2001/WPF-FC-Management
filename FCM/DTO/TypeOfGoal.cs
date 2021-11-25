@@ -7,8 +7,8 @@ namespace FCM.DTO
 {
     public class TypeOfGoal
     {
-        public int id;
-        public string displayName;
+        public int id { get; set; }
+        public string displayName { get; set; }
         public TypeOfGoal(int id, string displayName)
         {
             this.id = id;

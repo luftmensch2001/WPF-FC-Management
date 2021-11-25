@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
+      "BouncyCastle/1.8.6.1": {
+        "type": "package",
+        "compile": {
+          "lib/BouncyCastle.Crypto.dll": {}
+        },
+        "runtime": {
+          "lib/BouncyCastle.Crypto.dll": {}
+        }
+      },
       "EPPlus/5.8.2": {
         "type": "package",
         "dependencies": {
@@ -24,6 +33,18 @@
         },
         "runtime": {
           "lib/netstandard2.1/EPPlus.dll": {}
+        }
+      },
+      "iTextSharp/5.5.13.2": {
+        "type": "package",
+        "dependencies": {
+          "BouncyCastle": "1.8.6.1"
+        },
+        "compile": {
+          "lib/itextsharp.dll": {}
+        },
+        "runtime": {
+          "lib/itextsharp.dll": {}
         }
       },
       "MaterialDesignColors/2.0.3": {
@@ -1328,6 +1349,19 @@
     }
   },
   "libraries": {
+    "BouncyCastle/1.8.6.1": {
+      "sha512": "rkqpuKmJkdcfTMBkIj1b5nMdBAWKwAyh+I/BQYeqqSD2jkIlhwc9qBNKmSbnpmmm5c29qHZGLpvBSTNWvDLtQA==",
+      "type": "package",
+      "path": "bouncycastle/1.8.6.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "bouncycastle.1.8.6.1.nupkg.sha512",
+        "bouncycastle.nuspec",
+        "lib/BouncyCastle.Crypto.dll"
+      ]
+    },
     "EPPlus/5.8.2": {
       "sha512": "3AlADk2p5+jBqmeoxzTtfmTGr86W0xS75octvw6eCUdE+L3/t7tgLvb5Sq18H7L7FpD0RNGdl0cfh1DIgeM5HQ==",
       "type": "package",
@@ -1352,6 +1386,22 @@
         "lib/netstandard2.1/EPPlus.xml",
         "license.md",
         "readme.txt"
+      ]
+    },
+    "iTextSharp/5.5.13.2": {
+      "sha512": "8m9oT1nh9F4Z1tzWUey/8lEzZtMGFCDXQY5+8/SSmPgUWAAAWniRo8pimKUZyteNqJr5vtFBxjAhRwLxG7Q0zQ==",
+      "type": "package",
+      "path": "itextsharp/5.5.13.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "gnu-agpl-v3.0.md",
+        "itextsharp.5.5.13.2.nupkg.sha512",
+        "itextsharp.nuspec",
+        "lib/iTextSharp.xml",
+        "lib/itextsharp.dll",
+        "notice.txt"
       ]
     },
     "MaterialDesignColors/2.0.3": {
@@ -4926,23 +4976,24 @@
       "MaterialDesignThemes >= 4.2.1",
       "System.Data.SqlClient >= 4.8.3",
       "System.Drawing.Common >= 5.0.0",
-      "System.Windows.Interactivity.WPF >= 2.0.20525"
+      "System.Windows.Interactivity.WPF >= 2.0.20525",
+      "iTextSharp >= 5.5.13.2"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\vuduc\\.nuget\\packages\\": {}
+    "C:\\Users\\813\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vuduc\\Documents\\GitHub\\WPF-FC-Management\\FCM\\FCM.csproj",
+      "projectUniqueName": "E:\\U\\SE100_PMHDT\\WPF-FC-Management\\FCM\\FCM.csproj",
       "projectName": "FCM",
-      "projectPath": "C:\\Users\\vuduc\\Documents\\GitHub\\WPF-FC-Management\\FCM\\FCM.csproj",
-      "packagesPath": "C:\\Users\\vuduc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vuduc\\Documents\\GitHub\\WPF-FC-Management\\FCM\\obj\\",
+      "projectPath": "E:\\U\\SE100_PMHDT\\WPF-FC-Management\\FCM\\FCM.csproj",
+      "packagesPath": "C:\\Users\\813\\.nuget\\packages\\",
+      "outputPath": "E:\\U\\SE100_PMHDT\\WPF-FC-Management\\FCM\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\vuduc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\813\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4991,6 +5042,10 @@
           "System.Windows.Interactivity.WPF": {
             "target": "Package",
             "version": "[2.0.20525, )"
+          },
+          "iTextSharp": {
+            "target": "Package",
+            "version": "[5.5.13.2, )"
           }
         },
         "imports": [
@@ -5011,11 +5066,31 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   },
   "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'BouncyCastle 1.8.6.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "BouncyCastle",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'iTextSharp 5.5.13.2' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "iTextSharp",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    },
     {
       "code": "NU1701",
       "level": "Warning",

@@ -66,7 +66,7 @@ namespace FCM.View
                 this.cbAsssist.Items.Add(getNumberAndNameOfPlayer(p));
             }
 
-            this.typeOfGoals = TypeOfGoalDAO.Instance.GetListTypeOfGoal();
+            this.typeOfGoals = TypeOfGoalDAO.Instance.GetListTypeOfGoal(team.idTournamnt);
 
             foreach (TypeOfGoal t in this.typeOfGoals)
             {

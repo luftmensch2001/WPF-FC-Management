@@ -133,5 +133,28 @@ namespace FCM.DAO
             DataTable db = DataProvider.Instance.ExecuteQuery(query);
             return (int)db.Rows[0]["id"];
         }
+        public int GetTeamIDByName(int idTournament, string teamName)
+        {
+            string query = "Select id From Teams where idTournaments = " + idTournament +
+                           " and DisplayName = N'" + teamName + "'";
+            DataTable db = DataProvider.Instance.ExecuteQuery(query);
+            return (int)db.Rows[0]["id"];
+        }
+        public List<Team> GetListTeamInBoard(int idTournament, string nameBoard)
+        {
+            List<Team> teams = new List<Team>();
+
+            string query = "Select* " +
+                            "From Teams " +
+                            "Where idTournaments = " + idTournament +
+                            " and nameBoard = N'" + nameBoard + "'";
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+            foreach (DataRow row in tb.Rows)
+            {
+                Team team = new Team(row);
+                teams.Add(team);
+            }
+            return teams;
+        }
     }
 }

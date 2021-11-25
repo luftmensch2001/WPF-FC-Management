@@ -17,9 +17,25 @@ namespace FCM.View
     /// </summary>
     public partial class AddGoalTypeWindow : Window
     {
+        public bool isAdd = false;
+        public int idTournament;
+        public string oldName;
         public AddGoalTypeWindow()
         {
             InitializeComponent();
         }
+        public AddGoalTypeWindow(MainWindow parameter, string nameGoalType)
+        {
+            InitializeComponent();
+            this.idTournament = parameter.league.id;
+            this.tbName.Text = nameGoalType;
+            this.oldName = nameGoalType;
+            if (nameGoalType == "")
+                isAdd = true;
+            this.tbName.SelectionStart = this.tbName.Text.Length;
+            this.tbName.Focus();
+        }
+
+
     }
 }

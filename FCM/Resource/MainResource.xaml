@@ -12,6 +12,8 @@
     <viewmodel:AddPlayerViewModel x:Key="AddPlayerVM"/>
     <viewmodel:PlayerViewModel x:Key="PlayerVM"/>
     <viewmodel:EditMatchInforViewModel x:Key="EditMatchInforVM"/>
+    <viewmodel:EditDialogViewModel x:Key="EditDialogVM"/>
+    <viewmodel:AddGoalTypeViewModel x:Key="AddGoalTypeVM"/>
 
     <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#222"/>
 

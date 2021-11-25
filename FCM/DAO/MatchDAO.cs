@@ -85,5 +85,43 @@ namespace FCM.DAO
             Match match = new Match(tb.Rows[0]);
             return match;
         }
+        public List<Match> GetListMatchStartedByIDTeamWithOrder(int idTournament, int idTeam01)
+        {
+            List<Match> matches = new List<Match>();
+
+            string query = "Select * From (" +
+                            "Select* " +
+                            "From Matchs " +
+                            "Where idTournaments = " + idTournament +
+                            " and isStarted = 1) lm" +
+                            " Where lm.IdTeam01 = " + idTeam01 +
+                            " or lm.IdTeam02 = " + idTeam01 +
+                            " Order by lm.Date, lm.Time";
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+            foreach (DataRow row in tb.Rows)
+            {
+                Match match = new Match(row);
+                matches.Add(match);
+            }
+            return matches;
+        }
+        public List<Match> GetListMatchStartedByID2Team(int idTournament, int idTeam01, int idTeam02)
+        {
+            List<Match> matches = new List<Match>();
+
+            string query = "Select* " +
+                            "From Matchs " +
+                            "Where idTournaments = " + idTournament +
+                            " and IdTeam01 = " + idTeam01 +
+                            " and IdTeam02 = " + idTeam02 +
+                            " Order by Date, Time";
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+            foreach (DataRow row in tb.Rows)
+            {
+                Match match = new Match(row);
+                matches.Add(match);
+            }
+            return matches;
+        }
     }
 }

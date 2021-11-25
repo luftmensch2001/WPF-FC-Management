@@ -171,7 +171,7 @@ namespace FCM.View
                 this.listSwitchedPlayerTeam1 = SwitchedPlayerDAO.Instance.GetListSwitchedPlayer(this.match.id, this.team1.id);
                 this.listSwitchedPlayerTeam2 = SwitchedPlayerDAO.Instance.GetListSwitchedPlayer(this.match.id, this.team2.id);
 
-                this.typeOfGoals = TypeOfGoalDAO.Instance.GetListTypeOfGoal();
+                this.typeOfGoals = TypeOfGoalDAO.Instance.GetListTypeOfGoal(team1.idTournamnt);
 
                 this.penaltyTeam1 = this.match.PenaltyTeam1;
                 this.penaltyTeam2 = this.match.PenaltyTeam2;

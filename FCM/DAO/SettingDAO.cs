@@ -27,9 +27,9 @@ namespace FCM.DAO
         }
         public void CreateSetting(int idTournament, int numberOfTeam)
         {
-            string query = "Insert into Settings (IdTournaments,NumberOfTeams,MinPlayerOfTeams,MaxPlayerOfTeams,MinAge,MaxAge,MaxNumberForeignPlayers,Score_win,Score_draw,Score_lose) " +
+            string query = "Insert into Settings (IdTournaments,NumberOfTeams,MinPlayerOfTeams,MaxPlayerOfTeams,MinAge,MaxAge,MaxNumberForeignPlayers,Score_win,Score_draw,Score_lose,NumberOfTeamsIn) " +
                          "Values (" + idTournament + "," + numberOfTeam +
-                         ",11,20,18,40,3,3,1,0)";
+                         ",11,20,18,40,3,3,1,0,2)";
             DataProvider.Instance.ExecuteQuery(query);
         }
         public void UpdateSetting(Setting setting)
@@ -60,6 +60,16 @@ namespace FCM.DAO
             string query = "Delete " +
                             "From Settings " +
                             "Where idTournaments = " + id;
+            DataProvider.Instance.ExecuteQuery(query);
+        }
+        public void EditSetting(int idTournament, string nameCol, string value)
+        {
+            string query = "Update Settings " +
+                            "Set " + nameCol +
+                            " = '" + value +
+                            "' " +
+                            "Where idTournaments = '" +
+                            idTournament + "'";
             DataProvider.Instance.ExecuteQuery(query);
         }
     }

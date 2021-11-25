@@ -75,5 +75,12 @@ namespace FCM.DAO
             }
             return count;
         }
+
+        public void AddToKOBoard(int idTournament, int idTeam)
+        {
+            string query = "Insert into TeamIntoNextQualifyingRound (idTournaments, idTeams) " +
+                         "Values ( " + idTournament + " , " + idTeam +  ")";
+            DataProvider.Instance.ExecuteQuery(query);
+        }
     }
 }

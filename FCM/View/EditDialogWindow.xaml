@@ -9,10 +9,11 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         x:Name="wdEditDialog"
-        DataContext=""
+        DataContext="{StaticResource EditDialogVM}"
         Icon="/Resource/Images/software-logo.png"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -33,18 +34,32 @@
                 VerticalAlignment="Top"
                 Height="45" Width="210" 
                 FontSize="14" Padding="10 13 0 0"
-                Margin="0 20 0 0"/>
+                Margin="0 20 0 0" InputScope="Number"/>
         </Grid>
         <Grid Grid.Row="1">
             <StackPanel Orientation="Horizontal" Width="210">
                 <Button 
                     x:Name="btnAccept"
                     Content="Xác nhận"
-                    Style="{StaticResource MyGreenButtonStyle}" />
+                    Style="{StaticResource MyGreenButtonStyle}" >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding EditDialogCommand}"
+                                                       CommandParameter="{Binding ElementName=wdEditDialog}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
                 <Button 
                     x:Name="btnCancel"
                     Content="Huỷ" Margin="10 0 0 0"
-                    Style="{StaticResource MyRedButtonStyle}" />
+                    Style="{StaticResource MyRedButtonStyle}" >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding CancelEditDialogCommand}"
+                                                       CommandParameter="{Binding ElementName=wdEditDialog}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
             </StackPanel>
         </Grid>
     </Grid>

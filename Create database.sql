@@ -140,17 +140,12 @@ Go
 Create Table TypeOfGoals
 (
 	Id int identity (1,1) primary key,
+	IdTournaments int,
 	DisplayName nvarchar(100)
+
+	foreign key (IdTournaments) references Tournaments(Id)
 )
 Go
-Insert into TypeOfGoals (DisplayName)
-values (N'Ghi bàn thông thường') 
-Insert into TypeOfGoals (DisplayName)
-values (N'Đánh đầu') 
-Insert into TypeOfGoals (DisplayName)
-values (N'Đá phạt trực tiếp') 
-Insert into TypeOfGoals (DisplayName)
-values (N'Penalty') 
 
 -- Bàn thắng -- 
 Create Table Goals
@@ -215,6 +210,7 @@ Create Table Settings
 	Score_win int,
 	Score_draw int,
 	Score_lose int,
+	NumberOfTeamsIn int,
 
 	foreign key (IdTournaments) references Tournaments(Id),
 )
