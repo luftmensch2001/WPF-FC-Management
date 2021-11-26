@@ -55,6 +55,9 @@
     <Compile Update="View\ChangePasswordWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\ConfirmDialogWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\EditDialogWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -136,6 +139,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\ChangePasswordWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\ConfirmDialogWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\EditDialogWindow.xaml">

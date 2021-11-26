@@ -756,7 +756,7 @@
                                 <materialDesign:PackIcon 
                                     Width="20"
                                     Height="20"
-                                    Kind="Bin"
+                                    Kind="DeleteOutline"
                                     Margin="0 0 8 0"/>
                                 <TextBlock Text="Xoá giải đấu" />
                             </StackPanel>
@@ -1040,7 +1040,7 @@ f
         <Grid
             x:Name="grdScheduleChart"
             Grid.Column="1"
-            Visibility="Visible">
+            Visibility="Hidden">
             <!--16 Teams-->
             <Grid
                 x:Name="grdSchedule16"
@@ -1839,7 +1839,7 @@ f
                                                 <materialDesign:PackIcon
                                                     Width="15"
                                                     Height="15"
-                                                    Kind="Bin"
+                                                    Kind="DeleteOutline"
                                                     Margin="0 0 4 0"/>
                                                 <TextBlock Text="Xoá đội" 
                                                     FontSize="12"/>
@@ -1994,7 +1994,7 @@ f
             x:Name="grdStandingScreen"
             Grid.Column="1"
             Background="#3a3a3a"
-            Visibility="Visible">
+            Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="4*"/>

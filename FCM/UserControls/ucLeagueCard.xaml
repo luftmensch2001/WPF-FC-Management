@@ -114,7 +114,7 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <materialDesign:PackIcon
-                            Kind="Bin"/>
+                            Kind="DeleteOutline"/>
                     </Button>
                 </Grid>
 

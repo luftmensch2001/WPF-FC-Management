@@ -95,7 +95,7 @@
                     <materialDesign:PackIcon
                             Width="15"
                             Height="15"
-                            Kind="Bin"/>
+                            Kind="DeleteOutline"/>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i:InvokeCommandAction Command="{Binding DeletePlayerCommand}"

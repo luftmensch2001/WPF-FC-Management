@@ -93,49 +93,23 @@
         </Grid>
 
         <Grid Grid.Column="8">
-            <StackPanel Margin="0 0 0 0">
-                <Button 
-                x:Name="btnEditInfor"
-                Style="{StaticResource MyGreenButtonStyle}"
-                Background="#4554ff"
-                Width="70"
-                Height="20"
-                MinWidth="0"
-                Padding="0">
-
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon
-                        Width="15"
-                        Height="15"
-                        Kind="Pencil"
-                        Margin="0 0 4 0"/>
-                        <TextBlock Text="Sửa" 
-                               FontSize="12"/>
-                    </StackPanel>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Click">
-                            <i:InvokeCommandAction Command="{Binding OpenEditMatchWindowCommand}"
-                                                       CommandParameter="{Binding ElementName=wcMatchDetailCard}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </Button>
-                
+            <StackPanel Margin="0 0 0 5">
                 <Button 
                 x:Name="btnRecordResult"
                 Style="{StaticResource MyGreenButtonStyle}"
                 Width="70"
-                Height="20"
+                Height="18"
                 MinWidth="0"
                 Padding="0">
 
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon
-                        Width="15"
-                        Height="15"
+                        Width="13"
+                        Height="13"
                         Kind="FileEdit"
                         Margin="0 0 4 0"/>
                         <TextBlock Text="Ghi KQ" 
-                               FontSize="12"/>
+                               FontSize="10"/>
                     </StackPanel>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
@@ -146,21 +120,47 @@
                 </Button>
                 
                 <Button 
-                x:Name="btnCancelResult"
-                Style="{StaticResource MyRedButtonStyle}"
+                x:Name="btnEditInfor"
+                Style="{StaticResource MyGreenButtonStyle}"
+                Background="#4554ff"
                 Width="70"
-                Height="20"
+                Height="18"
                 MinWidth="0"
                 Padding="0">
 
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon
-                        Width="15"
-                        Height="15"
-                        Kind="FileEdit"
+                        Width="13"
+                        Height="13"
+                        Kind="Pencil"
+                        Margin="0 0 4 0"/>
+                        <TextBlock Text="Sửa KQ" 
+                               FontSize="10"/>
+                    </StackPanel>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding OpenEditMatchWindowCommand}"
+                                                       CommandParameter="{Binding ElementName=wcMatchDetailCard}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+           
+                <Button 
+                x:Name="btnCancelResult"
+                Style="{StaticResource MyRedButtonStyle}"
+                Width="70"
+                Height="18"
+                MinWidth="0"
+                Padding="0">
+
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                        Width="13"
+                        Height="13"
+                        Kind="CloseBold"
                         Margin="0 0 4 0"/>
                         <TextBlock Text="Hủy KQ" 
-                               FontSize="12"/>
+                               FontSize="10"/>
                     </StackPanel>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
