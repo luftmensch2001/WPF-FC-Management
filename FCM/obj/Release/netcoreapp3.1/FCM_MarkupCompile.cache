@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-f:\clone\wpf-fc-management\FCM\obj\Release\netcoreapp3.1\
+F:\Clone\WPF-FC-Management\FCM\obj\Release\netcoreapp3.1\
 FCM
 none
 false
 TRACE;RELEASE;NETCOREAPP;NETCOREAPP3_1;
-f:\clone\wpf-fc-management\FCM\App.xaml
-27285526501
+F:\Clone\WPF-FC-Management\FCM\App.xaml
+28-1176843053
 
-70-649077321
-2091058842751
-MainWindow.xaml;Resource\ButtonStyle.xaml;Resource\MainResource.xaml;Resource\ScrollBarStyle.xaml;Resource\TextStyle.xaml;UserControls\ucCard.xaml;UserControls\ucFootballer.xaml;UserControls\ucGoal.xaml;UserControls\ucLeagueCard.xaml;UserControls\ucMatchDetail.xaml;UserControls\ucMatchDetailNoEdit.xaml;UserControls\ucPlayer.xaml;UserControls\ucSwitchedPlayers.xaml;UserControls\ucTeamButton.xaml;View\AddCardWindow.xaml;View\AddGoalTypeWindow.xaml;View\AddGoalWindow.xaml;View\AddLeagueWindow.xaml;View\AddPlayerWindow.xaml;View\AddTeamWindow.xaml;View\ChangePasswordWindow.xaml;View\EditDialogWindow.xaml;View\EditMatchInforWindow.xaml;View\LoginWindow.xaml;View\PenaltyWindow.xaml;View\ResultRecordingWindow.xaml;View\SwitchPlayersWindow.xaml;
+75608478034
+211-730957675
+MainWindow.xaml;Resource\ButtonStyle.xaml;Resource\MainResource.xaml;Resource\ScrollBarStyle.xaml;Resource\TextStyle.xaml;UserControls\ucCard.xaml;UserControls\ucFootballer.xaml;UserControls\ucGoal.xaml;UserControls\ucLeagueCard.xaml;UserControls\ucMatchDetail.xaml;UserControls\ucMatchDetailNoEdit.xaml;UserControls\ucPlayer.xaml;UserControls\ucSwitchedPlayers.xaml;UserControls\ucTeamButton.xaml;View\AddCardWindow.xaml;View\AddGoalTypeWindow.xaml;View\AddGoalWindow.xaml;View\AddLeagueWindow.xaml;View\AddPlayerWindow.xaml;View\AddTeamWindow.xaml;View\ChangePasswordWindow.xaml;View\ConfirmDialogWindow.xaml;View\EditDialogWindow.xaml;View\EditMatchInforWindow.xaml;View\LoginWindow.xaml;View\PenaltyWindow.xaml;View\ResultRecordingWindow.xaml;View\SwitchPlayersWindow.xaml;
 
 True
 

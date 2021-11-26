@@ -23,7 +23,7 @@ namespace FCM.DTO
             this.size = (int)row["size"];
             this.high = (int)row["high"];
             this.idFirstNode = (int)row["idFirstNode"];
-           
+
         }
         public TreeMatch(int idLeague, int size, List<int> idTeams)
         {
@@ -66,6 +66,30 @@ namespace FCM.DTO
             }
             NodeMatchDAO.Instance.CreateNodeMatch(nodeMatch);
             return NodeMatchDAO.Instance.GetNewestId();
+        }
+        public void CheckPriority(NodeMatch node)
+        {
+            if (node.idNodeLeft == -1 && node.idNodeRight == -1)
+                return;
+            NodeMatch nodeLeft = NodeMatchDAO.Instance.GetNodeById(node.idNodeLeft);
+            NodeMatch nodeRight = NodeMatchDAO.Instance.GetNodeById(node.idNodeRight);
+            CheckPriority(nodeLeft);
+            CheckPriority(nodeRight);
+            if (nodeLeft.idTeam == 0 && nodeRight.idTeam == 0)
+            {
+                node.idTeam = 0;
+                NodeMatchDAO.Instance.UpdateNode(node);
+            }
+            if (nodeRight.idTeam == 0 && nodeLeft.idTeam != -1)
+            {
+                node.idTeam = nodeLeft.idTeam;
+                NodeMatchDAO.Instance.UpdateNode(node);
+            }
+            if (nodeLeft.idTeam == 0 && nodeRight.idTeam != -1)
+            {
+                node.idTeam = nodeRight.idTeam;
+                NodeMatchDAO.Instance.UpdateNode(node);
+            }
         }
     }
 }

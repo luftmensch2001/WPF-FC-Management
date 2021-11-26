@@ -1,5 +1,5 @@
 ﻿
-Ff:\clone\wpf-fc-management\FCM\App.xaml;;
+FF:\Clone\WPF-FC-Management\FCM\App.xaml;;
 FF:\Clone\WPF-FC-Management\FCM\MainWindow.xaml;;
 FF:\Clone\WPF-FC-Management\FCM\Resource\MainResource.xaml;;
 FF:\Clone\WPF-FC-Management\FCM\UserControls\ucFootballer.xaml;;
@@ -16,6 +16,7 @@ FF:\Clone\WPF-FC-Management\FCM\View\AddLeagueWindow.xaml;;
 FF:\Clone\WPF-FC-Management\FCM\View\AddPlayerWindow.xaml;;
 FF:\Clone\WPF-FC-Management\FCM\View\AddTeamWindow.xaml;;
 FF:\Clone\WPF-FC-Management\FCM\View\ChangePasswordWindow.xaml;;
+FF:\Clone\WPF-FC-Management\FCM\View\ConfirmDialogWindow.xaml;;
 FF:\Clone\WPF-FC-Management\FCM\View\EditDialogWindow.xaml;;
 FF:\Clone\WPF-FC-Management\FCM\View\EditMatchInforWindow.xaml;;
 FF:\Clone\WPF-FC-Management\FCM\View\LoginWindow.xaml;;

@@ -52,8 +52,8 @@
                   Margin="0 20 0 0"
                   Panel.ZIndex="2">
                 <Image Source="/Resource/Images/software-logo.png" Panel.ZIndex="2"/>
-            </Grid>      
-            
+            </Grid>
+
             <!--Stack Panel Menu-->
             <StackPanel x:Name="stpMenu"
                         Margin="0 150 0 0">
@@ -63,8 +63,8 @@
                       Height="55"
                       Visibility="Visible"
                       Margin="0 0 0 0">
-                        
-                    
+
+
                     <materialDesign:PackIcon 
                         x:Name="icHome"
                         Kind="Home"
@@ -168,7 +168,7 @@
                             Padding="80 0 0 0"
                             HorizontalContentAlignment="Left"
                             VerticalContentAlignment="Center">
-                       
+
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
@@ -425,14 +425,14 @@
         </Grid>
         <!--End Menu Side Bar-->
         <!--#endregion-->
-        
-        <!--BEGIN MAIN SCREEN-->   
-        
+
+        <!--BEGIN MAIN SCREEN-->
+
         <!--#region HOME-->
 
         <Grid Grid.Column="1"
               x:Name="grdHomeScreen"
-              Visibility="Visible">
+              Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="260"/>
                 <RowDefinition Height="1"/>
@@ -473,7 +473,7 @@
                                FontWeight="Medium"/>
                 </Grid>
             </Grid>
-            
+
             <!--Line break-->
             <Grid Grid.Row="1" Background="#00A807"/>
 
@@ -494,14 +494,14 @@
                            FontWeight="SemiBold"
                            FontStyle="Italic"
                            Margin="20 20 70 20"/>
-     
+
                 <Border CornerRadius="10" 
                         Background="#00A807"
                         Width="900"
                         Height="50"
                         VerticalAlignment="Bottom"
                         Margin="0">
-                    
+
                     <Grid 
                           Width="900"
                           Height="50"
@@ -612,7 +612,7 @@
                 <RowDefinition Height="0.9*"/>
                 <RowDefinition Height="5*"/>
             </Grid.RowDefinitions>
-            
+
             <!--#region League infor-->
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
@@ -660,7 +660,7 @@
                 </Grid>
             </Grid>
             <!--#endregion-->
-            
+
             <!--#region HeaderBar League-->
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -668,7 +668,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition Width="3.5*"/>
                 </Grid.ColumnDefinitions>
-                 
+
                 <!--Search bar-->
                 <Grid Grid.Column="0"
                       Margin="30 0 0 0">
@@ -680,7 +680,7 @@
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                         VerticalAlignment="Center" />
                 </Grid>
-                
+
                 <!--Button search-->
                 <Grid Grid.Column="1"
                       Margin="20 0 0 0">
@@ -713,7 +713,7 @@
                 <Grid Grid.Column="2"
                       Margin="30 0 0 0">
                     <StackPanel Orientation="Horizontal">
-                    <Button x:Name="btnEditLeague"
+                        <Button x:Name="btnEditLeague"
                             Style="{StaticResource MyGreenButtonStyle}"
                             Background="#4554ff"
                             Width="140"
@@ -722,21 +722,21 @@
                             Margin="0 12 0 0"
                             HorizontalAlignment="Left">
 
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon 
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon 
                                     Width="20"
                                     Height="20"
                                     Kind="NoteEditOutline"
                                     Margin="0 0 8 0"/>
-                            <TextBlock Text="Sửa thông tin" />
-                        </StackPanel>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
+                                <TextBlock Text="Sửa thông tin" />
+                            </StackPanel>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
                                     <i:InvokeCommandAction Command="{Binding OpenEditLeagueWindowCommand}" 
                                                            CommandParameter="{Binding ElementName=wdHome}"/>
                                 </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </Button>
+                            </i:Interaction.Triggers>
+                        </Button>
                         <Button x:Name="btnDeleteLeague"
                             Style="{StaticResource MyRedButtonStyle}"
                             Width="130"
@@ -792,9 +792,9 @@
                     </Button>
                 </Grid>
             </Grid>
-            
+
             <!--#endregion-->
-            
+
             <!--#region Leagues List-->
             <Grid Grid.Row="3">
                 <Border Width="900"
@@ -820,16 +820,16 @@
                 </Border>
             </Grid>
             <!--#endregion-->
-            
+
         </Grid>
-        
+
         <!--#endregion-->
-        
+
         <!--#region SCHEDULE-->
         <Grid 
             x:Name="grdScheduleScreen"
             Grid.Column="1"
-            Visibility="Hidden">
+            Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="7*"/>
@@ -872,6 +872,12 @@
                         Height="40"
                         FontSize="15"
                         Margin="0 10 0 0">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding ViewScheduleNockOutCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </Button>
 
                     <ComboBox
@@ -880,7 +886,7 @@
                         Width="200"
                         HorizontalAlignment="Center"
                         Margin="0 10 0 0">
-f
+                        
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction Command="{Binding ChangeRoundCommand}"
@@ -901,8 +907,8 @@ f
                         Source="/Resource/Images/football.png"
                         Margin="0 0 60 0"/>
             </Grid>
-            <!--#endregion-->     
-            
+            <!--#endregion-->
+
             <!--#region Matches-->
             <Grid Grid.Row="2">
                 <StackPanel>
@@ -915,7 +921,7 @@ f
                             <Setter Property="FontWeight" Value="Medium"/>
                         </Style>
                     </StackPanel.Resources>
-                    
+
                     <Border CornerRadius="10" 
                         Background="#00A807"
                         Width="900"
@@ -938,7 +944,7 @@ f
                                 <ColumnDefinition Width="1.6*" />
                                 <ColumnDefinition Width="2*" />
                             </Grid.ColumnDefinitions>
-                            
+
                             <Grid Grid.Column="0">
                                 <TextBlock Text="STT" 
                                        Style="{StaticResource headerText}"/>
@@ -1044,7 +1050,7 @@ f
             <!--16 Teams-->
             <Grid
                 x:Name="grdSchedule16"
-                Visibility="Hidden">
+                Visibility="Visible">
                 <Image x:Name="imgSchedule16" Stretch="Fill" Source="/Resource/Images/16.png"/>
                 <!--Vòng 16 đội-->
                 <StackPanel
@@ -1628,7 +1634,7 @@ f
                     Text="Team Name"
                     Margin="0 395 157 0"/>
             </Grid>
-            
+
             <!--
                 Button 2 tác dụng. Cách dùng:
                 + Khi người dùng bấm vào "Xem biểu đồ" để vào màn hình, button có nhãn "Xem lịch thi đấu", bấm vào trở về màn hình list lịch thi đấu
@@ -1636,14 +1642,34 @@ f
             -->
             <Button
                 x:Name="btnScheduleChart"
-                Content="Xem lịch thi đấu"
+                Content="Tạo lịch thi đấu"
                 Style="{StaticResource MyGreenButtonStyle}"
                 Width="200" Margin="0 0 5 5"
-                VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+                VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding CreateScheduleNockOutCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Button
+                x:Name="btnCancelCreateScheduleChart"
+                Content="Hủy"
+                Style="{StaticResource MyRedButtonStyle}"
+                Width="100" Margin="0,0,210,5"
+                VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding CancelCreateScheduleCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
         </Grid>
-        
-        <!--#endregion-->  
-        
+
+        <!--#endregion-->
+
         <!--#region TEAMS-->
         <Grid 
             x:Name="grdTeamsScreen"
@@ -2199,7 +2225,7 @@ f
             <!--Menu-->
             <Grid Grid.Row="1">
                 <Grid  Width="360" Height="50">
-                <Rectangle 
+                    <Rectangle 
                     x:Name="rtStroke"
                     Fill="#52FF00" 
                     Height="5" Width="80" 
@@ -2218,7 +2244,7 @@ f
                                 Foreground="#52FF00"
                                 Width="120"
                                 BorderBrush="{x:Null}"
-                                FontWeight="SemiBold">  
+                                FontWeight="SemiBold">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Click">
                                         <i:InvokeCommandAction Command="{Binding SwitchTabStatisticsCommand}"
@@ -2278,7 +2304,7 @@ f
                             </Button>
                         </Grid>
                     </StackPanel>
-                    
+
                 </Grid>
                 <Button
                     x:Name="btnExportStatistics"
@@ -2898,7 +2924,7 @@ f
                     </StackPanel>
                 </Button>
             </StackPanel>
-            
+
         </Grid>
         <!--#endregion-->
 
@@ -2950,6 +2976,6 @@ f
             </Grid>
         </Grid>
         <!--#endregion-->
-           
+
     </Grid>
 </Window>

@@ -22,15 +22,15 @@ namespace FCM.DAO
             DataTable db = DataProvider.Instance.ExecuteQuery(query);
             return (int)db.Rows[0]["id"];
         }
-        public void CreateNodeMatch(NodeMatch nodeMatch )
+        public void CreateNodeMatch(NodeMatch nodeMatch)
         {
             string query = "Insert into NodeMatch(idTree,idTeam,idNodeLeft,idNodeRight,high) " +
-                           " Values ("  +
-                           " "+ nodeMatch.idTree + ", "+
-                           " "+ nodeMatch.idTeam + ", "+
-                           " "+ nodeMatch.idNodeLeft + ", "+
-                           " "+ nodeMatch.idNodeRight + ", "+
-                           " "+ nodeMatch.high + " "+
+                           " Values (" +
+                           " " + nodeMatch.idTree + ", " +
+                           " " + nodeMatch.idTeam + ", " +
+                           " " + nodeMatch.idNodeLeft + ", " +
+                           " " + nodeMatch.idNodeRight + ", " +
+                           " " + nodeMatch.high + " " +
                            ")  ";
             DataTable db = DataProvider.Instance.ExecuteQuery(query);
         }
@@ -38,8 +38,19 @@ namespace FCM.DAO
         {
 
             string query = "Select * " +
-                            " Form NodeMatch" +
+                            " From NodeMatch" +
                             " Where idTree = " + idTree;
+
+            DataTable db = DataProvider.Instance.ExecuteQuery(query);
+
+            return new NodeMatch(db.Rows[0]);
+        }
+        public NodeMatch GetNodeById(int id)
+        {
+
+            string query = "Select * " +
+                            " From NodeMatch" +
+                            " Where id = " + id;
 
             DataTable db = DataProvider.Instance.ExecuteQuery(query);
 
@@ -56,6 +67,13 @@ namespace FCM.DAO
             string query = "Update NodeMatch " +
                         " Set idTree  =" + idTree + "" +
                         " Where idTree = -1";
+            DataProvider.Instance.ExecuteQuery(query);
+        }
+        public void UpdateNode(NodeMatch node)
+        {
+            string query = "Update NodeMatch " +
+                        " Set idTeam  =" + node.idTeam + "" +
+                        " Where id = "+ node.id;
             DataProvider.Instance.ExecuteQuery(query);
         }
     }

@@ -19,10 +19,10 @@ namespace FCM.DAO
         {
             string query = "Insert into TreeMatch(idleague, size, high,idFirstNode) " +
                         " Values (   " + " " +
-                        "  "+tree.idLeague +", " +
-                        "  "+tree.size +", " +
-                        "  "+tree.high +", " +
-                        "  "+tree.idFirstNode +" " +
+                        "  " + tree.idLeague + ", " +
+                        "  " + tree.size + ", " +
+                        "  " + tree.high + ", " +
+                        "  " + tree.idFirstNode + " " +
                         ")  ";
             DataTable db = DataProvider.Instance.ExecuteQuery(query);
         }
@@ -38,6 +38,14 @@ namespace FCM.DAO
                             " From TreeMatch  ";
             DataTable db = DataProvider.Instance.ExecuteQuery(query);
             return (int)db.Rows[0]["id"];
+        }
+        public TreeMatch GetTree(int idLeague)
+        {
+            string query = "Select * " +
+                            " From TreeMatch " +
+                            " Where idleague = " + idLeague;
+            DataTable db = DataProvider.Instance.ExecuteQuery(query);
+            return new TreeMatch(db.Rows[0]);
         }
     }
 }

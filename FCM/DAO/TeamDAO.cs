@@ -30,10 +30,10 @@ namespace FCM.DAO
         {
             string query = "Select count(id) as count " +
                          "From Teams " +
-                         "Where nameBoard= '" +nameBoard +"'";
+                         "Where nameBoard= '" + nameBoard + "'";
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
             return (int)tb.Rows[0]["count"];
-            
+
         }
 
         public int GetPlayerCountOfTeam(int id)
@@ -44,13 +44,14 @@ namespace FCM.DAO
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
             return tb.Rows.Count;
         }
-        public List<Team> GetListTeam(string nameBoard)
+        public List<Team> GetListTeam(string nameBoard, int idTournament)
         {
             List<Team> teams = new List<Team>();
 
             string query = "Select* " +
                             "From Teams " +
-                            "Where nameBoard = N'" + nameBoard + "'";
+                            "Where nameBoard = N'" + nameBoard + "' " +
+                            " and idTournaments = " + idTournament;
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
             foreach (DataRow row in tb.Rows)
             {
@@ -92,10 +93,10 @@ namespace FCM.DAO
             foreach (Team team in teams)
             {
                 PlayerDAO.Instance.DeletePlayerInTeam(team.id);
-            }    
+            }
             string query = "Delete " +
                             "From Teams " +
-                            "Where idTournaments = " + idTournament +"" +
+                            "Where idTournaments = " + idTournament + "" +
                             " and id = " + id;
             DataProvider.Instance.ExecuteQuery(query);
         }
@@ -139,22 +140,6 @@ namespace FCM.DAO
                            " and DisplayName = N'" + teamName + "'";
             DataTable db = DataProvider.Instance.ExecuteQuery(query);
             return (int)db.Rows[0]["id"];
-        }
-        public List<Team> GetListTeamInBoard(int idTournament, string nameBoard)
-        {
-            List<Team> teams = new List<Team>();
-
-            string query = "Select* " +
-                            "From Teams " +
-                            "Where idTournaments = " + idTournament +
-                            " and nameBoard = N'" + nameBoard + "'";
-            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
-            foreach (DataRow row in tb.Rows)
-            {
-                Team team = new Team(row);
-                teams.Add(team);
-            }
-            return teams;
         }
     }
 }
