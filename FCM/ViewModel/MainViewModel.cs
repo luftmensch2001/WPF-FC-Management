@@ -781,6 +781,11 @@ namespace FCM.ViewModel
         }
         public void CreateScheduleNockOut(MainWindow mainWindow)
         {
+            if (mainWindow.btnCancelCreateScheduleChart.Visibility == Visibility.Hidden)
+            {
+                OpenScheduleMatch(mainWindow);
+                return;
+            }
             int size = 0;
             if (mainWindow.league.countTeam <= 16)
                 size = 16;
@@ -942,7 +947,6 @@ namespace FCM.ViewModel
         }
         public void ViewSchedule(MainWindow mainWindow)
         {
-            MessageBox.Show("View");
             TreeMatch treeMatch = TreeMatchDAO.Instance.GetTree(mainWindow.league.id);
             int size = 0;
             if (mainWindow.league.countTeam <= 16)
@@ -1083,7 +1087,6 @@ namespace FCM.ViewModel
                 {
                     textBlocks[0].Text = "Ưu tiên";
                     textBlocks.RemoveAt(0);
-                    MessageBox.Show("4");
                 }
                 else
                 {

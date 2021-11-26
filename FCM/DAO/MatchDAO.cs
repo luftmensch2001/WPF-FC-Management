@@ -18,7 +18,7 @@ namespace FCM.DAO
 
         public void AddMatch(Match match)
         {
-            string query = "Insert into Matchs (IdTournaments,IdTeam01,IdTeam02,Date,Time,Round,Stadium ) " +
+            string query = "Insert into Matchs (IdTournaments,IdTeam01,IdTeam02,Date,Time,Round,Stadium,allowDraw ) " +
                          "Values (  " +
                          "N'" + match.idTournaments + "' ," +
                          "N'" + match.idTeam01 + "' ," +
@@ -26,7 +26,8 @@ namespace FCM.DAO
                          "N'" + match.date.ToString("yyyy-MM-dd HH:mm:ss") + "' ," +
                          "N'" + match.time.ToString("yyyy-MM-dd HH:mm:ss") + "' ," +
                          "N'" + match.round + "' ," +
-                         "N'" + match.statium + "'" +
+                         "N'" + match.statium + "' ," +
+                         "N'" + match.allowDraw + "'" +
                          ")";
             DataProvider.Instance.ExecuteQuery(query);
         }

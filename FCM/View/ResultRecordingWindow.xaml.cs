@@ -146,6 +146,12 @@ namespace FCM.View
             setCardInfor();
 
             LoadLineups(0);
+
+            if (match.allowDraw)
+            {
+                btnEditPenalty.Visibility = Visibility.Hidden;
+                tblPenaltyScore.Visibility = Visibility.Hidden;
+            }
         }
         void GetDataFromDatabase()
         {
@@ -221,18 +227,21 @@ namespace FCM.View
         {
             if (this.match.allowDraw == false)
             {
-                if (isDraw())
+                if (ScoreTeam1 == ScoreTeam2 && penaltyTeam1 == penaltyTeam2)
                 {
                     MessageBox.Show("Trận đấu này yêu cầu không được có kết quả hòa!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
-                } else
-                {
-                    if (this.penaltyTeam1 != 0 || this.penaltyTeam2 != 0)
-                    {
-                        MessageBox.Show("Kết quả hiện tại không hòa\nDo đó kết quả luân lưu phải là 0 - 0!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
-                }    
+                }
+                int idTeamWin = 0;
+                if (ScoreTeam1 > ScoreTeam2)
+                    idTeamWin = team1.id;
+                if (ScoreTeam2 > ScoreTeam1)
+                    idTeamWin = team2.id;
+                if (ScoreTeam2 == ScoreTeam1 && penaltyTeam1>penaltyTeam2)
+                    idTeamWin = team1.id;
+                else
+                    idTeamWin = team2.id;
+                NodeMatchDAO.Instance.UpdateNode(team1.idTournamnt, team1.id, team2.id, idTeamWin);
             }
 
 

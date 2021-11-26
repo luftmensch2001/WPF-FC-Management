@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using FCM.DTO;
+using System.Windows;
 
 namespace FCM.DAO
 {
@@ -75,6 +76,44 @@ namespace FCM.DAO
                         " Set idTeam  =" + node.idTeam + "" +
                         " Where id = "+ node.id;
             DataProvider.Instance.ExecuteQuery(query);
+        }
+        public void UpdateNode(int idLeague, int idTeamLeft, int idTeamRight, int idTeamWin)
+        {
+            TreeMatch treeMatch = TreeMatchDAO.Instance.GetTree(idLeague);
+            string query = "SELECT ID " +
+                       " FROM NODEMATCH "+ 
+                       " Where idTEAM = " + idTeamLeft +"" +
+                       " and idTree = " +treeMatch.id;
+            DataTable dbTeamLeft = DataProvider.Instance.ExecuteQuery(query);
+
+            query = "SELECT ID " +
+                       " FROM NODEMATCH " +
+                       " Where idTEAM = " + idTeamRight + "" +
+                        " and idTree = " + treeMatch.id;
+            DataTable dbTeamRight = DataProvider.Instance.ExecuteQuery(query);
+            foreach (DataRow dataRowTeamLeft in dbTeamLeft.Rows)
+            {
+                foreach (DataRow dataRowTeamRight in dbTeamRight.Rows)
+                {
+                    query = "SELECT ID " +
+                      " FROM NODEMATCH " +
+                      " Where idNodeLeft = " + (int)dataRowTeamLeft["id"] + "" +
+                      " And idNodeRight = " + (int)dataRowTeamRight["id"] + "" +
+                       " and idTree = " + treeMatch.id;
+                    DataTable dbNode = DataProvider.Instance.ExecuteQuery(query);
+                    if (dbNode.Rows.Count>0)
+                    {
+                        NodeMatch node = GetNodeById((int)dbNode.Rows[0]["id"]);
+                        node.idTeam = idTeamWin;
+                        UpdateNode(node);
+                        TreeMatch tree = TreeMatchDAO.Instance.GetTree(idLeague);
+                        tree.CheckPriority(NodeMatchDAO.Instance.GetNodeById(tree.idFirstNode));
+                        return;
+                    }
+                }    
+            }
+
+
         }
     }
 }
