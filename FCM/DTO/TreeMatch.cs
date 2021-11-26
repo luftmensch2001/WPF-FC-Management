@@ -65,6 +65,16 @@ namespace FCM.DTO
                 idTeams.RemoveAt(0);
             }
             NodeMatchDAO.Instance.CreateNodeMatch(nodeMatch);
+            if (high == this.high - 1)
+            {
+                NodeMatch nodeLeft = NodeMatchDAO.Instance.GetNodeById(nodeMatch.idNodeLeft);
+                NodeMatch nodeRight = NodeMatchDAO.Instance.GetNodeById(nodeMatch.idNodeRight);
+                if (nodeLeft.idTeam != 0 && nodeRight.idTeam != 0)
+                {
+                    Match match = new Match(this.idLeague, nodeLeft.idTeam, nodeRight.idTeam, -2, "null",false);
+                    MatchDAO.Instance.AddMatch(match);
+                }
+            }
             return NodeMatchDAO.Instance.GetNewestId();
         }
         public void CheckPriority(NodeMatch node)

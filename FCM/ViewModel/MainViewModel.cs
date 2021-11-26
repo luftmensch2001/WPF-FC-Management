@@ -777,6 +777,7 @@ namespace FCM.ViewModel
         {
             mainWindow.grdScheduleScreen.Visibility = Visibility.Visible;
             mainWindow.grdScheduleChart.Visibility = Visibility.Hidden;
+            LoadListMatch(mainWindow, 0);
         }
         public void CreateScheduleNockOut(MainWindow mainWindow)
         {
@@ -932,7 +933,6 @@ namespace FCM.ViewModel
                         break;
                 }
                 OpenScheduleMatch(mainWindow);
-                
             }
             catch
             {

@@ -77,6 +77,18 @@ namespace FCM.DTO
             this.round = round;
             this.statium = stadium;
         }
+        public Match(int idTournaments, int idTeam01, int idTeam02, int round, string stadium, bool allowDraw)
+        {
+            this.idTournaments = idTournaments;
+            this.idTeam01 = idTeam01;
+            this.idTeam02 = idTeam02;
+            this.round = round;
+            this.statium = stadium;
+            this.allowDraw = allowDraw;
+            this.isStarted = false;
+            this.date = DateTime.Today;
+            this.time = DateTime.Today;
+        }
         //public Match(int idTournaments, int idTeam01, int idTeam02, int round, string stadium, int penaltyTeam1, int penaltyTeam2)
         //{
         //    this.idTournaments = idTournaments;
