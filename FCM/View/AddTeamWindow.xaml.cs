@@ -72,6 +72,12 @@ namespace FCM.View
             }
             if (team != null)
                 this.cbGroups.Text = team.nameBoard;
+
+            if (cbGroups.Items.Count==1)
+            {
+                cbGroups.SelectedIndex = 0;
+                cbGroups.Visibility = Visibility.Hidden;
+            }
         }
     }
 }

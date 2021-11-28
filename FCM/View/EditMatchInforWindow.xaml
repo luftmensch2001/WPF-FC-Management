@@ -64,6 +64,7 @@
                                FontWeight="Medium"
                                Margin="0 0 10 0"/>
                     <materialDesign:TimePicker
+                        
                             x:Name="tpTime"
                             Is24Hours="True"
                             Width="100"

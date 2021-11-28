@@ -3,6 +3,7 @@ using System.Data;
 using System.Collections.Generic;
 using System.Text;
 using FCM.DAO;
+using System.Windows;
 
 namespace FCM.DTO
 {
@@ -31,10 +32,10 @@ namespace FCM.DTO
             if (size <= 4)
                 size = 4;
             else
-                if (size < 8)
+                if (size <= 8)
                 size = 8;
             else
-                if (size < 16)
+                if (size <= 16)
                 size = 16;
             this.size = size;
             this.idTeams = idTeams;
@@ -51,31 +52,59 @@ namespace FCM.DTO
                     break;
             }
             this.idFirstNode = CreateTree(1);
+            NodeMatch firstNode = NodeMatchDAO.Instance.GetNodeById(this.idFirstNode);
+            CheckPriority(firstNode);
+            CreateMatch(firstNode);
         }
         public int CreateTree(int high)
         {
+            if (high > this.high)
+                return -1;
             NodeMatch nodeMatch;
             if (high < this.high)
             {
-                nodeMatch = new NodeMatch(-1, -1, CreateTree(high + 1), CreateTree(high + 1), high);
+                nodeMatch = new NodeMatch(-1, -1, CreateTree(high + 1), CreateTree(high + 1), high, -1);
+                NodeMatchDAO.Instance.CreateNodeMatch(nodeMatch);
             }
             else
             {
-                nodeMatch = new NodeMatch(-1, idTeams[0], -1, -1, high);
-                idTeams.RemoveAt(0);
-            }
-            NodeMatchDAO.Instance.CreateNodeMatch(nodeMatch);
-            if (high == this.high - 1)
-            {
-                NodeMatch nodeLeft = NodeMatchDAO.Instance.GetNodeById(nodeMatch.idNodeLeft);
-                NodeMatch nodeRight = NodeMatchDAO.Instance.GetNodeById(nodeMatch.idNodeRight);
-                if (nodeLeft.idTeam != 0 && nodeRight.idTeam != 0)
+                if (idTeams.Count > 0)
                 {
-                    Match match = new Match(this.idLeague, nodeLeft.idTeam, nodeRight.idTeam, -2, "null",false);
-                    MatchDAO.Instance.AddMatch(match);
+                    nodeMatch = new NodeMatch(-1, idTeams[0], -1, -1, high, -1);
+                    NodeMatchDAO.Instance.CreateNodeMatch(nodeMatch);
+                    idTeams.RemoveAt(0);
                 }
             }
+
             return NodeMatchDAO.Instance.GetNewestId();
+        }
+        public void CreateMatch(NodeMatch node)
+        {
+            if (node.idNodeLeft == -1 && node.idNodeRight == -1)
+                return;
+            NodeMatch nodeLeft = NodeMatchDAO.Instance.GetNodeById(node.idNodeLeft);
+            NodeMatch nodeRight = NodeMatchDAO.Instance.GetNodeById(node.idNodeRight);
+            CreateMatch(nodeLeft);
+            CreateMatch(nodeRight);
+            if (node.idTeam == -1 && nodeLeft.idTeam > 0 && nodeRight.idTeam > 0)
+            {
+                Match match = new Match(this.idLeague, nodeLeft.idTeam, nodeRight.idTeam, -1 * node.high, "", false);
+                if (!MatchDAO.Instance.IsExist(match))
+                {
+                    MatchDAO.Instance.AddMatch(match);
+                    int matchId = MatchDAO.Instance.GetNewestMatchid();
+                    nodeLeft.idMatch = matchId;
+                    nodeRight.idMatch = matchId;
+                    NodeMatchDAO.Instance.UpdateNode(nodeLeft);
+                    NodeMatchDAO.Instance.UpdateNode(nodeRight);
+                }
+            }
+            if (node.idTeam > 0 && (nodeLeft.idTeam == -1 || nodeRight.idTeam == -1))
+            {
+                node.idTeam = -1;
+                MatchDAO.Instance.DeleteMatch(node.idMatch);
+                NodeMatchDAO.Instance.UpdateNode(node);
+            }
         }
         public void CheckPriority(NodeMatch node)
         {
@@ -100,6 +129,34 @@ namespace FCM.DTO
                 node.idTeam = nodeRight.idTeam;
                 NodeMatchDAO.Instance.UpdateNode(node);
             }
+        }
+        public void DeleteNode(NodeMatch node, int idMatch)
+        {
+            if (node.idNodeLeft == -1 || node.idNodeRight == -1)
+                return;
+            NodeMatch nodeLeft = NodeMatchDAO.Instance.GetNodeById(node.idNodeLeft);
+            NodeMatch nodeRight = NodeMatchDAO.Instance.GetNodeById(node.idNodeRight);
+            DeleteNode(nodeLeft, idMatch);
+            DeleteNode(nodeRight, idMatch);
+            if (nodeLeft.idMatch == idMatch || nodeRight.idMatch == idMatch)
+            {
+                node.idTeam = -1;
+                if (node.idMatch != -1)
+                {
+                    MatchDAO.Instance.DeleteMatch(node.idMatch);
+                }
+
+                node.idMatch = -1;
+                NodeMatchDAO.Instance.UpdateNode(node);
+                CreateMatch(NodeMatchDAO.Instance.GetNodeById(idFirstNode));
+            }
+            if (node.idTeam == -1 && node.idMatch != -1)
+            {
+                node.idMatch = -1;
+                NodeMatchDAO.Instance.UpdateNode(node);
+                MatchDAO.Instance.DeleteMatch(node.idMatch);
+            }
+
         }
     }
 }

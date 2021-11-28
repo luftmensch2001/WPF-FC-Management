@@ -235,7 +235,8 @@ Create Table NodeMatch
 	idNodeLeft int,
 	idNodeRight int,
 	high int,
-	idTeam int
+	idTeam int,
+	idMatch int
 )
 GO
 

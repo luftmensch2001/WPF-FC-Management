@@ -40,30 +40,45 @@ namespace FCM.UserControls
             this.tblSTT.Text = stt.ToString();
             this.tblDate.Text = match.date.ToString("dd/MM/yyyy");
             this.tblTime.Text = match.time.ToString("HH:mm");
+            if (tblDate.Text == "11/11/2000")
+            {
+                tblDate.Text = "--/--/----";
+                tblTime.Text = "--:--";
+                btnRecordResult.IsEnabled = false;
+            }
             this.tblTeam1.Text = TeamDAO.Instance.GetTeamById(match.idTeam01).nameTeam;
-            
+
             this.tblTeam2.Text = TeamDAO.Instance.GetTeamById(match.idTeam02).nameTeam;
             this.tblStadium.Text = MatchDAO.Instance.getMatchByID(match.id).statium.ToString();
             this.tblRound.Text = MatchDAO.Instance.getMatchByID(match.id).round.ToString();
-
-            if (match.isStarted == false)
+            switch(tblRound.Text)
             {
-                this.tblScore.Text = "Chưa diễn ra";
-            }    
+                case "-1":
+                    tblRound.Text = "Chung kết";
+                    break;
+                case "-2":
+                    tblRound.Text = "Bán kết";
+                    break;
+                case "-3":
+                    tblRound.Text = "Tứ kết";
+                    break;
+                case "-4":
+                    tblRound.Text = "1/8";
+                    break;
+
+            }
+
+
+            if (tblStadium.Text == "")
+                tblStadium.Text = "-";
+
+            if (match.Score1 == -1 && match.Score2 == -1)
+            {
+                this.tblScore.Text = "-- - --";
+                btnCancelResult.IsEnabled = false;
+            }
             else
-            {
-                // Tính tỉ số
-                int score1 = 0;
-                int score2 = 0;
-
-                List<Goal> g1 = GoalDAO.Instance.GetListGoals(match.id, match.idTeam01);
-                List<Goal> g2 = GoalDAO.Instance.GetListGoals(match.id, match.idTeam02);
-
-                score1 = g1.Count;
-                score2 = g2.Count;
-
-                this.tblScore.Text = score1 + " - " + score2;
-            }    
+                this.tblScore.Text = match.Score1 + " - " + match.Score2;
         }
     }
 }

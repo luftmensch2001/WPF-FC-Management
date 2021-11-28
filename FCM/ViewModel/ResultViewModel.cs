@@ -174,9 +174,11 @@ namespace FCM.ViewModel
         }
         public void SaveUpdateResultInfor(ResultRecordingWindow parameter)
         {
-            parameter.UpdateDatabase();
-            MessageBox.Show("Lưu thông tin mới thành công", "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
-            parameter.Close();
+            if (parameter.UpdateDatabase())
+            {
+                MessageBox.Show("Lưu thông tin mới thành công", "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+                parameter.Close();
+            }
         }
         public void AddCardTeam1(ResultRecordingWindow parameter)
         {

@@ -16,18 +16,35 @@ namespace FCM.DAO
             set => instance = value;
         }
 
+        //public void AddMatch(Match match)
+        //{
+        //    string query = "Insert into Matchs (IdTournaments,IdTeam01,IdTeam02,Date,Time,Round,Stadium,allowDraw ) " +
+        //                 "Values (  " +
+        //                 "N'" + match.idTournaments + "' ," +
+        //                 "N'" + match.idTeam01 + "' ," +
+        //                 "N'" + match.idTeam02 + "' ," +
+        //                 "N'" + match.date.ToString("yyyy-MM-dd HH:mm:ss") + "' ," +
+        //                 "N'" + match.time.ToString("yyyy-MM-dd HH:mm:ss") + "' ," +
+        //                 "N'" + match.round + "' ," +
+        //                 "N'" + match.statium + "' ," +
+        //                 "N'" + match.allowDraw + "'" +
+        //                 ")";
+        //    DataProvider.Instance.ExecuteQuery(query);
+        //}
         public void AddMatch(Match match)
         {
-            string query = "Insert into Matchs (IdTournaments,IdTeam01,IdTeam02,Date,Time,Round,Stadium,allowDraw ) " +
+            string query = "Insert into Matchs (IdTournaments,IdTeam01,IdTeam02,Date,Time,Round,Stadium,allowDraw,score1,score2 ) " +
                          "Values (  " +
                          "N'" + match.idTournaments + "' ," +
                          "N'" + match.idTeam01 + "' ," +
                          "N'" + match.idTeam02 + "' ," +
-                         "N'" + match.date.ToString("yyyy-MM-dd HH:mm:ss") + "' ," +
-                         "N'" + match.time.ToString("yyyy-MM-dd HH:mm:ss") + "' ," +
+                         "N'" + "2000-11-11" + "' ," +
+                         "N'" + "00:00:00" + "' ," +
                          "N'" + match.round + "' ," +
                          "N'" + match.statium + "' ," +
-                         "N'" + match.allowDraw + "'" +
+                         "N'" + match.allowDraw + "'," +
+                         " -1 ," +
+                         " -1 " +
                          ")";
             DataProvider.Instance.ExecuteQuery(query);
         }
@@ -123,6 +140,77 @@ namespace FCM.DAO
                 matches.Add(match);
             }
             return matches;
+        }
+        public bool IsExist(Match match)
+        {
+            string query = "Select* " +
+                            "From Matchs " +
+                            "Where idTournaments = " + match.idTournaments +
+                            " and IdTeam01 = " + match.idTeam01 +
+                            " and IdTeam02 = " + match.idTeam02 +
+                            " and allowDraw = '" + match.allowDraw + "'";
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+            if (tb.Rows.Count > 0)
+                return true;
+            return false;
+        }
+        public int GetNewestMatchid()
+        {
+            string query = "SELECT MAX(Id) as id FROM Matchs";
+            DataTable db = DataProvider.Instance.ExecuteQuery(query);
+            return (int)db.Rows[0]["id"];
+        }
+        public void DeleteMatch(int id)
+        {
+            LineupsDAO.Instance.DeleteLineupsByMatchID(id);
+            GoalDAO.Instance.DeleteGoalByMatchID(id);
+            string query = "Delete Matchs " +
+                "  where id = " + id;
+            DataProvider.Instance.ExecuteQuery(query);
+        }
+        public DateTime MaxTimeBoard(Match match)
+        {
+            string query = " Select max(date) as date " +
+                            " From Matchs " +
+                            " Where idTournaments = " + match.idTournaments + " " +
+                            " And allowDraw ='true' ";
+
+            DateTime dateTime = DateTime.Now;
+
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+            dateTime = (DateTime)tb.Rows[0]["date"];
+            return dateTime;
+        }
+        public DateTime MaxTimeNockOut(Match match)
+        {
+            string query = " Select max(date) as date " +
+                            " From Matchs " +
+                            " Where idTournaments = " + match.idTournaments + " " +
+                            " And round < " + match.round;
+
+            DateTime dateTime = DateTime.Now;
+
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+            if (tb.Rows[0]["date"] == DBNull.Value)
+            {
+                return LeagueDAO.Instance.GetLeagueById(match.idTournaments).dateTime;
+            }
+            dateTime = (DateTime)tb.Rows[0]["date"];
+            return dateTime;
+        }
+        public bool IsExistTimeMatch(Match match)
+        {
+            string query = " Select date " +
+                            " From Matchs " +
+                            " Where idTournaments = " + match.idTournaments;
+
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+            foreach (DataRow dataRow in tb.Rows)
+            {
+                if (((DateTime)dataRow["date"]).ToString("dd/MM/yyyy") == match.date.ToString("dd/MM/yyyy"))
+                    return true;
+            }
+            return false;
         }
     }
 }

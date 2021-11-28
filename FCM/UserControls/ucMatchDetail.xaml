@@ -92,7 +92,7 @@
             <Rectangle Height="30" Width="1" Fill="Gray" HorizontalAlignment="Right"/>
         </Grid>
 
-        <Grid Grid.Column="8">
+        <Grid Grid.Column="8" Height="70" VerticalAlignment="Top">
             <StackPanel Margin="0 0 0 5">
                 <Button 
                 x:Name="btnRecordResult"
@@ -134,7 +134,7 @@
                         Height="13"
                         Kind="Pencil"
                         Margin="0 0 4 0"/>
-                        <TextBlock Text="Sửa KQ" 
+                        <TextBlock Text="Sửa TT" 
                                FontSize="10"/>
                     </StackPanel>
                     <i:Interaction.Triggers>

@@ -48,11 +48,11 @@ namespace FCM.View
         public int ScoreTeam1 = 0;
         public int ScoreTeam2 = 0;
 
-        public ResultRecordingWindow() 
+        public ResultRecordingWindow()
         {
             InitializeComponent();
         }
-       
+
         public ResultRecordingWindow(Match match)
         {
             InitializeComponent();
@@ -66,7 +66,7 @@ namespace FCM.View
                 if (listCardsTeam1[i].idPlayer == p.id && listCardsTeam1[i].typeOfCard == "Thẻ đỏ")
                 {
                     return Int32.Parse(listCardsTeam1[i].time);
-                }    
+                }
             }
             for (int i = 0; i < listCardsTeam2.Count; i++)
             {
@@ -133,7 +133,7 @@ namespace FCM.View
             this.cbSelectedTeam.Items.Add(team1.nameTeam);
             this.cbSelectedTeam.Items.Add(team2.nameTeam);
             this.cbSelectedTeam.SelectedIndex = 0;
-           
+
             this.wpCardsTeam1.Children.Clear();
             this.wpCardsTeam2.Children.Clear();
 
@@ -149,8 +149,8 @@ namespace FCM.View
 
             if (match.allowDraw)
             {
-                btnEditPenalty.Visibility = Visibility.Hidden;
-                tblPenaltyScore.Visibility = Visibility.Hidden;
+                grdPenalty.Visibility = Visibility.Hidden;
+
             }
         }
         void GetDataFromDatabase()
@@ -223,25 +223,29 @@ namespace FCM.View
 
         }
         // Cập nhật dữ liệu mới
-        public void UpdateDatabase()
+        public bool UpdateDatabase()
         {
             if (this.match.allowDraw == false)
             {
                 if (ScoreTeam1 == ScoreTeam2 && penaltyTeam1 == penaltyTeam2)
                 {
                     MessageBox.Show("Trận đấu này yêu cầu không được có kết quả hòa!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
+                    return false;
                 }
+
                 int idTeamWin = 0;
                 if (ScoreTeam1 > ScoreTeam2)
                     idTeamWin = team1.id;
+                else
                 if (ScoreTeam2 > ScoreTeam1)
                     idTeamWin = team2.id;
-                if (ScoreTeam2 == ScoreTeam1 && penaltyTeam1>penaltyTeam2)
+                else
+                if (ScoreTeam2 == ScoreTeam1 && penaltyTeam1 > penaltyTeam2)
                     idTeamWin = team1.id;
                 else
                     idTeamWin = team2.id;
                 NodeMatchDAO.Instance.UpdateNode(team1.idTournamnt, team1.id, team2.id, idTeamWin);
+
             }
 
 
@@ -297,6 +301,7 @@ namespace FCM.View
             this.match.Score2 = this.ScoreTeam2;
             this.match.isStarted = true;
             MatchDAO.Instance.UpdateMatch(this.match);
+            return true;
 
         }
         public void WhatTeamIsChosen()
@@ -305,12 +310,12 @@ namespace FCM.View
             {
                 this.teamNow = team1;
                 this.isTeam1 = true;
-            }    
+            }
             else
             {
                 this.teamNow = team2;
                 this.isTeam1 = false;
-            }    
+            }
         }
         void SetLineupsWhenNotStarted()
         {
@@ -320,7 +325,7 @@ namespace FCM.View
 
             List<Lineups> lineupsPrep = new List<Lineups>();
             List<Lineups> lineupsOfficial = new List<Lineups>();
-            
+
 
             List<Player> players = PlayerDAO.Instance.GetListPlayer(this.teamNow.id);
 
@@ -350,15 +355,15 @@ namespace FCM.View
                 if (this.listLineups_Prep_Team1.Count == 0 && this.listLineups_Offical_Team1.Count == 0)
                 {
                     SetLineupsWhenNotStarted();
-                }    
-            }   
+                }
+            }
             else
             {
                 if (this.listLineups_Prep_Team2.Count == 0 && this.listLineups_Offical_Team2.Count == 0)
                 {
                     SetLineupsWhenNotStarted();
                 }
-            }    
+            }
 
             List<Lineups> lineupsOfficial = this.isTeam1 ? this.listLineups_Offical_Team1 : this.listLineups_Offical_Team2;
             List<Lineups> lineupsPrep = this.isTeam1 ? this.listLineups_Prep_Team1 : this.listLineups_Prep_Team2;
@@ -381,13 +386,13 @@ namespace FCM.View
                 ucFootballer ucFootballer = new ucFootballer(lineupsPrep[i]);
                 this.wpReserveFormation.Children.Add(ucFootballer);
             }
-            
+
             // Thêm vào danh sách thay người
             if (switchedPlayers != null)
-            for (int i = 0; i < switchedPlayers.Count; i++)
-            {
-                this.wpSwitched.Children.Add(new ucSwitchedPlayers(switchedPlayers[i], this));
-            }
+                for (int i = 0; i < switchedPlayers.Count; i++)
+                {
+                    this.wpSwitched.Children.Add(new ucSwitchedPlayers(switchedPlayers[i], this));
+                }
 
             ResetComboboxAddPlayer();
         }
@@ -403,11 +408,11 @@ namespace FCM.View
             if (this.isTeam1)
             {
                 lineups = this.listLineups_Prep_Team1;
-            }    
+            }
             else
             {
                 lineups = this.listLineups_Prep_Team2;
-            }    
+            }
 
             for (int i = 0; i < lineups.Count; i++)
             {
@@ -415,10 +420,10 @@ namespace FCM.View
                 string numberUniform = PlayerDAO.Instance.GetPlayerById(lineups[i].idPlayer).uniformNumber.ToString();
                 string namePlayer = PlayerDAO.Instance.GetPlayerById(lineups[i].idPlayer).namePlayer.ToString();
                 this.cbSelectPlayerAdd.Items.Add(numberUniform + ". " + namePlayer);
-            }    
-            
+            }
+
         }
-        
+
         public void SwitchPlayer(int indexIn, int indexOut, string minute)
         {
             int idIn, idOut;
@@ -431,8 +436,8 @@ namespace FCM.View
                 ChangeFromPrepToOfficial(this.listLineups_Prep_Team1[indexIn]);
                 this.listLineups_Offical_Team1.RemoveAt(indexOut);
                 this.listLineups_Prep_Team1.RemoveAt(indexIn);
-                this.listLineups_Prep_Team1.Add(new Lineups(this.match.id, idOut, team1.id, 0, 
-                                                            getCardFromPlayer(new Player(this.team1.id, 
+                this.listLineups_Prep_Team1.Add(new Lineups(this.match.id, idOut, team1.id, 0,
+                                                            getCardFromPlayer(new Player(this.team1.id,
                                                                                             PlayerDAO.Instance.GetPlayerById(idOut).namePlayer,
                                                                                             PlayerDAO.Instance.GetPlayerById(idOut).uniformNumber,
                                                                                             PlayerDAO.Instance.GetPlayerById(idOut).birthDay,
@@ -470,7 +475,7 @@ namespace FCM.View
             //this.wpSwitched.Children.Add(switchedPlayer);
             LoadLineups(this.cbSelectedTeam.SelectedIndex);
         }
-        
+
         public void AddPlayerToOfficialLineups()
         {
             WhatTeamIsChosen();
@@ -483,12 +488,12 @@ namespace FCM.View
             {
                 ChangeFromPrepToOfficial(this.listLineups_Prep_Team1[index]);
                 this.listLineups_Prep_Team1.RemoveAt(index);
-            }    
+            }
             else
             {
                 ChangeFromPrepToOfficial(this.listLineups_Prep_Team2[index]);
                 this.listLineups_Prep_Team2.RemoveAt(index);
-            }    
+            }
 
             ResetComboboxAddPlayer();
             LoadLineups(this.cbSelectedTeam.SelectedIndex);
@@ -506,7 +511,7 @@ namespace FCM.View
             else
             {
                 this.listLineups_Offical_Team2.Add(lineup);
-            }    
+            }
         }
         public void AddCard(bool isTeam1, Card card)
         {
@@ -588,6 +593,10 @@ namespace FCM.View
                 this.listGoalsTeam2.Add(newGoal);
                 this.ScoreTeam2++;
             }
+            if (ScoreTeam1 != ScoreTeam2)
+                grdPenalty.Visibility = Visibility.Hidden;
+            else
+                grdPenalty.Visibility = Visibility.Visible;
             LoadGoalListToWindow();
         }
         public void DeleteGoal(Goal goal)
@@ -717,8 +726,8 @@ namespace FCM.View
             // Xóa dữ liệu thay người khỏi danh sách
             for (int i = 0; i < this.listSwitchedPlayerTeam1.Count; i++)
             {
-                if (this.listSwitchedPlayerTeam1[i].idPlayerIn == pIn.id && 
-                    this.listSwitchedPlayerTeam1[i].idPlayerOut == pOut.id && 
+                if (this.listSwitchedPlayerTeam1[i].idPlayerIn == pIn.id &&
+                    this.listSwitchedPlayerTeam1[i].idPlayerOut == pOut.id &&
                     this.team1.id == s.idTeam &&
                     this.listSwitchedPlayerTeam1[i].time == s.time)
                 {
@@ -825,7 +834,7 @@ namespace FCM.View
                 Lineups l = new Lineups(this.match.id, p.id, this.team1.id, 1, getCardFromPlayer(p));
 
                 this.listLineups_Offical_Team1.Add(l);
-            }    
+            }
             else
             {
                 for (int i = 0; i < this.listLineups_Offical_Team2.Count; i++)
@@ -839,7 +848,7 @@ namespace FCM.View
                 Lineups l = new Lineups(this.match.id, p.id, this.team2.id, 1, getCardFromPlayer(p));
 
                 this.listLineups_Offical_Team2.Add(l);
-            }    
+            }
         }
         public void DeleteFromOfficial(Player p)
         {
@@ -873,7 +882,7 @@ namespace FCM.View
                     if (cardname == "Thẻ đỏ")
                     {
                         break;
-                    }    
+                    }
                 }
             }
             for (int i = 0; i < this.listCardsTeam2.Count; i++)

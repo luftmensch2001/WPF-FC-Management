@@ -47,5 +47,13 @@ namespace FCM.DAO
             DataTable db = DataProvider.Instance.ExecuteQuery(query);
             return new TreeMatch(db.Rows[0]);
         }
+        public TreeMatch GetTreeById(int idTree)
+        {
+            string query = "Select * " +
+                            " From TreeMatch " +
+                            " Where id = " + idTree;
+            DataTable db = DataProvider.Instance.ExecuteQuery(query);
+            return new TreeMatch(db.Rows[0]);
+        }
     }
 }

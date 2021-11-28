@@ -43,7 +43,8 @@ namespace FCM.View
             this.dpDate.SelectedDate = match.date.Date;
 
             // Thời gian
-            //this.tpTime.SelectedTime = match.time.ToString("hh:mm");
+            //this.tpTime.SelectedTime = match.time.ToString("hh:mm");ư
+           ;
             this.tpTime.SelectedTime = match.time;
 
             InitializeComponent();
