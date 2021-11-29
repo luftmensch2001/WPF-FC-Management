@@ -14,12 +14,14 @@ using System.IO;
 using OfficeOpenXml.Style;
 using OfficeOpenXml.Drawing;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace FCM.DAO
 {
     class ExcelProcessing
     {
         private static ExcelProcessing instance;
+        private string formatInfor;
 
         public static ExcelProcessing Instance
         {
@@ -41,80 +43,96 @@ namespace FCM.DAO
                 //{
                 //    try
                 //    {
-                        package = new ExcelPackage(path);
-                        ExcelWorksheet workSheet = package.Workbook.Worksheets[0];
-                        bool isFull = true;
-                        for (int i = 0; i < parameter.boards.Count; i++)
-                            if (workSheet.Cells[3, 2].Value.ToString() == parameter.boards[i].nameBoard)
-                            {
-                                isFull = false;
-                                break;
-                            }
-                        if (isFull)
-                        {
-                            MessageBox.Show("Bảng này đã đủ số lượng đội bóng");
-                            return false;
-                        }
-
-
-                        string namePicture = workSheet.Cells[2, 2].Value.ToString();
-                        var pic = workSheet.Drawings[namePicture] as ExcelPicture;
-                        int countPlayer = Int32.Parse(workSheet.Cells[4, 2].Value.ToString());
-                        team = new Team(parameter.idTournament, workSheet.Cells[3, 2].Value.ToString(),
-                                                                workSheet.Cells[2, 2].Value.ToString(),
-                                                                workSheet.Cells[5, 2].Value.ToString(),
-                                                                workSheet.Cells[6, 2].Value.ToString(),
-                                                                workSheet.Cells[7, 2].Value.ToString(),
-                                                                ImageProcessing.Instance.convertImgToByte(pic.Image));
-                        if (team.idTournamnt == -1 || team.nameTeam == "" || team.coach == "" || team.nation == "" || team.stadium == "")
-                        {
-                            MessageBox.Show("Thiếu thông tin đội bóng", "lỗi");
-                            return false;
-                        }
-                        TeamDAO.Instance.CreateTeams(team);
-                        int countOutNation = 0;
-                        int countPlayerDone = 0;
-                        //try
-                        //{
-                            for (int i = 13; i < 13 + countPlayer; i++)
-                            {
-                    try
+                package = new ExcelPackage(path);
+                ExcelWorksheet workSheet = package.Workbook.Worksheets[0];
+                bool isFull = true;
+                for (int i = 0; i < parameter.boards.Count; i++)
+                    if (workSheet.Cells[3, 2].Value.ToString() == parameter.boards[i].nameBoard)
                     {
-                        if (countPlayerDone < parameter.setting.maxPlayerOfTeam)
-                            if (countOutNation < parameter.setting.maxForeignPlayers || workSheet.Cells[i, 6].Value.ToString() == team.nation)
+                        isFull = false;
+                        break;
+                    }
+                if (isFull)
+                {
+                    MessageBox.Show("Bảng này đã đủ số lượng đội bóng");
+                    return false;
+                }
+
+
+                string namePicture = workSheet.Cells[2, 2].Value.ToString();
+                var pic = workSheet.Drawings[namePicture] as ExcelPicture;
+                int countPlayer = Int32.Parse(workSheet.Cells[4, 2].Value.ToString());
+                team = new Team(parameter.idTournament, workSheet.Cells[3, 2].Value.ToString(),
+                                                        workSheet.Cells[2, 2].Value.ToString(),
+                                                        workSheet.Cells[5, 2].Value.ToString(),
+                                                        workSheet.Cells[6, 2].Value.ToString(),
+                                                        workSheet.Cells[7, 2].Value.ToString(),
+                                                        ImageProcessing.Instance.convertImgToByte(pic.Image));
+                if (team.idTournamnt == -1 || team.nameTeam == "" || team.coach == "" || team.nation == "" || team.stadium == "")
+                {
+                    MessageBox.Show("Thiếu thông tin đội bóng", "lỗi");
+                    return false;
+                }
+                TeamDAO.Instance.CreateTeams(team);
+                int countOutNation = 0;
+                int countPlayerDone = 0;
+                //try
+                //{
+                for (int i = 13; i < 13 + countPlayer; i++)
+                {
+                    if (countPlayerDone < parameter.setting.maxPlayerOfTeam)
+                        if (countOutNation < parameter.setting.maxForeignPlayers || workSheet.Cells[i, 6].Value.ToString() == team.nation)
+                        {
+                            string namePicturePlayer = workSheet.Cells[i, 3].Value.ToString();
+                            pic = workSheet.Drawings[namePicturePlayer] as ExcelPicture;
+
+                            if (workSheet.Cells[i, 3].Value != null &&
+                                workSheet.Cells[i, 4].Value != null &&
+                                workSheet.Cells[i, 6].Value != null &&
+                                workSheet.Cells[i, 5].Value != null &&
+                                workSheet.Cells[i, 7].Value != null &&
+                                workSheet.Cells[i, 6].Value != null &&
+                                pic.Image != null)
                             {
-                                string namePicturePlayer = workSheet.Cells[i, 3].Value.ToString();
-                                pic = workSheet.Drawings[namePicturePlayer] as ExcelPicture;
+                                //MessageBox.Show(pic.Name);
+                                //MessageBox.Show(workSheet.Cells[i, 6].Value.ToString());
+                                string date = workSheet.Cells[i, 6].Value.ToString();
+                                InputFormat.Instance.FomartSpace(date);
+                                DateTime result;
 
-                                if (pic.Image != null)
-                                {     
-                                    MessageBox.Show(pic.Name);
-                                    Player player = new Player(TeamDAO.Instance.GetNewestTeamid(team.idTournamnt),
-                                                                workSheet.Cells[i, 3].Value.ToString(),
-                                                                Int32.Parse(workSheet.Cells[i, 4].Value.ToString()),
-                                                                DateTime.Parse(workSheet.Cells[i, 6].Value.ToString()),
-                                                                workSheet.Cells[i, 5].Value.ToString(),
-                                                                workSheet.Cells[i, 7].Value.ToString(),
-                                                                workSheet.Cells[i, 8].Value == null ? "" : workSheet.Cells[i, 8].Value.ToString(),
-                                                                ImageProcessing.Instance.convertImgToByte(pic.Image));
-                                    PlayerDAO.Instance.CreatePlayers(player);
-                                    if (workSheet.Cells[i, 6].Value.ToString() != team.nation)
-                                        countOutNation++;
-                                    countPlayerDone++;
-                                }
-                            }
-                    }
-                    catch
-                    {
+                                if (date[1] == '/')
+                                    date = "0" + date;
+                                if (date[4] == '/')
+                                    date = date.Insert(3,"0");
+                                if (date.Length > 10)
+                                    date = date.Remove(10);
+                               // MessageBox.Show(date);
+                                DateTime.TryParseExact(date, "dd/MM/yyyy", null,DateTimeStyles.None,out result);
 
-                    }
+                                result = DateTime.ParseExact(result.ToString("dd/MM/yyyy"), "dd/MM/yyyy", null, DateTimeStyles.None);
+                                //MessageBox.Show(result.ToString("dd/MM/yyyy"));
+                                Player player = new Player(TeamDAO.Instance.GetNewestTeamid(team.idTournamnt),
+                                                            workSheet.Cells[i, 3].Value.ToString(),
+                                                            Int32.Parse(workSheet.Cells[i, 4].Value.ToString()),
+                                                            result,
+                                                            //DateTime.Parse(workSheet.Cells[i, 6].Value.ToString()),
+                                                            workSheet.Cells[i, 5].Value.ToString(),
+                                                            workSheet.Cells[i, 7].Value.ToString(),
+                                                            workSheet.Cells[i, 8].Value == null ? "" : workSheet.Cells[i, 8].Value.ToString(),
+                                                            ImageProcessing.Instance.convertImgToByte(pic.Image));
+                                PlayerDAO.Instance.CreatePlayers(player);
+                                if (workSheet.Cells[i, 7].Value.ToString() != team.nation)
+                                    countOutNation++;
+                                countPlayerDone++;
                             }
-                        //}
-                        //catch
-                        //{
-                        //    MessageBox.Show("Thông tin cầu thủ lỗi", "Lỗi");
-                        //    return false;
-                        //}
+                        }
+                }
+                //}
+                //catch
+                //{
+                //    MessageBox.Show("Thông tin cầu thủ lỗi", "Lỗi");
+                //    return false;
+                //}
                 //    }
                 //    catch
                 //    {
