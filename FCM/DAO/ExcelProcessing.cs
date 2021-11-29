@@ -30,7 +30,6 @@ namespace FCM.DAO
         }
         public bool ImportTeam(AddTeamWindow parameter)
         {
-            MessageBox.Show("Import");
             ExcelPackage.LicenseContext = LicenseContext.Commercial;
             Team team;
             OpenFileDialog openFileDialog = new OpenFileDialog() { Filter = "Excel files(*.xml;*.xlsx;*.xlsm)|*.xml;*.xlsx;*.xlsm", Multiselect = false };

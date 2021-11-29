@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace FCM.DAO
 {
@@ -23,32 +24,42 @@ namespace FCM.DAO
         public DataTable ExecuteQuery(string query, object[] parameter = null)
         {
             DataTable data = new DataTable();
+            try
+            { 
 
-            using (SqlConnection connection = new SqlConnection(connectionSTR))
-            {
-                connection.Open();
-
-                SqlCommand command = new SqlCommand(query, connection);
-
-                if (parameter != null)
+                using (SqlConnection connection = new SqlConnection(connectionSTR))
                 {
-                    string[] listPara = query.Split(' ');
-                    int i = 0;
-                    foreach (string item in listPara)
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand(query, connection);
+
+                    if (parameter != null)
                     {
-                        if (item.Contains('@'))
+                        string[] listPara = query.Split(' ');
+                        int i = 0;
+                        foreach (string item in listPara)
                         {
-                            command.Parameters.AddWithValue(item, parameter[i]);
-                            i++;
+                            if (item.Contains('@'))
+                            {
+                                command.Parameters.AddWithValue(item, parameter[i]);
+                                i++;
+                            }
                         }
                     }
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+
+                    adapter.Fill(data);
+
+                    connection.Close();
                 }
+            }
+            catch
+            {
+                MessageBox.Show("Kết nối đến cơ sở dữ liệu thất bại");
+                Application.Current.MainWindow.Close();
+                return null;
 
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-
-                adapter.Fill(data);
-
-                connection.Close();
             }
 
             return data;

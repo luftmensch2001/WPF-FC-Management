@@ -53,5 +53,9 @@ namespace FCM.DTO
             this.NumberOfTeamIn = numberOfTeamIn;
 
         }
+
+        public Setting()
+        {
+        }
     }
 }

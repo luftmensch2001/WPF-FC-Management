@@ -141,5 +141,14 @@ namespace FCM.DAO
             DataTable db = DataProvider.Instance.ExecuteQuery(query);
             return (int)db.Rows[0]["id"];
         }
+        public bool IsExistTeamName(string teamName, int idTournament)
+        {
+            string query = "Select count(id) as count From Teams where idTournaments = " + idTournament +
+                         " and DisplayName = N'" + teamName + "'";
+            DataTable db = DataProvider.Instance.ExecuteQuery(query);
+            if ((int)db.Rows[0]["count"] > 0)
+                return true;
+            return false;
+        }
     }
 }

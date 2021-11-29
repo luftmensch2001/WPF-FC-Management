@@ -568,6 +568,8 @@ namespace FCM.ViewModel
             LoadListPlayer(parameter, team.id);
             parameter.tblCountOfMembers.Text = parameter.wpPlayersList.Children.Count.ToString();
             parameter.tblStatus.Text = parameter.team.nameBoard;
+            parameter.btnAddPlayer.Visibility = Visibility.Visible;
+            parameter.btnExportTeam.Visibility = Visibility.Visible;
         }
         public int CountNationatily(MainWindow parameter)
         {
@@ -638,12 +640,14 @@ namespace FCM.ViewModel
                     TeamDAO.Instance.DeleteTeam(parameter.league.id, parameter.team.id);
                     parameter.team = null;
 
-                    parameter.tblTeamName.Text = "NULL";
-                    parameter.tblStadium.Text = "NULL";
-                    parameter.tblNational.Text = "NULL";
-                    parameter.tblCoach.Text = "NULL";
-                    parameter.tblCountOfMembers.Text = "NULL";
+                    parameter.tblTeamName.Text = "";
+                    parameter.tblStadium.Text = "";
+                    parameter.tblNational.Text = "";
+                    parameter.tblCoach.Text = "";
+                    parameter.tblCountOfMembers.Text = "";
                     parameter.imgTeamLogo.Source = new BitmapImage(new Uri("pack://application:,,,/Resource/Images/software-logo.png"));
+                    parameter.btnAddPlayer.Visibility = Visibility.Hidden;
+                    parameter.btnExportTeam.Visibility = Visibility.Hidden;
                     LoadListTeams(parameter);
                     LoadListPlayer(parameter, -1);
                 }
@@ -680,6 +684,11 @@ namespace FCM.ViewModel
             if (idTeam < 0)
                 return;
             List<Player> players = PlayerDAO.Instance.GetListPlayer(idTeam);
+            if (parameter.setting!=null)
+            if (players.Count==parameter.setting.maxPlayerOfTeam)
+            {
+                parameter.btnAddPlayer.IsEnabled = false;
+            }    
             for (int i = 0; i < players.Count; i++)
             {
                 ucPlayer ucPlayer = new ucPlayer(players[i], parameter.currentAccount.roleLevel, i + 1, parameter, this);
@@ -763,10 +772,14 @@ namespace FCM.ViewModel
                 }
                 //Add to board
                 BoardDAO.Instance.DeleteKOBoard(parameter.league.id);
+                Board board = new Board(parameter.league.id, "Bảng đấu loại trực tiếp", listName.Count);
+                BoardDAO.Instance.CreateBoard(board);
                 for (int i = 0; i < listName.Count; i++)
                 {
                     int idTeam = TeamDAO.Instance.GetTeamIDByName(parameter.league.id, listName[i]);
-                    BoardDAO.Instance.AddToKOBoard(parameter.league.id, idTeam);
+                    Team team = TeamDAO.Instance.GetTeamById(idTeam);
+                    team.nameBoard = "Bảng đấu loại trực tiếp";
+                    TeamDAO.Instance.UpdateTeam(team);
                 }
                 MessageBox.Show("Tạo danh sách vào vòng loại trực tiếp thành công");
             }

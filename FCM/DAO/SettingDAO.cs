@@ -22,7 +22,8 @@ namespace FCM.DAO
                         "From Settings " +
                         "Where idTournaments= " + idTournament;
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
-            Setting setting= new Setting(tb.Rows[0]);
+            Setting setting = new Setting();
+            setting= new Setting(tb.Rows[0]);
             return setting;
         }
         public void CreateSetting(int idTournament, int numberOfTeam)

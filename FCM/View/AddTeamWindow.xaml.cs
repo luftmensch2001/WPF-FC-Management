@@ -47,7 +47,6 @@ namespace FCM.View
         public void GetBoardsComobox()
         {
             cbGroups.Items.Clear();
-            MessageBox.Show(boards.Count.ToString());
             int max = boards[0].countTeam;
             if (BoardDAO.Instance.CountBoardFull(idTournament) == setting.numberOfTeam % boards.Count && setting.numberOfTeam % boards.Count>0)
                 max--;

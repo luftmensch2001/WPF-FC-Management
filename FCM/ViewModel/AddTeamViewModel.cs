@@ -50,7 +50,7 @@ namespace FCM.ViewModel
         {
             if (ExcelProcessing.Instance.ImportTeam(parameter))
                 parameter.Close();
-            
+
         }
         void AddTeam(AddTeamWindow parameter)
         {
@@ -58,19 +58,24 @@ namespace FCM.ViewModel
             string coach = InputFormat.Instance.FomartSpace(parameter.tbCoach.Text);
             string national = InputFormat.Instance.FomartSpace(parameter.tbNational.Text);
             string stadium = InputFormat.Instance.FomartSpace(parameter.tbStadium.Text);
-            if (name == ""||coach==""||national==""||stadium==""|| parameter.imgTeamLogo.Source.ToString() == "pack://application:,,,/Resource/Images/NoLogoSelected.png")
+            if (name == "" || coach == "" || national == "" || stadium == "" || parameter.imgTeamLogo.Source.ToString() == "pack://application:,,,/Resource/Images/NoLogoSelected.png")
             {
                 MessageBox.Show("Thiếu thông tin", "Lỗi");
                 return;
             }
+            if (TeamDAO.Instance.IsExistTeamName(name, parameter.idTournament))
+            {
+                MessageBox.Show("Trùng tên đội bóng","Lỗi");
+            }
             if (parameter.team == null)
             {
-                Team team = new Team(parameter.idTournament, parameter.cbGroups.Text,name,coach,stadium,national, ImageProcessing.Instance.convertImgToByte(imaged));
+                Team team = new Team(parameter.idTournament, parameter.cbGroups.Text, name, coach, stadium, national, ImageProcessing.Instance.convertImgToByte(imaged));
                 TeamDAO.Instance.CreateTeams(team);
 
                 MessageBox.Show("Thêm đội bóng thành công");
                 parameter.Close();
             }
+
             else
             {
                 Team team;
