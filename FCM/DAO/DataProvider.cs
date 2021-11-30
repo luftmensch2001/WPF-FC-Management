@@ -24,44 +24,32 @@ namespace FCM.DAO
         public DataTable ExecuteQuery(string query, object[] parameter = null)
         {
             DataTable data = new DataTable();
-            try
-            { 
+            using (SqlConnection connection = new SqlConnection(connectionSTR))
+            {
+                connection.Open();
 
-                using (SqlConnection connection = new SqlConnection(connectionSTR))
+                SqlCommand command = new SqlCommand(query, connection);
+
+                if (parameter != null)
                 {
-                    connection.Open();
-
-                    SqlCommand command = new SqlCommand(query, connection);
-
-                    if (parameter != null)
+                    string[] listPara = query.Split(' ');
+                    int i = 0;
+                    foreach (string item in listPara)
                     {
-                        string[] listPara = query.Split(' ');
-                        int i = 0;
-                        foreach (string item in listPara)
+                        if (item.Contains('@'))
                         {
-                            if (item.Contains('@'))
-                            {
-                                command.Parameters.AddWithValue(item, parameter[i]);
-                                i++;
-                            }
+                            command.Parameters.AddWithValue(item, parameter[i]);
+                            i++;
                         }
                     }
-
-                    SqlDataAdapter adapter = new SqlDataAdapter(command);
-
-                    adapter.Fill(data);
-
-                    connection.Close();
                 }
-            }
-            catch
-            {
-                MessageBox.Show("Kết nối đến cơ sở dữ liệu thất bại");
-                Application.Current.MainWindow.Close();
-                return null;
 
-            }
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
 
+                adapter.Fill(data);
+
+                connection.Close();
+            }
             return data;
         }
 

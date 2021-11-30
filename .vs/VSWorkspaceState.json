@@ -6,8 +6,9 @@
     "\\FCM\\DTO",
     "\\FCM\\Resource",
     "\\FCM\\UserControls",
+    "\\FCM\\View",
     "\\FCM\\ViewModel"
   ],
-  "SelectedNode": "\\FCM\\DAO\\ExcelProcessing.cs",
+  "SelectedNode": "\\FCM\\View\\AddTeamWindow.xaml",
   "PreviewInSolutionExplorer": false
 }

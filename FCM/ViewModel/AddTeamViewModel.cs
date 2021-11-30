@@ -21,6 +21,7 @@ namespace FCM.ViewModel
         public ICommand AddTeamCommand { get; set; }
         public ICommand AddLogoTeamCommand { get; set; }
         public ICommand ImportTeamCommand { get; set; }
+        public ICommand TemplaceCommand { get; set; }
         private System.Drawing.Image imaged;
 
         public AddTeamViewModel()
@@ -29,6 +30,7 @@ namespace FCM.ViewModel
             AddTeamCommand = new RelayCommand<AddTeamWindow>((parameter) => true, (parameter) => AddTeam(parameter));
             AddLogoTeamCommand = new RelayCommand<AddTeamWindow>((parameter) => true, (parameter) => AddLogoTeam(parameter));
             ImportTeamCommand = new RelayCommand<AddTeamWindow>((parameter) => true, (parameter) => ImportTeam(parameter));
+            TemplaceCommand = new RelayCommand<AddTeamWindow>((parameter) => true, (parameter) => Templace(parameter));
         }
         void AddLogoTeam(AddTeamWindow parameter)
         {
@@ -46,11 +48,21 @@ namespace FCM.ViewModel
                     MessageBox.Show("File không hợp lệ, vui lòng chọn lại", "Lỗi");
                 }
         }
+        void Templace(AddTeamWindow parameter)
+        {
+            ExcelProcessing.Instance.OpenTemPlace();
+        }
         void ImportTeam(AddTeamWindow parameter)
         {
-            if (ExcelProcessing.Instance.ImportTeam(parameter))
-                parameter.Close();
-
+            if (parameter.cbGroups.SelectedItem != null)
+            {
+                if (ExcelProcessing.Instance.ImportTeam(parameter, parameter.cbGroups.SelectedItem.ToString()))
+                    parameter.Close();
+            } else
+            {
+                MessageBox.Show("Chưa chọn bảng đấu");
+                return;
+            }    
         }
         void AddTeam(AddTeamWindow parameter)
         {
