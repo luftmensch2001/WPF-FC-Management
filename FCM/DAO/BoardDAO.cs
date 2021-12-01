@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
+using System.Windows;
 using System.Windows.Media.Imaging;
 using FCM.DAO;
 using FCM.DTO;
@@ -40,6 +41,7 @@ namespace FCM.DAO
                 Board board = new Board(row);
                 boards.Add(board);
             }
+           // MessageBox.Show(" count =" + boards.Count);
             return boards;
         }
         public void CreateBoard(Board board)
@@ -65,13 +67,14 @@ namespace FCM.DAO
             int count = 0;
             for (int i = 0; i < boards.Count; i++)
             {
-                int c = TeamDAO.Instance.GetCountTeam(boards[i].nameBoard);
-                string query = "Select count(id) as count " +
+                int c = TeamDAO.Instance.GetCountTeam(idTournament, boards[i].nameBoard);
+                string query = "Select id " +
                                "From Board " +
                                "Where idTournament =" + idTournament + " and " +
                                "countTeam = " + c;
-                DataTable table =  DataProvider.Instance.ExecuteQuery(query);
-                count += (int)table.Rows[0]["count"];
+                DataTable table = DataProvider.Instance.ExecuteQuery(query);
+                if (table.Rows.Count > 0)
+                    count++;
             }
             return count;
         }
@@ -79,7 +82,7 @@ namespace FCM.DAO
         public void AddToKOBoard(int idTournament, int idTeam)
         {
             string query = "Insert into TeamIntoNextQualifyingRound (idTournaments, idTeams) " +
-                         "Values ( " + idTournament + " , " + idTeam +  ")";
+                         "Values ( " + idTournament + " , " + idTeam + ")";
             DataProvider.Instance.ExecuteQuery(query);
         }
         public void DeleteKOBoard(int idTournament)

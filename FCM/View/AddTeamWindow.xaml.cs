@@ -48,7 +48,7 @@ namespace FCM.View
         {
             cbGroups.Items.Clear();
             int max = boards[0].countTeam;
-            if (BoardDAO.Instance.CountBoardFull(idTournament) == setting.numberOfTeam % boards.Count && setting.numberOfTeam % boards.Count>0)
+            if (BoardDAO.Instance.CountBoardFull(idTournament) == setting.numberOfTeam % boards.Count && setting.numberOfTeam % boards.Count > 0)
                 max--;
             //foreach (Board board in this.boards)
             //{
@@ -57,22 +57,30 @@ namespace FCM.View
             //    else
             //        cbGroups.Items.Add(board.nameBoard);
             //}
-            for(int i=0;i<boards.Count;i++)
+            //MessageBox.Show(max.ToString());
+            // MessageBox.Show(BoardDAO.Instance.CountBoardFull(idTournament).ToString());
+           // MessageBox.Show("ccc = " + boards.Count.ToString());
+            for (int i = 0; i < boards.Count; i++)
             {
+               // MessageBox.Show(boards[i].nameBoard);
                 if (team == null || team.nameBoard != boards[i].nameBoard)
                 {
-                    if (max == TeamDAO.Instance.GetCountTeam(boards[i].nameBoard))
-                        boards.Remove(boards[i]);
+                    if (max <= TeamDAO.Instance.GetCountTeam(idTournament, boards[i].nameBoard))
+                    {
+                        //boards.Remove(boards[i]);
+                        //i--;
+                    }
                     else
                         cbGroups.Items.Add(boards[i].nameBoard);
-                    continue;
+                    //continue;
                 }
-                cbGroups.Items.Add(boards[i].nameBoard);
+                else
+                    cbGroups.Items.Add(boards[i].nameBoard);
             }
             if (team != null)
                 this.cbGroups.Text = team.nameBoard;
 
-            if (cbGroups.Items.Count==1)
+            if (cbGroups.Items.Count == 1)
             {
                 cbGroups.SelectedIndex = 0;
                 cbGroups.Visibility = Visibility.Hidden;

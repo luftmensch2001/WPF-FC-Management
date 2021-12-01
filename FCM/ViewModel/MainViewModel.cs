@@ -637,7 +637,7 @@ namespace FCM.ViewModel
                 }
                 else
                 {
-                    TeamDAO.Instance.DeleteTeam(parameter.league.id, parameter.team.id);
+                    TeamDAO.Instance.DeleteTeam(parameter.team);
                     parameter.team = null;
 
                     parameter.tblTeamName.Text = "";

@@ -9,6 +9,6 @@
     "\\FCM\\View",
     "\\FCM\\ViewModel"
   ],
-  "SelectedNode": "\\FCM\\View\\AddTeamWindow.xaml",
+  "SelectedNode": "\\FCM\\DAO\\ExcelProcessing.cs",
   "PreviewInSolutionExplorer": false
 }

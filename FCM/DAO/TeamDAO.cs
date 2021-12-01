@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
+using System.Windows;
 using System.Windows.Media.Imaging;
 using FCM.DAO;
 using FCM.DTO;
@@ -26,11 +27,12 @@ namespace FCM.DAO
             Team team = new Team(tb.Rows[0]);
             return team;
         }
-        public int GetCountTeam(string nameBoard)
+        public int GetCountTeam(int idTournament, string nameBoard)
         {
             string query = "Select count(id) as count " +
                          "From Teams " +
-                         "Where nameBoard= '" + nameBoard + "'";
+                         "Where nameBoard= N'" + nameBoard + "' " +
+                         " and idtournaments = " + idTournament;
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
             return (int)tb.Rows[0]["count"];
 
@@ -87,17 +89,17 @@ namespace FCM.DAO
                             "Where idTournaments = " + idTournament;
             DataProvider.Instance.ExecuteQuery(query);
         }
-        public void DeleteTeam(int idTournament, int id)
+        public void DeleteTeam(Team team)
         {
-            List<Team> teams = GetListTeamInLeague(idTournament);
-            foreach (Team team in teams)
+            List<Team> teams = GetListTeam(team.nameBoard, team.idTournamnt);
+            foreach (Team t in teams)
             {
-                PlayerDAO.Instance.DeletePlayerInTeam(team.id);
+                PlayerDAO.Instance.DeletePlayerInTeam(t.id);
             }
             string query = "Delete " +
                             "From Teams " +
-                            "Where idTournaments = " + idTournament + "" +
-                            " and id = " + id;
+                            "Where idTournaments = " + team.idTournamnt + "" +
+                            " and id = " + team.id;
             DataProvider.Instance.ExecuteQuery(query);
         }
         public void CreateTeams(Team team)

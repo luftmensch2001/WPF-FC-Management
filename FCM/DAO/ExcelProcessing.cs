@@ -30,6 +30,7 @@ namespace FCM.DAO
         }
         public bool ImportTeam(AddTeamWindow parameter, string nameBoard)
         {
+            int countPlayerDone = 0;
             ExcelPackage.LicenseContext = LicenseContext.Commercial;
             Team team;
             OpenFileDialog openFileDialog = new OpenFileDialog() { Filter = "Excel files(*.xml;*.xlsx;*.xlsm)|*.xml;*.xlsx;*.xlsm", Multiselect = false };
@@ -72,13 +73,12 @@ namespace FCM.DAO
                         }    
                         TeamDAO.Instance.CreateTeams(team);
                         int countOutNation = 0;
-                        int countPlayerDone = 0;
                         for (int i = 13; i < 13 + countPlayer; i++)
                         {
                             try
                             {
                                 if (countPlayerDone < parameter.setting.maxPlayerOfTeam)
-                                    if (countOutNation < parameter.setting.maxForeignPlayers || workSheet.Cells[i, 6].Value.ToString() == team.nation)
+                                    if (countOutNation < parameter.setting.maxForeignPlayers || workSheet.Cells[i, 7].Value.ToString() == team.nation)
                                     {
                                         string namePicturePlayer = workSheet.Cells[i, 3].Value.ToString();
                                         pic = workSheet.Drawings[namePicturePlayer] as ExcelPicture;
@@ -145,6 +145,7 @@ namespace FCM.DAO
             }
             if (package == null)
                 return false;
+            MessageBox.Show("Thêm đội bóng thành công \n Số cầu thủ hợp lệ : " + countPlayerDone.ToString());
             return true;
         }
     public void ExportFile(Team team)
