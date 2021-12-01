@@ -38,7 +38,7 @@ namespace FCM.UserControls
             tblNationality.Text = player.nationality;
             tblIndex.Text = index.ToString();
             tblNumber.Text = player.uniformNumber.ToString();
-            tblDoB.Text = player.birthDay.ToString("M/dd/yyyy");
+            tblDoB.Text = player.birthDay.ToString("dd/MM/yyyy");
             tblPosition.Text = player.position;
             this.mainWindow = mainWindow;
             this.mainViewModel = mainViewModel;

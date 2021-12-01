@@ -48,6 +48,11 @@ namespace FCM.DAO
 
                         string namePicture = workSheet.Cells[3, 2].Value.ToString();
                         var pic = workSheet.Drawings[namePicture] as ExcelPicture;
+                        if (pic == null)
+                        {
+                            MessageBox.Show("Thông tin đôi bóng không hợp lệ");
+                            return false;
+                        }    
                         int countPlayer = Int32.Parse(workSheet.Cells[4, 2].Value.ToString());
                         team = new Team(parameter.idTournament, nameBoard,
                                                                 workSheet.Cells[3, 2].Value.ToString(),

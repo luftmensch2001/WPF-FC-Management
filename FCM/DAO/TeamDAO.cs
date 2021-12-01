@@ -120,6 +120,7 @@ namespace FCM.DAO
             string query = "Update Teams " +
                             "Set " +
                             " Displayname = " + "N'" + team.nameTeam + "' ," +
+                            " NameBoard = N'" + team.nameBoard + "' ,"+
                             " coach = " + "N'" + team.coach + "' ," +
                             " stadium = " + "N'" + team.stadium + "' ," +
                             " nation = " + "N'" + team.nation + "' " +

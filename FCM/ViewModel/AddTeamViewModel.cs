@@ -75,9 +75,10 @@ namespace FCM.ViewModel
                 MessageBox.Show("Thiếu thông tin", "Lỗi");
                 return;
             }
-            if (TeamDAO.Instance.IsExistTeamName(name, parameter.idTournament))
+            if (parameter.team == null && TeamDAO.Instance.IsExistTeamName(name, parameter.idTournament))
             {
                 MessageBox.Show("Trùng tên đội bóng","Lỗi");
+                return;
             }
             if (parameter.team == null)
             {
