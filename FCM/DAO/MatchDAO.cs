@@ -212,5 +212,23 @@ namespace FCM.DAO
             }
             return false;
         }
+        public List<Match> GetListMatchDetail(int idLeague)
+        {
+            List<Match> matches = new List<Match>();
+            string query = " Select top(6) * " +
+                           " From Matchs " +
+                           " where Date<> '2000-11-11' " + " " +
+                           " And score1 = -1 " +
+                           " And score2 = -1 " +
+                           " And idTournaments = " + idLeague +
+                           " Order by[date]";
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+            foreach (DataRow dataRow in tb.Rows)
+            {
+                Match match = new Match(dataRow);
+                matches.Add(match);
+            }
+            return matches;
+        }
     }
 }

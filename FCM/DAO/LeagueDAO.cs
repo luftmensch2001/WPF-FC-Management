@@ -63,6 +63,9 @@ namespace FCM.DAO
             query = "UPDATE Tournaments SET logo = @img WHERE ID = (SELECT MAX(Id) FROM Tournaments)";
             DataProvider.Instance.ExecuteQuery(query, new object[] { league.logo });
             SettingDAO.Instance.CreateSetting(GetNewestLeagurId(), league.countTeam);
+            TypeOfGoalDAO.Instance.AddTypeGoal(GetNewestLeagurId(),"Phạt góc");
+            TypeOfGoalDAO.Instance.AddTypeGoal(GetNewestLeagurId(),"Đánh Đầu");
+            TypeOfGoalDAO.Instance.AddTypeGoal(GetNewestLeagurId(),"Penalty");
         }
         public void UpdateLeague(League league)
         {

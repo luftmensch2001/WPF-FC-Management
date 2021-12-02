@@ -11,10 +11,6 @@ using FCM.UserControls;
 using System.Windows.Media.Imaging;
 using System.Drawing;
 using System.IO;
-using iTextSharp.text.pdf;
-using iTextSharp.text;
-using Microsoft.Win32;
-using System.Collections;
 using System.Windows.Controls;
 
 namespace FCM.ViewModel
@@ -159,21 +155,33 @@ namespace FCM.ViewModel
                 case 0:
                     parameter.btnHome.Foreground = lightGreen;
                     parameter.icHome.Foreground = lightGreen;
-                    if (0 > 1) // Nếu có ít nhất 1 mùa giải
+                    if (parameter.league != null) // Nếu có ít nhất 1 mùa giải
                     {
                         parameter.grdHomeScreen.Visibility = Visibility.Visible;
+                        parameter.grdHomeNoLeagueScreen.Visibility = Visibility.Hidden;
+                        LoadScreenHomeWithLeague(parameter);
                     }
                     else
+                    {
                         parameter.grdHomeNoLeagueScreen.Visibility = Visibility.Visible;
+                        parameter.grdHomeScreen.Visibility = Visibility.Hidden;
+                    }
                     break;
                 case 1:
                     LoadListLeague(parameter);
                     parameter.btnLeagues.Foreground = lightGreen;
                     parameter.icLeagues.Foreground = lightGreen;
                     parameter.grdLeaguesScreen.Visibility = Visibility.Visible;
+                    if (parameter.league != null && TeamDAO.Instance.GetListTeamInLeague(parameter.league.id).Count > 0)
+                    {
+                        // parameter.btnDeleteLeague.IsEnabled = false;
+                        parameter.btnEditLeague.IsEnabled = false;
+                    }
+                    else
+                        parameter.btnEditLeague.IsEnabled = true;
                     if (parameter.currentAccount.roleLevel == 0)
                     {
-                        parameter.btnDeleteLeague.IsEnabled = false;
+                       // parameter.btnDeleteLeague.IsEnabled = false;
                         parameter.btnEditLeague.IsEnabled = false;
                         parameter.btnCreateLeague.IsEnabled = false;
                     }
@@ -188,6 +196,14 @@ namespace FCM.ViewModel
                     parameter.cbxRound.SelectedIndex = 0;
                     LoadListMatch(parameter, 0);
 
+                    if (parameter.league.typeLeague == 0)
+                    {
+                        parameter.btnShowChart.Visibility = Visibility.Hidden;
+                    }
+                    else
+                    {
+                        parameter.btnShowChart.Visibility = Visibility.Visible;
+                    }    
                     break;
                 case 3:
                     parameter.btnTeams.Foreground = lightGreen;
@@ -216,7 +232,15 @@ namespace FCM.ViewModel
                         parameter.LbGroup.Text = "Bảng đấu";
                         GetBoards(parameter);
                     }
+                    if (parameter.league.status!=0)
+                    {
+                        parameter.btnEditInforTeam.IsEnabled = false;
+                    }    
                     LoadListTeams(parameter);
+                    if (parameter.league.typeLeague == 1)
+                    {
+                        parameter.btnStanding.IsEnabled = false;
+                    }
 
                     break;
                 case 4:
@@ -319,6 +343,29 @@ namespace FCM.ViewModel
         #endregion
 
         #region League
+        public void LoadScreenHomeWithLeague(MainWindow mainWindow)
+        {
+            if (mainWindow.league!=null)
+            {
+                mainWindow.HomeLeagueLogo.Source = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(mainWindow.league.logo));
+                mainWindow.tblHomeLeagueName.Text = mainWindow.league.nameLeague;
+                mainWindow.tblHomeSponer.Text = "Nhà tài trợ chính: "+ mainWindow.league.nameSpender;
+                mainWindow.spnNextMatches.Children.Clear();
+                List<Match> matches = MatchDAO.Instance.GetListMatchDetail(mainWindow.league.id);
+                if (matches.Count==0)
+                {
+                    mainWindow.grdHomeNoLeagueScreen.Visibility = Visibility.Visible;
+                    mainWindow.grdHomeScreen.Visibility = Visibility.Hidden;
+                    return;
+                }
+                for (int i = 0; i < matches.Count; i++)
+                {
+                    ucMatchDetailNoEdit ucMatchDetailNoEdit = new ucMatchDetailNoEdit(i+1,matches[i]);
+                    mainWindow.spnNextMatches.Children.Add(ucMatchDetailNoEdit);
+                }
+
+            }    
+        }
         public void OpenAddLeagueWindow(MainWindow parameter)
         {
             if (parameter.currentAccount.roleLevel == 1)
@@ -380,6 +427,10 @@ namespace FCM.ViewModel
             ChangeStatus(league.status, window);
             window.tblLeagueTime.Text = "Thời gian: " + league.dateTime.ToString("M/d/yyyy");
             LoadListTeams(window);
+            if (league.typeLeague == 1)
+            {
+                window.btnStanding.IsEnabled = false;
+            }
         }
         public void ChangeStatus(int status, MainWindow parameter)
         {
@@ -397,8 +448,12 @@ namespace FCM.ViewModel
                     parameter.btnReport.IsEnabled = false;
                     parameter.btnTeams.IsEnabled = true;
                     parameter.btnStanding.IsEnabled = false;
-                    parameter.btnStanding.IsEnabled = true;
+                    parameter.btnStanding.IsEnabled = false;
                     parameter.btnSetting.IsEnabled = true;
+                    parameter.btnAddTeam.IsEnabled = true;
+                    parameter.btnEditInforTeam.DataContext = "Sửa thông tin đội bóng";
+                    parameter.btnDeleteTeam.IsEnabled = true;
+                    parameter.btnAddPlayer.IsEnabled = true;
                     break;
                 case 1:
                     parameter.btnSchedule.IsEnabled = true;
@@ -406,6 +461,10 @@ namespace FCM.ViewModel
                     parameter.btnTeams.IsEnabled = true;
                     parameter.btnStanding.IsEnabled = true;
                     parameter.btnSetting.IsEnabled = true;
+                    parameter.btnAddTeam.IsEnabled = false;
+                    parameter.btnEditInforTeam.DataContext = "Xem thông tin đội bóng";
+                    parameter.btnDeleteTeam.IsEnabled = false;
+                    parameter.btnAddPlayer.IsEnabled = false;
                     break;
                 case 2:
                     parameter.btnSchedule.IsEnabled = true;
@@ -453,6 +512,28 @@ namespace FCM.ViewModel
                     wd.imgLeagueLogo.Source = parameter.imgLeagueLogo.Source;
                     wd.datePicker.SelectedDate = parameter.league.dateTime;
                     wd.tbCountOfTeams.Text = parameter.league.countTeam.ToString();
+                    wd.cbTypeOfLeague.IsEnabled = false;
+                    wd.cbTypeOfLeague.Items.Clear();
+                    switch(parameter.league.typeLeague)
+                    {
+                        case 0:
+                            wd.cbTypeOfLeague.Items.Add("Đấu vòng tròn");
+                            wd.cbTypeOfLeague.SelectedIndex = 0;
+                            break;
+                        case 1:
+                            wd.cbTypeOfLeague.Items.Add("Đấu loại trực tiếp");
+                            wd.cbTypeOfLeague.SelectedIndex = 0;
+                            break;
+                        case 2:
+                            wd.cbTypeOfLeague.Items.Add("Chia Bảng Đấu");
+                            wd.cbTypeOfLeague.SelectedIndex = 0;
+                            wd.cbCountOfGroups.Visibility = Visibility.Visible;
+                            wd.cbCountOfGroups.Items.Clear();
+                            wd.cbCountOfGroups.Items.Add(parameter.league.countBoard.ToString());
+                            wd.cbCountOfGroups.SelectedIndex = 0;
+                            wd.cbCountOfGroups.IsEnabled = false;
+                            break;
+                    }
                     wd.ShowDialog();
                     LoadDetailLeague(LeagueDAO.Instance.GetLeagueById(parameter.league.id), parameter);
                     LoadListLeague(parameter);
@@ -495,14 +576,27 @@ namespace FCM.ViewModel
                     //parameter.wpTeamsList.Children.Add(teamButton);
                 }
                 if (teams.Count == parameter.setting.numberOfTeam)
+                {
                     parameter.btnAddTeam.Visibility = Visibility.Hidden;
+                    int countTeamValid = 0;
+                    foreach (Team team in teams)
+                    {
+                        int countPlayer = PlayerDAO.Instance.Count(team.id);
+                        if (countPlayer >= parameter.setting.minPlayerOfTeam && countPlayer <= parameter.setting.maxPlayerOfTeam)
+                            countTeamValid++;
+                    }
+                    if (countTeamValid == parameter.setting.numberOfTeam)
+                    {
+                        ChangeStatus(1, parameter);
+                    }
+                }
                 else
                     parameter.btnAddTeam.Visibility = Visibility.Visible;
-                if (parameter.wpTeamsList.Children.Count > 0)
+                if (teams.Count > 0)
                 {
                     if (parameter.team == null)
                     {
-                        //LoadDetailTeam(parameter, teams[0]);
+                        LoadDetailTeam(parameter, teams[0]);
                     }
                     else
                         LoadDetailTeam(parameter, parameter.team);
@@ -645,6 +739,7 @@ namespace FCM.ViewModel
                     parameter.tblNational.Text = "";
                     parameter.tblCoach.Text = "";
                     parameter.tblCountOfMembers.Text = "";
+                    parameter.tblStatus.Text = "";
                     parameter.imgTeamLogo.Source = new BitmapImage(new Uri("pack://application:,,,/Resource/Images/software-logo.png"));
                     parameter.btnAddPlayer.Visibility = Visibility.Hidden;
                     parameter.btnExportTeam.Visibility = Visibility.Hidden;
@@ -691,7 +786,7 @@ namespace FCM.ViewModel
             }    
             for (int i = 0; i < players.Count; i++)
             {
-                ucPlayer ucPlayer = new ucPlayer(players[i], parameter.currentAccount.roleLevel, i + 1, parameter, this);
+                ucPlayer ucPlayer = new ucPlayer(players[i], parameter.currentAccount.roleLevel, i + 1, parameter, this, parameter.league.status);
                 parameter.wpPlayersList.Children.Add(ucPlayer);
             }
 
@@ -701,7 +796,7 @@ namespace FCM.ViewModel
             if (parameter.team != null)
             {
                 AddPlayerWindow wd = new AddPlayerWindow(parameter.team, player, parameter.setting, (CountNationatily(parameter) < parameter.setting.maxForeignPlayers));
-                if (parameter.currentAccount.roleLevel == 1)
+                if (parameter.league.status == 0 &&parameter.currentAccount.roleLevel == 1)
                 {
                     wd.tblTitle.Text = "SỬA THÔNG TIN CẦU THỦ";
                     wd.btnAdd.Content = "Sửa";
@@ -771,7 +866,7 @@ namespace FCM.ViewModel
                         listName.Add(listTeamCalc[i].nameTeam);
                 }
                 //Add to board
-                BoardDAO.Instance.DeleteKOBoard(parameter.league.id);
+                //BoardDAO.Instance.DeleteKOBoard(parameter.league.id);
                 Board board = new Board(parameter.league.id, "Bảng đấu loại trực tiếp", listName.Count);
                 BoardDAO.Instance.CreateBoard(board);
                 for (int i = 0; i < listName.Count; i++)
@@ -876,7 +971,6 @@ namespace FCM.ViewModel
                         if (index8[i] != 0)
                             count8++;
                     }
-                     MessageBox.Show(count8.ToString());
                     if (count8 < mainWindow.league.countTeam)
                     {
                         MessageBox.Show("Thiếu đội bóng");
@@ -1301,7 +1395,10 @@ namespace FCM.ViewModel
                 // Thay đổi status của giải đấu = 2 (Đã bắt đầu khởi tranh)
                 LeagueDAO.Instance.UpdateStatusOfLeague(parameter.league.id, 2);
 
-                MessageBox.Show("Tạo lịch thi đấu thành công!", "Thành công", MessageBoxButton.OK);
+                if (parameter.league.typeLeague != 1)
+                {
+                    MessageBox.Show("Tạo lịch thi đấu thành công!", "Thành công", MessageBoxButton.OK);
+                }
 
                 LoadListMatch(parameter, 0);
             }
@@ -1377,7 +1474,8 @@ namespace FCM.ViewModel
                     Match match = matches[iMatch];
                     match.date = DateTime.Now;
                     match.time = DateTime.Now;
-
+                    match.allowDraw = true;
+                    match.allowDraw = true;
                     MatchDAO.Instance.AddMatch(match);
                 }
 
@@ -1389,7 +1487,7 @@ namespace FCM.ViewModel
                     Match match = new Match(parameter.league.id, matches[iMatch].idTeam02, matches[iMatch].idTeam01, matches[iMatch].round + nRound / 2, stadium);
                     match.date = DateTime.Now;
                     match.time = DateTime.Now;
-
+                    match.allowDraw = true;
                     MatchDAO.Instance.AddMatch(match);
                 }
             }
@@ -1459,6 +1557,7 @@ namespace FCM.ViewModel
                 //matches[i].date = DateTime.Now.Date;
                 matches[i].date = DateTime.Now;
                 matches[i].time = DateTime.Now;
+                matches[i].allowDraw = true;
                 MatchDAO.Instance.AddMatch(matches[i]);
             }
         }
@@ -1499,7 +1598,14 @@ namespace FCM.ViewModel
             }
 
             parameter.wpSchedule.Children.Clear();
-
+            if (listMatches.Count > 0)
+            {
+                parameter.btnCreateSchedule.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                parameter.btnCreateSchedule.Visibility = Visibility.Visible;
+            }    
             int i = 0;
             foreach (Match match in listMatches)
             {

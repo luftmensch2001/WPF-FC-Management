@@ -9,6 +9,6 @@
     "\\FCM\\View",
     "\\FCM\\ViewModel"
   ],
-  "SelectedNode": "\\FCM\\DAO\\ExcelProcessing.cs",
+  "SelectedNode": "\\FCM\\ViewModel\\MainViewModel.cs",
   "PreviewInSolutionExplorer": false
 }

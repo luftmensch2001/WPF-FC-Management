@@ -33,6 +33,7 @@
 
         <Grid Grid.Column="1">
             <TextBlock Text="Đội 1" 
+                       x:Name="Team1"
                     Foreground="#fff"
                     FontSize="16"
                     VerticalAlignment="Center"
@@ -43,6 +44,7 @@
 
         <Grid Grid.Column="2">
             <TextBlock Text="Đội 2" 
+                       x:Name="Team2"
                     Foreground="#fff"
                     FontSize="16"
                     VerticalAlignment="Center"
@@ -53,6 +55,7 @@
 
         <Grid Grid.Column="3">
             <TextBlock Text="Sân" 
+                       x:Name="San"
                     Foreground="#fff"
                     FontSize="16"
                     VerticalAlignment="Center"
@@ -63,6 +66,7 @@
 
         <Grid Grid.Column="4">
             <TextBlock Text="Giờ" 
+                       x:Name="time"
                     Foreground="#fff"
                     FontSize="16"
                     VerticalAlignment="Center"
@@ -73,6 +77,7 @@
 
         <Grid Grid.Column="5">
             <TextBlock Text="Ngày" 
+                       x:Name="Date"
                     Foreground="#fff"
                     FontSize="16"
                     VerticalAlignment="Center"
@@ -83,6 +88,7 @@
 
         <Grid Grid.Column="6">
             <TextBlock Text="Vòng đấu" 
+                       x:Name="Round"
                     Foreground="#fff"
                     FontSize="16"
                     VerticalAlignment="Center"

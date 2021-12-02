@@ -79,16 +79,23 @@ namespace FCM.DAO
             return count;
         }
 
-        public void AddToKOBoard(int idTournament, int idTeam)
+        //public void AddToKOBoard(int idTournament, int idTeam)
+        //{
+        //    string query = "Insert into TeamIntoNextQualifyingRound (idTournaments, idTeams) " +
+        //                 "Values ( " + idTournament + " , " + idTeam + ")";
+        //    DataProvider.Instance.ExecuteQuery(query);
+        //}
+        //public void DeleteKOBoard(int idTournament)
+        //{
+        //    string query = "Delete From TeamIntoNextQualifyingRound " +
+        //                 "Where idTournaments = " + idTournament;
+        //    DataProvider.Instance.ExecuteQuery(query);
+        //}
+        public void Update(Board board)
         {
-            string query = "Insert into TeamIntoNextQualifyingRound (idTournaments, idTeams) " +
-                         "Values ( " + idTournament + " , " + idTeam + ")";
-            DataProvider.Instance.ExecuteQuery(query);
-        }
-        public void DeleteKOBoard(int idTournament)
-        {
-            string query = "Delete From TeamIntoNextQualifyingRound " +
-                         "Where idTournaments = " + idTournament;
+            string query = " Update Board " +
+                            " Set CountTeam =  " + board.countTeam + " " +
+                            " Where id=" + board.id;
             DataProvider.Instance.ExecuteQuery(query);
         }
     }

@@ -27,6 +27,7 @@ namespace FCM.View
         public AddLeagueWindow(League league)
         {
             InitializeComponent();
+            
             this.league = league;
         }
     }

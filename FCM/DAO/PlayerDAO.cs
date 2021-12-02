@@ -107,5 +107,13 @@ namespace FCM.DAO
             Player player = new Player(tb.Rows[0]);
             return player;
         }
+        public int Count(int idTeam)
+        {
+            string query = "Select count(id) as count " +
+                        "From Players " +
+                        "Where idTeams = " + idTeam ;
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+            return (int)tb.Rows[0]["count"];
+        }
     }
 }

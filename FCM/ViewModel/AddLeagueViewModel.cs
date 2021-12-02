@@ -132,6 +132,7 @@ namespace FCM.ViewModel
                 else
                     league = new League(sponsor, name, 0, DateTime.Parse(parameter.datePicker.ToString()), ImageProcessing.Instance.convertImgToByte(imaged), Int32.Parse(countTeam), parameter.cbTypeOfLeague.SelectedIndex, Int32.Parse(countBoard));
                 league.id = parameter.league.id;
+                SettingDAO.Instance.EditSetting(league.id, "NumberOfTeams", league.countTeam.ToString());
                 if (parameter.league.countBoard != league.countBoard || parameter.league.typeLeague!= league.typeLeague)
                 {
                     BoardDAO.Instance.DeleteBoardInLeague(league.id);
@@ -139,6 +140,17 @@ namespace FCM.ViewModel
                 }
 
                 LeagueDAO.Instance.UpdateLeague(league);
+                List<Board> boards = BoardDAO.Instance.GetListBoard(league.id);
+                foreach (Board board in boards)
+                {
+                    board.countTeam = league.countTeam / league.countBoard;
+                    if (league.countTeam%league.countBoard>0)
+                    {
+                        board.countTeam++;
+                    }    
+
+                    BoardDAO.Instance.Update(board);
+                }    
                 MessageBox.Show("Sửa mùa giải thành công");
                 parameter.Close();
             }

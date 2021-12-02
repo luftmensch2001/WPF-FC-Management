@@ -432,7 +432,7 @@
 
         <Grid Grid.Column="1"
               x:Name="grdHomeScreen"
-              Visibility="Hidden">
+              Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="260"/>
                 <RowDefinition Height="1"/>
@@ -458,7 +458,8 @@
                 </Grid>
                 <!--League Description-->
                 <Grid Grid.Row="1">
-                    <TextBlock Text="GIẢI BÓNG ĐÁ VÔ ĐỊCH QUỐC GIA VIỆT NAM"
+                    <TextBlock x:Name="tblHomeLeagueName" 
+                        Text="GIẢI BÓNG ĐÁ VÔ ĐỊCH QUỐC GIA VIỆT NAM"
                                FontSize="25"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
@@ -466,7 +467,8 @@
                 </Grid>
 
                 <Grid Grid.Row="2">
-                    <TextBlock Text="Nhà tài trợ chính: LS Holding"
+                    <TextBlock x:Name="tblHomeSponer" 
+                        Text="Nhà tài trợ chính: LS Holding"
                                FontSize="22"
                                VerticalAlignment="Top"
                                HorizontalAlignment="Center"
@@ -479,8 +481,10 @@
 
             <!--Next Matches-->
             <!--#region Header bar-->
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="2" x:Name="grdHomeMatchColumn">
+                
                 <Grid.Resources>
+                    
                     <Style x:Key="headerText" TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignTextBlock}">
                         <Setter Property="Foreground" Value="#fff"/>
                         <Setter Property="FontSize" Value="16"/>
@@ -490,6 +494,7 @@
                     </Style>
                 </Grid.Resources>
                 <TextBlock Text="Trận sắp diễn ra" 
+                           x:Name="tblHomeMatch"
                            FontSize="20"
                            FontWeight="SemiBold"
                            FontStyle="Italic"
@@ -503,6 +508,7 @@
                         Margin="0">
 
                     <Grid 
+                         
                           Width="900"
                           Height="50"
                           Background="Transparent">
@@ -560,7 +566,7 @@
             </Grid>
             <!--#endregion-->
             <!--#region Matches detail-->
-            <Grid Grid.Row="3">
+            <Grid Grid.Row="3" x:Name="grdHomeMatch">
                 <Border CornerRadius="10" 
                         Background="#282823"
                         Width="900"
@@ -575,12 +581,6 @@
                                 </Style>
                             </StackPanel.Resources>
                             <!--Max 6 matches, no scroll-->
-                            <userControl:ucMatchDetailNoEdit />
-                            <userControl:ucMatchDetailNoEdit />
-                            <userControl:ucMatchDetailNoEdit />
-                            <userControl:ucMatchDetailNoEdit />
-                            <userControl:ucMatchDetailNoEdit />
-                            <userControl:ucMatchDetailNoEdit />
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -719,16 +719,17 @@
                             Width="140"
                             Height="35"
                             Padding="0"
-                            Margin="0 12 0 0"
-                            HorizontalAlignment="Left">
+                            Margin="150 12 0 0"
+                            HorizontalAlignment="Right">
 
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon 
                                     Width="20"
                                     Height="20"
                                     Kind="NoteEditOutline"
-                                    Margin="0 0 8 0"/>
-                                <TextBlock Text="Sửa thông tin" />
+                                    Margin="10 0 0 0"/>
+                                
+                                <TextBlock Text="  Sửa thông tin" />
                             </StackPanel>
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
@@ -737,7 +738,7 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Button>
-                        <Button x:Name="btnDeleteLeague"
+                        <!--<Button x:Name="btnDeleteLeague"
                             Style="{StaticResource MyRedButtonStyle}"
                             Width="130"
                             Height="35"
@@ -760,13 +761,13 @@
                                     Margin="0 0 8 0"/>
                                 <TextBlock Text="Xoá giải đấu" />
                             </StackPanel>
-                        </Button>
+                        </Button>-->
                     </StackPanel>
                 </Grid>
 
                 <!--Button create-->
                 <Grid Grid.Column="2"
-                      Margin="30 0 0 0">
+                      Margin="30 0 0 0 ">
                     <Button x:Name="btnCreateLeague"
                             Style="{StaticResource MyGreenButtonStyle}"
                             Width="160"
@@ -829,7 +830,7 @@
         <Grid 
             x:Name="grdScheduleScreen"
             Grid.Column="1"
-            Visibility="Visible">
+            Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="7*"/>

@@ -29,7 +29,7 @@ namespace FCM.UserControls
         {
             InitializeComponent();
         }
-        public ucPlayer(Player player, int roleLevel,int index, MainWindow mainWindow, MainViewModel mainViewModel)
+        public ucPlayer(Player player, int roleLevel,int index, MainWindow mainWindow, MainViewModel mainViewModel, int status)
         {
             InitializeComponent();
             this.player = player;
@@ -42,7 +42,7 @@ namespace FCM.UserControls
             tblPosition.Text = player.position;
             this.mainWindow = mainWindow;
             this.mainViewModel = mainViewModel;
-            if (roleLevel == 0)
+            if (roleLevel == 0 || status > 0)
                 btnDeletePlayer.IsEnabled = false;
         }
     }

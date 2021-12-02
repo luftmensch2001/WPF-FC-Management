@@ -279,6 +279,11 @@ namespace FCM.ViewModel
             int timeReveiveRedCardOfScorePlayer = parameter.resultWD.GetTimePlayerReceiveRedCard(playerScore);
             int timeReveiveRedCardOfAssistPlayer = parameter.resultWD.GetTimePlayerReceiveRedCard(playerAssist);
 
+            //if (idPlayerScored==idPlayerAssist)
+            //{
+            //    MessageBox.Show("Trùng cầu thủ ghi bàn và kiến tạo");
+            //    return;
+            //}    
 
             if (Int32.Parse(timeGoal) > timeReveiveRedCardOfScorePlayer)
             {

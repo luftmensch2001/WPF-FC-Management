@@ -244,6 +244,7 @@ namespace FCM.View
                     idTeamWin = team1.id;
                 else
                     idTeamWin = team2.id;
+                
                 NodeMatchDAO.Instance.UpdateNode(team1.idTournamnt, team1.id, team2.id, idTeamWin);
 
             }

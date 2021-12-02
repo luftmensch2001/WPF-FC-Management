@@ -79,6 +79,9 @@ namespace FCM.UserControls
             }
             else
                 this.tblScore.Text = match.Score1 + " - " + match.Score2;
+            if (match.allowDraw == false && match.Score1 == match.Score2 && match.Score1!=-1)
+                this.tblScore.Text =" "+ match.Score1 + " - " + match.Score2 + "\n(" +match.PenaltyTeam1 +" - "+ match.PenaltyTeam2 + ")";
+
         }
     }
 }
