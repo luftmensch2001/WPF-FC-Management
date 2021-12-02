@@ -482,9 +482,9 @@
             <!--Next Matches-->
             <!--#region Header bar-->
             <Grid Grid.Row="2" x:Name="grdHomeMatchColumn">
-                
+
                 <Grid.Resources>
-                    
+
                     <Style x:Key="headerText" TargetType="TextBlock" BasedOn="{StaticResource MaterialDesignTextBlock}">
                         <Setter Property="Foreground" Value="#fff"/>
                         <Setter Property="FontSize" Value="16"/>
@@ -728,7 +728,7 @@
                                     Height="20"
                                     Kind="NoteEditOutline"
                                     Margin="10 0 0 0"/>
-                                
+
                                 <TextBlock Text="  Sửa thông tin" />
                             </StackPanel>
                             <i:Interaction.Triggers>
@@ -830,7 +830,7 @@
         <Grid 
             x:Name="grdScheduleScreen"
             Grid.Column="1"
-            Visibility="Hidden">
+            Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="7*"/>
@@ -887,7 +887,7 @@
                         Width="200"
                         HorizontalAlignment="Center"
                         Margin="0 10 0 0">
-                        
+
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction Command="{Binding ChangeRoundCommand}"
@@ -2080,6 +2080,7 @@
                 <Image Height="100" Width="100" Margin="0 0 150 5"
                        HorizontalAlignment="Right" Source="/Resource/Images/football.png"/>
                 <Rectangle Fill="Gray" Height="1" VerticalAlignment="Bottom"/>
+               
             </Grid>
             <!--Body-->
             <Grid Grid.Row="1">

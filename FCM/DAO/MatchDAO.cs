@@ -230,5 +230,15 @@ namespace FCM.DAO
             }
             return matches;
         }
+        public int GetCountMatchWait(int idleague)
+        {
+            string query = " Select count(id) as count " + "" +
+                           " From matchs  " +
+                           " Where idTournaments =   " + idleague + " " +
+                           " and score1 =-1 " +
+                           " and allowdraw = 1";
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+            return (int)tb.Rows[0]["count"];
+        }
     }
 }

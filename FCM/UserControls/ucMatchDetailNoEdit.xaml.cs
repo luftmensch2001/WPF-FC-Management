@@ -32,7 +32,7 @@ namespace FCM.UserControls
             this.Team2.Text = TeamDAO.Instance.GetTeamById(match.idTeam02).nameTeam;
             this.San.Text = match.statium;
             this.time.Text = match.time.ToString("HH:mm");
-            this.Date.Text = match.time.ToString("dd/MM/yyyy");
+            this.Date.Text = match.date.ToString("dd/MM/yyyy");
             if (match.round>0)
             {
                 this.Round.Text = match.round.ToString();

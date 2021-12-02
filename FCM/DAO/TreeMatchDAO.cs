@@ -45,7 +45,10 @@ namespace FCM.DAO
                             " From TreeMatch " +
                             " Where idleague = " + idLeague;
             DataTable db = DataProvider.Instance.ExecuteQuery(query);
-            return new TreeMatch(db.Rows[0]);
+            if (db.Rows.Count > 0)
+                return new TreeMatch(db.Rows[0]);
+            else
+                return null;
         }
         public TreeMatch GetTreeById(int idTree)
         {
