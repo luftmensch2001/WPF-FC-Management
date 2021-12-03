@@ -41,7 +41,7 @@ namespace FCM.DAO
                 Board board = new Board(row);
                 boards.Add(board);
             }
-           // MessageBox.Show(" count =" + boards.Count);
+            // MessageBox.Show(" count =" + boards.Count);
             return boards;
         }
         public void CreateBoard(Board board)
@@ -97,6 +97,15 @@ namespace FCM.DAO
                             " Set CountTeam =  " + board.countTeam + " " +
                             " Where id=" + board.id;
             DataProvider.Instance.ExecuteQuery(query);
+        }
+
+        public bool HaveNockOutBoard(int id)
+        {
+            List<Board> boards = BoardDAO.Instance.GetListBoard(id);
+            foreach (Board board in boards)
+                if (board.nameBoard == "Bảng đấu loại trực tiếp")
+                    return true;
+            return false;
         }
     }
 }

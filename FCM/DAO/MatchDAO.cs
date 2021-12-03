@@ -240,5 +240,12 @@ namespace FCM.DAO
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
             return (int)tb.Rows[0]["count"];
         }
+        public bool HaveMatch(int idLeague)
+        {
+            List<Match>  match  = GetListMatch(idLeague);
+            if (match.Count > 0)
+                return true;
+            return false;
+        }
     }
 }
