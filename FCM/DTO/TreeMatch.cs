@@ -88,7 +88,7 @@ namespace FCM.DTO
             CreateMatch(nodeRight);
             if (node.idTeam == -1 && nodeLeft.idTeam > 0 && nodeRight.idTeam > 0)
             {
-                Match match = new Match(this.idLeague, nodeLeft.idTeam, nodeRight.idTeam, -1 * node.high, "", false);
+                Match match = new Match(this.idLeague, nodeLeft.idTeam, nodeRight.idTeam, -1 * node.high, "", false , "Bảng đấu loại trực tiếp");
                 if (!MatchDAO.Instance.IsExist(match))
                 {
                     MatchDAO.Instance.AddMatch(match);

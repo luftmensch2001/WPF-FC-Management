@@ -58,7 +58,7 @@ namespace FCM.ViewModel
                 parameter.match.Score1 = -1;
                 parameter.match.Score2 = -1;
                 MatchDAO.Instance.UpdateMatch(parameter.match);
-                parameter.main.LoadListMatch(parameter.mainWindow, 0);
+                parameter.main.LoadListMatch(parameter.mainWindow, 0 , "Tất cả bảng đấu");
             }
         }
         void SaveNewInfor(EditMatchInforWindow parameter)

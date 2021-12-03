@@ -21,6 +21,8 @@ namespace FCM.DTO
 
         public bool allowDraw;
 
+        public string nameBoard;
+
         public DateTime date { get; set; }
         public DateTime time { get; set; }
         public string statium { get; set; }
@@ -40,6 +42,7 @@ namespace FCM.DTO
             this.Score1 = (int)row["Score1"];
             this.Score2 = (int)row["Score2"];
             this.allowDraw = (bool)row["allowDraw"];
+            this.nameBoard = (string)row["nameBoard"];
         }
         //public Match(int id, int idTournaments, int idTeam01, int idTeam02, int round,DateTime date, DateTime time, string stadium)
         //{
@@ -52,7 +55,7 @@ namespace FCM.DTO
         //    this.time = time;
         //    this.statium = stadium;
         //}
-        public Match(int id, int idTournaments, int idTeam01, int idTeam02, int round, DateTime date, DateTime time, string stadium, int penaltyTeam1, int penaltyTeam2, bool isStarted, int Score1, int Score2, bool allowDraw)
+        public Match(int id, int idTournaments, int idTeam01, int idTeam02, int round, DateTime date, DateTime time, string stadium, int penaltyTeam1, int penaltyTeam2, bool isStarted, int Score1, int Score2, bool allowDraw,string nameBoard)
         {
             this.id = id;
             this.idTournaments = idTournaments;
@@ -68,16 +71,18 @@ namespace FCM.DTO
             this.Score1 = Score1;
             this.Score2 = Score2;
             this.allowDraw = allowDraw;
+            this.nameBoard = nameBoard;
         }
-        public Match(int idTournaments, int idTeam01, int idTeam02, int round, string stadium)
+        public Match(int idTournaments, int idTeam01, int idTeam02, int round, string stadium,string nameBoard)
         {
             this.idTournaments = idTournaments;
             this.idTeam01 = idTeam01;
             this.idTeam02 = idTeam02;
             this.round = round;
             this.statium = stadium;
+            this.nameBoard = nameBoard;
         }
-        public Match(int idTournaments, int idTeam01, int idTeam02, int round, string stadium, bool allowDraw)
+        public Match(int idTournaments, int idTeam01, int idTeam02, int round, string stadium, bool allowDraw, string nameBoard)
         {
             this.idTournaments = idTournaments;
             this.idTeam01 = idTeam01;
@@ -88,6 +93,7 @@ namespace FCM.DTO
             this.isStarted = false;
             this.date = DateTime.Today;
             this.time = DateTime.Today;
+            this.nameBoard = nameBoard;
         }
         //public Match(int idTournaments, int idTeam01, int idTeam02, int round, string stadium, int penaltyTeam1, int penaltyTeam2)
         //{

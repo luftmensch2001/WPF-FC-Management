@@ -196,26 +196,37 @@ namespace FCM.ViewModel
 
                     AddItemsForCbxRound(parameter);
                     parameter.cbxRound.SelectedIndex = 0;
-                    LoadListMatch(parameter, 0);
+                    LoadCBXBoard(parameter);
+                    LoadListMatch(parameter, 0, "Tất cả bảng");
                     //if (MatchDAO.Instance.HaveMatch(parameter.league.id))
                     //    parameter.btnCreateSchedule.IsEnabled = false;
                     //else
                     //    parameter.btnCreateSchedule.IsEnabled = true;
-                    bool isNockOutRound = false;
-                    List<Board> boards = BoardDAO.Instance.GetListBoard(parameter.league.id);
-                    foreach (Board board in boards)
+                    if (parameter.league.typeLeague == 2)
                     {
-                        if (board.nameBoard == "Bảng đấu loại trực tiếp")
-                            isNockOutRound = true;
+                        parameter.cbxBoard.Visibility = Visibility.Visible;
+                    }    
+                    else
+                    {
+                        parameter.cbxBoard.Visibility = Visibility.Hidden;
                     }
-                    TreeMatch tree = TreeMatchDAO.Instance.GetTree(parameter.league.id);
-                    if (isNockOutRound)
+                    if (MatchDAO.Instance.HaveMatch(parameter.league.id))
                     {
-                        if (tree == null)
-                            parameter.btnCreateSchedule.IsEnabled = true;
-                        else
+                        if (parameter.league.typeLeague == 0 || parameter.league.typeLeague == 1)
+                        {
                             parameter.btnCreateSchedule.IsEnabled = false;
+                        }
+                        if (parameter.league.typeLeague == 2 &&
+                            (!BoardDAO.Instance.HaveNockOutBoard(parameter.league.id) ||
+                               (BoardDAO.Instance.HaveNockOutBoard(parameter.league.id) && TreeMatchDAO.Instance.GetTree(parameter.league.id) == null)))
+                        {
+                            parameter.btnCreateSchedule.IsEnabled = false;
+                        }
+
                     }
+                    else
+                        parameter.btnCreateSchedule.IsEnabled = true;
+                    TreeMatch tree = TreeMatchDAO.Instance.GetTree(parameter.league.id);
 
                     if (tree == null)
                     {
@@ -329,6 +340,18 @@ namespace FCM.ViewModel
                         }
                         GetDetailSetting(parameter);
                         LoadTypesOfGoal(parameter);
+                        if (parameter.league.typeLeague!=2)
+                        {
+                            parameter.btEditS6.Visibility = Visibility.Hidden;
+                            parameter.tblSettingTeamIn.Visibility = Visibility.Hidden;
+                            parameter.tbNumberOfTeamsIn.Visibility = Visibility.Hidden;
+                        }    
+                        else
+                        {
+                            parameter.btEditS6.Visibility = Visibility.Visible;
+                            parameter.tblSettingTeamIn.Visibility = Visibility.Visible;
+                            parameter.tbNumberOfTeamsIn.Visibility = Visibility.Visible;
+                        }
                     }
                     break;
                 case 7:
@@ -873,7 +896,7 @@ namespace FCM.ViewModel
         {
             mainWindow.grdScheduleScreen.Visibility = Visibility.Visible;
             mainWindow.grdScheduleChart.Visibility = Visibility.Hidden;
-            LoadListMatch(mainWindow, 0);
+            LoadListMatch(mainWindow, 0, "Tất cả bảng");
         }
         public void CreateScheduleNockOut(MainWindow mainWindow)
         {
@@ -1345,6 +1368,17 @@ namespace FCM.ViewModel
                     break;
             }
         }
+        void LoadCBXBoard(MainWindow mainWindow)
+        {
+            mainWindow.cbxBoard.Items.Clear();
+            mainWindow.cbxBoard.Items.Add("Tất cả bảng");
+            mainWindow.cbxBoard.SelectedIndex = 0;
+            List<Board> boards = BoardDAO.Instance.GetListBoard(mainWindow.league.id);
+            foreach (Board board in boards)
+            {
+                mainWindow.cbxBoard.Items.Add(board.nameBoard);
+            }
+        }
         #endregion
 
         #region Tạo lịch thi đấu
@@ -1365,6 +1399,22 @@ namespace FCM.ViewModel
             //}
 
             // Tiến hành tạo lịch
+            if (MatchDAO.Instance.HaveMatch(parameter.league.id))
+            {
+                if (parameter.league.typeLeague ==0 || parameter.league.typeLeague==1)
+                {
+                    MessageBox.Show("Đã có lịch thi đấu");
+                    return;
+                }
+                if (parameter.league.typeLeague==2 && 
+                    (!BoardDAO.Instance.HaveNockOutBoard(parameter.league.id)  || 
+                       (BoardDAO.Instance.HaveNockOutBoard(parameter.league.id) && TreeMatchDAO.Instance.GetTree(parameter.league.id)==null)))
+                {
+                    MessageBox.Show("Đã có lịch thi đấu");
+                    return;
+                }
+                
+            }    
             if (MessageBox.Show("Sau khi tiến hành tạo lịch, các thông tin về Câu lạc bộ, Cầu thủ sẽ không được phép thay đổi nữa!\n" +
                 "Các trận đấu sẽ được tạo ngẫu nhiên theo nguyên tắc vòng tròn tính điểm.\n" +
                 "Bạn có muốn tạo lịch thi đấu?", "Lưu ý", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
@@ -1400,9 +1450,10 @@ namespace FCM.ViewModel
                 if (parameter.league.typeLeague != 1 && !BoardDAO.Instance.HaveNockOutBoard(parameter.league.id))
                 {
                     MessageBox.Show("Tạo lịch thi đấu thành công!", "Thành công", MessageBoxButton.OK);
+                    parameter.btnCreateSchedule.IsEnabled = false;
                 }
 
-                LoadListMatch(parameter, 0);
+                LoadListMatch(parameter, 0,parameter.cbxBoard.Text);
             }
         }
 
@@ -1451,7 +1502,7 @@ namespace FCM.ViewModel
                                 {
                                     if (!haveMet[iTeam1, iTeam2])
                                     {
-                                        Match match = new Match(parameter.league.id, teams[iTeam1].id, teams[iTeam2].id, iRound, teams[iTeam1].stadium);
+                                        Match match = new Match(parameter.league.id, teams[iTeam1].id, teams[iTeam2].id, iRound, teams[iTeam1].stadium,boards[iBoard].nameBoard);
 
                                         matches[nMatch] = match;
 
@@ -1486,7 +1537,7 @@ namespace FCM.ViewModel
                 {
                     // Đổi ngược lại vị trí idTeam1 và idTeam2, đồng thời đổi cả sân đấu
                     string stadium = TeamDAO.Instance.GetTeamById(matches[iMatch].idTeam02).stadium;
-                    Match match = new Match(parameter.league.id, matches[iMatch].idTeam02, matches[iMatch].idTeam01, matches[iMatch].round + nRound / 2, stadium);
+                    Match match = new Match(parameter.league.id, matches[iMatch].idTeam02, matches[iMatch].idTeam01, matches[iMatch].round + nRound / 2, stadium,boards[iBoard].nameBoard);
                     match.date = DateTime.Now;
                     match.time = DateTime.Now;
                     match.allowDraw = true;
@@ -1548,7 +1599,7 @@ namespace FCM.ViewModel
                     homeStadium[team01, team02] = true;
 
                     nTrandau++;
-                    matches[nTrandau] = new Match(parameter.league.id, teams[team01 - 1].id, teams[team02 - 1].id, vongdau, teams[team01 - 1].stadium);
+                    matches[nTrandau] = new Match(parameter.league.id, teams[team01 - 1].id, teams[team02 - 1].id, vongdau, teams[team01 - 1].stadium,"Bảng đấu vòng");
 
                     nAttended++;
                 }
@@ -1568,7 +1619,7 @@ namespace FCM.ViewModel
         public void AddItemsForCbxRound(MainWindow parameter)
         {
             parameter.cbxRound.Items.Clear();
-            parameter.cbxRound.Items.Add("Tất cả");
+            parameter.cbxRound.Items.Add("Tất cả vòng");
             switch (parameter.league.typeLeague)
             {
                 case 0:
@@ -1652,29 +1703,52 @@ namespace FCM.ViewModel
 
             resultWD.DeleteOldInfor();
 
-            LoadListMatch(parameter, parameter.cbxRound.SelectedIndex);
+            LoadListMatch(parameter, parameter.cbxRound.SelectedIndex, parameter.cbxBoard.Text);
         }
 
         // Hiển thị danh sách trận đấu
         List<Match> listMatches;
-        public void LoadListMatch(MainWindow parameter, int round)
+        public void LoadListMatch(MainWindow parameter, int round, string board)
         {
+            parameter.wpSchedule.Children.Clear();
             if (round == 0)
             {
-                listMatches = MatchDAO.Instance.GetListMatch(parameter.league.id);
+                parameter.cbxRound.SelectedIndex = 0;
+                if (board == "Tất cả bảng")
+                {
+                    parameter.cbxBoard.SelectedIndex = 0;
+                    listMatches = MatchDAO.Instance.GetListMatch(parameter.league.id);
+                }
+                else
+                    listMatches = MatchDAO.Instance.GetListMatchByBoard(parameter.league.id, board);
             }
             else
             {
-                listMatches = MatchDAO.Instance.GetListMatchByRound(parameter.league.id, round);
+                if (board == "Tất cả bảng")
+                {
+                    parameter.cbxBoard.SelectedIndex = 0;
+                    listMatches = MatchDAO.Instance.GetListMatchByRound(parameter.league.id, round);
+                }
+                else
+                    listMatches = MatchDAO.Instance.GetListMatchByBoardAndRound(parameter.league.id, round, board);
             }
-
-            parameter.wpSchedule.Children.Clear();
             int i = 0;
+            bool canEdit = true;
+            if (parameter.league.typeLeague == 2 && BoardDAO.Instance.HaveNockOutBoard(parameter.league.id))
+                canEdit = false;
             foreach (Match match in listMatches)
             {
                 i++;
-                ucMatchDetail ucmatchDetail = new ucMatchDetail(i, match, parameter, this);
-                parameter.wpSchedule.Children.Add(ucmatchDetail);
+                if (canEdit || match.nameBoard == "Bảng đấu loại trực tiếp")
+                {
+                    ucMatchDetail ucmatchDetail = new ucMatchDetail(i, match, parameter, this, canEdit);
+                    parameter.wpSchedule.Children.Add(ucmatchDetail);
+                }
+                else
+                {
+                    ucMatchDetail ucmatchDetail = new ucMatchDetail(i, match, parameter, this, canEdit);
+                    parameter.wpSchedule.Children.Add(ucmatchDetail);
+                }    
             }
 
         }
@@ -1683,38 +1757,38 @@ namespace FCM.ViewModel
         {
             try
             {
-                LoadListMatchRound(parameter, parameter.cbxRound.Items[parameter.cbxRound.SelectedIndex].ToString());
+                LoadListMatchRound(parameter, parameter.cbxRound.Items[parameter.cbxRound.SelectedIndex].ToString(),parameter.cbxBoard.Text);
             }
             catch
             {
 
             }
         }
-        public void LoadListMatchRound(MainWindow mainWindow, string round)
+        public void LoadListMatchRound(MainWindow mainWindow, string round, string board)
         {
             try
             {
                 int r = Int32.Parse(round[round.Length - 1].ToString());
-                LoadListMatch(mainWindow, r);
+                LoadListMatch(mainWindow, r, board);
             }
             catch
             {
                 switch (round)
                 {
-                    case "Tất cả":
-                        LoadListMatch(mainWindow, 0);
+                    case "Tất cả vòng":
+                        LoadListMatch(mainWindow, 0, board);
                         break;
                     case "Vòng 1/8":
-                        LoadListMatch(mainWindow, -4);
+                        LoadListMatch(mainWindow, -4, board);
                         break;
                     case "Vòng tứ kết":
-                        LoadListMatch(mainWindow, -3);
+                        LoadListMatch(mainWindow, -3, board);
                         break;
                     case "Vòng bán kết":
-                        LoadListMatch(mainWindow, -2);
+                        LoadListMatch(mainWindow, -2, board);
                         break;
                     case "Vòng chung kết":
-                        LoadListMatch(mainWindow, -1);
+                        LoadListMatch(mainWindow, -1, board);
                         break;
                 }
             }
@@ -1725,13 +1799,13 @@ namespace FCM.ViewModel
             EditMatchInforWindow wd = new EditMatchInforWindow(match);
             wd.ShowDialog();
 
-            LoadListMatchRound(parameter, parameter.cbxRound.Items[parameter.cbxRound.SelectedIndex].ToString());
+            LoadListMatchRound(parameter, parameter.cbxRound.Items[parameter.cbxRound.SelectedIndex].ToString(), parameter.cbxBoard.Text);
         }
         public void OpenResultRecordingWindow(MainWindow parameter, Match match)
         {
             ResultRecordingWindow wd = new ResultRecordingWindow(match);
             wd.ShowDialog();
-            LoadListMatch(parameter, this.round);
+            LoadListMatchRound(parameter, this.round.ToString(), parameter.cbxBoard.Text);
         }
         #endregion
 
@@ -1838,9 +1912,10 @@ namespace FCM.ViewModel
 
         void CreateBoardKnockOut(MainWindow parameter)
         {
-            if (MatchDAO.Instance.GetCountMatchWait(parameter.league.id) > 0)
+            List<Match> matches = MatchDAO.Instance.GetListMatch(parameter.league.id);
+            if (MatchDAO.Instance.GetCountMatchWait(parameter.league.id) > 0|| matches.Count==0)
             {
-                MessageBox.Show("Chưa hoàn thành hết trận đấu vòng bảng");
+                MessageBox.Show("Chưa hoàn thành vòng bảng");
                 return;
             }
             if (parameter.league.typeLeague == 0 || parameter.league.typeLeague == 1)
@@ -1960,7 +2035,6 @@ namespace FCM.ViewModel
         {
             List<TeamScoreDetails> list = new List<TeamScoreDetails>();
             List<Team> team = TeamDAO.Instance.GetListTeam(nameBoard, parameter.league.id);
-            MessageBox.Show(team.Count.ToString());
             int i = -1;
             foreach (Team t in team)
             {

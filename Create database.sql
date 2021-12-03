@@ -91,6 +91,7 @@ Create Table Matchs
 	Date Datetime,
 	Time Datetime,
 	Stadium nvarchar(100),
+	nameBoard nvarchar(100)
 
 	foreign key (IdTournaments) references Tournaments(Id),
 	foreign key (IdTeam01) references Teams(Id),

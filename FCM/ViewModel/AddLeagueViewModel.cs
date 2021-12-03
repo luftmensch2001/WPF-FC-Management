@@ -101,8 +101,16 @@ namespace FCM.ViewModel
             string sponsor = InputFormat.Instance.FomartSpace(parameter.tbSponsor.Text);
             string countTeam = InputFormat.Instance.FomartSpace(parameter.tbCountOfTeams.Text);
             string countBoard = "1";
-            if (parameter.cbTypeOfLeague.Text == "Chia bảng đấu")
-                countBoard = parameter.cbCountOfGroups.Text[0].ToString() + parameter.cbCountOfGroups.Text[1].ToString();
+            try
+            {
+                if (parameter.cbTypeOfLeague.Text == "Chia bảng đấu")
+                    countBoard = parameter.cbCountOfGroups.Text[0].ToString() + InputFormat.Instance.FomartSpace(parameter.cbCountOfGroups.Text[1].ToString());
+            }
+            catch
+            {
+                MessageBox.Show("Thiếu thông tin");
+                return;
+            }
 
 
             if (!IsValidInformation(name,

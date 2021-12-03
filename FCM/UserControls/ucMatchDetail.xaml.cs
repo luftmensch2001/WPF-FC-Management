@@ -30,7 +30,7 @@ namespace FCM.UserControls
             InitializeComponent();
         }
 
-        public ucMatchDetail(int stt, Match match, MainWindow parameter, MainViewModel main)
+        public ucMatchDetail(int stt, Match match, MainWindow parameter, MainViewModel main, bool canEdit)
         {
             InitializeComponent();
             this.mainWindow = parameter;
@@ -82,6 +82,13 @@ namespace FCM.UserControls
             if (match.allowDraw == false && match.Score1 == match.Score2 && match.Score1!=-1)
                 this.tblScore.Text =" "+ match.Score1 + " - " + match.Score2 + "\n(" +match.PenaltyTeam1 +" - "+ match.PenaltyTeam2 + ")";
 
+
+            if (!canEdit)
+            {
+                btnEditInfor.IsEnabled = false;
+                btnCancelResult.IsEnabled = false;
+                btnRecordResult.IsEnabled = false;
+            }
         }
     }
 }

@@ -33,7 +33,7 @@ namespace FCM.DAO
         //}
         public void AddMatch(Match match)
         {
-            string query = "Insert into Matchs (IdTournaments,IdTeam01,IdTeam02,Date,Time,Round,Stadium,allowDraw,score1,score2 ) " +
+            string query = "Insert into Matchs (IdTournaments,IdTeam01,IdTeam02,Date,Time,Round,Stadium,allowDraw,nameBoard ,score1,score2) " +
                          "Values (  " +
                          "N'" + match.idTournaments + "' ," +
                          "N'" + match.idTeam01 + "' ," +
@@ -43,6 +43,7 @@ namespace FCM.DAO
                          "N'" + match.round + "' ," +
                          "N'" + match.statium + "' ," +
                          "N'" + match.allowDraw + "'," +
+                         "N'" + match.nameBoard + "'," +
                          " -1 ," +
                          " -1 " +
                          ")";
@@ -86,6 +87,39 @@ namespace FCM.DAO
                             "From Matchs " +
                             "Where idTournaments = " + idTournament + " AND " +
                             "Round = " + round;
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+            foreach (DataRow row in tb.Rows)
+            {
+                Match match = new Match(row);
+                matches.Add(match);
+            }
+            return matches;
+        }
+        public List<Match> GetListMatchByBoard(int idTournament, string board)
+        {
+            List<Match> matches = new List<Match>();
+
+            string query = "Select* " +
+                            "From Matchs " +
+                            "Where idTournaments = " + idTournament+
+                             " AND " + "nameBoard = " + board;
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+            foreach (DataRow row in tb.Rows)
+            {
+                Match match = new Match(row);
+                matches.Add(match);
+            }
+            return matches;
+        }
+        public List<Match> GetListMatchByBoardAndRound(int idTournament, int round, string board)
+        {
+            List<Match> matches = new List<Match>();
+
+            string query = "Select* " +
+                            "From Matchs " +
+                            "Where idTournaments = " + idTournament +
+                            " AND " + "Round = " + round +
+                            " AND " + "nameBoard = " + board;
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
             foreach (DataRow row in tb.Rows)
             {
