@@ -27,7 +27,10 @@ namespace FCM.ViewModel
         void DeleteLeague(ucLeagueCard parameter)
         {
             LeagueDAO.Instance.DeleteLeague(parameter.league);
-            parameter.main.LoadListLeague(parameter.mainWindow);
+            if (parameter.league==parameter.mainWindow.league)
+                parameter.main.DeleteLeague(parameter.mainWindow);
+            else
+                parameter.main.LoadListLeague(parameter.mainWindow);
         }
     }
 }

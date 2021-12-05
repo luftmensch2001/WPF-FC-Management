@@ -82,7 +82,7 @@ namespace FCM.DAO
             List<Team> teams = GetListTeamInLeague(idTournament);
             foreach (Team team in teams)
             {
-                PlayerDAO.Instance.DeletePlayer(team.id);
+                PlayerDAO.Instance.DeletePlayerInTeam(team.id);
             }
             string query = "Delete " +
                             "From Teams " +

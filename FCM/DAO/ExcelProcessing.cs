@@ -47,7 +47,7 @@ namespace FCM.DAO
                         ExcelWorksheet workSheet = package.Workbook.Worksheets[0];
 
 
-                        string namePicture = workSheet.Cells[3, 2].Value.ToString();
+                        string namePicture = InputFormat.Instance.FomartSpace(workSheet.Cells[3, 2].Value.ToString());
                         var pic = workSheet.Drawings[namePicture] as ExcelPicture;
                         if (pic == null)
                         {
@@ -66,6 +66,7 @@ namespace FCM.DAO
                             MessageBox.Show("Thiếu thông tin đội bóng", "lỗi");
                             return false;
                         }
+                        team.nameTeam = InputFormat.Instance.FomartSpace(team.nameTeam);
                         if (TeamDAO.Instance.IsExistTeamName(team.nameTeam,parameter.idTournament))
                         {
                             MessageBox.Show("Tên đội bóng đã tồn tại");
@@ -107,7 +108,7 @@ namespace FCM.DAO
                                             result = DateTime.ParseExact(date, "dd/MM/yyyy", null, DateTimeStyles.None);
                                             //MessageBox.Show(result.ToString("dd/MM/yyyy"));
                                             Player player = new Player(TeamDAO.Instance.GetNewestTeamid(team.idTournamnt),
-                                                                        workSheet.Cells[i, 3].Value.ToString(),
+                                                                        InputFormat.Instance.FomartSpace(workSheet.Cells[i, 3].Value.ToString()),
                                                                         Int32.Parse(workSheet.Cells[i, 4].Value.ToString()),
                                                                         result,
                                                                         //DateTime.Parse(workSheet.Cells[i, 6].Value.ToString()),

@@ -96,12 +96,25 @@ namespace FCM.DAO
 
         public void DeleteLeague(League league)
         {
+            TypeOfGoalDAO.Instance.DeleteTypeGoal(league.id);
             SettingDAO.Instance.DeleteSetting(league.id);
+            MatchDAO.Instance.DeleteMatchInLeague(league.id);
             TeamDAO.Instance.DeleteTeam(league.id);
+            BoardDAO.Instance.DeleteBoardInLeague(league.id);
             string query = "Delete " +
                             "From Tournaments " +
                             "Where id = " + league.id;
             DataProvider.Instance.ExecuteQuery(query);
+        }
+        public bool IsExistLeagueName(string nameLeague)
+        {
+            string query = "Select count(id) as count " +
+                           " From Tournaments Where Displayname =N'" + nameLeague + "'";
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+            if ((int)tb.Rows[0]["count"]>0)
+                return true;
+            return false;
+            
         }
     }
 }

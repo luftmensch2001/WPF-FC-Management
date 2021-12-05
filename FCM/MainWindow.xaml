@@ -1082,9 +1082,12 @@
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb16Team1}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                     x:Name="cb16Team2"
@@ -1094,9 +1097,12 @@
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb16Team2}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                     x:Name="cb16Team3"
@@ -1106,9 +1112,12 @@
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb16Team3}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                     x:Name="cb16Team4"
@@ -1118,9 +1127,12 @@
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb16Team4}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                     x:Name="cb16Team5"
@@ -1130,9 +1142,12 @@
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb16Team5}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                     x:Name="cb16Team6"
@@ -1142,9 +1157,12 @@
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb16Team6}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                     x:Name="cb16Team7"
@@ -1154,9 +1172,12 @@
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb16Team7}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                     x:Name="cb16Team8"
@@ -1166,9 +1187,12 @@
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb16Team8}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                     x:Name="cb16Team9"
@@ -1178,9 +1202,12 @@
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb16Team9}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                     x:Name="cb16Team10"
@@ -1190,9 +1217,12 @@
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb16Team10}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                     x:Name="cb16Team11"
@@ -1202,9 +1232,12 @@
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb16Team11}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                     x:Name="cb16Team12"
@@ -1214,9 +1247,12 @@
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb16Team12}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                     x:Name="cb16Team13"
@@ -1226,9 +1262,12 @@
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb16Team13}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                     x:Name="cb16Team14"
@@ -1238,9 +1277,12 @@
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb16Team14}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                     x:Name="cb16Team15"
@@ -1250,9 +1292,12 @@
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb16Team15}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                     x:Name="cb16Team16"
@@ -1262,9 +1307,12 @@
                     Width="104"
                     Padding="5 4 5 4"
                     FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb16Team16}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                 </StackPanel>
                 <!--Vòng 8 đội-->
@@ -1409,9 +1457,12 @@
                         Width="110"                       
                         Padding="5 4 5 4"
                         FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb8Team1}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                         x:Name="cb8Team2"
@@ -1421,9 +1472,12 @@
                         Width="110"
                         Padding="5 4 5 4"
                         FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb8Team2}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                         x:Name="cb8Team3"
@@ -1433,9 +1487,12 @@
                         Width="110"                        
                         Padding="5 4 5 4"
                         FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb8Team3}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                         x:Name="cb8Team4"
@@ -1445,9 +1502,12 @@
                         Width="110"                       
                         Padding="5 4 5 4"
                         FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb8Team5}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                         x:Name="cb8Team5"
@@ -1457,9 +1517,12 @@
                         Width="110"                     
                         Padding="5 4 5 4"
                         FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb8Team5}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                         x:Name="cb8Team6"
@@ -1469,9 +1532,12 @@
                         Width="110"               
                         Padding="5 4 5 4"
                         FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb8Team6}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                         x:Name="cb8Team7"
@@ -1481,9 +1547,12 @@
                         Width="110"
                         Padding="5 4 5 4"
                         FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb8Team7}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                         x:Name="cb8Team8"
@@ -1493,9 +1562,12 @@
                         Width="110"
                         Padding="5 4 5 4"
                         FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb8Team8}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                 </StackPanel>
                 <!--Vòng 4 đội-->
@@ -1579,9 +1651,12 @@
                         Width="110"
                         Padding="5 4 5 4"
                         FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb4Team1}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                         x:Name="cb4Team2"
@@ -1592,9 +1667,12 @@
                         Width="110"
                         Padding="5 4 5 4"
                         FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb4Team2}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                         x:Name="cb4Team3"
@@ -1605,9 +1683,12 @@
                         Width="110"
                         Padding="5 4 5 4"
                         FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb4Team3}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                     <ComboBox
                         x:Name="cb4Team4"
@@ -1618,9 +1699,12 @@
                         Width="110"
                         Padding="5 4 5 4"
                         FontSize="11">
-                        <ComboBoxItem Content="Team 1" />
-                        <ComboBoxItem Content="Team 2" />
-                        <ComboBoxItem Content="Team 3" />
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedNockOutTeamChangeCommamnd}"
+                                                                   CommandParameter="{Binding ElementName=cb4Team4}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                 </StackPanel>
                 <!--Vòng 2 đội-->
@@ -1761,17 +1845,6 @@
                                         </Style>
                                     </WrapPanel.Resources>
                                     <!--Add here-->
-                                    <userControl:ucTeamButton />
-                                    <userControl:ucTeamButton />
-                                    <userControl:ucTeamButton />
-                                    <userControl:ucTeamButton />
-                                    <userControl:ucTeamButton />
-                                    <userControl:ucTeamButton />
-                                    <userControl:ucTeamButton />
-                                    <userControl:ucTeamButton />
-                                    <userControl:ucTeamButton />
-                                    <userControl:ucTeamButton />
-                                    <userControl:ucTeamButton />
 
                                 </WrapPanel>
                             </ScrollViewer>
@@ -1867,7 +1940,7 @@
                                             </StackPanel>
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="Click">
-                                                    <i:InvokeCommandAction Command="{Binding OpenEditTeamWindowCommand}"
+                                                    <i:InvokeCommandAction Command="{Binding DeleteTeamCommand}"
                                                                    CommandParameter="{Binding ElementName=wdHome}"/>
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>
@@ -1890,7 +1963,7 @@
                                             </StackPanel>
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="Click">
-                                                    <i:InvokeCommandAction Command="{Binding DeleteTeamCommand}"
+                                                    <i:InvokeCommandAction Command="{Binding OpenEditTeamWindowCommand}"
                                                                    CommandParameter="{Binding ElementName=wdHome}"/>
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>

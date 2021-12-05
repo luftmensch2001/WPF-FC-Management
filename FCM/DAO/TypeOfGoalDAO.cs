@@ -79,6 +79,12 @@ namespace FCM.DAO
                             " and DisplayName = N'" + name + "'";
             DataProvider.Instance.ExecuteQuery(query);
         }
+        public void DeleteTypeGoal(int idTournament)
+        {
+            string query = "delete from TypeOfGoals " +
+                            "where idTournaments =" + idTournament;
+            DataProvider.Instance.ExecuteQuery(query);
+        }
 
 
     }

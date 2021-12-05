@@ -236,7 +236,11 @@ namespace FCM.DAO
         {
             string query = " Select date " +
                             " From Matchs " +
-                            " Where idTournaments = " + match.idTournaments;
+                            " Where idTournaments = " + match.idTournaments + "" +
+                            " and (idteam01 = " +match.idTeam01 +
+                             " or idteam01 = " + match.idTeam02 +
+                              " or idteam02 = " + match.idTeam01 +
+                            " or idteam02 = " +match.idTeam02+")";
 
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
             foreach (DataRow dataRow in tb.Rows)
@@ -280,6 +284,14 @@ namespace FCM.DAO
             if (match.Count > 0)
                 return true;
             return false;
+        }
+        public void DeleteMatchInLeague(int idLeague)
+        {
+            List<Match> matches = MatchDAO.Instance.GetListMatch(idLeague);
+            foreach (Match match in matches)
+            {
+                DeleteMatch(match.id);
+            }    
         }
     }
 }

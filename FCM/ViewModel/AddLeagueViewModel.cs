@@ -118,11 +118,16 @@ namespace FCM.ViewModel
                                countTeam,
                                parameter.datePicker.Text,
                                parameter.imgLeagueLogo.Source.ToString(),
-                               parameter.cbTypeOfLeague.Text,
+                               parameter.cbTypeOfLeague.Items[parameter.cbTypeOfLeague.SelectedIndex].ToString(),
                                countBoard))
                 return;
             if (parameter.league == null)
             {
+                if (LeagueDAO.Instance.IsExistLeagueName(name))
+                {
+                    MessageBox.Show("Tên mùa giải đã tồn tại");
+                    return;
+                }    
                 //League league = new League(sponsor, name, 0, DateTime.Parse(parameter.datePicker.ToString()), ImageProcessing.Instance.convertImgToByte(imaged), Int32.Parse(countTeam));
                 League league = new League(sponsor, name, 0, parameter.datePicker.SelectedDate.Value, ImageProcessing.Instance.convertImgToByte(imaged), Int32.Parse(countTeam), parameter.cbTypeOfLeague.SelectedIndex, Int32.Parse(countBoard));
                 LeagueDAO.Instance.CreateLeague(league);
@@ -135,6 +140,12 @@ namespace FCM.ViewModel
             else
             {
                 League league;
+                if (parameter.league.nameLeague!= name  && LeagueDAO.Instance.IsExistLeagueName(name))
+                {
+                    MessageBox.Show("Tên mùa giải đã tồn tại");
+                    return;
+                }
+
                 if (imaged == null)
                     league = new League(sponsor, name, 0, DateTime.Parse(parameter.datePicker.ToString()), parameter.league.logo, Int32.Parse(countTeam), parameter.cbTypeOfLeague.SelectedIndex, Int32.Parse(countBoard));
                 else
