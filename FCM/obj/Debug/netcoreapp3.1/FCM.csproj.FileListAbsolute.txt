@@ -402,3 +402,7 @@ F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.CopyComplete
 F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.dll
 F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.pdb
 F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.genruntimeconfig.cache
+C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
+C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\itextsharp.dll
+C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\ConfirmDialogWindow.g.cs
+C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\ConfirmDialogWindow.baml

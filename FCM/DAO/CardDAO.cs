@@ -52,7 +52,10 @@ namespace FCM.DAO
         }
         public void UpdateCard(Card card)
         {
-            DateTime time = new DateTime(1900, 1, 1, 0, Int32.Parse(card.time), 0);
+            int hour = Int32.Parse(card.time) / 60;
+            int min = Int32.Parse(card.time) % 60;
+
+            DateTime time = new DateTime(1900, 1, 1, hour, min, 0);
 
             string query = "Update Cards" +
                 "Set IdPlayers = " + card.idPlayer + " , " +
@@ -64,7 +67,10 @@ namespace FCM.DAO
 
         public void AddCard(Card c)
         {
-            DateTime time = new DateTime(1900, 1, 1, 0, Int32.Parse(c.time), 0);
+            int hour = Int32.Parse(c.time) / 60;
+            int min = Int32.Parse(c.time) % 60;
+
+            DateTime time = new DateTime(1900, 1, 1, hour, min, 0);
 
             string query = "insert into Cards(IdMatchs, IdPlayers, IdTeams, Time, TypeOfCard) values (" +
                 c.idMatchs + " , "

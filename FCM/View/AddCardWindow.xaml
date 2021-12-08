@@ -98,10 +98,10 @@
                                        Margin="35 0 0 0"
                                        FontWeight="Medium"/>
                             <StackPanel Orientation="Horizontal" Margin="75 12 0 0">
-                                <RadioButton GroupName="TypeOfCard" IsChecked="True">
+                                <RadioButton x:Name="rbtnYellowCard" GroupName="TypeOfCard" IsChecked="True">
                                     <materialDesign:PackIcon Kind="Cards" Width="25" Height="25" Foreground="Yellow" />
                                 </RadioButton>
-                                <RadioButton GroupName="TypeOfCard" Margin="30 0 0 0">
+                                <RadioButton x:Name="rbtnRedCard" GroupName="TypeOfCard" Margin="30 0 0 0">
                                     <materialDesign:PackIcon Kind="Cards" Width="25" Height="25" Foreground="Red" />
                                 </RadioButton>
                             </StackPanel>

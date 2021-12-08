@@ -33,7 +33,10 @@ namespace FCM.DAO
         }
         public void UpdateGoal(Goal goal)
         {
-            DateTime time = new DateTime(1900, 1, 1, 0, Int32.Parse(goal.time), 0);
+            int hour = Int32.Parse(goal.time) / 60;
+            int min = Int32.Parse(goal.time) % 60;
+
+            DateTime time = new DateTime(1900, 1, 1, hour, min, 0);
 
             string query = "Update Goals" +
                 "Set IdPlayerGoals = " + goal.idPlayerGoals + " , " +
@@ -46,7 +49,10 @@ namespace FCM.DAO
 
         public void AddGoal(Goal g)
         {
-            DateTime time = new DateTime(1900, 1, 1, 0, Int32.Parse(g.time), 0);
+            int hour = Int32.Parse(g.time) / 60;
+            int min = Int32.Parse(g.time) % 60;
+
+            DateTime time = new DateTime(1900, 1, 1, hour, min, 0);
 
             string query = "insert into Goals(IdMatchs, IdPlayerGoals, IdPlayerAssist, IdTeams, IdTypeOfGoals, Time) values (" +
                 g.idMatchs + " , "

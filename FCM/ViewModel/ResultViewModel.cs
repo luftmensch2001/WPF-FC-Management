@@ -192,8 +192,8 @@ namespace FCM.ViewModel
         }
         public void EditCardInfor(ucCard parameter)
         {
-            //AddCardWindow wd = new AddCardWindow(true);
-            //wd.ShowDialog();
+            AddCardWindow wd = new AddCardWindow(parameter.card, parameter.resultWD);
+            wd.ShowDialog();
         }
         public void ChangeCbxTeamInLineupsWindow(ResultRecordingWindow parameter)
         {
@@ -215,8 +215,8 @@ namespace FCM.ViewModel
         }
         public void EditGoalInfor(ucGoal parameter)
         {
-            //AddGoalWindow wd = new AddGoalWindow();
-            //wd.ShowDialog();
+            AddGoalWindow wd = new AddGoalWindow(parameter.goal, parameter.resultWD);
+            wd.ShowDialog();
         }
         public void DeleteGoal(ucGoal parameter)
         {
@@ -279,12 +279,6 @@ namespace FCM.ViewModel
             int timeReveiveRedCardOfScorePlayer = parameter.resultWD.GetTimePlayerReceiveRedCard(playerScore);
             int timeReveiveRedCardOfAssistPlayer = parameter.resultWD.GetTimePlayerReceiveRedCard(playerAssist);
 
-            //if (idPlayerScored==idPlayerAssist)
-            //{
-            //    MessageBox.Show("Trùng cầu thủ ghi bàn và kiến tạo");
-            //    return;
-            //}    
-
             if (Int32.Parse(timeGoal) > timeReveiveRedCardOfScorePlayer)
             {
                 MessageBox.Show("Cầu thủ ghi bàn đã bị nhận thẻ đỏ và ra khỏi sân trước đó!\nDo đó cầu thủ này không thể ghi bàn", "Sai thông tin thời gian", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -299,11 +293,16 @@ namespace FCM.ViewModel
 
             if (parameter.tbTime.Text != null)
             {
-                
-
                 Goal goal = new Goal(idMatch, idPlayerScored, idPlayerAssist, idTeam, idTypeOfGoal, timeGoal);
-
-                parameter.resultWD.AddNewGoal(parameter.isTeam1, goal);
+                
+                if (parameter.isEdit == false)
+                {
+                    parameter.resultWD.AddNewGoal(parameter.isTeam1, goal);
+                }
+                else
+                {
+                    parameter.resultWD.EditGoal(parameter.goal, goal);
+                }
                 parameter.Close();
             }
         }
@@ -318,47 +317,30 @@ namespace FCM.ViewModel
                 MessageBox.Show("Thông tin về thời gian phải là định dạng số và nằm trong khoảng [0,120]", "Sai thông tin", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            // *** Đổi thành radio nên đóng tạm câu if phía dưới để run
-            //if (parameter.cbPlayer.SelectedIndex >= 0 && parameter.cbTypeOfCard.SelectedIndex >= 0)
-            //{
-            //    ComboBoxItem cbxTypeOfCard = (ComboBoxItem)parameter.cbTypeOfCard.SelectedItem;
-            //    string typeOfCard = cbxTypeOfCard.Content.ToString();
+           
+            if (parameter.cbPlayer.SelectedIndex >= 0)
+            {
+                string typeOfCard = parameter.rbtnYellowCard.IsChecked == true ? "Thẻ vàng" : "Thẻ đỏ";
 
-            //    int idTeam = parameter.isTeam1 ? parameter.resultWD.team1.id : parameter.resultWD.team2.id;
+                int idTeam = parameter.isTeam1 ? parameter.resultWD.team1.id : parameter.resultWD.team2.id;
 
-            //    Player player = parameter.GetPlayerBySelectedIndex(parameter.cbPlayer.SelectedIndex);
+                Player player = parameter.GetPlayerBySelectedIndex(parameter.cbPlayer.SelectedIndex);
 
-            //    bool isRedCard = false;
+                Card c = new Card(parameter.resultWD.match.id, player.id, idTeam, typeOfCard, parameter.tbTime.Text);
 
-            //    Card c = new Card(parameter.resultWD.match.id, player.id, idTeam,  typeOfCard, parameter.tbTime.Text);
+                if (parameter.isEdit == false)
+                {
+                    parameter.resultWD.AddCard(c);
+                }
+                else
+                {
+                    parameter.resultWD.EditCard(parameter.oldCard, c);
+                }
 
-            //    parameter.resultWD.AddCard(parameter.isTeam1, c);
+                parameter.resultWD.ChangeLineupsWhenChangeCardInfor(c);
 
-            //    // Nếu đã từng nhận 1 thẻ vàng trước đó, bây giờ nhận tiếp 1 thẻ vàng thì trực tiếp thêm 1 thẻ đỏ
-            //    if (typeOfCard == "Thẻ vàng" && parameter.resultWD.HaveAYellowCard(player) == true)
-            //    {
-            //        c = new Card(parameter.resultWD.match.id, player.id, idTeam, "Thẻ đỏ", parameter.tbTime.Text);
-
-            //        isRedCard = true;
-
-            //        parameter.resultWD.AddCard(parameter.isTeam1, c);
-            //    }    
-
-            //    if (typeOfCard == "Thẻ đỏ")
-            //    {
-            //        isRedCard = true;
-            //    }    
-
-            //    if (isRedCard)
-            //    {
-            //        parameter.resultWD.DeleteFromOfficial(player);
-            //        parameter.resultWD.InsertIntoPrep(player);
-            //    }    
-
-            //    parameter.resultWD.ChangeLineupsWhenChangeCardInfor(c);
-
-            //    parameter.Close();
-            //}
+                parameter.Close();
+            }
         }
         public void CancelCard(AddCardWindow parameter)
         {

@@ -29,7 +29,7 @@ namespace FCM.DTO
 
             DateTime time = (DateTime)row["Time"];
 
-            this.time = time.Minute.ToString();
+            this.time = (time.Hour * 60 + time.Minute).ToString();
         }
     }
 }

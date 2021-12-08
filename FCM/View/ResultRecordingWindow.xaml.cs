@@ -347,6 +347,57 @@ namespace FCM.View
                 listLineups_Prep_Team2 = lineupsPrep;
             }
         }
+        bool haveRedCard(int idPlayer)
+        {
+            for (int i = 0; i < this.listCardsTeam1.Count; i++)
+            {
+                if (idPlayer == this.listCardsTeam1[i].idPlayer && this.listCardsTeam1[i].typeOfCard == "Thẻ đỏ")
+                {
+                    return true;
+                }
+            }
+            for (int i = 0; i < this.listCardsTeam2.Count; i++)
+            {
+                if (idPlayer == this.listCardsTeam2[i].idPlayer && this.listCardsTeam2[i].typeOfCard == "Thẻ đỏ")
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        bool haveYellowCard(int idPlayer)
+        {
+            for (int i = 0; i < this.listCardsTeam1.Count; i++)
+            {
+                if (idPlayer == this.listCardsTeam1[i].idPlayer && this.listCardsTeam1[i].typeOfCard == "Thẻ vàng")
+                {
+                    return true;
+                }
+            }
+            for (int i = 0; i < this.listCardsTeam2.Count; i++)
+            {
+                if (idPlayer == this.listCardsTeam2[i].idPlayer && this.listCardsTeam2[i].typeOfCard == "Thẻ vàng")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        void setCardColor(Lineups l)
+        {
+            int idPlayer = l.idPlayer;
+            if (haveRedCard(idPlayer))
+            {
+                l.card = "Thẻ đỏ";
+                return;
+            }
+            if (haveYellowCard(idPlayer))
+            {
+                l.card = "Thẻ vàng";
+                return;
+            }
+        }    
         public void LoadLineups(int numTeam)
         {
             WhatTeamIsChosen();
@@ -377,6 +428,7 @@ namespace FCM.View
             // Thêm vào danh sách "Đội hình trên sân"
             for (int i = 0; i < lineupsOfficial.Count; i++)
             {
+                setCardColor(lineupsOfficial[i]);
                 ucFootballer ucFootballer = new ucFootballer(lineupsOfficial[i]);
                 this.wpMainFormation.Children.Add(ucFootballer);
             }
@@ -384,6 +436,7 @@ namespace FCM.View
             // Thêm vào danh sách "đội hình dự bị"
             for (int i = 0; i < lineupsPrep.Count; i++)
             {
+                setCardColor(lineupsPrep[i]);
                 ucFootballer ucFootballer = new ucFootballer(lineupsPrep[i]);
                 this.wpReserveFormation.Children.Add(ucFootballer);
             }
@@ -514,9 +567,71 @@ namespace FCM.View
                 this.listLineups_Offical_Team2.Add(lineup);
             }
         }
-        public void AddCard(bool isTeam1, Card card)
+        public int maxTime(string t1, int t2)
         {
-            if (isTeam1)
+            return t2 > Int32.Parse(t1) ? t2 : Int32.Parse(t1);
+        }
+        public void AddRedCardWhenHaveTwoYellowCard(Card card)
+        {
+            if (card.typeOfCard == "Thẻ đỏ")
+            {
+                return;
+            }  
+
+            if (CountYellowCard(card) == 2)
+            {
+                Card c = new Card(card.idMatchs, card.idPlayer, card.idTeams, card.typeOfCard, getMaxTimeYellowCard(card).ToString());
+                AddRedCard(c);
+            }
+            
+        }
+
+        public void DeleteRedCard(Card card)
+        {
+            for (int i = 0; i < this.listCardsTeam1.Count; i++)
+            {
+                if (this.listCardsTeam1[i].typeOfCard == "Thẻ đỏ" && this.listCardsTeam1[i].idPlayer == card.idPlayer)
+                {
+                    this.listCardsTeam1.RemoveAt(i);
+                }
+            }
+            for (int i = 0; i < this.listCardsTeam2.Count; i++)
+            {
+                if (this.listCardsTeam2[i].typeOfCard == "Thẻ đỏ" && this.listCardsTeam2[i].idPlayer == card.idPlayer)
+                {
+                    this.listCardsTeam2.RemoveAt(i);
+                }
+            }
+        }
+        public void AddRedCard(Card card)
+        {
+            // Xoá bỏ thẻ đỏ trước đó (nếu có)
+            DeleteRedCard(card);
+
+            Card c = new Card(card.idMatchs, card.idPlayer, card.idTeams, "Thẻ đỏ", getMaxTimeYellowCard(card).ToString());
+            if (c.idTeams == this.team1.id)
+            {
+                this.listCardsTeam1.Add(c);
+            }
+            else
+            {
+                this.listCardsTeam2.Add(c);
+            }
+
+            Player player = PlayerDAO.Instance.GetPlayerById(card.idPlayer);
+            DeleteFromOfficial(player);
+            InsertIntoPrep(player);
+
+            MessageBox.Show("Cầu thủ này đã nhận đủ 2 thẻ vàng, cầu thủ này sẽ tự động thêm thẻ đỏ!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        public void AddCard(Card card)
+        {
+            if (CheckCardLogic(card) == false)
+            {
+                return;
+            }
+
+            if (card.idTeams == this.team1.id)
             {
                 this.listCardsTeam1.Add(card);
             }
@@ -524,7 +639,55 @@ namespace FCM.View
             {
                 this.listCardsTeam2.Add(card);
             }
+
+            AddRedCardWhenHaveTwoYellowCard(card);
+
             LoadCard();
+        }
+        public void EditCard(Card oldCard, Card newCard)
+        {
+            if (CheckCardLogic(newCard) == false)
+            {
+                return;
+            }
+            
+            if (newCard.typeOfCard == "Thẻ đỏ")
+            {
+                DeleteRedCard(newCard);
+            }    
+
+            for (int i = 0; i < this.listCardsTeam1.Count; i++)
+            {
+                if (this.listCardsTeam1[i] == oldCard)
+                {
+                    this.listCardsTeam1[i] = newCard;
+                }
+            }
+            for (int i = 0; i < this.listCardsTeam2.Count; i++)
+            {
+                if (this.listCardsTeam2[i] == oldCard)
+                {
+                    this.listCardsTeam2[i] = newCard;
+                }
+            }
+
+            AddRedCardWhenHaveTwoYellowCard(newCard);
+
+            LoadCard();
+        }
+        public bool CheckCardLogic(Card card)
+        {
+            if (CountRedCard(card) > 0)
+            {
+                MessageBox.Show("Cầu thủ này đã nhận thẻ đỏ", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            if (CountYellowCard(card) == 2)
+            {
+                MessageBox.Show("Cầu thủ này đã nhận 2 thẻ vàng", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            return true;
         }
         public void LoadCard()
         {
@@ -556,8 +719,78 @@ namespace FCM.View
 
             LoadLineups(this.cbSelectedTeam.SelectedIndex);
         }
+        public int CountYellowCard(Card card)
+        {
+            int numYellowCard = 0;
+            for (int i = 0; i < this.listCardsTeam1.Count; i++)
+            {
+                if (this.listCardsTeam1[i].idPlayer == card.idPlayer && this.listCardsTeam1[i].typeOfCard == "Thẻ vàng")
+                {
+                    numYellowCard++;
+                }
+            }
+            for (int i = 0; i < this.listCardsTeam2.Count; i++)
+            {
+                if (this.listCardsTeam2[i].idPlayer == card.idPlayer && this.listCardsTeam2[i].typeOfCard == "Thẻ vàng")
+                {
+                    numYellowCard++;
+                }
+            }
+            return numYellowCard;
+        }
+        public int CountRedCard(Card card)
+        {
+            int numRedCard = 0;
+            for (int i = 0; i < this.listCardsTeam1.Count; i++)
+            {
+                if (this.listCardsTeam1[i].idPlayer == card.idPlayer && this.listCardsTeam1[i].typeOfCard == "Thẻ đỏ")
+                {
+                    numRedCard++;
+                }
+            }
+            for (int i = 0; i < this.listCardsTeam2.Count; i++)
+            {
+                if (this.listCardsTeam2[i].idPlayer == card.idPlayer && this.listCardsTeam2[i].typeOfCard == "Thẻ đỏ")
+                {
+                    numRedCard++;
+                }
+            }
+            return numRedCard;
+        }
+        public int getMaxTimeYellowCard(Card card)
+        {
+            int maxTimeYellowCard = int.MinValue;
+            for (int i = 0; i < this.listCardsTeam1.Count; i++)
+            {
+                if (this.listCardsTeam1[i].idPlayer == card.idPlayer && this.listCardsTeam1[i].typeOfCard == "Thẻ vàng")
+                {
+                    maxTimeYellowCard = maxTime(listCardsTeam1[i].time, maxTimeYellowCard);
+                }
+            }
+            for (int i = 0; i < this.listCardsTeam2.Count; i++)
+            {
+                if (this.listCardsTeam2[i].idPlayer == card.idPlayer && this.listCardsTeam2[i].typeOfCard == "Thẻ vàng")
+                {
+                    maxTimeYellowCard = maxTime(listCardsTeam2[i].time, maxTimeYellowCard);
+                }
+            }
+            return maxTimeYellowCard;
+        }
         public void Deletecard(Card card)
         {
+            if (CountYellowCard(card) == 2)
+            {
+                if (card.typeOfCard == "Thẻ đỏ")
+                {
+                    MessageBox.Show("Thẻ đỏ này đi kèm với thẻ vàng thứ 2, không thể xóa!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }    
+                if (card.typeOfCard == "Thẻ vàng")
+                {
+                    DeleteRedCard(card);
+                    MessageBox.Show("Thẻ vàng thứ 2 đã đưuọc xóa, thẻ đỏ đi kèm sẽ tự động được xóa theo!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                }    
+            }
             for (int i = 0; i < this.listCardsTeam1.Count; i++)
             {
                 if (this.listCardsTeam1[i].idPlayer == card.idPlayer &&
@@ -600,6 +833,32 @@ namespace FCM.View
                 grdPenalty.Visibility = Visibility.Visible;
             LoadGoalListToWindow();
         }
+        public void EditGoal(Goal OldGoal, Goal NewGoal)
+        {
+            for (int i = 0; i < this.listGoalsTeam1.Count; i++)
+            {
+                if (this.listGoalsTeam1[i].idPlayerGoals == OldGoal.idPlayerGoals &&
+                    this.listGoalsTeam1[i].idPlayerAssist == OldGoal.idPlayerAssist &&
+                    this.listGoalsTeam1[i].idTypeOfGoals == OldGoal.idTypeOfGoals &&
+                    this.listGoalsTeam1[i].time == OldGoal.time)
+                {
+                    this.listGoalsTeam1[i] = NewGoal;
+                    break;
+                }
+            }
+            for (int i = 0; i < this.listGoalsTeam2.Count; i++)
+            {
+                if (this.listGoalsTeam2[i].idPlayerGoals == OldGoal.idPlayerGoals &&
+                    this.listGoalsTeam2[i].idPlayerAssist == OldGoal.idPlayerAssist &&
+                    this.listGoalsTeam2[i].idTypeOfGoals == OldGoal.idTypeOfGoals &&
+                    this.listGoalsTeam2[i].time == OldGoal.time)
+                {
+                    this.listGoalsTeam2[i] = NewGoal;
+                    break;
+                }
+            }
+            LoadGoalListToWindow();
+        }
         public void DeleteGoal(Goal goal)
         {
             for (int i = 0; i < this.listGoalsTeam1.Count; i++)
@@ -630,7 +889,6 @@ namespace FCM.View
         {
             this.wpGoalsTeam1.Children.Clear();
             this.wpGoalsTeam2.Children.Clear();
-
 
             this.tblScore1.Text = this.ScoreTeam1.ToString();
             this.tblScore2.Text = this.ScoreTeam2.ToString();

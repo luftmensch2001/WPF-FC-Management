@@ -102,7 +102,7 @@ namespace FCM.DAO
             string query = "Select* " +
                             "From Matchs " +
                             "Where idTournaments = " + idTournament+
-                             " AND " + "nameBoard = " + board;
+                             " AND " + "nameBoard = N'" + board + "'";
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
             foreach (DataRow row in tb.Rows)
             {
@@ -118,8 +118,8 @@ namespace FCM.DAO
             string query = "Select* " +
                             "From Matchs " +
                             "Where idTournaments = " + idTournament +
-                            " AND " + "Round = " + round +
-                            " AND " + "nameBoard = " + board;
+                            " AND " + "Round = N'" + round + "'" +
+                            " AND " + "nameBoard = N'" + board + "'";
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
             foreach (DataRow row in tb.Rows)
             {
