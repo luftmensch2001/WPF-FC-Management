@@ -182,10 +182,12 @@ namespace FCM.ViewModel
                 //
                 if (parameter.idSetting == 0)
                 {
+                    LeagueDAO.Instance.UpdateNumberOfTeams(parameter.idTournament, value);
                     int cb = LeagueDAO.Instance.GetLeagueById(parameter.idTournament).countBoard;
                     if (cb == 1)
                         SettingDAO.Instance.EditSetting(parameter.idTournament, "NumberOfTeamsIn", parameter.tbValue.Text);
                 }
+
 
                 MessageBox.Show("Cập nhật quy định thành công");
                 parameter.Close();

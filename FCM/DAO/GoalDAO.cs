@@ -87,5 +87,24 @@ namespace FCM.DAO
             }
             return goals;
         }
+        public int GetCountGoalsByPlayer(int idPlayer)
+        {
+            string query = "Select* " +
+                          "From Goals  " +
+                          " Where IdPlayerGoals = " + idPlayer;
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+
+            return tb.Rows.Count;
+        }
+
+        public int GetCountAssistsByPlayer(int idPlayer)
+        {
+            string query = "Select* " +
+                          "From Goals  " +
+                          " Where IdPlayerAssist = " + idPlayer;
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+
+            return tb.Rows.Count;
+        }
     }
 }

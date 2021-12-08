@@ -406,3 +406,5 @@ C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\Bo
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\bin\Debug\netcoreapp3.1\itextsharp.dll
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\ConfirmDialogWindow.g.cs
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\ConfirmDialogWindow.baml
+E:\U\SE100_PMHDT\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\ConfirmDialogWindow.g.cs
+E:\U\SE100_PMHDT\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\ConfirmDialogWindow.baml

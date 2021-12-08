@@ -116,5 +116,14 @@ namespace FCM.DAO
             return false;
             
         }
+
+        public void UpdateNumberOfTeams(int idTournament, int num)
+        {
+            string query = "Update Tournaments " +
+                            "Set " +
+                            " countTeam =" + num +
+                            " Where id = " + idTournament;
+            DataProvider.Instance.ExecuteQuery(query);
+        }
     }
 }

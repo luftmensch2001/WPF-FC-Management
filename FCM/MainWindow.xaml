@@ -2187,6 +2187,7 @@
                         CanUserResizeRows="False"
                         CanUserDeleteRows="False"
                         CanUserAddRows="False" 
+                        CanUserReorderColumns="False"
                         AutoGenerateColumns="False"
                         IsReadOnly="True">
                     <DataGrid.Resources>
@@ -2203,6 +2204,7 @@
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
@@ -2219,7 +2221,13 @@
                         <DataGridTextColumn
                             Header="Đội"
                             Width="170"
-                            Binding="{Binding Path=nameTeam}"/>
+                            Binding="{Binding Path=nameTeam}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Header="Số trận"
                             Width="80"
@@ -2227,6 +2235,7 @@
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
@@ -2237,6 +2246,7 @@
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
@@ -2247,6 +2257,7 @@
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
@@ -2257,6 +2268,7 @@
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
@@ -2267,6 +2279,7 @@
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
@@ -2277,6 +2290,7 @@
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
@@ -2410,21 +2424,34 @@
                                             Kind="Export"/>
                         <TextBlock Text="Xuất PDF" VerticalAlignment="Center" Margin="5 0 0 0"/>
                     </StackPanel>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding ExportStatisticCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
             </Grid>
             <!--Body-->
             <Grid Grid.Row="2"
                   x:Name="grdSttTeams"
-                  Visibility="Visible">
+                  Visibility="Hidden">
                 <DataGrid
                     x:Name="dgvStatisticsTeams"
-                    ItemsSource="{Binding Items2}"
-                    SelectionUnit="FullRow"
-                    SelectionMode="Extended"
-                    Width="800" Height="490"
-                    CanUserResizeRows="False"
-                    CanUserDeleteRows="False"
-                    CanUserAddRows="False">
+                    ItemsSource="{Binding Item2}"
+                    HorizontalGridLinesBrush="#FFEADBDD" 
+                        GridLinesVisibility="Horizontal"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        VerticalGridLinesBrush="Black"
+                        SelectionUnit="FullRow"
+                        SelectionMode="Single"
+                        Width="900" Height="490"
+                        CanUserResizeRows="False"
+                        CanUserDeleteRows="False"
+                        CanUserAddRows="False" 
+                        CanUserReorderColumns="False"
+                        AutoGenerateColumns="False"
+                        IsReadOnly="True">
                     <DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
                             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -2434,28 +2461,101 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Header="STT"
-                            Width="70"/>
+                            Width="70"
+                            Binding="{Binding Path=index}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTemplateColumn 
+                            Header="" 
+                            Width="48"
+                            IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding Path=logo}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTextColumn
                             Header="Đội bóng"
-                            Width="130"/>
+                            Width="190"
+                            Binding="{Binding Path=nameTeam}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Header="Số trận"
-                            Width="100"/>
+                            Width="90"
+                            Binding="{Binding Path=m}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Header="Bàn thắng"
-                            Width="100"/>
+                            Width="100"
+                            Binding="{Binding Path=gf}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Header="Bàn thua"
-                            Width="100"/>
-                        <DataGridTextColumn
-                            Header="Thẻ đỏ"
-                            Width="90"/>
+                            Width="100"
+                            Binding="{Binding Path=ga}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Header="Thẻ vàng"
-                            Width="90"/>
+                            Width="100"
+                            Binding="{Binding Path=yc}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn
+                            Header="Thẻ đỏ"
+                            Width="100"
+                            Binding="{Binding Path=rc}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Header="Tổng số thẻ"
-                            Width="120"/>
+                            Width="100"
+                            Binding="{Binding Path=sumc}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                     </DataGrid.Columns>
 
                 </DataGrid>
@@ -2467,12 +2567,19 @@
                 <DataGrid
                     x:Name="dgvStatisticsPlayers"
                     ItemsSource="{Binding Items2}"
-                    SelectionUnit="FullRow"
-                    SelectionMode="Extended"
-                    Width="800" Height="490"
-                    CanUserResizeRows="False"
-                    CanUserDeleteRows="False"
-                    CanUserAddRows="False">
+                    HorizontalGridLinesBrush="#FFEADBDD" 
+                        GridLinesVisibility="Horizontal"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        VerticalGridLinesBrush="Black"
+                        SelectionUnit="FullRow"
+                        SelectionMode="Single"
+                        Width="900" Height="490"
+                        CanUserResizeRows="False"
+                        CanUserDeleteRows="False"
+                        CanUserAddRows="False" 
+                        CanUserReorderColumns="False"
+                        AutoGenerateColumns="False"
+                        IsReadOnly="True">
                     <DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
                             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -2482,28 +2589,101 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Header="STT"
-                            Width="70"/>
+                            Width="70"
+                            Binding="{Binding Path=index}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Header="Tên cầu thủ"
-                            Width="125"/>
+                            Width="180"
+                            Binding="{Binding Path=namePlayer}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Header="Số áo"
-                            Width="100"/>
+                            Width="75"
+                            Binding="{Binding Path=number}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTemplateColumn 
+                            Header="" 
+                            Width="48"
+                            IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding Path=logo}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTextColumn
                             Header="Đội"
-                            Width="125"/>
+                            Width="160"
+                            Binding="{Binding Path=nameTeam}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Header="Bàn thắng"
-                            Width="100"/>
+                            Width="100"
+                            Binding="{Binding Path=goal}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Header="Kiến tạo"
-                            Width="100"/>
-                        <DataGridTextColumn
-                            Header="Thẻ đỏ"
-                            Width="90"/>
+                            Width="90"
+                            Binding="{Binding Path=assist}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Header="Thẻ vàng"
-                            Width="90"/>
+                            Width="90"
+                            Binding="{Binding Path=yc}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn
+                            Header="Thẻ đỏ"
+                            Width="90"
+                            Binding="{Binding Path=rc}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                     </DataGrid.Columns>
 
                 </DataGrid>
@@ -2515,12 +2695,19 @@
                 <DataGrid
                     x:Name="dgvStatisticsCards"
                     ItemsSource="{Binding Items2}"
-                    SelectionUnit="FullRow"
-                    SelectionMode="Extended"
-                    Width="500" Height="450"
-                    CanUserResizeRows="False"
-                    CanUserDeleteRows="False"
-                    CanUserAddRows="False">
+                    HorizontalGridLinesBrush="#FFEADBDD" 
+                        GridLinesVisibility="Horizontal"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        VerticalGridLinesBrush="Black"
+                        SelectionUnit="FullRow"
+                        SelectionMode="Single"
+                        Width="500" Height="450"
+                        CanUserResizeRows="False"
+                        CanUserDeleteRows="False"
+                        CanUserAddRows="False" 
+                        CanUserReorderColumns="False"
+                        AutoGenerateColumns="False"
+                        IsReadOnly="True">
                     <DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
                             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -2530,16 +2717,44 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn
                             Header="Vòng đấu"
-                            Width="150"/>
+                            Width="150"
+                            Binding="{Binding Path=round}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Header="Thẻ vàng"
-                            Width="100"/>
+                            Width="100"
+                            Binding="{Binding Path=yc}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Header="Thẻ đỏ"
-                            Width="100"/>
+                            Width="100"
+                            Binding="{Binding Path=rc}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn
                             Header="Tổng số thẻ"
-                            Width="150"/>
+                            Width="150"
+                            Binding="{Binding Path=sumc}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                     </DataGrid.Columns>
 
                 </DataGrid>

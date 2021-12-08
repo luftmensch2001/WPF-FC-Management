@@ -52,6 +52,7 @@ namespace FCM.ViewModel
         public ICommand ViewScheduleNockOutCommand { get; set; }
         public ICommand CreateNockOutBoard { get; set; }
         public ICommand SelectedNockOutTeamChangeCommamnd { get; set; }
+        public ICommand ExportStatisticCommand { get; set; }
 
         //public ICommand OpenEditMatchWindowCommand { get; set; }
         //public ICommand OpenResultRecordWindowCommand { get; set; }
@@ -64,8 +65,6 @@ namespace FCM.ViewModel
         public string uid;
 
         public string idSetting = "";
-
-        bool isClickExportRanking = false;
 
         public SolidColorBrush lightGreen = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#52ff00"));
         public SolidColorBrush white = new SolidColorBrush(Colors.White);
@@ -107,9 +106,10 @@ namespace FCM.ViewModel
 
             SelectedNockOutTeamChangeCommamnd = new RelayCommand<ComboBox>((parameter) => true, (parameter) => SelectedTeamNockOutChange(parameter));
 
+            ExportStatisticCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => ExportStatistic(parameter));
+
             //OpenEditMatchWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenEditMatchInfoWindow(parameter));
             //OpenResultRecordWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenResultRecordingWindow(parameter));
-            GetImageResultMatch();
         }
         #endregion
 
@@ -293,6 +293,7 @@ namespace FCM.ViewModel
                     parameter.btnStanding.Foreground = lightGreen;
                     parameter.icStanding.Foreground = lightGreen;
                     parameter.grdStandingScreen.Visibility = Visibility.Visible;
+                    GetImageResultMatch();
                     InitCbbRanking(parameter);
                     GetDetailSetting(parameter);
                     LoadRanking(parameter);
@@ -301,6 +302,8 @@ namespace FCM.ViewModel
                     parameter.btnStatistics.Foreground = lightGreen;
                     parameter.icStatistics.Foreground = lightGreen;
                     parameter.grdStatisticsScreen.Visibility = Visibility.Visible;
+                    uid = "0";
+                    SwitchTabStatistics(parameter);
                     break;
                 case 6:
                     if (parameter.league != null)
@@ -366,38 +369,7 @@ namespace FCM.ViewModel
                     break;
             }
         }
-        public void SwitchTabStatistics(MainWindow parameter)
-        {
-            int index = int.Parse(uid); // tab index
-            //Move Stroke Tab
-            parameter.rtStroke.Margin = new Thickness((20 + 120 * index), 0, 0, 5);
-
-            // Reset color
-            parameter.btnSttTeams.Foreground = white;
-            parameter.btnSttPlayers.Foreground = white;
-            parameter.btnSttCards.Foreground = white;
-
-            // Hide all screens
-            parameter.grdSttTeams.Visibility = Visibility.Hidden;
-            parameter.grdSttPlayers.Visibility = Visibility.Hidden;
-            parameter.grdSttCards.Visibility = Visibility.Hidden;
-
-            switch (index)
-            {
-                case 0:
-                    parameter.btnSttTeams.Foreground = lightGreen;
-                    parameter.grdSttTeams.Visibility = Visibility.Visible;
-                    break;
-                case 1:
-                    parameter.btnSttPlayers.Foreground = lightGreen;
-                    parameter.grdSttPlayers.Visibility = Visibility.Visible;
-                    break;
-                case 2:
-                    parameter.btnSttCards.Foreground = lightGreen;
-                    parameter.grdSttCards.Visibility = Visibility.Visible;
-                    break;
-            }
-        }
+        
         #endregion
 
         #region League
@@ -473,6 +445,8 @@ namespace FCM.ViewModel
             window.tblLeagueName.Text = "Tên mùa giải: " + league.nameLeague;
             window.tblSponsor.Text = "Nhà tài trợ: " + league.nameSpender;
             window.setting = SettingDAO.Instance.GetSetting(league.id);
+            //sync number of team
+            window.setting.numberOfTeam = league.countTeam;
             window.boards = BoardDAO.Instance.GetListBoard(league.id);
             window.currentAccount.idLastLeague = league.id;
             AccountDAO.Instance.UpdateIdLastLeague(window.currentAccount.userName, league.id);
@@ -524,6 +498,7 @@ namespace FCM.ViewModel
                     parameter.btnReport.IsEnabled = true;
                     parameter.btnTeams.IsEnabled = true;
                     parameter.btnStanding.IsEnabled = true;
+                    parameter.btnStatistics.IsEnabled = true;
                     parameter.btnSetting.IsEnabled = true;
                     parameter.btnAddTeam.IsEnabled = false;
                     //parameter.btnEditInforTeam.DataContext = "Xem thông tin đội bóng";
@@ -535,6 +510,7 @@ namespace FCM.ViewModel
                     parameter.btnReport.IsEnabled = true;
                     parameter.btnTeams.IsEnabled = true;
                     parameter.btnStanding.IsEnabled = true;
+                    parameter.btnStatistics.IsEnabled = true;
                     parameter.btnSetting.IsEnabled = true;
                     break;
             }
@@ -1964,6 +1940,7 @@ namespace FCM.ViewModel
             EditDialogWindow wd = new EditDialogWindow(idTournament, index, curSetting);
             wd.ShowDialog();
             parameter.setting = SettingDAO.Instance.GetSetting(idTournament);
+            parameter.league.countTeam = parameter.setting.numberOfTeam;
             GetDetailSetting(parameter);
         }
         public void OpenAddGoalTypeWindow(MainWindow parameter)
@@ -2101,15 +2078,14 @@ namespace FCM.ViewModel
         }
         void ExportRanking(MainWindow parameter)
         {
-            //if (parameter.cbSelectedGroupsStanding.SelectedItem == null)
-            //    return;
-            //string nameBoard = "";
-            //if (parameter.league.countBoard > 1)
-            //    nameBoard = parameter.cbSelectedGroupsStanding.SelectedItem.ToString();
-            //List<TeamScoreDetails> rank = CalcDetails(parameter, nameBoard);
-            //rank = CalcRanking(parameter.league.id, rank);
-            //ExportToPdf(parameter.dgvRanking, rank, " " + nameBoard);
-            //CreateBoardKnockOut(parameter);
+            if (parameter.cbSelectedGroupsStanding.SelectedItem == null)
+                return;
+            string nameBoard = "";
+            if (parameter.league.countBoard > 1)
+                nameBoard = parameter.cbSelectedGroupsStanding.SelectedItem.ToString();
+            List<TeamScoreDetails> rank = CalcDetails(parameter, nameBoard);
+            rank = CalcRanking(parameter.league.id, rank);
+            PDFProcessing.Instance.ExportRankingToPdf(parameter.dgvRanking, rank, " " + nameBoard);
         }
         void InitCbbRanking(MainWindow parameter)
         {
@@ -2151,7 +2127,11 @@ namespace FCM.ViewModel
         List<TeamScoreDetails> CalcDetails(MainWindow parameter, string nameBoard)
         {
             List<TeamScoreDetails> list = new List<TeamScoreDetails>();
-            List<Team> team = TeamDAO.Instance.GetListTeam(nameBoard, parameter.league.id);
+            List<Team> team = new List<Team>();
+            if (nameBoard == "")
+                team = TeamDAO.Instance.GetListTeamInLeague(parameter.league.id);
+            else
+                team = TeamDAO.Instance.GetListTeam(nameBoard, parameter.league.id);
             int i = -1;
             foreach (Team t in team)
             {
@@ -2189,6 +2169,8 @@ namespace FCM.ViewModel
                     list[i].CalcDetails(gF, gA); //Tính hiệu số
 
                 }
+
+                list[i].imageFLM = ImageProcessing.Instance.Convert(ResToImageFLM(list[i].fLM));
             }
             return list;
         }
@@ -2364,5 +2346,157 @@ namespace FCM.ViewModel
         }
         #endregion
 
+        #region Stactistic
+
+        void ExportStatistic(MainWindow parameter)
+        {
+            if (parameter.grdSttTeams.Visibility == Visibility.Visible)
+                PDFProcessing.Instance.ExportTeamStatistic(parameter.dgvStatisticsTeams, SttTeam(parameter));
+            else
+            if (parameter.grdSttPlayers.Visibility == Visibility.Visible)
+                PDFProcessing.Instance.ExportPlayerStatistic(parameter.dgvStatisticsPlayers, SttPlayer(parameter));
+            else
+            if (parameter.grdSttCards.Visibility == Visibility.Visible)
+                PDFProcessing.Instance.ExportCardStatistic(parameter.dgvStatisticsCards, SttCard(parameter));
+        }
+        public void SwitchTabStatistics(MainWindow parameter)
+        {
+            int index = int.Parse(uid); // tab index
+            //Move Stroke Tab
+            parameter.rtStroke.Margin = new Thickness((20 + 120 * index), 0, 0, 5);
+
+            // Reset color
+            parameter.btnSttTeams.Foreground = white;
+            parameter.btnSttPlayers.Foreground = white;
+            parameter.btnSttCards.Foreground = white;
+
+            // Hide all screens
+            parameter.grdSttTeams.Visibility = Visibility.Hidden;
+            parameter.grdSttPlayers.Visibility = Visibility.Hidden;
+            parameter.grdSttCards.Visibility = Visibility.Hidden;
+
+            switch (index)
+            {
+                case 0:
+                    parameter.btnSttTeams.Foreground = lightGreen;
+                    parameter.grdSttTeams.Visibility = Visibility.Visible;
+                    parameter.dgvStatisticsTeams.ItemsSource = SttTeam(parameter);
+                    break;
+                case 1:
+                    parameter.btnSttPlayers.Foreground = lightGreen;
+                    parameter.grdSttPlayers.Visibility = Visibility.Visible;
+                    parameter.dgvStatisticsPlayers.ItemsSource = SttPlayer(parameter);
+                    break;
+                case 2:
+                    parameter.btnSttCards.Foreground = lightGreen;
+                    parameter.grdSttCards.Visibility = Visibility.Visible;
+                    parameter.dgvStatisticsCards.ItemsSource = SttCard(parameter);
+                    break;
+            }
+        }
+        List<TeamStatistic> SttTeam(MainWindow parameter)
+        {
+            List<TeamStatistic> list = new List<TeamStatistic>();
+            List<Team> team = TeamDAO.Instance.GetListTeamInLeague(parameter.league.id);
+            int i = -1;
+            foreach (Team t in team)
+            {
+                BitmapImage logoteam = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(t.logo));
+                list.Add(new TeamStatistic(t.nameTeam, logoteam));
+                i++;
+                List<Match> matches = MatchDAO.Instance.GetListMatchStartedByIDTeamWithOrder(t.idTournamnt, t.id);
+
+                int gF = 0; //Bàn thắng
+                int gA = 0; //Bàn thua
+                int rC = 0; //Thẻ đỏ
+                int yC = 0; //Thẻ vàng
+
+                foreach (Match m in matches)
+                {
+                    if (m.idTeam01 == t.id)
+                    {
+                        gF += m.Score1;
+                        gA += m.Score2;
+                    }
+                    else
+                    {
+                        gF += m.Score2;
+                        gA += m.Score1;
+                    }
+
+                    List<Card> cards = CardDAO.Instance.GetListCards(m.id, t.id);
+                    foreach (Card c in cards)
+                    {
+                        if (c.typeOfCard == "Thẻ đỏ")
+                            rC++;
+                        else
+                            yC++;
+                    }
+                }
+
+                list[i].index = i + 1;
+                list[i].m = matches.Count;
+                list[i].gf = gF;
+                list[i].ga = gA;
+                list[i].rc = rC;
+                list[i].yc = yC;
+                list[i].sumc = rC + yC;
+
+            }
+            return list;
+        }
+        List<PlayerStatistic> SttPlayer(MainWindow parameter)
+        {
+            List<PlayerStatistic> list = new List<PlayerStatistic>();
+            List<Team> team = TeamDAO.Instance.GetListTeamInLeague(parameter.league.id);
+            int i = -1;
+            foreach (Team t in team)
+            {
+                BitmapImage logoteam = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(t.logo));
+                List<Player> players = PlayerDAO.Instance.GetListPlayer(t.id);
+                foreach (Player p in players)
+                {
+                    i++;
+                    list.Add(new PlayerStatistic(p.namePlayer, t.nameTeam, logoteam));
+                    list[i].index = i + 1;
+                    list[i].number = p.uniformNumber;
+                    list[i].rc = CardDAO.Instance.GetCountCardOfPlayerByType(p, "Thẻ đỏ");
+                    list[i].yc = CardDAO.Instance.GetCountCardOfPlayerByType(p, "Thẻ vàng");
+                    list[i].goal = GoalDAO.Instance.GetCountGoalsByPlayer(p.id);
+                    list[i].assist = GoalDAO.Instance.GetCountAssistsByPlayer(p.id);
+                }
+            }
+
+            return list;
+        }
+        List<CardStatistic> SttCard(MainWindow parameter)
+        {
+            List<CardStatistic> list = new List<CardStatistic>();
+            int i = 0;
+            int rC;
+            int yC;
+            while (true)
+            {
+                i++;
+                rC = 0;
+                yC = 0;
+                List<Match> matches = MatchDAO.Instance.GetListMatchByRound(parameter.league.id, i);
+                if (matches.Count == 0)
+                    break;
+                list.Add(new CardStatistic(i));
+
+                foreach (Match m in matches)
+                {
+                    rC += CardDAO.Instance.GetCountCardTypeByIDMatch(m.id, "Thẻ đỏ");
+                    yC += CardDAO.Instance.GetCountCardTypeByIDMatch(m.id, "Thẻ vàng");
+                }
+
+                list[i - 1].rc = rC;
+                list[i - 1].yc = yC;
+                list[i - 1].sumc = rC + yC;
+            }
+            return list;
+        }
+        #endregion
     }
 }
