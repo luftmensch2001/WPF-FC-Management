@@ -260,7 +260,7 @@ namespace FCM.ViewModel
                         parameter.btnAddPlayer.IsEnabled = false;
                         parameter.btnAddTeam.IsEnabled = false;
                         parameter.btnDeleteTeam.IsEnabled = false;
-                        parameter.btnEditInforTeam.IsEnabled = false;
+                       // parameter.btnEditInforTeam.IsEnabled = false;
                     }
                     if (parameter.league.typeLeague == 0 || parameter.league.typeLeague == 1)
                     {
@@ -280,7 +280,7 @@ namespace FCM.ViewModel
                     }
                     if (parameter.league.status != 0)
                     {
-                        parameter.btnEditInforTeam.IsEnabled = false;
+                      //  parameter.btnEditInforTeam.IsEnabled = false;
                     }
                     LoadListTeams(parameter);
                     if (parameter.league.typeLeague == 1)
@@ -465,7 +465,7 @@ namespace FCM.ViewModel
             ChangeStatus(league.status, window);
             window.tblLeagueTime.Text = "Thời gian: " + league.dateTime.ToString("M/d/yyyy");
             LoadListTeams(window);
-            if (league.typeLeague == 1)
+            if (TreeMatchDAO.Instance.GetTree(window.league.id) != null)
             {
                 window.btnStanding.IsEnabled = false;
             }
@@ -636,11 +636,7 @@ namespace FCM.ViewModel
                         LoadDetailTeam(parameter, parameter.team);
                 }
                 else
-                    LoadListPlayer(parameter, -1);
-                if (teams.Count == parameter.setting.numberOfTeam)
-                    ChangeStatus(1, parameter);
-                else
-                    ChangeStatus(0, parameter);
+                    LoadDetailTeam(parameter,null);
                 if (parameter.league.typeLeague == 0 || parameter.league.typeLeague == 1)
                     ShowTeam(parameter, "Tất cả");
                 else
@@ -687,6 +683,24 @@ namespace FCM.ViewModel
         }
         public void LoadDetailTeam(MainWindow parameter, Team team)
         {
+            if (team==null)
+            {
+                parameter.tblTeamName.Text = "";
+                parameter.tblCoach.Text = "";
+                parameter.tblNational.Text = "";
+                parameter.tblStadium.Text = "";
+                parameter.imgTeamLogo.Source = new BitmapImage(new Uri("pack://application:,,,/Resource/Images/NoLogoSelected.png"));
+                LoadListPlayer(parameter, -1);
+                parameter.btnAddPlayer.Visibility = Visibility.Hidden;
+                parameter.btnExportTeam.Visibility = Visibility.Hidden;
+                parameter.btnEditInforTeam.Visibility = Visibility.Hidden;
+                parameter.btnDeleteTeam.Visibility = Visibility.Hidden;
+                return;
+            }
+            parameter.btnAddPlayer.Visibility = Visibility.Visible;
+            parameter.btnExportTeam.Visibility = Visibility.Visible;
+            parameter.btnEditInforTeam.Visibility = Visibility.Visible;
+            parameter.btnDeleteTeam.Visibility = Visibility.Visible;
             parameter.team = team;
             parameter.tblTeamName.Text = team.nameTeam;
             parameter.tblCoach.Text = team.coach;
@@ -1083,6 +1097,10 @@ namespace FCM.ViewModel
                 }
                 MessageBox.Show("Tạo lịch thi đấu thành công");
                 mainWindow.btnCreateSchedule.IsEnabled = false;
+                LoadCBXBoard(mainWindow);
+                AddItemsForCbxRound(mainWindow);
+                LoadListMatchRound(mainWindow, "Tất cả vòng", "Tất cả bảng");
+                mainWindow.btnStanding.IsEnabled = false;
                 OpenScheduleMatch(mainWindow);
             }
             catch
@@ -1643,10 +1661,6 @@ namespace FCM.ViewModel
         public void CreateScheduleWithCircle(MainWindow parameter)
         {
             // Lưu ý: số lượng đội bóng BẮT BUỘC PHẢI là số CHẴN
-            if (parameter.league.countTeam % 2 == 1)
-            {
-                MessageBox.Show("Số đội bóng tham gia giải đấu phải là số chẵn!", "Lưu ý", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
             List<Team> teams = TeamDAO.Instance.GetListTeamInLeague(parameter.league.id);
 
             // Số lượng đội bóng
@@ -2070,6 +2084,9 @@ namespace FCM.ViewModel
                     parameter.btnShowChart.Content = "Xem biểu đồ";
                 }
                 MessageBox.Show("Tạo danh sách vào vòng loại trực tiếp thành công");
+                LoadCBXBoard(parameter);
+                AddItemsForCbxRound(parameter);
+                LoadListMatchRound(parameter, "Tất cả vòng", "Tất cả bảng");
             }
             catch
             {

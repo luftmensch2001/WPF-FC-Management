@@ -1782,7 +1782,7 @@
             x:Name="grdTeamsScreen"
             Grid.Column="1"
             Background="#3a3a3a"
-            Visibility="Hidden">
+            Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="5*"/>
@@ -1931,9 +1931,9 @@
                                         <Button
                                             x:Name="btnEditInforTeam"
                                             Style="{StaticResource MyGreenButtonStyle}"
-                                            Background="#4554ff"
                                             Padding="0"
-                                            Width="120">
+                                            Width="100"
+                                            Margin="5 0 0 0">
                                             <StackPanel Orientation="Horizontal">
                                                 <materialDesign:PackIcon
                                                     Width="15"
@@ -1968,7 +1968,7 @@
                                             </StackPanel>
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="Click">
-                                                    <i:InvokeCommandAction Command="{Binding OpenEditTeamWindowCommand}"
+                                                    <i:InvokeCommandAction Command="{Binding DeleteTeamCommand}"
                                                                    CommandParameter="{Binding ElementName=wdHome}"/>
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>

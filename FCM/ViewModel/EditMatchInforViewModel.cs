@@ -58,7 +58,7 @@ namespace FCM.ViewModel
                 parameter.match.Score1 = -1;
                 parameter.match.Score2 = -1;
                 MatchDAO.Instance.UpdateMatch(parameter.match);
-                parameter.main.LoadListMatch(parameter.mainWindow, 0 , "Tất cả bảng đấu");
+                parameter.main.LoadListMatchRound(parameter.mainWindow, "Tất cả vòng" , "Tất cả bảng đấu");
             }
         }
         void SaveNewInfor(EditMatchInforWindow parameter)
@@ -72,8 +72,18 @@ namespace FCM.ViewModel
             }
             if (league.typeLeague == 1)
             {
-                if (DateTime.Compare(DateTime.Parse(parameter.dpDate.Text), MatchDAO.Instance.MaxTimeNockOut(parameter.match)) < 0)
+                DateTime date = MatchDAO.Instance.MaxTimeNockOut(parameter.match);
+                date.AddHours(2);
+                DateTime date1 = DateTime.Parse(parameter.dpDate.Text);
+                date1.AddHours(-date1.Hour);
+                date1.AddMinutes(-date1.Minute);
+                //DateTime time = DateTime.Parse(parameter.tpTime.Text);
+                //date1.AddHours(time.Hour);
+                //date1.AddMinutes(time.Minute);
+                MessageBox.Show(date1 + "             " + date);
+                if (DateTime.Compare(date1, date) < 0)
                 {
+                    MessageBox.Show(date1 + "             " + date);
                     MessageBox.Show("Thời gian trận đấu phải sau thời gian vòng đấu trước");
                     return;
                 }

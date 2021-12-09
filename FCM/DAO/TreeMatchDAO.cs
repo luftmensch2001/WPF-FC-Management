@@ -28,6 +28,7 @@ namespace FCM.DAO
         }
         public void DeleteTree(TreeMatch tree)
         {
+            NodeMatchDAO.Instance.DeleteNodeMatchByTree(tree.id);
             string query = "Delete treeMatch" +
                             "  Where  id = " + tree.id;
             DataTable db = DataProvider.Instance.ExecuteQuery(query);

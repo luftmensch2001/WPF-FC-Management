@@ -83,7 +83,10 @@ namespace FCM.View
             if (cbGroups.Items.Count == 1)
             {
                 cbGroups.SelectedIndex = 0;
-                cbGroups.Visibility = Visibility.Hidden;
+                if (cbGroups.Text == "Bảng đấu loại trực tiếp" || cbGroups.Text == "Bảng đấu vòng")
+                {
+                    cbGroups.Visibility = Visibility.Hidden;
+                }
             }
         }
     }

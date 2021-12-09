@@ -237,6 +237,7 @@ namespace FCM.DAO
             string query = " Select date " +
                             " From Matchs " +
                             " Where idTournaments = " + match.idTournaments + "" +
+                            " and id <> + " + match.id +
                             " and (idteam01 = " +match.idTeam01 +
                              " or idteam01 = " + match.idTeam02 +
                               " or idteam02 = " + match.idTeam01 +
@@ -245,8 +246,13 @@ namespace FCM.DAO
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
             foreach (DataRow dataRow in tb.Rows)
             {
-                if (((DateTime)dataRow["date"]).ToString("dd/MM/yyyy") == match.date.ToString("dd/MM/yyyy"))
-                    return true;
+                DateTime date = (DateTime)dataRow["date"];
+                if (date.Date.ToString("d") == match.date.Date.ToString("d"))
+                {
+                    if (match.date.TimeOfDay>= date.TimeOfDay && match.date.TimeOfDay<=date.AddHours(2).TimeOfDay)
+                        return true;
+                } 
+                   
             }
             return false;
         }

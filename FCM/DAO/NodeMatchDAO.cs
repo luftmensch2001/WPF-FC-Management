@@ -64,6 +64,12 @@ namespace FCM.DAO
                           "  Where id = " + node.id;
             DataTable db = DataProvider.Instance.ExecuteQuery(query);
         }
+        public void DeleteNodeMatchByTree(int idTree)
+        {
+            string query = "Delete NodeMatch" +
+                          "  Where idTree = " + idTree;
+            DataTable db = DataProvider.Instance.ExecuteQuery(query);
+        }
         public void SetIdTree(int idTree)
         {
             string query = "Update NodeMatch " +
