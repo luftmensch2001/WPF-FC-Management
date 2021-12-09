@@ -913,7 +913,7 @@
                         Margin="140 -60 0 5"
                         >
                     </ComboBox>
-                    
+
                 </StackPanel>
                 <Image 
                         Width="164"
@@ -1928,12 +1928,17 @@
                                                 Orientation="Horizontal"
                                                 VerticalAlignment="Bottom" 
                                                 HorizontalAlignment="Right" Margin="0 0 10 5">
-                                        <Button
-                                            x:Name="btnEditInforTeam"
+                                        <Button                 
+                                            x:Name="btnEditTeam"
                                             Style="{StaticResource MyGreenButtonStyle}"
                                             Padding="0"
-                                            Width="100"
-                                            Margin="5 0 0 0">
+                                            Width="100">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Click">
+                                                    <i:InvokeCommandAction Command="{Binding OpenEditTeamWindowCommand}"
+                                                                   CommandParameter="{Binding ElementName=wdHome}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
                                             <StackPanel Orientation="Horizontal">
                                                 <materialDesign:PackIcon
                                                     Width="15"
@@ -1943,20 +1948,19 @@
                                                 <TextBlock Text="Sửa thông tin" 
                                                     FontSize="12"/>
                                             </StackPanel>
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="Click">
-                                                    <i:InvokeCommandAction Command="{Binding DeleteTeamCommand}"
-                                                                   CommandParameter="{Binding ElementName=wdHome}"/>
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
                                         </Button>
-
                                         <Button
                                             x:Name="btnDeleteTeam"
                                             Style="{StaticResource MyRedButtonStyle}"
                                             Padding="0"
                                             Width="100"
                                             Margin="5 0 0 0">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Click">
+                                                    <i:InvokeCommandAction Command="{Binding DeleteTeamCommand}"
+                                                                   CommandParameter="{Binding ElementName=wdHome}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
                                             <StackPanel Orientation="Horizontal">
                                                 <materialDesign:PackIcon
                                                     Width="15"
@@ -1966,12 +1970,6 @@
                                                 <TextBlock Text="Xoá đội" 
                                                     FontSize="12"/>
                                             </StackPanel>
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="Click">
-                                                    <i:InvokeCommandAction Command="{Binding DeleteTeamCommand}"
-                                                                   CommandParameter="{Binding ElementName=wdHome}"/>
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
                                         </Button>
                                     </StackPanel>
                                 </Grid>
@@ -2462,7 +2460,7 @@
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Left"
                     Margin="175 0 0 0">
-                    
+
                 </Button>
             </Grid>
             <!--Body-->

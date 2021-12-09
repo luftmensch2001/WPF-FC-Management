@@ -260,7 +260,7 @@ namespace FCM.ViewModel
                         parameter.btnAddPlayer.IsEnabled = false;
                         parameter.btnAddTeam.IsEnabled = false;
                         parameter.btnDeleteTeam.IsEnabled = false;
-                       // parameter.btnEditInforTeam.IsEnabled = false;
+                        parameter.btnEditTeam.IsEnabled = false;
                     }
                     if (parameter.league.typeLeague == 0 || parameter.league.typeLeague == 1)
                     {
@@ -280,7 +280,7 @@ namespace FCM.ViewModel
                     }
                     if (parameter.league.status != 0)
                     {
-                      //  parameter.btnEditInforTeam.IsEnabled = false;
+                      //  parameter.btnEditTeam.IsEnabled = false;
                     }
                     LoadListTeams(parameter);
                     if (parameter.league.typeLeague == 1)
@@ -489,7 +489,6 @@ namespace FCM.ViewModel
                     parameter.btnStanding.IsEnabled = false;
                     parameter.btnSetting.IsEnabled = true;
                     parameter.btnAddTeam.IsEnabled = true;
-                    parameter.btnEditInforTeam.DataContext = "Sửa thông tin đội bóng";
                     parameter.btnDeleteTeam.IsEnabled = true;
                     parameter.btnAddPlayer.IsEnabled = true;
                     break;
@@ -501,7 +500,6 @@ namespace FCM.ViewModel
                     parameter.btnStatistics.IsEnabled = true;
                     parameter.btnSetting.IsEnabled = true;
                     parameter.btnAddTeam.IsEnabled = false;
-                    //parameter.btnEditInforTeam.DataContext = "Xem thông tin đội bóng";
                     parameter.btnDeleteTeam.IsEnabled = false;
                     parameter.btnAddPlayer.IsEnabled = false;
                     break;
@@ -693,13 +691,13 @@ namespace FCM.ViewModel
                 LoadListPlayer(parameter, -1);
                 parameter.btnAddPlayer.Visibility = Visibility.Hidden;
                 parameter.btnExportTeam.Visibility = Visibility.Hidden;
-                parameter.btnEditInforTeam.Visibility = Visibility.Hidden;
+                parameter.btnEditTeam.Visibility = Visibility.Hidden;
                 parameter.btnDeleteTeam.Visibility = Visibility.Hidden;
                 return;
             }
             parameter.btnAddPlayer.Visibility = Visibility.Visible;
             parameter.btnExportTeam.Visibility = Visibility.Visible;
-            parameter.btnEditInforTeam.Visibility = Visibility.Visible;
+            parameter.btnEditTeam.Visibility = Visibility.Visible;
             parameter.btnDeleteTeam.Visibility = Visibility.Visible;
             parameter.team = team;
             parameter.tblTeamName.Text = team.nameTeam;
