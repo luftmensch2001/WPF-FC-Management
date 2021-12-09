@@ -41,6 +41,8 @@
         <Grid Grid.Column="1">
             <TextBlock
                 x:Name="tblFootballer"
+                TextWrapping="WrapWithOverflow"
+                TextAlignment="Center"
                 Text="Ronaldo" />
         </Grid>
         <Grid Grid.Column="2">

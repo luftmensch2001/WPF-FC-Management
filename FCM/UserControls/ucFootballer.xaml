@@ -30,6 +30,8 @@
         <Grid Grid.Column="1">
             <TextBlock
                 x:Name="tblName"
+                TextWrapping="WrapWithOverflow"
+                TextAlignment="Center"
                 Text="Nguyễn Văn A" />
         </Grid>
         <Grid Grid.Column="2">

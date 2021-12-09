@@ -41,6 +41,8 @@
                            Text="Giải bóng đá ao làng"
                            Foreground="White"
                            FontSize="16"
+                           TextWrapping="WrapWithOverflow"
+                           TextAlignment="Center"
                            FontWeight="SemiBold"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Bottom"/>

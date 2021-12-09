@@ -1433,6 +1433,7 @@
                 <TextBlock
                     x:Name="tbl16Team15"
                     Width="130"
+                    TextWrapping="WrapWithOverflow"
                     TextAlignment="Center"
                     HorizontalAlignment="Right"
                     FontSize="11"
@@ -1626,6 +1627,7 @@
                 <TextBlock
                     x:Name="tbl8Team7"
                     Width="130"
+                    TextWrapping="WrapWithOverflow"                        
                     TextAlignment="Center"
                     HorizontalAlignment="Right"
                     FontSize="11"
@@ -1730,6 +1732,7 @@
                 <TextBlock
                     x:Name="tbl4Team3"
                     Width="130"
+                    TextWrapping="WrapWithOverflow"                        
                     TextAlignment="Center"
                     HorizontalAlignment="Right"
                     FontSize="11"

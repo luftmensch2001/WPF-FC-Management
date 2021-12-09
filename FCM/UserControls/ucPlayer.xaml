@@ -38,6 +38,8 @@
         <Grid Grid.Column="1">
             <TextBlock
                 x:Name="tblName"
+                TextWrapping="WrapWithOverflow"
+                TextAlignment="Center"
                 Text="Nguyễn Thị Long" />
             <Rectangle Fill="Gray" Height="25" Width="1" HorizontalAlignment="Right" />
         </Grid>
@@ -62,6 +64,8 @@
         <Grid Grid.Column="5">
             <TextBlock
                 x:Name="tblNationality"
+                TextWrapping="WrapWithOverflow"
+                TextAlignment="Center"
                 Text="Việt Nam" />
             <Rectangle Fill="Gray" Height="25" Width="1" HorizontalAlignment="Right" />
         </Grid>

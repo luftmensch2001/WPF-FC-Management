@@ -20,6 +20,8 @@
                 <TextBlock 
                     x:Name="tblName"
                     Text="Real Madrid"
+                    TextWrapping="WrapWithOverflow"
+                    TextAlignment="Center"
                     VerticalAlignment="Center"
                     Margin="40 0 0 0"/>
             </Grid>

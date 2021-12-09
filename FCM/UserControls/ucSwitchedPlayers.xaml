@@ -18,10 +18,14 @@
             <ColumnDefinition Width="0.4*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
-            <TextBlock x:Name="tblNameIn" Text="8. Nguyễn Văn A" Foreground="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="11" FontWeight="Medium"/>
+            <TextBlock x:Name="tblNameIn" Text="8. Nguyễn Văn A" Foreground="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="11" FontWeight="Medium" 
+                TextWrapping="WrapWithOverflow"
+                TextAlignment="Center"/>
         </Grid>
         <Grid Grid.Column="1">
-            <TextBlock x:Name="tblNameOut" Text="10. Lê Văn C" Foreground="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="11" FontWeight="Medium"/>
+            <TextBlock x:Name="tblNameOut" Text="10. Lê Văn C" Foreground="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="11" FontWeight="Medium"
+                TextWrapping="WrapWithOverflow"
+                TextAlignment="Center"/>
         </Grid>
         <Grid Grid.Column="2">
             <TextBlock x:Name="tblMinute" Text="28'" Foreground="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="11" FontWeight="Medium"/>
@@ -50,6 +54,7 @@
                     Background="#ff0000"
                     Width="18"
                     Height="18"
+                    Margin="10 0 0 0"
                     Padding="0"
                     BorderThickness="0">
                     <materialDesign:PackIcon Kind="DeleteOutline" />
