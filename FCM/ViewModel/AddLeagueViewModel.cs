@@ -93,6 +93,11 @@ namespace FCM.ViewModel
                 MessageBox.Show("Số đội tham gia không được nhỏ hơn số bảng đấu");
                 return false;
             }
+            if (Int32.Parse(countTeam)/2 < Int32.Parse(countBoard)/2)
+            {
+                MessageBox.Show("Số bảng đấu phải lớn hơn bằng 1 nửa số đội tham gia");
+                return false;
+            }
             return true;
         }
         void AddLeague(AddLeagueWindow parameter)
