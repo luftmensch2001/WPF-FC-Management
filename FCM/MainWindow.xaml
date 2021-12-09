@@ -2322,7 +2322,7 @@
             x:Name="grdStatisticsScreen"
             Grid.Column="1"
             Background="#3a3a3a"
-            Visibility="Hidden">
+            Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
@@ -2420,7 +2420,7 @@
                 <Button
                     x:Name="btnExportStatistics"
                     Style="{StaticResource MyGreenButtonStyle}" 
-                    Width="110" Padding="0" Margin="0 0 70 0"
+                    Width="110" Padding="0" Margin="0 0 15 0"
                     Background="Transparent" BorderBrush="White" BorderThickness="1"
                     VerticalAlignment="Bottom" HorizontalAlignment="Right">
                     <StackPanel Orientation="Horizontal" >
@@ -2435,6 +2435,34 @@
                                                        CommandParameter="{Binding ElementName=wdHome}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
+                </Button>
+
+                <ComboBox
+                        x:Name="cbSelectedTeam"
+                        Style="{StaticResource MaterialDesignComboBox}"
+                        materialDesign:ColorZoneAssist.Mode="Dark"
+                        Foreground="#fff"
+                        BorderBrush="#fff"
+                        Width="150"
+                        IsEditable="False"
+                        SelectedIndex="0"
+                        Height="30" Margin="15 0 0 3"
+                        VerticalAlignment="Bottom" HorizontalAlignment="Left" >
+                    <ComboBoxItem Content="Tất cả đội" />
+                    <ComboBoxItem Content="Team 1" />
+                    <ComboBoxItem Content="Team 2" />
+                    <ComboBoxItem Content="Team 3" />
+                </ComboBox>
+
+                <Button 
+                    x:Name="btnFilter"
+                    Style="{StaticResource MyGreenButtonStyle}"
+                    Width="65" MinWidth="65"
+                    Content="Lọc"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Left"
+                    Margin="175 0 0 0">
+                    
                 </Button>
             </Grid>
             <!--Body-->
