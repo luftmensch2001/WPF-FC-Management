@@ -880,31 +880,16 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Button>
-                    <ComboBox
-                        x:Name="cbxBoard"
-                        materialDesign:HintAssist.Hint="Chọn bảng đấu"
-                        VerticalAlignment="Bottom"
-                        HorizontalAlignment="Left"
-                        Grid.Column="1" Margin="140,0,0,0"
-                        >
-                    </ComboBox>
-                    <ComboBox
-                        x:Name="cbxRound"
-                        materialDesign:HintAssist.Hint="Chọn vòng đấu"
-                        VerticalAlignment="Bottom"
-                        HorizontalAlignment="Left"
-                        Grid.Column="1" Margin="140,0,0,0"
-                        >
-                    </ComboBox>
                     <Button 
                         x:Name="btnFillMatch"
                         Content="Lọc"
                         
                         Style="{StaticResource MyGreenButtonStyle}"
-                        Width="40"
-                        Height="40"
-                        FontSize="15"
-                        Margin="-780 -50 0 0">
+                        Width="60"
+                        Height="35" MinWidth="65"
+                        FontSize="14"
+                        VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                        Margin="150 5 0 0">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <i:InvokeCommandAction Command="{Binding ChangeRoundCommand}"
@@ -912,6 +897,23 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Button>
+                    <ComboBox                 
+                        x:Name="cbxBoard"
+                        materialDesign:HintAssist.Hint="Chọn bảng đấu"
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Left"
+                        Margin="25 -60 0 5"
+                     />
+
+                    <ComboBox
+                        x:Name="cbxRound"
+                        materialDesign:HintAssist.Hint="Chọn vòng đấu"
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Left"
+                        Margin="25 -60 0 5"
+                        >
+                    </ComboBox>
+                    
                 </StackPanel>
                 <Image 
                         Width="164"
