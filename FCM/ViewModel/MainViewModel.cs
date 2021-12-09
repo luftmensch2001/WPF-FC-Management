@@ -463,7 +463,7 @@ namespace FCM.ViewModel
                     break;
             }
             ChangeStatus(league.status, window);
-            window.tblLeagueTime.Text = "Thời gian: " + league.dateTime.ToString("M/d/yyyy");
+            window.tblLeagueTime.Text = "Thời gian: " + league.dateTime.ToString("dd/MM/yyyy");
             LoadListTeams(window);
             if (TreeMatchDAO.Instance.GetTree(window.league.id) != null)
             {
@@ -496,7 +496,8 @@ namespace FCM.ViewModel
                     parameter.btnSchedule.IsEnabled = true;
                     parameter.btnReport.IsEnabled = true;
                     parameter.btnTeams.IsEnabled = true;
-                    parameter.btnStanding.IsEnabled = true;
+                    if (TreeMatchDAO.Instance.GetTree(parameter.league.id)==null)
+                        parameter.btnStanding.IsEnabled = true;
                     parameter.btnStatistics.IsEnabled = true;
                     parameter.btnSetting.IsEnabled = true;
                     parameter.btnAddTeam.IsEnabled = false;

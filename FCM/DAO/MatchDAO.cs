@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
+using System.Windows;
 
 namespace FCM.DAO
 {
@@ -217,10 +218,11 @@ namespace FCM.DAO
         }
         public DateTime MaxTimeNockOut(Match match)
         {
-            string query = " Select max(date) as date " +
+            string query = " Select top 1 date, time" +
                             " From Matchs " +
                             " Where idTournaments = " + match.idTournaments + " " +
-                            " And round < " + match.round;
+                            " And round < " + match.round + "  " +
+                            " Order by date desc , time desc";
 
             DateTime dateTime = DateTime.Now;
 
@@ -230,11 +232,13 @@ namespace FCM.DAO
                 return LeagueDAO.Instance.GetLeagueById(match.idTournaments).dateTime;
             }
             dateTime = (DateTime)tb.Rows[0]["date"];
+            dateTime =  dateTime.AddHours(((DateTime)tb.Rows[0]["time"]).Hour);
+            dateTime = dateTime.AddMinutes(((DateTime)tb.Rows[0]["time"]).Minute);
             return dateTime;
         }
         public bool IsExistTimeMatch(Match match)
         {
-            string query = " Select date " +
+            string query = " Select *  " +
                             " From Matchs " +
                             " Where idTournaments = " + match.idTournaments + "" +
                             " and id <> + " + match.id +
@@ -249,8 +253,13 @@ namespace FCM.DAO
                 DateTime date = (DateTime)dataRow["date"];
                 if (date.Date.ToString("d") == match.date.Date.ToString("d"))
                 {
-                    if (match.date.TimeOfDay>= date.TimeOfDay && match.date.TimeOfDay<=date.AddHours(2).TimeOfDay)
+                    DateTime time = (DateTime)dataRow["time"];
+                    if (match.time.TimeOfDay >= time.TimeOfDay && match.time.TimeOfDay <= time.AddHours(2).TimeOfDay)
+                    {
+                        MessageBox.Show(date + "  " + match.date);
+                        MessageBox.Show(time + "  " + match.time);
                         return true;
+                    }
                 } 
                    
             }

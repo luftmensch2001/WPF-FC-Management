@@ -73,17 +73,16 @@ namespace FCM.ViewModel
             if (league.typeLeague == 1)
             {
                 DateTime date = MatchDAO.Instance.MaxTimeNockOut(parameter.match);
-                date.AddHours(2);
+                date = date.AddHours(2);
                 DateTime date1 = DateTime.Parse(parameter.dpDate.Text);
-                date1.AddHours(-date1.Hour);
-                date1.AddMinutes(-date1.Minute);
-                //DateTime time = DateTime.Parse(parameter.tpTime.Text);
-                //date1.AddHours(time.Hour);
-                //date1.AddMinutes(time.Minute);
-                MessageBox.Show(date1 + "             " + date);
+                DateTime time = DateTime.Parse(parameter.tpTime.Text);
+                date1 =  date1.AddHours(time.Hour - date1.Hour);
+                date1 =  date1.AddMinutes(time.Minute - date1.Minute);
+                //MessageBox.Show(time.Hour.ToString());
+             //   MessageBox.Show(date1 + "             " + date);
                 if (DateTime.Compare(date1, date) < 0)
                 {
-                    MessageBox.Show(date1 + "             " + date);
+                   // MessageBox.Show(date1 + "             " + date);
                     MessageBox.Show("Thời gian trận đấu phải sau thời gian vòng đấu trước");
                     return;
                 }
