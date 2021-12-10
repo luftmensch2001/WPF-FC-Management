@@ -112,5 +112,18 @@ namespace FCM.DAO
 
             return tb.Rows.Count;
         }
+
+        public int GetCountCardTypeByIDMatchAndIDTeam(int idMatch, int idTeam, string TypeOfCard)
+        {
+            string query = "Select *" +
+                " FROM CARDS " +
+                " WHERE TypeOfCard = N'" + TypeOfCard + "' AND " +
+                " IdMatchs = " + idMatch + " AND " +
+                " IdTeams = " + idTeam;
+
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+
+            return tb.Rows.Count;
+        }
     }
 }

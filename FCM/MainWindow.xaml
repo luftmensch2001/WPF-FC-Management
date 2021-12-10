@@ -2431,6 +2431,35 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
+                <ComboBox
+                        x:Name="cbSelectedTeam"
+                        Style="{StaticResource MaterialDesignComboBox}"
+                        materialDesign:ColorZoneAssist.Mode="Dark"
+                        Foreground="#fff"
+                        BorderBrush="#fff"
+                        Width="150"
+                        IsEditable="False"
+                        SelectedIndex="0"
+                        Height="30" Margin="15 0 0 3"
+                        VerticalAlignment="Bottom" HorizontalAlignment="Left" >
+                    <ComboBoxItem Content="Tất cả đội" />
+                </ComboBox>
+
+                <Button 
+                    x:Name="btnFilter"
+                    Style="{StaticResource MyGreenButtonStyle}"
+                    Width="65" MinWidth="65"
+                    Content="Lọc"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Left"
+                    Margin="175 0 0 0">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding FilterTeamStatisticCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
             </Grid>
             <!--Body-->
             <Grid Grid.Row="2"
