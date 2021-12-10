@@ -114,6 +114,11 @@ namespace FCM.ViewModel
                         MessageBox.Show("Số lượng đội vào vòng trong phải nhỏ hơn số đội tham gia giải", "Lỗi");
                         return;
                     }
+                    if (value > 16)
+                    {
+                        MessageBox.Show("Số lượng đội vào vòng trong tối đa là 16 đội", "Lỗi");
+                        return;
+                    }
                     //if (value % 2 == 1 || !Check2P(value))
                     //{
                     //    MessageBox.Show("Số lượng đội vào vòng trong phải là 2^n", "Lỗi");

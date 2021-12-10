@@ -11,11 +11,11 @@ namespace FCM.DAO
 {
     class CardStatistic
     {
-        public int round { get; set; }
+        public string round { get; set; }
         public int rc { get; set; }
         public int yc { get; set; }
         public int sumc { get; set; }
-        public CardStatistic(int Round)
+        public CardStatistic(string Round)
         {
             this.round = Round;
             this.rc = 0;

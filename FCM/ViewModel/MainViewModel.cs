@@ -296,7 +296,6 @@ namespace FCM.ViewModel
                     parameter.btnStanding.Foreground = lightGreen;
                     parameter.icStanding.Foreground = lightGreen;
                     parameter.grdStandingScreen.Visibility = Visibility.Visible;
-                    GetImageResultMatch();
                     InitCbbRanking(parameter);
                     GetDetailSetting(parameter);
                     LoadRanking(parameter);
@@ -1857,7 +1856,7 @@ namespace FCM.ViewModel
                 i++;
                 if (canEdit || match.nameBoard == "Bảng đấu loại trực tiếp")
                 {
-                    ucMatchDetail ucmatchDetail = new ucMatchDetail(i, match, parameter, this, canEdit);
+                    ucMatchDetail ucmatchDetail = new ucMatchDetail(i, match, parameter, this, true);
                     parameter.wpSchedule.Children.Add(ucmatchDetail);
                 }
                 else
@@ -2320,6 +2319,12 @@ namespace FCM.ViewModel
         }
         System.Drawing.Image ResToImageFLM(string res)
         {
+            if (imgWin == null)
+                GetImageResultMatch();
+            if (imgWin == null)
+            {
+                return null;
+            }    
             int space = 2;
             int width = imgWin.Width * 6 + space * 2;
             int height = imgWin.Width + space * 2;
@@ -2544,6 +2549,8 @@ namespace FCM.ViewModel
             int i = 0;
             int rC;
             int yC;
+
+            //Vòng bảng
             while (true)
             {
                 i++;
@@ -2552,7 +2559,7 @@ namespace FCM.ViewModel
                 List<Match> matches = MatchDAO.Instance.GetListMatchByRound(parameter.league.id, i);
                 if (matches.Count == 0)
                     break;
-                list.Add(new CardStatistic(i));
+                list.Add(new CardStatistic(i.ToString()));
 
                 if (idTeam == -1)
                     foreach (Match m in matches)
@@ -2571,6 +2578,50 @@ namespace FCM.ViewModel
                 list[i - 1].yc = yC;
                 list[i - 1].sumc = rC + yC;
             }
+
+            //Vòng loại trực tiếp
+            for (int ii = 4; ii > 1; ii--)
+            {
+                rC = 0;
+                yC = 0;
+                
+                List<Match> matches = MatchDAO.Instance.GetListMatchByRound(parameter.league.id, -ii);
+                if (matches.Count == 0)
+                    continue;
+                switch (ii)
+                {
+                    case 1:
+                        list.Add(new CardStatistic("Chung kết"));
+                        break;
+                    case 2:
+                        list.Add(new CardStatistic("Bán kết"));
+                        break;
+                    case 3:
+                        list.Add(new CardStatistic("Tứ kết"));
+                        break;
+                    case 4:
+                        list.Add(new CardStatistic("Vòngg 1/8"));
+                        break;
+                }
+
+                if (idTeam == -1)
+                    foreach (Match m in matches)
+                    {
+                        rC += CardDAO.Instance.GetCountCardTypeByIDMatch(m.id, "Thẻ đỏ");
+                        yC += CardDAO.Instance.GetCountCardTypeByIDMatch(m.id, "Thẻ vàng");
+                    }
+                else
+                    foreach (Match m in matches)
+                    {
+                        rC += CardDAO.Instance.GetCountCardTypeByIDMatchAndIDTeam(m.id, idTeam, "Thẻ đỏ");
+                        yC += CardDAO.Instance.GetCountCardTypeByIDMatchAndIDTeam(m.id, idTeam, "Thẻ vàng");
+                    }
+
+                list[list.Count - 1].rc = rC;
+                list[list.Count - 1].yc = yC;
+                list[list.Count - 1].sumc = rC + yC;
+            }
+
             return list;
         }
         #endregion
