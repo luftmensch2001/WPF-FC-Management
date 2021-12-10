@@ -2451,9 +2451,22 @@
                     <ComboBoxItem Content="Team 2" />
                     <ComboBoxItem Content="Team 3" />
                 </ComboBox>
-
+                
+                <ComboBox
+                        x:Name="cbSelectedRound"
+                        Style="{StaticResource MaterialDesignComboBox}"
+                        materialDesign:ColorZoneAssist.Mode="Dark"
+                        Foreground="#fff"
+                        BorderBrush="#fff"
+                        Width="150"
+                        IsEditable="False"
+                        SelectedIndex="0"
+                        Height="30" Margin="15 0 0 35"
+                        VerticalAlignment="Bottom" HorizontalAlignment="Left" >
+                    <ComboBoxItem Content="Tất cả vòng" />
+                </ComboBox>
                 <Button 
-                    x:Name="btnFilter"
+                    x:Name="btnFilterTeam"
                     Style="{StaticResource MyGreenButtonStyle}"
                     Width="65" MinWidth="65"
                     Content="Lọc"
@@ -2463,6 +2476,21 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i:InvokeCommandAction Command="{Binding FilterTeamStatisticCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button 
+                    x:Name="btnFilterRound"
+                    Style="{StaticResource MyGreenButtonStyle}"
+                    Width="65" MinWidth="65"
+                    Content="Lọc"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Left"
+                    Margin="175 0 0 30">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding FilterRoundStatisticCommand}"
                                                        CommandParameter="{Binding ElementName=wdHome}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>

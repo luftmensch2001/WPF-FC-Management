@@ -308,5 +308,44 @@ namespace FCM.DAO
                 DeleteMatch(match.id);
             }    
         }
+
+        public List<string> GetListRoundInLeague(int idTournament)
+        {
+            List<string> rounds = new List<string>();
+
+            string query = "Select round " +
+                            "From Matchs " +
+                            "Where idTournaments = " + idTournament +
+                            " Group by round";
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+            foreach (DataRow row in tb.Rows)
+            {
+                rounds.Add(row["round"].ToString());
+            }
+            return rounds;
+        }
+        public List<Match> GetListMatchStartedByIDTeamAndRoundWithOrder(int idTournament, int idTeam01, int round)
+        {
+            List<Match> matches = new List<Match>();
+
+            string query = "Select * From (" +
+                            "Select* " +
+                            "From Matchs " +
+                            "Where idTournaments = " + idTournament +
+                            " and isStarted = 1 ";
+            if (round != 0)
+                query += " and round =" + round;
+            query += ") lm" +
+                     " Where lm.IdTeam01 = " + idTeam01 +
+                     " or lm.IdTeam02 = " + idTeam01 +
+                     " Order by lm.Date, lm.Time";
+            DataTable tb = DataProvider.Instance.ExecuteQuery(query);
+            foreach (DataRow row in tb.Rows)
+            {
+                Match match = new Match(row);
+                matches.Add(match);
+            }
+            return matches;
+        }
     }
 }

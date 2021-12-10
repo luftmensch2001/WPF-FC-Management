@@ -87,21 +87,23 @@ namespace FCM.DAO
             }
             return goals;
         }
-        public int GetCountGoalsByPlayer(int idPlayer)
+        public int GetCountGoalsByIdPlayerAndIdMatch(int idPlayer, int idMatch)
         {
             string query = "Select* " +
                           "From Goals  " +
-                          " Where IdPlayerGoals = " + idPlayer;
+                          " Where IdPlayerGoals = " + idPlayer +
+                          " And IdMatchs = " + idMatch;
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
 
             return tb.Rows.Count;
         }
 
-        public int GetCountAssistsByPlayer(int idPlayer)
+        public int GetCountAssistsByIdPlayerAndIdMatch(int idPlayer, int idMatch)
         {
             string query = "Select* " +
                           "From Goals  " +
-                          " Where IdPlayerAssist = " + idPlayer;
+                          " Where IdPlayerAssist = " + idPlayer +
+                          " And IdMatchs = " + idMatch;
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
 
             return tb.Rows.Count;

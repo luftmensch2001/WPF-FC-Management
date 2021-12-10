@@ -88,14 +88,14 @@ namespace FCM.DAO
                 " WHERE IdMatchs = " + idMatch;
             DataProvider.Instance.ExecuteQuery(query);
         }
-        public int GetCountCardOfPlayerByType(Player p, string TypeOfCard)
+        public int GetCountCardOfPlayerByTypeAndIdMatch(Player p,string TypeOfCard, int idMatch)
         {
             string query = "Select *" +
                 " FROM CARDS " +
                 " WHERE TypeOfCard = N'" + TypeOfCard + "' AND " +
                 " IdPlayers = " + p.id + " AND " +
-                " IdTeams = " + p.idTeam;
-
+                " IdTeams = " + p.idTeam + "AND " +
+                " IdMatchs = " + idMatch;
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
 
             return tb.Rows.Count;

@@ -140,7 +140,7 @@ namespace FCM.DAO
             }
         }
 
-        public void ExportTeamStatistic(System.Windows.Controls.DataGrid grid, List<TeamStatistic> list)
+        public void ExportTeamStatistic(System.Windows.Controls.DataGrid grid, List<TeamStatistic> list, string round)
         {
             //Add Header
             BaseFont bff = BaseFont.CreateFont(Environment.GetEnvironmentVariable("windir") + @"\\fonts\times.ttf", BaseFont.IDENTITY_H, true);
@@ -231,7 +231,10 @@ namespace FCM.DAO
 
             //save file;
             var savefiledialoge = new SaveFileDialog();
-            savefiledialoge.FileName = "Thống kê đội bóng" ;
+            if (round == "Tất cả vòng")
+                savefiledialoge.FileName = "Thống kê đội bóng";
+            else
+                savefiledialoge.FileName = "Thống kê đội bóng Vòng " + round;
             savefiledialoge.DefaultExt = ".pdf";
 
             if (savefiledialoge.ShowDialog() == true)
@@ -242,6 +245,12 @@ namespace FCM.DAO
                     PdfWriter.GetInstance(pdfdoc, stream);
                     pdfdoc.Open();
                     pdfdoc.Add(prgHeading);
+                    if (round != "Tất cả vòng")
+                    {
+                        Paragraph p = new Paragraph("Vòng " + round, text);
+                        p.Alignment = Element.ALIGN_CENTER;
+                        pdfdoc.Add(p);
+                    }
                     pdfdoc.Add(pdfPTable);
                     pdfdoc.Close();
                     stream.Close();
@@ -249,7 +258,7 @@ namespace FCM.DAO
                 }
             }
         }
-        public void ExportPlayerStatistic(System.Windows.Controls.DataGrid grid, List<PlayerStatistic> list)
+        public void ExportPlayerStatistic(System.Windows.Controls.DataGrid grid, List<PlayerStatistic> list, string round)
         {
             //Add Header
             BaseFont bff = BaseFont.CreateFont(Environment.GetEnvironmentVariable("windir") + @"\\fonts\times.ttf", BaseFont.IDENTITY_H, true);
@@ -340,7 +349,10 @@ namespace FCM.DAO
 
             //save file;
             var savefiledialoge = new SaveFileDialog();
-            savefiledialoge.FileName = "Thống kê cầu thủ";
+            if (round == "Tất cả vòng")
+                savefiledialoge.FileName = "Thống kê cầu thủ";
+            else
+                savefiledialoge.FileName = "Thống kê cầu thủ Vòng " + round;
             savefiledialoge.DefaultExt = ".pdf";
 
             if (savefiledialoge.ShowDialog() == true)
@@ -351,6 +363,12 @@ namespace FCM.DAO
                     PdfWriter.GetInstance(pdfdoc, stream);
                     pdfdoc.Open();
                     pdfdoc.Add(prgHeading);
+                    if (round != "Tất cả vòng")
+                    {
+                        Paragraph p = new Paragraph("Vòng " + round, text);
+                        p.Alignment = Element.ALIGN_CENTER;
+                        pdfdoc.Add(p);
+                    }
                     pdfdoc.Add(pdfPTable);
                     pdfdoc.Close();
                     stream.Close();
@@ -358,7 +376,7 @@ namespace FCM.DAO
                 }
             }
         }
-        public void ExportCardStatistic(System.Windows.Controls.DataGrid grid, List<CardStatistic> list)
+        public void ExportCardStatistic(System.Windows.Controls.DataGrid grid, List<CardStatistic> list, string teamName)
         {
             //Add Header
             BaseFont bff = BaseFont.CreateFont(Environment.GetEnvironmentVariable("windir") + @"\\fonts\times.ttf", BaseFont.IDENTITY_H, true);
@@ -421,7 +439,10 @@ namespace FCM.DAO
 
             //save file;
             var savefiledialoge = new SaveFileDialog();
-            savefiledialoge.FileName = "Thống kê thẻ phạt";
+            if (teamName == "Tất cả đội")
+                savefiledialoge.FileName = "Thống kê thẻ phạt";
+            else
+                savefiledialoge.FileName = "Thống kê thẻ phạt Đội " + teamName;
             savefiledialoge.DefaultExt = ".pdf";
 
             if (savefiledialoge.ShowDialog() == true)
@@ -432,6 +453,12 @@ namespace FCM.DAO
                     PdfWriter.GetInstance(pdfdoc, stream);
                     pdfdoc.Open();
                     pdfdoc.Add(prgHeading);
+                    if (teamName != "Tất cả đội")
+                    {
+                        Paragraph p = new Paragraph("Đội " + teamName, text);
+                        p.Alignment = Element.ALIGN_CENTER;
+                        pdfdoc.Add(p);
+                    }
                     pdfdoc.Add(pdfPTable);
                     pdfdoc.Close();
                     stream.Close();
