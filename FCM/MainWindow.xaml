@@ -2460,7 +2460,12 @@
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Left"
                     Margin="175 0 0 0">
-
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding FilterTeamStatisticCommand}"
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
             </Grid>
             <!--Body-->

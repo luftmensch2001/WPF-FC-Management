@@ -142,6 +142,8 @@ namespace FCM.DAO
             string query = "Select id From Teams where idTournaments = " + idTournament +
                            " and DisplayName = N'" + teamName + "'";
             DataTable db = DataProvider.Instance.ExecuteQuery(query);
+            if (db.Rows.Count < 1)
+                return -1;
             return (int)db.Rows[0]["id"];
         }
         public bool IsExistTeamName(string teamName, int idTournament)

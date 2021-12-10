@@ -53,6 +53,7 @@ namespace FCM.ViewModel
         public ICommand CreateNockOutBoard { get; set; }
         public ICommand SelectedNockOutTeamChangeCommamnd { get; set; }
         public ICommand ExportStatisticCommand { get; set; }
+        public ICommand FilterTeamStatisticCommand { get; set; }
 
         //public ICommand OpenEditMatchWindowCommand { get; set; }
         //public ICommand OpenResultRecordWindowCommand { get; set; }
@@ -107,6 +108,8 @@ namespace FCM.ViewModel
             SelectedNockOutTeamChangeCommamnd = new RelayCommand<ComboBox>((parameter) => true, (parameter) => SelectedTeamNockOutChange(parameter));
 
             ExportStatisticCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => ExportStatistic(parameter));
+            FilterTeamStatisticCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => FilterTeamClick(parameter));
+
 
             //OpenEditMatchWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenEditMatchInfoWindow(parameter));
             //OpenResultRecordWindowCommand = new RelayCommand<MainWindow>((parameter) => true, (parameter) => OpenResultRecordingWindow(parameter));
@@ -302,6 +305,9 @@ namespace FCM.ViewModel
                     parameter.btnStatistics.Foreground = lightGreen;
                     parameter.icStatistics.Foreground = lightGreen;
                     parameter.grdStatisticsScreen.Visibility = Visibility.Visible;
+                    parameter.cbSelectedTeam.Visibility = Visibility.Hidden;
+                    parameter.btnFilter.Visibility = Visibility.Hidden;
+                    AddTeamToComboboxPlayerStatistic(parameter);
                     uid = "0";
                     SwitchTabStatistics(parameter);
                     break;
@@ -513,6 +519,10 @@ namespace FCM.ViewModel
                     parameter.btnSetting.IsEnabled = true;
                     break;
             }
+            if (BoardDAO.Instance.HaveNockOutBoard(parameter.league.id))
+            {
+                parameter.btnStanding.IsEnabled = false;
+            }    
         }
         public void DeleteLeague(MainWindow parameter)
         {
@@ -959,7 +969,7 @@ namespace FCM.ViewModel
             }
             if (teamsInNockOut == null)
             {
-                MessageBox.Show("Có lỗi sảy ra");
+                MessageBox.Show("Có lỗi xảy ra");
                 return;
             }
             int size = 0;
@@ -2364,6 +2374,14 @@ namespace FCM.ViewModel
 
         #region Stactistic
 
+        void FilterTeamClick(MainWindow parameter)
+        {
+            if (parameter.grdSttPlayers.Visibility == Visibility.Visible)
+                parameter.dgvStatisticsPlayers.ItemsSource = SttPlayer(parameter);
+            else
+            if (parameter.grdSttCards.Visibility == Visibility.Visible)
+                parameter.dgvStatisticsCards.ItemsSource = SttCard(parameter);
+        }
         void ExportStatistic(MainWindow parameter)
         {
             if (parameter.grdSttTeams.Visibility == Visibility.Visible)
@@ -2396,19 +2414,38 @@ namespace FCM.ViewModel
                 case 0:
                     parameter.btnSttTeams.Foreground = lightGreen;
                     parameter.grdSttTeams.Visibility = Visibility.Visible;
+                    parameter.cbSelectedTeam.Visibility = Visibility.Hidden;
+                    parameter.btnFilter.Visibility = Visibility.Hidden;
                     parameter.dgvStatisticsTeams.ItemsSource = SttTeam(parameter);
                     break;
                 case 1:
+                    parameter.cbSelectedTeam.SelectedIndex = 0;
                     parameter.btnSttPlayers.Foreground = lightGreen;
                     parameter.grdSttPlayers.Visibility = Visibility.Visible;
+                    parameter.cbSelectedTeam.Visibility = Visibility.Visible;
+                    parameter.btnFilter.Visibility = Visibility.Visible;
                     parameter.dgvStatisticsPlayers.ItemsSource = SttPlayer(parameter);
                     break;
                 case 2:
+                    parameter.cbSelectedTeam.SelectedIndex = 0;
                     parameter.btnSttCards.Foreground = lightGreen;
                     parameter.grdSttCards.Visibility = Visibility.Visible;
+                    parameter.cbSelectedTeam.Visibility = Visibility.Visible;
+                    parameter.btnFilter.Visibility = Visibility.Visible;
                     parameter.dgvStatisticsCards.ItemsSource = SttCard(parameter);
                     break;
             }
+        }
+        void AddTeamToComboboxPlayerStatistic(MainWindow parameter)
+        {
+            parameter.cbSelectedTeam.Items.Clear();
+            parameter.cbSelectedTeam.Items.Add("Tất cả đội");
+            List<Team> teams = TeamDAO.Instance.GetListTeamInLeague(parameter.league.id);
+            foreach (Team t in teams)
+            {
+                parameter.cbSelectedTeam.Items.Add(t.nameTeam);
+            }
+            parameter.cbSelectedTeam.SelectedIndex = 0;
         }
         List<TeamStatistic> SttTeam(MainWindow parameter)
         {
@@ -2463,8 +2500,16 @@ namespace FCM.ViewModel
         }
         List<PlayerStatistic> SttPlayer(MainWindow parameter)
         {
+            string nameTeam = parameter.cbSelectedTeam.SelectedItem.ToString();
             List<PlayerStatistic> list = new List<PlayerStatistic>();
-            List<Team> team = TeamDAO.Instance.GetListTeamInLeague(parameter.league.id);
+            List<Team> team = new List<Team>();
+            if (nameTeam == "Tất cả đội")
+                team = TeamDAO.Instance.GetListTeamInLeague(parameter.league.id);
+            else
+            {
+                Team t = TeamDAO.Instance.GetTeamById(TeamDAO.Instance.GetTeamIDByName(parameter.league.id, nameTeam));
+                team.Add(t);
+            }
             int i = -1;
             foreach (Team t in team)
             {
@@ -2487,6 +2532,13 @@ namespace FCM.ViewModel
         }
         List<CardStatistic> SttCard(MainWindow parameter)
         {
+            string nameTeam = parameter.cbSelectedTeam.SelectedItem.ToString();
+            int idTeam = -1;
+            if (nameTeam != "Tất cả đội")
+            {
+                Team t = TeamDAO.Instance.GetTeamById(TeamDAO.Instance.GetTeamIDByName(parameter.league.id, nameTeam));
+                idTeam = t.id;
+            }
             List<CardStatistic> list = new List<CardStatistic>();
             int i = 0;
             int rC;
@@ -2501,11 +2553,18 @@ namespace FCM.ViewModel
                     break;
                 list.Add(new CardStatistic(i));
 
-                foreach (Match m in matches)
-                {
-                    rC += CardDAO.Instance.GetCountCardTypeByIDMatch(m.id, "Thẻ đỏ");
-                    yC += CardDAO.Instance.GetCountCardTypeByIDMatch(m.id, "Thẻ vàng");
-                }
+                if (idTeam == -1)
+                    foreach (Match m in matches)
+                    {
+                        rC += CardDAO.Instance.GetCountCardTypeByIDMatch(m.id, "Thẻ đỏ");
+                        yC += CardDAO.Instance.GetCountCardTypeByIDMatch(m.id, "Thẻ vàng");
+                    }
+                else
+                    foreach (Match m in matches)
+                    {
+                        rC += CardDAO.Instance.GetCountCardTypeByIDMatchAndIDTeam(m.id, idTeam, "Thẻ đỏ");
+                        yC += CardDAO.Instance.GetCountCardTypeByIDMatchAndIDTeam(m.id, idTeam, "Thẻ vàng");
+                    }
 
                 list[i - 1].rc = rC;
                 list[i - 1].yc = yC;

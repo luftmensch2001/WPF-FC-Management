@@ -42,7 +42,11 @@ namespace FCM.ViewModel
                         MessageBox.Show("Số lượng đội bóng phải lớn hơn 1");
                         return;
                     }
-
+                    if (value <= parameter.curSetting.NumberOfTeamIn)
+                    {
+                        MessageBox.Show("Số lượng đội bóng tham gia phải lớn hơn số đội vào vòng trong");
+                        return;
+                    }
                     break;
                 case 1:
                     if (parameter.curSetting.minPlayerOfTeam < 1)
@@ -110,11 +114,11 @@ namespace FCM.ViewModel
                         MessageBox.Show("Số lượng đội vào vòng trong phải nhỏ hơn số đội tham gia giải", "Lỗi");
                         return;
                     }
-                    if (value % 2 == 1 || !Check2P(value))
-                    {
-                        MessageBox.Show("Số lượng đội vào vòng trong phải là 2^n", "Lỗi");
-                        return;
-                    }    
+                    //if (value % 2 == 1 || !Check2P(value))
+                    //{
+                    //    MessageBox.Show("Số lượng đội vào vòng trong phải là 2^n", "Lỗi");
+                    //    return;
+                    //}    
                     break;
                 case 7:
                     if (value <= parameter.curSetting.scoreDraw || value <= parameter.curSetting.scoreLose)
@@ -185,7 +189,7 @@ namespace FCM.ViewModel
                     LeagueDAO.Instance.UpdateNumberOfTeams(parameter.idTournament, value);
                     int cb = LeagueDAO.Instance.GetLeagueById(parameter.idTournament).countBoard;
                     if (cb == 1)
-                        SettingDAO.Instance.EditSetting(parameter.idTournament, "NumberOfTeamsIn", parameter.tbValue.Text);
+                        SettingDAO.Instance.EditSetting(parameter.idTournament, "NumberOfTeamsIn", "0");
                 }
 
 

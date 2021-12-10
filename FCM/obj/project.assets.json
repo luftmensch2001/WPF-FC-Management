@@ -4981,19 +4981,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\phuon\\.nuget\\packages\\": {}
+    "C:\\Users\\813\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\Nam 3\\OOP\\Fix\\WPF-FC-Management\\FCM\\FCM.csproj",
+      "projectUniqueName": "E:\\U\\SE100_PMHDT\\WPF-FC-Management\\FCM\\FCM.csproj",
       "projectName": "FCM",
-      "projectPath": "G:\\Nam 3\\OOP\\Fix\\WPF-FC-Management\\FCM\\FCM.csproj",
-      "packagesPath": "C:\\Users\\phuon\\.nuget\\packages\\",
-      "outputPath": "G:\\Nam 3\\OOP\\Fix\\WPF-FC-Management\\FCM\\obj\\",
+      "projectPath": "E:\\U\\SE100_PMHDT\\WPF-FC-Management\\FCM\\FCM.csproj",
+      "packagesPath": "C:\\Users\\813\\.nuget\\packages\\",
+      "outputPath": "E:\\U\\SE100_PMHDT\\WPF-FC-Management\\FCM\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\phuon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\813\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5066,7 +5066,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   },
