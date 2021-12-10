@@ -218,7 +218,7 @@ namespace FCM.ViewModel
                         }
                         if (parameter.league.typeLeague == 2 &&
                             (!BoardDAO.Instance.HaveNockOutBoard(parameter.league.id) ||
-                               (BoardDAO.Instance.HaveNockOutBoard(parameter.league.id) && TreeMatchDAO.Instance.GetTree(parameter.league.id) == null)))
+                               (BoardDAO.Instance.HaveNockOutBoard(parameter.league.id) && TreeMatchDAO.Instance.GetTree(parameter.league.id) != null)))
                         {
                             parameter.btnCreateSchedule.IsEnabled = false;
                         }
@@ -1528,7 +1528,7 @@ namespace FCM.ViewModel
                 }
                 if (parameter.league.typeLeague == 2 &&
                     (!BoardDAO.Instance.HaveNockOutBoard(parameter.league.id) ||
-                       (BoardDAO.Instance.HaveNockOutBoard(parameter.league.id) && TreeMatchDAO.Instance.GetTree(parameter.league.id) == null)))
+                       (BoardDAO.Instance.HaveNockOutBoard(parameter.league.id) && TreeMatchDAO.Instance.GetTree(parameter.league.id) != null)))
                 {
                     MessageBox.Show("Đã có lịch thi đấu");
                     return;
@@ -2096,6 +2096,7 @@ namespace FCM.ViewModel
                 LoadCBXBoard(parameter);
                 AddItemsForCbxRound(parameter);
                 LoadListMatchRound(parameter, "Tất cả vòng", "Tất cả bảng");
+                parameter.btnCreateSchedule.IsEnabled = true;
             }
             catch
             {
