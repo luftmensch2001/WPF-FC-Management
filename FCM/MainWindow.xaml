@@ -1782,7 +1782,7 @@
             x:Name="grdTeamsScreen"
             Grid.Column="1"
             Background="#3a3a3a"
-            Visibility="Visible">
+            Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="5*"/>
@@ -3312,6 +3312,81 @@
                     </StackPanel>
                 </Button>
             </Grid>
+            <TextBlock
+                Text="Danh sách tài khoản"
+                Margin="0 0 0 90" FontSize="16"
+                Style="{StaticResource H2}"/>
+            <DataGrid
+                    x:Name="dgvAccountList"
+                    ItemsSource="{Binding Item2}"
+                    HorizontalGridLinesBrush="#FFEADBDD" 
+                        GridLinesVisibility="Horizontal"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        VerticalGridLinesBrush="Black"
+                        SelectionUnit="FullRow"
+                        SelectionMode="Single"
+                        Width="470" Height="350" Margin="0 300 0 0"
+                        CanUserResizeRows="False"
+                        CanUserDeleteRows="False"
+                        CanUserAddRows="False" 
+                        CanUserReorderColumns="False"
+                        AutoGenerateColumns="False"
+                        IsReadOnly="True">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                        <Setter Property="HorizontalAlignment" Value="Center" />
+                        <Setter Property="BorderThickness" Value="0" />
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                            Header="STT"
+                            Width="60">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn
+                            Header="Tên tài khoản"
+                            Width="200">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn
+                            Header="Loại tài khoản"
+                            Width="120">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTemplateColumn Width="90">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button 
+                                    Style="{StaticResource MyRedButtonStyle}"
+                                    MinWidth="25" MinHeight="25"
+                                    Width="25" Height="25">
+                                    <materialDesign:PackIcon 
+                                        Width="20" Height="20"
+                                        Kind="DeleteOutline"/>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+
+            </DataGrid>
         </Grid>
 
         <!--#endregion-->
