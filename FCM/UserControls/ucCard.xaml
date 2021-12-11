@@ -51,9 +51,11 @@
                 Text="72'" />
         </Grid>
         <Grid Grid.Column="3">
-            <TextBlock
-                x:Name="tblTypeOfCard"
-                Text="Thẻ vàng" />
+            <materialDesign:PackIcon 
+                x:Name="icTypeOfCard"
+                Kind="Cards" Foreground="Yellow"
+                Width="20" Height="20"
+                HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
         <Grid Grid.Column="4">
             <StackPanel Orientation="Horizontal"

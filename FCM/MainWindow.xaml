@@ -8,7 +8,7 @@
         xmlns:userControl="clr-namespace:FCM.UserControls"
         mc:Ignorable="d"
         Title="Phần mềm quản lý giải bóng đá" Height="750" Width="1200"
-        WindowStartupLocation="CenterOwner"
+        WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize"
         x:Name="wdHome"
         DataContext="{StaticResource MainVM}"
@@ -1321,126 +1321,140 @@
                 <StackPanel
                 Width="100"
                 HorizontalAlignment="Left"
-                Margin="207 58 0 0">
+                Margin="205 52 0 0">
                     <TextBlock
                     x:Name="tbl16Team1"
                     Width="100"
+                    Height="50" TextWrapping="WrapWithOverflow"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"/>
                     <TextBlock
                     x:Name="tbl16Team2"
                     Width="100"
+                    Height="50" TextWrapping="WrapWithOverflow"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"
-                    Margin="0 70 0 0"/>
+                    Margin="0 33 0 0"/>
                     <TextBlock
                     x:Name="tbl16Team3"
                     Width="100"
+                    Height="50" TextWrapping="WrapWithOverflow"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"
-                    Margin="0 70 0 0"/>
+                    Margin="0 33 0 0"/>
                     <TextBlock
                     x:Name="tbl16Team4"
                     Width="100"
+                    Height="50" TextWrapping="WrapWithOverflow"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"
-                    Margin="0 72 0 0"/>
+                    Margin="0 34 0 0"/>
                     <TextBlock
                     x:Name="tbl16Team5"
                     Width="100"
+                    Height="50" TextWrapping="WrapWithOverflow"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"
-                    Margin="0 70 0 0"/>
+                    Margin="0 33 0 0"/>
                     <TextBlock
                     x:Name="tbl16Team6"
                     Width="100"
+                    Height="50" TextWrapping="WrapWithOverflow"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"
-                    Margin="0 70 0 0"/>
+                    Margin="0 35 0 0"/>
                     <TextBlock
                     x:Name="tbl16Team7"
                     Width="100"
+                    Height="50" TextWrapping="WrapWithOverflow"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"
-                    Margin="0 70 0 0"/>
+                    Margin="0 33 0 0"/>
                     <TextBlock
                     x:Name="tbl16Team8"
                     Width="100"
+                    Height="50" TextWrapping="WrapWithOverflow"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"
-                    Margin="0 70 0 0"/>
+                    Margin="0 33 0 0"/>
 
                 </StackPanel>
                 <!--Vòng 4 đội-->
                 <StackPanel
                 Width="100"
                 HorizontalAlignment="Left"
-                Margin="380 97 0 0">
+                Margin="380 90 0 0">
                     <TextBlock
                     x:Name="tbl16Team9"
                     Width="100"
+                    Height="50" TextWrapping="WrapWithOverflow"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"/>
                     <TextBlock
                     x:Name="tbl16Team10"
                     Width="100"
+                    Height="50" TextWrapping="WrapWithOverflow"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"
-                    Margin="0 155 0 0"/>
+                    Margin="0 115 0 0"/>
                     <TextBlock
                     x:Name="tbl16Team11"
                     Width="100"
+                    Height="50" TextWrapping="WrapWithOverflow"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"
-                    Margin="0 154 0 0"/>
+                    Margin="0 120 0 0"/>
                     <TextBlock
                     x:Name="tbl16Team12"
                     Width="100"
+                    Height="50" TextWrapping="WrapWithOverflow"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"
-                    Margin="0 155 0 0"/>
+                    Margin="0 118 0 0"/>
                 </StackPanel>
                 <!--Vòng 2 đội-->
                 <StackPanel
                 Width="100"
                 HorizontalAlignment="Left"
-                Margin="550 176 0 0">
+                Margin="560 172 0 0">
                     <TextBlock
                     x:Name="tbl16Team13"
-                    Width="130"
+                    Width="105"
+                    Height="50" TextWrapping="WrapWithOverflow"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"/>
                     <TextBlock
                     x:Name="tbl16Team14"
-                    Width="130"
+                    Width="105"
+                    Height="50" TextWrapping="WrapWithOverflow"
                     TextAlignment="Center"
                     FontSize="11"
                     Text="Team Name"
-                    Margin="0 325 0 0"/>
+                    Margin="0 290 0 0"/>
                 </StackPanel>
                 <!--Champion-->
                 <TextBlock
                     x:Name="tbl16Team15"
-                    Width="130"
+                    Width="110" Height="50"
                     TextWrapping="WrapWithOverflow"
                     TextAlignment="Center"
                     HorizontalAlignment="Right"
                     FontSize="11"
                     Text="Team Name"
-                    Margin="0 395 10 0"/>
+                    Margin="0 118 20 0"/>
             </Grid>
             <!--8 Teams-->
             <Grid
@@ -1577,64 +1591,74 @@
                 <StackPanel
                     Width="100"
                     HorizontalAlignment="Left"
-                    Margin="320 97 0 0">
+                    Margin="320 95 0 0">
                     <TextBlock
                         x:Name="tbl8Team1"
-                        Width="100"
+                        Width="100" 
+                        Height="50"
+                        TextWrapping="WrapWithOverflow"
                         TextAlignment="Center"
                         FontSize="11"
                         Text="Team Name"/>
                     <TextBlock
                         x:Name="tbl8Team2"
                         Width="100"
+                        Height="50"
+                        TextWrapping="WrapWithOverflow"
                         TextAlignment="Center"
                         FontSize="11"
                         Text="Team Name"
-                        Margin="0 155 0 0"/>
+                        Margin="0 115 0 0"/>
                     <TextBlock
                         x:Name="tbl8Team3"
                         Width="100"
+                        Height="50"
+                        TextWrapping="WrapWithOverflow"
                         TextAlignment="Center"
                         FontSize="11"
                         Text="Team Name"
-                        Margin="0 153 0 0"/>
+                        Margin="0 120 0 0"/>
                     <TextBlock
                         x:Name="tbl8Team4"
                         Width="100"
+                        Height="50"
+                        TextWrapping="WrapWithOverflow"
                         TextAlignment="Center"
                         FontSize="11"
                         Text="Team Name"
-                        Margin="0 155 0 0"/>
+                        Margin="0 115 0 0"/>
                 </StackPanel>
                 <!--Vòng 2 đội-->
                 <StackPanel
                     Width="100"
                     HorizontalAlignment="Left"
-                    Margin="490 176 0 0">
+                    Margin="500 173 0 0">
                     <TextBlock
                         x:Name="tbl8Team5"
-                        Width="130"
+                        Width="110"
+                        Height="50" TextWrapping="WrapWithOverflow"
                         TextAlignment="Center"
                         FontSize="11"
                         Text="Team Name"/>
                     <TextBlock
                         x:Name="tbl8Team6"
-                        Width="130"
+                        Height="50" TextWrapping="WrapWithOverflow"
+                        Width="110"
                         TextAlignment="Center"
                         FontSize="11"
                         Text="Team Name"
-                        Margin="0 325 0 0"/>
+                        Margin="0 290 0 0"/>
                 </StackPanel>
                 <!--Champion-->
                 <TextBlock
                     x:Name="tbl8Team7"
-                    Width="130"
+                    Width="130" 
                     TextWrapping="WrapWithOverflow"                        
                     TextAlignment="Center"
                     HorizontalAlignment="Right"
                     FontSize="11"
                     Text="Team Name"
-                    Margin="0 395 70 0"/>
+                    Margin="0 388 70 0"/>
             </Grid>
             <!--4 Teams-->
             <Grid
@@ -1715,20 +1739,22 @@
                 <StackPanel
                     Width="100"
                     HorizontalAlignment="Left"
-                    Margin="403 176 0 0">
+                    Margin="410 173 0 0">
                     <TextBlock
                         x:Name="tbl4Team1"
-                        Width="130"
+                        Width="110"
+                        Height="50" TextWrapping="WrapWithOverflow"
                         TextAlignment="Center"
                         FontSize="11"
                         Text="Team Name"/>
                     <TextBlock
                         x:Name="tbl4Team2"
-                        Width="130"
+                        Width="110"
+                        Height="50" TextWrapping="WrapWithOverflow"
                         TextAlignment="Center"
                         FontSize="11"
                         Text="Team Name"
-                        Margin="0 325 0 0"/>
+                        Margin="0 290 0 0"/>
                 </StackPanel>
                 <!--Champion-->
                 <TextBlock
@@ -1739,7 +1765,7 @@
                     HorizontalAlignment="Right"
                     FontSize="11"
                     Text="Team Name"
-                    Margin="0 395 157 0"/>
+                    Margin="0 390 157 0"/>
             </Grid>
 
             <!--
@@ -1931,8 +1957,8 @@
                                         <Button                 
                                             x:Name="btnEditTeam"
                                             Style="{StaticResource MyGreenButtonStyle}"
-                                            Padding="0"
-                                            Width="100">
+                                            Padding="0" Background="#4554ff"
+                                            Width="110">
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="Click">
                                                     <i:InvokeCommandAction Command="{Binding OpenEditTeamWindowCommand}"

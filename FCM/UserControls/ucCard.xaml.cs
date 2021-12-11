@@ -38,7 +38,7 @@ namespace FCM.UserControls
             this.tblNumber.Text = PlayerDAO.Instance.GetPlayerById(card.idPlayer).uniformNumber.ToString();
             this.tblFootballer.Text = PlayerDAO.Instance.GetPlayerById(card.idPlayer).namePlayer;
             this.tblTime.Text = card.time;
-            this.tblTypeOfCard.Text = card.typeOfCard;
+            //this.tblTypeOfCard.Text = card.typeOfCard;
         }
     }
 }

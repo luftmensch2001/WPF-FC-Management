@@ -2740,7 +2740,7 @@ namespace FCM.ViewModel
             }
 
             //Vòng loại trực tiếp
-            for (int ii = 4; ii > 1; ii--)
+            for (int ii = 4; ii > 0; ii--)
             {
                 rC = 0;
                 yC = 0;

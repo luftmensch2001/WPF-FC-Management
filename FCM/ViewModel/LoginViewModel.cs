@@ -32,13 +32,11 @@ namespace FCM.ViewModel
         {
             parameter.grdLogin.Visibility = Visibility.Hidden;
             parameter.grdRegister.Visibility = Visibility.Visible;
-            parameter.tblTitle.Text = "ĐĂNG KÝ";
         }
         public void OpenLogin(LoginWindow parameter)
         {
             parameter.grdLogin.Visibility = Visibility.Visible;
             parameter.grdRegister.Visibility = Visibility.Hidden;
-            parameter.tblTitle.Text = "ĐĂNG NHẬP";
         }
         public void Login(LoginWindow parameter)
         {
