@@ -227,9 +227,9 @@ namespace FCM.DAO
             DateTime dateTime = DateTime.Now;
 
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
-            if (tb.Rows[0]["date"] == DBNull.Value)
+            if (tb.Rows.Count ==0)
             {
-                return LeagueDAO.Instance.GetLeagueById(match.idTournaments).dateTime;
+                return LeagueDAO.Instance.GetLeagueById(match.idTournaments).dateTime.AddHours(-2);
             }
             dateTime = (DateTime)tb.Rows[0]["date"];
             dateTime =  dateTime.AddHours(((DateTime)tb.Rows[0]["time"]).Hour);

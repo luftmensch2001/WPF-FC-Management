@@ -16,6 +16,12 @@ namespace FCM.DAO
             get { if (instance == null) instance = new AccountDAO(); return instance; }
             set => instance = value;
         }
+        public void DeleteAtId(int id)
+        {
+            string query = "Delete users  " +
+                          " Where id= "+id;
+            DataProvider.Instance.ExecuteQuery(query);
+        }
         public List<Account> GetListAccount()
         {
             List<Account> users= new List<Account>();

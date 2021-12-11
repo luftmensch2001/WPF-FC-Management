@@ -29,6 +29,7 @@ namespace FCM
         public List<Board> boards { get; set; }
         public Team team { get; set; }
         public Setting setting { get; set; }
+        public MainViewModel mainViewModel { get; set; }
         public MainWindow()
         {
             MessageBox.Show(((char)0).ToString());
@@ -43,10 +44,20 @@ namespace FCM
             {
                 league =  LeagueDAO.Instance.GetLeagueById(currentAccount.idLastLeague);
                 MainViewModel mainViewModel = new MainViewModel();
-                mainViewModel.LoadScreenHomeWithLeague(this);
-                mainViewModel.LoadDetailLeague(league,this);
-            }
+                this.mainViewModel = mainViewModel;
+                mainViewModel.LoadDetailLeague(league, this);
 
+                mainViewModel.LoadScreenHomeWithLeague(this);
+            }
+            mainViewModel = new MainViewModel();
+            this.mainViewModel = mainViewModel;
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (mainViewModel!=null)
+            this.mainViewModel.DeleteAccount(this);
         }
     }
 }

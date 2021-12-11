@@ -3347,6 +3347,7 @@
             </Grid>
             <TextBlock
                 Text="Danh sách tài khoản"
+                x:Name="dstk"
                 Margin="0 0 0 90" FontSize="16"
                 Style="{StaticResource H2}"/>
             <DataGrid
@@ -3413,13 +3414,8 @@
                                     
                                     Style="{StaticResource MyRedButtonStyle}"
                                     MinWidth="25" MinHeight="25"
-                                    Width="25" Height="25">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="Click">
-                                            <i:InvokeCommandAction Command="{}"
-                                                           CommandParameter="{Binding ElementName=wdHome}"/>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
+                                    Width="25" Height="25" Click="Button_Click">
+                                    
                                     <materialDesign:PackIcon 
                                         Width="20" Height="20"
                                         Kind="DeleteOutline"/>

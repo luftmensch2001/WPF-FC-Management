@@ -385,11 +385,13 @@ namespace FCM.ViewModel
                     if (mainWindow.currentAccount.roleLevel == 1)
                     {
                         mainWindow.dgvAccountList.Visibility = Visibility.Visible;
+                        mainWindow.dstk.Visibility = Visibility.Visible;
                         LoadListAccount(mainWindow); 
                     }
                     else
                     {
                         mainWindow.dgvAccountList.Visibility = Visibility.Hidden;
+                        mainWindow.dstk.Visibility = Visibility.Hidden;
                     }    
                     break;
 
@@ -916,22 +918,52 @@ namespace FCM.ViewModel
             loginWindow.Show();
             mainWindow.Close();
         }
+        List<Account> accounts;
+        List<AccountView> accountViews = new List<AccountView>();
         public void LoadListAccount(MainWindow mainWindow)
         {
-            List<Account> accounts = AccountDAO.Instance.GetListAccount();
-            List<AccountView> accountViews = new List<AccountView>();
+            accounts = AccountDAO.Instance.GetListAccount();
+            accountViews = new List<AccountView>();
             int i = 1;
             foreach (Account account in accounts)
             {
-                AccountView accountView = new AccountView(i, account.userName, account.roleLevel);
-                accountViews.Add(accountView);
-                i++;
-            }    
+                if (account.roleLevel != 1)
+                {
+                    AccountView accountView = new AccountView(i, account.userName, account.roleLevel);
+                    accountViews.Add(accountView);
+                    i++;
+                }
+            }
+            // MessageBox.Show(accountViews.Count.ToString());
             mainWindow.dgvAccountList.ItemsSource = accountViews;
         }
         public void DeleteAccount(MainWindow mainWindow)
         {
-            MessageBox.Show("Delete");
+            accounts = AccountDAO.Instance.GetListAccount();
+            accountViews = new List<AccountView>();
+            int i = 1;
+            //MessageBox.Show(mainWindow.dgvAccountList.SelectedIndex.ToString());
+            bool isDeleted = false;
+            foreach (Account account in accounts)
+            {
+                if (account.roleLevel != 1)
+                {
+                    //MessageBox.Show(mainWindow.dgvAccountList.SelectedIndex.ToString() + "    "  +  i.ToString() + "   " + isDeleted.ToString());
+                    if (i - 1 == mainWindow.dgvAccountList.SelectedIndex && isDeleted == false)
+                    {
+                        AccountDAO.Instance.DeleteAtId(account.id);
+                        isDeleted = true;
+                    }
+                    else
+                    {
+                        AccountView accountView = new AccountView(i, account.userName, account.roleLevel);
+                        accountViews.Add(accountView);
+                        i++;
+                    }
+                }
+            }
+            // MessageBox.Show(accountViews.Count.ToString());
+            mainWindow.dgvAccountList.ItemsSource = accountViews;
         }
         #endregion
 
