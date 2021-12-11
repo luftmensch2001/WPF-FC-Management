@@ -2451,7 +2451,7 @@
                     <ComboBoxItem Content="Team 2" />
                     <ComboBoxItem Content="Team 3" />
                 </ComboBox>
-                
+
                 <ComboBox
                         x:Name="cbSelectedRound"
                         Style="{StaticResource MaterialDesignComboBox}"
@@ -3374,7 +3374,8 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn
                             Header="STT"
-                            Width="60">
+                            Width="60"
+                        Binding="{Binding Path=stt}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="HorizontalAlignment" Value="Center" />
@@ -3385,7 +3386,8 @@
 
                     <DataGridTextColumn
                             Header="Tên tài khoản"
-                            Width="200">
+                            Width="200"
+                        Binding="{Binding Path=userName}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
@@ -3394,7 +3396,8 @@
                     </DataGridTextColumn>
                     <DataGridTextColumn
                             Header="Loại tài khoản"
-                            Width="120">
+                            Width="120"
+                        Binding="{Binding Path=roleLevel}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="HorizontalAlignment" Value="Center" />
@@ -3407,12 +3410,20 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button 
+                                    
                                     Style="{StaticResource MyRedButtonStyle}"
                                     MinWidth="25" MinHeight="25"
                                     Width="25" Height="25">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click">
+                                            <i:InvokeCommandAction Command="{}"
+                                                           CommandParameter="{Binding ElementName=wdHome}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                     <materialDesign:PackIcon 
                                         Width="20" Height="20"
                                         Kind="DeleteOutline"/>
+                                    
                                 </Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

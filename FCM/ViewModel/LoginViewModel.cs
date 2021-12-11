@@ -128,7 +128,7 @@ namespace FCM.ViewModel
             string passwordAdmin = AccountDAO.Instance.GetPasswordAdmin();
             if (passwordAdmin != regPasswordAdmin)
             {
-                MessageBox.Show("Mật khẫu admin không chính xác    " + passwordAdmin + "  " + regPasswordAdmin);
+                MessageBox.Show("Mật khẫu admin không chính xác    ");
                 return;
             }
             Account account1 = new Account(userName, password, "",parameter.cbAcccountType.SelectedIndex+2, -1);

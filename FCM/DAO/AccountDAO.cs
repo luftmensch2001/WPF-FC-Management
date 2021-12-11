@@ -77,7 +77,7 @@ namespace FCM.DAO
         {
             string query = "Select* " +
                            "From Users " +
-                           "Where username = '" +userName + "'";
+                           "Where username = N'" +userName + "'";
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
 
             if (tb.Rows[0] != null)
@@ -88,7 +88,7 @@ namespace FCM.DAO
         {
             string query = "Select* " +
                            "From Users " +
-                           "Where username = '" + userName + "'";
+                           "Where username = N'" + userName + "'";
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
 
             if (tb.Rows[0] != null)

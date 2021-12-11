@@ -55,6 +55,8 @@ namespace FCM.ViewModel
         public ICommand ExportStatisticCommand { get; set; }
         public ICommand FilterTeamStatisticCommand { get; set; }
         public ICommand FilterRoundStatisticCommand { get; set; }
+        public ICommand DeleteAccountCommand { get; set; }
+
 
         //public ICommand OpenEditMatchWindowCommand { get; set; }
         //public ICommand OpenResultRecordWindowCommand { get; set; }
@@ -111,6 +113,8 @@ namespace FCM.ViewModel
             ExportStatisticCommand = new RelayCommand<MainWindow>((mainWindow) => true, (mainWindow) => ExportStatistic(mainWindow));
             FilterTeamStatisticCommand = new RelayCommand<MainWindow>((mainWindow) => true, (mainWindow) => FilterTeamClick(mainWindow));
             FilterRoundStatisticCommand = new RelayCommand<MainWindow>((mainWindow) => true, (mainWindow) => FilterRoundClick(mainWindow));
+
+            DeleteAccountCommand = new RelayCommand<MainWindow>((mainWindow) => true, (mainWindow) => DeleteAccount(mainWindow));
 
 
             //OpenEditMatchWindowCommand = new RelayCommand<MainWindow>((mainWindow) => true, (mainWindow) => OpenEditMatchInfoWindow(mainWindow));
@@ -378,7 +382,15 @@ namespace FCM.ViewModel
                     mainWindow.btnAccount.Foreground = lightGreen;
                     mainWindow.icAccount.Foreground = lightGreen;
                     mainWindow.grdAccountScreen.Visibility = Visibility.Visible;
-                    LoadListAccount(mainWindow);
+                    if (mainWindow.currentAccount.roleLevel == 1)
+                    {
+                        mainWindow.dgvAccountList.Visibility = Visibility.Visible;
+                        LoadListAccount(mainWindow); 
+                    }
+                    else
+                    {
+                        mainWindow.dgvAccountList.Visibility = Visibility.Hidden;
+                    }    
                     break;
 
                 default:
@@ -532,7 +544,8 @@ namespace FCM.ViewModel
                     mainWindow.btnSetting.IsEnabled = true;
                     break;
             }
-            if (BoardDAO.Instance.HaveNockOutBoard(mainWindow.league.id))
+            if (mainWindow.league==null||
+            BoardDAO.Instance.HaveNockOutBoard(mainWindow.league.id))
             {
                 mainWindow.btnStanding.IsEnabled = false;
             }
@@ -912,8 +925,13 @@ namespace FCM.ViewModel
             {
                 AccountView accountView = new AccountView(i, account.userName, account.roleLevel);
                 accountViews.Add(accountView);
+                i++;
             }    
             mainWindow.dgvAccountList.ItemsSource = accountViews;
+        }
+        public void DeleteAccount(MainWindow mainWindow)
+        {
+            MessageBox.Show("Delete");
         }
         #endregion
 
