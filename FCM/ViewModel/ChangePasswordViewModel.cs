@@ -24,22 +24,22 @@ namespace FCM.ViewModel
         {
             if (parameter.pbOldPassword.Password == "")
             {
-                MessageBox.Show("Vui lòng nhập mật khẫu cũ");
+                MessageBox.Show("Vui lòng nhập mật khẩu cũ");
                 return;
             }
             if (parameter.pbNewPassword.Password == "")
             {
-                MessageBox.Show("Vui lòng nhập mật khẫu mới");
+                MessageBox.Show("Vui lòng nhập mật khẩu mới");
                 return;
             }
             if (parameter.pbRefillPassword.Password == "")
             {
-                MessageBox.Show("Vui lòng nhập lại mật khẫu xác nhận");
+                MessageBox.Show("Vui lòng nhập lại mật khẩu xác nhận");
                 return;
             }
             if (parameter.pbNewPassword.Password != parameter.pbRefillPassword.Password)
             {
-                MessageBox.Show("Mất khẫu mới không khớp với mật khẫu xác nhận");
+                MessageBox.Show("Mất khẩu mới không khớp với mật khẩu xác nhận");
                 return;
             }
 
@@ -48,12 +48,13 @@ namespace FCM.ViewModel
 
             if (AccountDAO.MD5Hash(AccountDAO.Base64Encode(oldPass)) != AccountDAO.Instance.GetPassword(parameter.account.userName))
             {
-                MessageBox.Show("Mật khẫu cũ không chính xác ");
+                MessageBox.Show("Mật khẩu cũ không chính xác ");
                 return;
             }
             AccountDAO.Instance.UpdatePassword(parameter.account.userName,AccountDAO.MD5Hash(AccountDAO.Base64Encode(newPass)));
             parameter.account.password = AccountDAO.MD5Hash(AccountDAO.Base64Encode(newPass));
-            MessageBox.Show("Đổi mật khẫu thành công");
+            MessageBox.Show("Đổi mật khẩu thành công");
+            parameter.Close();
         }
     }
 }

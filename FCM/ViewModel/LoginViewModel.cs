@@ -50,7 +50,7 @@ namespace FCM.ViewModel
             }
             if (parameter.pbPassword.Password == "")
             {
-                MessageBox.Show("Vui lòng nhập mật khẫu");
+                MessageBox.Show("Vui lòng nhập mật khẩu");
                 return;
             }
 
@@ -71,7 +71,7 @@ namespace FCM.ViewModel
                 }
                 if (account.userName == userName && account.password != password)
                 {
-                    MessageBox.Show("Sai mật khẫu");
+                    MessageBox.Show("Sai mật khẩu");
                     return;
                 }    
             }
@@ -91,17 +91,17 @@ namespace FCM.ViewModel
             }
             if (parameter.pbRePassword.Password == "")
             {
-                MessageBox.Show("Vui lòng nhập mật khẫu xác nhận");
+                MessageBox.Show("Vui lòng nhập mật khẩu xác nhận");
                 return;
             }
             if (parameter.pbRePassword.Password != parameter.pbRegPassword.Password)
             {
-                MessageBox.Show("Mật khẫu không khớp với Mật khẫu xác nhận");
+                MessageBox.Show("Mật khẩu không khớp với Mật khẩu xác nhận");
                 return;
             }
             if (parameter.pbAdminPassword.Password == "")
             {
-                MessageBox.Show("Vui lòng nhập mật khẫu admin");
+                MessageBox.Show("Vui lòng nhập mật khẩu admin");
                 return;
             }
             if (parameter.cbAcccountType.SelectedItem == null)
@@ -128,7 +128,7 @@ namespace FCM.ViewModel
             string passwordAdmin = AccountDAO.Instance.GetPasswordAdmin();
             if (passwordAdmin != regPasswordAdmin)
             {
-                MessageBox.Show("Mật khẫu admin không chính xác    ");
+                MessageBox.Show("Mật khẩu admin không chính xác    ");
                 return;
             }
             Account account1 = new Account(userName, password, "",parameter.cbAcccountType.SelectedIndex+2, -1);

@@ -512,6 +512,7 @@ namespace FCM.ViewModel
                     mainWindow.btnReport.IsEnabled = false;
                     mainWindow.btnTeams.IsEnabled = false;
                     mainWindow.btnStanding.IsEnabled = false;
+                    mainWindow.btnStatistics.IsEnabled = false;
                     mainWindow.btnSetting.IsEnabled = false;
                     break;
                 case 0:
@@ -519,7 +520,7 @@ namespace FCM.ViewModel
                     mainWindow.btnReport.IsEnabled = false;
                     mainWindow.btnTeams.IsEnabled = true;
                     mainWindow.btnStanding.IsEnabled = false;
-                    mainWindow.btnStanding.IsEnabled = false;
+                    mainWindow.btnStatistics.IsEnabled = false;
                     mainWindow.btnSetting.IsEnabled = true;
                     mainWindow.btnAddTeam.IsEnabled = true;
                     mainWindow.btnDeleteTeam.IsEnabled = true;

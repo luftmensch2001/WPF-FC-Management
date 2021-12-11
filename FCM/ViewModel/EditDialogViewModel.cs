@@ -33,6 +33,11 @@ namespace FCM.ViewModel
                 return;
             }
 
+            if (value > 100)
+            {
+                MessageBox.Show("Giá trị vượt quá quy định");
+                return;
+            }    
             //Logic
             switch (parameter.idSetting)
             {

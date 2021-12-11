@@ -3387,7 +3387,7 @@
 
                     <DataGridTextColumn
                             Header="Tên tài khoản"
-                            Width="200"
+                            Width="180"
                         Binding="{Binding Path=userName}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
@@ -3397,7 +3397,7 @@
                     </DataGridTextColumn>
                     <DataGridTextColumn
                             Header="Loại tài khoản"
-                            Width="120"
+                            Width="140"
                         Binding="{Binding Path=roleLevel}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">

@@ -104,8 +104,8 @@ namespace FCM.DAO
         public void UpdatePassword(string userName, string password)
         {
             string query = "Update Users " +
-                            "Set password = 'N" + password + "' " +
-                            "Where username = 'N" + userName + "' ";
+                            "Set password = N'" + password + "' " +
+                            "Where username = N'" + userName + "' ";
             DataProvider.Instance.ExecuteQuery(query);
         }
         public void UpdateIdLastLeague(string userName, int idLastLeague)

@@ -4,8 +4,8 @@ using iTextSharp.text.pdf;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Windows;
 
 namespace FCM.DAO
@@ -136,7 +136,16 @@ namespace FCM.DAO
                     pdfdoc.Close();
                     stream.Close();
                 }
-                MessageBox.Show("Xuất file thành công");
+                MessageBoxResult result = MessageBox.Show("Xuất file thành công \n Mở file ?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    var proc = new Process();
+                    proc.StartInfo = new ProcessStartInfo(Path.GetFullPath(savefiledialoge.FileName))
+                    {
+                        UseShellExecute = true
+                    };
+                    proc.Start();
+                }
             }
         }
 
@@ -254,7 +263,16 @@ namespace FCM.DAO
                     pdfdoc.Add(pdfPTable);
                     pdfdoc.Close();
                     stream.Close();
-                    MessageBox.Show("Xuất file thành công");
+                }
+                MessageBoxResult result = MessageBox.Show("Xuất file thành công \n Mở file ?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    var proc = new Process();
+                    proc.StartInfo = new ProcessStartInfo(Path.GetFullPath(savefiledialoge.FileName))
+                    {
+                        UseShellExecute = true
+                    };
+                    proc.Start();
                 }
             }
         }
@@ -372,7 +390,16 @@ namespace FCM.DAO
                     pdfdoc.Add(pdfPTable);
                     pdfdoc.Close();
                     stream.Close();
-                    MessageBox.Show("Xuất file thành công");
+                }
+                MessageBoxResult result = MessageBox.Show("Xuất file thành công \n Mở file ?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    var proc = new Process();
+                    proc.StartInfo = new ProcessStartInfo(Path.GetFullPath(savefiledialoge.FileName))
+                    {
+                        UseShellExecute = true
+                    };
+                    proc.Start();
                 }
             }
         }
@@ -463,7 +490,16 @@ namespace FCM.DAO
                     pdfdoc.Close();
                     stream.Close();
                 }
-                MessageBox.Show("Xuất file thành công");
+                MessageBoxResult result = MessageBox.Show("Xuất file thành công \n Mở file ?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    var proc = new Process();
+                    proc.StartInfo = new ProcessStartInfo(Path.GetFullPath(savefiledialoge.FileName))
+                    {
+                        UseShellExecute = true
+                    };
+                    proc.Start();
+                }
             }
         }
     }
