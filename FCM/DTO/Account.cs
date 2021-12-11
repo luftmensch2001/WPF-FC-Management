@@ -41,4 +41,30 @@ namespace FCM.DTO
             this.idLastLeague = (int)row["idlastLeague"];
         }
     }
+    public class AccountView
+    {
+        public string stt { get; set; }
+        public string userName { get; set; }
+        public string roleLevel { get; set; }
+        public AccountView(int stt, string userName, int roleLevel)
+        {
+            this.stt = stt.ToString();
+            this.userName = userName;
+            switch (roleLevel)
+            {
+                case 1:
+                    this.roleLevel = "Admin";
+                    break;
+                case 2:
+                    this.roleLevel = "Huấn luyện viên";
+                    break;
+                case 3:
+                    this.roleLevel = "Trọng tài";
+                    break;
+                case 4:
+                    this.roleLevel = "Chỉ xem";
+                    break;
+            }
+        }
+    }
 }

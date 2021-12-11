@@ -256,8 +256,6 @@ namespace FCM.DAO
                     DateTime time = (DateTime)dataRow["time"];
                     if (match.time.TimeOfDay >= time.TimeOfDay && match.time.TimeOfDay <= time.AddHours(2).TimeOfDay)
                     {
-                        MessageBox.Show(date + "  " + match.date);
-                        MessageBox.Show(time + "  " + match.time);
                         return true;
                     }
                 } 

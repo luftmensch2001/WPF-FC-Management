@@ -104,6 +104,11 @@ namespace FCM.ViewModel
                 MessageBox.Show("Vui lòng nhập mật khẫu admin");
                 return;
             }
+            if (parameter.cbAcccountType.SelectedItem == null)
+            {
+                MessageBox.Show("Vui lòng chọn loại tài khoản");
+                return;
+            }
 
             string userName = parameter.tbRegUsername.Text;
             string password = AccountDAO.MD5Hash(AccountDAO.Base64Encode(parameter.pbRegPassword.Password));
@@ -126,7 +131,7 @@ namespace FCM.ViewModel
                 MessageBox.Show("Mật khẫu admin không chính xác    " + passwordAdmin + "  " + regPasswordAdmin);
                 return;
             }
-            Account account1 = new Account(userName, password, "", 0, -1);
+            Account account1 = new Account(userName, password, "",parameter.cbAcccountType.SelectedIndex+2, -1);
             AccountDAO.Instance.CreateAccount(account1);
             account1.id = AccountDAO.Instance.GetId(account1.userName);
             MainWindow mainWindow = new MainWindow(account1);

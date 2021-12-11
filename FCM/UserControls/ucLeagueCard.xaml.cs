@@ -28,7 +28,7 @@ namespace FCM.UserControls
         {
             InitializeComponent();
         }
-        public ucLeagueCard(League league, MainWindow parameter, MainViewModel main)
+        public ucLeagueCard(League league, MainWindow parameter, MainViewModel main, bool canDelete)
         {
             InitializeComponent();
             this.mainWindow = parameter;
@@ -49,7 +49,9 @@ namespace FCM.UserControls
                     break;
             }
             tblLeagueTeamsCount.Text = league.countTeam.ToString()+" Đội";
-            tblLeagueTime.Text ="Thời gian: " + league.dateTime.ToString("M/d/yyyy"); 
+            tblLeagueTime.Text ="Thời gian: " + league.dateTime.ToString("M/d/yyyy");
+            if (!canDelete)
+                btnRemoveLeague.IsEnabled = false;
         }
 
     }

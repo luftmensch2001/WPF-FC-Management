@@ -96,12 +96,12 @@ namespace FCM.DAO
 
         public void DeleteLeague(League league)
         {
-            TypeOfGoalDAO.Instance.DeleteTypeGoal(league.id);
             SettingDAO.Instance.DeleteSetting(league.id);
             MatchDAO.Instance.DeleteMatchInLeague(league.id);
             TeamDAO.Instance.DeleteTeam(league.id);
             BoardDAO.Instance.DeleteBoardInLeague(league.id);
             TreeMatchDAO.Instance.DeleteTree(TreeMatchDAO.Instance.GetTree(league.id));
+            TypeOfGoalDAO.Instance.DeleteTypeGoal(league.id);
             string query = "Delete " +
                             "From Tournaments " +
                             "Where id = " + league.id;
