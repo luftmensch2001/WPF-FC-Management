@@ -658,14 +658,20 @@ namespace FCM.View
 
             for (int i = 0; i < this.listCardsTeam1.Count; i++)
             {
-                if (this.listCardsTeam1[i] == oldCard)
+                if (this.listCardsTeam1[i].idTeams == oldCard.idTeams &&
+                    this.listCardsTeam1[i].idPlayer == oldCard.idPlayer &&
+                    this.listCardsTeam1[i].typeOfCard == oldCard.typeOfCard &&
+                    this.listCardsTeam1[i].time == oldCard.time)
                 {
                     this.listCardsTeam1[i] = newCard;
                 }
             }
             for (int i = 0; i < this.listCardsTeam2.Count; i++)
             {
-                if (this.listCardsTeam2[i] == oldCard)
+                if (this.listCardsTeam2[i].idTeams == oldCard.idTeams &&
+                    this.listCardsTeam2[i].idPlayer == oldCard.idPlayer &&
+                    this.listCardsTeam2[i].typeOfCard == oldCard.typeOfCard &&
+                    this.listCardsTeam2[i].time == oldCard.time)
                 {
                     this.listCardsTeam2[i] = newCard;
                 }

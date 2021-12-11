@@ -39,6 +39,14 @@ namespace FCM.UserControls
             this.tblFootballer.Text = PlayerDAO.Instance.GetPlayerById(card.idPlayer).namePlayer;
             this.tblTime.Text = card.time;
             //this.tblTypeOfCard.Text = card.typeOfCard;
+            if (card.typeOfCard == "Thẻ vàng")
+            {
+                this.icTypeOfCard.Foreground = new SolidColorBrush(Colors.Yellow);
+            }
+            else
+            {
+                this.icTypeOfCard.Foreground = new SolidColorBrush(Colors.Red);
+            }
         }
     }
 }

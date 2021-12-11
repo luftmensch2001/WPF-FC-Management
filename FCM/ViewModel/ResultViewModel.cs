@@ -321,8 +321,15 @@ namespace FCM.ViewModel
             if (parameter.cbPlayer.SelectedIndex >= 0)
             {
                 string typeOfCard = parameter.rbtnYellowCard.IsChecked == true ? "Thẻ vàng" : "Thẻ đỏ";
-
-                int idTeam = parameter.isTeam1 ? parameter.resultWD.team1.id : parameter.resultWD.team2.id;
+                int idTeam;
+                if (parameter.isEdit == false)
+                {
+                    idTeam = parameter.isTeam1 ? parameter.resultWD.team1.id : parameter.resultWD.team2.id;
+                }    
+                else
+                {
+                    idTeam = parameter.oldCard.idTeams;
+                }    
 
                 Player player = parameter.GetPlayerBySelectedIndex(parameter.cbPlayer.SelectedIndex);
 
