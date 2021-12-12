@@ -423,8 +423,12 @@ namespace FCM.ViewModel
                     ucMatchDetailNoEdit ucMatchDetailNoEdit = new ucMatchDetailNoEdit(i + 1, matches[i]);
                     mainWindow.spnNextMatches.Children.Add(ucMatchDetailNoEdit);
                 }
-
             }
+            else
+            {
+                mainWindow.grdHomeNoLeagueScreen.Visibility = Visibility.Visible;
+                mainWindow.grdHomeScreen.Visibility = Visibility.Hidden;
+            }    
         }
         public void OpenAddLeagueWindow(MainWindow mainWindow)
         {
@@ -467,40 +471,48 @@ namespace FCM.ViewModel
         }
         public void LoadDetailLeague(League league, MainWindow window)
         {
-            window.league = league;
-            window.imgLeagueLogo.Source = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(league.logo));
-            window.tblLeagueName.Text = "Tên mùa giải: " + league.nameLeague;
-            window.tblSponsor.Text = "Nhà tài trợ: " + league.nameSpender;
-            window.setting = SettingDAO.Instance.GetSetting(league.id);
-            //sync number of team
-            window.setting.numberOfTeam = league.countTeam;
-            window.boards = BoardDAO.Instance.GetListBoard(league.id);
-            window.currentAccount.idLastLeague = league.id;
-            AccountDAO.Instance.UpdateIdLastLeague(window.currentAccount.userName, league.id);
-            switch (league.status)
+            try 
             {
-                case 0:
-                    window.tblLeagueStatus.Text = "Trạng thái: Đang đăng ký";
-                    break;
-                case 1:
-                    window.tblLeagueStatus.Text = "Trạng thái: Chuẩn bị bắt đầu";
-                    break;
-                case 2:
-                    window.tblLeagueStatus.Text = "Trạng thái: Đã bắt đầu";
-                    break;
+                if (league == null|| SettingDAO.Instance.GetSetting(league.id)==null)
+                    return;
+                window.league = league;
+                window.imgLeagueLogo.Source = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(league.logo));
+                window.tblLeagueName.Text = "Tên mùa giải: " + league.nameLeague;
+                window.tblSponsor.Text = "Nhà tài trợ: " + league.nameSpender;
+                window.setting = SettingDAO.Instance.GetSetting(league.id);
+                window.setting.numberOfTeam = league.countTeam;
+                window.boards = BoardDAO.Instance.GetListBoard(league.id);
+                window.currentAccount.idLastLeague = league.id;
+                AccountDAO.Instance.UpdateIdLastLeague(window.currentAccount.userName, league.id);
+                switch (league.status)
+                {
+                    case 0:
+                        window.tblLeagueStatus.Text = "Trạng thái: Đang đăng ký";
+                        break;
+                    case 1:
+                        window.tblLeagueStatus.Text = "Trạng thái: Chuẩn bị bắt đầu";
+                        break;
+                    case 2:
+                        window.tblLeagueStatus.Text = "Trạng thái: Đã bắt đầu";
+                        break;
+                }
+                ChangeStatus(league.status, window);
+                window.tblLeagueTime.Text = "Thời gian: " + league.dateTime.ToString("dd/MM/yyyy");
+                LoadListTeams(window);
+                if (TreeMatchDAO.Instance.GetTree(window.league.id) != null)
+                {
+                    window.btnStanding.IsEnabled = false;
+                }
+                if (window.currentAccount.roleLevel != 1)
+                {
+                    // window.btnDeleteLeague.IsEnabled = false;
+                    window.btnEditLeague.IsEnabled = false;
+                    window.btnCreateLeague.IsEnabled = false;
+                }
             }
-            ChangeStatus(league.status, window);
-            window.tblLeagueTime.Text = "Thời gian: " + league.dateTime.ToString("dd/MM/yyyy");
-            LoadListTeams(window);
-            if (TreeMatchDAO.Instance.GetTree(window.league.id) != null)
+            catch
             {
-                window.btnStanding.IsEnabled = false;
-            }
-            if (window.currentAccount.roleLevel != 1)
-            {
-                // window.btnDeleteLeague.IsEnabled = false;
-                window.btnEditLeague.IsEnabled = false;
-                window.btnCreateLeague.IsEnabled = false;
+                MessageBox.Show("Lỗi dữ liệu mùa giải");
             }
         }
         public void ChangeStatus(int status, MainWindow mainWindow)
@@ -562,7 +574,7 @@ namespace FCM.ViewModel
                 }
                 else
                 {
-                    LeagueDAO.Instance.DeleteLeague(mainWindow.league);
+                    //eagueDAO.Instance.DeleteLeague(mainWindow.league);
                     mainWindow.league = null;
 
                     mainWindow.imgLeagueLogo.Source = mainWindow.nullImage.Source;
@@ -661,6 +673,8 @@ namespace FCM.ViewModel
                     {
                         ChangeStatus(1, mainWindow);
                     }
+                    else
+                        ChangeStatus(0, mainWindow);
                 }
                 else
                     mainWindow.btnAddTeam.Visibility = Visibility.Visible;
@@ -793,7 +807,7 @@ namespace FCM.ViewModel
         }
         public void OpenEditTeamWindow(MainWindow mainWindow)
         {
-            if (mainWindow.currentAccount.roleLevel == 1)
+            if (mainWindow.currentAccount.roleLevel == 1 || mainWindow.currentAccount.roleLevel == 2)
             {
                 if (mainWindow.team != null)
                 {
@@ -856,17 +870,27 @@ namespace FCM.ViewModel
                 wd.ShowDialog();
                 if (mainWindow.team != null)
                     LoadListPlayer(mainWindow, mainWindow.team.id);
-
-                mainWindow.league = LeagueDAO.Instance.GetLeagueById(mainWindow.league.id);
-
-                if (mainWindow.league.status != 0)
-                {
-                    ChangeStatus(mainWindow.league.status, mainWindow);
-                }
             }
         }
         public void LoadListPlayer(MainWindow mainWindow, int idTeam)
         {
+                if (teams.Count == mainWindow.setting.numberOfTeam)
+                {
+                    mainWindow.btnAddTeam.Visibility = Visibility.Hidden;
+                    int countTeamValid = 0;
+                    foreach (Team team in teams)
+                    {
+                        int countPlayer = PlayerDAO.Instance.Count(team.id);
+                        if (countPlayer >= mainWindow.setting.minPlayerOfTeam && countPlayer <= mainWindow.setting.maxPlayerOfTeam)
+                            countTeamValid++;
+                    }
+                    if (countTeamValid == mainWindow.setting.numberOfTeam)
+                    {
+                        ChangeStatus(1, mainWindow);
+                    }
+                    else
+                        ChangeStatus(0, mainWindow);
+            }
             mainWindow.wpPlayersList.Children.Clear();
             if (idTeam < 0)
                 return;
@@ -940,6 +964,11 @@ namespace FCM.ViewModel
         }
         public void DeleteAccount(MainWindow mainWindow)
         {
+            if (MessageBox.Show("Xác nhận xóa tài khoản? " , "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+            {
+                return;
+            }
+            string accountName = mainWindow.dgvAccountList.SelectedItem.ToString();
             accounts = AccountDAO.Instance.GetListAccount();
             accountViews = new List<AccountView>();
             int i = 1;
@@ -1086,7 +1115,6 @@ namespace FCM.ViewModel
                                     index4[i] = 0;
                                 else
                                     index4[i] = teamsInNockOut[index4[i]].id;
-                                MessageBox.Show(index4[i].ToString());
                             }
                             TreeMatch treeMatch = new TreeMatch(mainWindow.league.id, 4, index4);
                             TreeMatchDAO.Instance.CreateTreeMatch(treeMatch);
@@ -1800,8 +1828,8 @@ namespace FCM.ViewModel
             for (int i = 1; i <= nTrandau; i++)
             {
                 //matches[i].date = DateTime.Now.Date;
-                matches[i].date = DateTime.Now;
-                matches[i].time = DateTime.Now;
+                //matches[i].date = DateTime.Now;
+                //matches[i].time = DateTime.Now;
                 matches[i].allowDraw = true;
                 MatchDAO.Instance.AddMatch(matches[i]);
             }
@@ -2116,6 +2144,10 @@ namespace FCM.ViewModel
             if (MatchDAO.Instance.GetCountMatchWait(mainWindow.league.id) > 0 || matches.Count == 0)
             {
                 MessageBox.Show("Chưa hoàn thành vòng bảng");
+                return;
+            }
+            if (MessageBox.Show("Sau khi bắt đầu vòng trong sẽ không cho phép sửa các trận đấu vòng bảng \n Xác nhận bắt đầu?", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+            {
                 return;
             }
             if (mainWindow.league.typeLeague == 0 || mainWindow.league.typeLeague == 1)

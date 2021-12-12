@@ -23,6 +23,8 @@ namespace FCM.DAO
                         "Where idTournaments= " + idTournament;
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
             Setting setting = new Setting();
+            if (tb.Rows.Count == 0)
+                return null;
             setting= new Setting(tb.Rows[0]);
             return setting;
         }

@@ -40,15 +40,14 @@ namespace FCM
             currentAccount = account;
             InitializeComponent();
             tblUsername.Text = "Xin chào " + account.userName;
+            MainViewModel mainViewModel = new MainViewModel();
             if (currentAccount.idLastLeague != -1)
             {
                 league =  LeagueDAO.Instance.GetLeagueById(currentAccount.idLastLeague);
-                MainViewModel mainViewModel = new MainViewModel();
                 this.mainViewModel = mainViewModel;
                 mainViewModel.LoadDetailLeague(league, this);
-
-                mainViewModel.LoadScreenHomeWithLeague(this);
             }
+            mainViewModel.LoadScreenHomeWithLeague(this);
             mainViewModel = new MainViewModel();
             this.mainViewModel = mainViewModel;
 

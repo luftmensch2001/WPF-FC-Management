@@ -199,6 +199,8 @@ namespace FCM.DAO
         {
             LineupsDAO.Instance.DeleteLineupsByMatchID(id);
             GoalDAO.Instance.DeleteGoalByMatchID(id);
+            CardDAO.Instance.DeleteCardByMatchID(id);
+            SwitchedPlayerDAO.Instance.DeleteSwitchedPlayersByMatchID(id);
             string query = "Delete Matchs " +
                 "  where id = " + id;
             DataProvider.Instance.ExecuteQuery(query);
