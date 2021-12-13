@@ -511,3 +511,4 @@ G:\Nam 3\OOP\Fix\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.CopyCo
 G:\Nam 3\OOP\Fix\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.dll
 G:\Nam 3\OOP\Fix\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.pdb
 G:\Nam 3\OOP\Fix\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.genruntimeconfig.cache
+C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.CopyComplete

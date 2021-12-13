@@ -1724,9 +1724,9 @@ namespace FCM.ViewModel
                     {
                         if (!isAttended[iTeam1])        //  Nếu đội iTeam1 chưa tham gia trong vòng đấu này
                         {
-                            for (int iTeam2 = iTeam1 + 1; iTeam2 < nTeams; iTeam2++)
+                            for (int iTeam2 = 0; iTeam2 < nTeams; iTeam2++)
                             {
-                                if (!isAttended[iTeam2])    // Nếu đội iTeam2 chưa tham gia vòng đấu này
+                                if (!isAttended[iTeam2] && iTeam1 != iTeam2)    // Nếu đội iTeam2 chưa tham gia vòng đấu này
                                 {
                                     if (!haveMet[iTeam1, iTeam2])
                                     {
