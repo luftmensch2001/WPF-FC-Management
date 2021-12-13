@@ -53,8 +53,7 @@ namespace FCM.ViewModel
         public ICommand CreateNockOutBoard { get; set; }
         public ICommand SelectedNockOutTeamChangeCommamnd { get; set; }
         public ICommand ExportStatisticCommand { get; set; }
-        public ICommand FilterTeamStatisticCommand { get; set; }
-        public ICommand FilterRoundStatisticCommand { get; set; }
+        public ICommand FilterStatisticCommand { get; set; }
         public ICommand DeleteAccountCommand { get; set; }
 
 
@@ -111,8 +110,7 @@ namespace FCM.ViewModel
             SelectedNockOutTeamChangeCommamnd = new RelayCommand<ComboBox>((mainWindow) => true, (mainWindow) => SelectedTeamNockOutChange(mainWindow));
 
             ExportStatisticCommand = new RelayCommand<MainWindow>((mainWindow) => true, (mainWindow) => ExportStatistic(mainWindow));
-            FilterTeamStatisticCommand = new RelayCommand<MainWindow>((mainWindow) => true, (mainWindow) => FilterTeamClick(mainWindow));
-            FilterRoundStatisticCommand = new RelayCommand<MainWindow>((mainWindow) => true, (mainWindow) => FilterRoundClick(mainWindow));
+            FilterStatisticCommand = new RelayCommand<MainWindow>((mainWindow) => true, (mainWindow) => FilterStatisticClick(mainWindow));
 
             DeleteAccountCommand = new RelayCommand<MainWindow>((mainWindow) => true, (mainWindow) => DeleteAccount(mainWindow));
 
@@ -323,8 +321,7 @@ namespace FCM.ViewModel
                     mainWindow.icStatistics.Foreground = lightGreen;
                     mainWindow.grdStatisticsScreen.Visibility = Visibility.Visible;
                     mainWindow.cbSelectedTeam.Visibility = Visibility.Hidden;
-                    mainWindow.btnFilterTeam.Visibility = Visibility.Hidden;
-                    AddTeamToComboboxStatistic(mainWindow);
+                    AddToComboboxStatistic(mainWindow);
                     uid = "0";
                     SwitchTabStatistics(mainWindow);
                     break;
@@ -2109,7 +2106,9 @@ namespace FCM.ViewModel
                 return;
             }
             string name = (mainWindow.dgvTypeOfGoal.SelectedItem as TypeOfGoal).displayName;
-            if (MessageBox.Show("Bạn có muốn xoá loại bàn thắng \"" + name + "\"", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            ConfirmDialogWindow wd = new ConfirmDialogWindow("Bạn có muốn xoá loại bàn thắng \"" + name + "\" ?" );
+            wd.ShowDialog();
+            if (wd.confirm == false)
             {
                 return;
             }
@@ -2500,17 +2499,16 @@ namespace FCM.ViewModel
 
         #region Stactistic
 
-        void FilterTeamClick(MainWindow mainWindow)
-        {
-            mainWindow.dgvStatisticsCards.ItemsSource = SttCard(mainWindow);
-        }
-        void FilterRoundClick(MainWindow mainWindow)
+        void FilterStatisticClick(MainWindow mainWindow)
         {
             if (mainWindow.grdSttTeams.Visibility == Visibility.Visible)
                 mainWindow.dgvStatisticsTeams.ItemsSource = SttTeam(mainWindow);
             else
             if (mainWindow.grdSttPlayers.Visibility == Visibility.Visible)
                 mainWindow.dgvStatisticsPlayers.ItemsSource = SttPlayer(mainWindow);
+            else
+            if (mainWindow.grdSttCards.Visibility == Visibility.Visible)
+                mainWindow.dgvStatisticsCards.ItemsSource = SttCard(mainWindow);
         }
         void ExportStatistic(MainWindow mainWindow)
         {
@@ -2546,12 +2544,13 @@ namespace FCM.ViewModel
                     mainWindow.grdSttTeams.Visibility = Visibility.Visible;
                     //Team
                     mainWindow.cbSelectedTeam.Visibility = Visibility.Hidden;
-                    mainWindow.btnFilterTeam.Visibility = Visibility.Hidden;
                     //Round
                     mainWindow.cbSelectedRound.SelectedIndex = 0;
                     mainWindow.cbSelectedRound.Visibility = Visibility.Visible;
-                    mainWindow.btnFilterRound.Visibility = Visibility.Visible;
                     mainWindow.dgvStatisticsTeams.ItemsSource = SttTeam(mainWindow);
+                    //Position
+                    mainWindow.cbSelectedRound.Margin = new Thickness(15, 0, 0, 3);
+                    mainWindow.btnFilterStatistic.Margin = new Thickness(175, 0, 0, 0);
                     break;
                 case 1:
                     mainWindow.btnSttPlayers.Foreground = lightGreen;
@@ -2559,12 +2558,13 @@ namespace FCM.ViewModel
                     //Team
                     mainWindow.cbSelectedTeam.SelectedIndex = 0;
                     mainWindow.cbSelectedTeam.Visibility = Visibility.Visible;
-                    mainWindow.btnFilterTeam.Visibility = Visibility.Hidden;
                     //Round
                     mainWindow.cbSelectedRound.SelectedIndex = 0;
                     mainWindow.cbSelectedRound.Visibility = Visibility.Visible;
-                    mainWindow.btnFilterRound.Visibility = Visibility.Visible;
                     mainWindow.dgvStatisticsPlayers.ItemsSource = SttPlayer(mainWindow);
+                    //Position
+                    mainWindow.cbSelectedRound.Margin = new Thickness(180, 0, 0, 3);
+                    mainWindow.btnFilterStatistic.Margin = new Thickness(340, 0, 0, 0);
                     break;
                 case 2:
                     mainWindow.btnSttCards.Foreground = lightGreen;
@@ -2572,15 +2572,15 @@ namespace FCM.ViewModel
                     //Team
                     mainWindow.cbSelectedTeam.SelectedIndex = 0;
                     mainWindow.cbSelectedTeam.Visibility = Visibility.Visible;
-                    mainWindow.btnFilterTeam.Visibility = Visibility.Visible;
                     //Round
                     mainWindow.cbSelectedRound.Visibility = Visibility.Hidden;
-                    mainWindow.btnFilterRound.Visibility = Visibility.Hidden;
                     mainWindow.dgvStatisticsCards.ItemsSource = SttCard(mainWindow);
+                    //Position
+                    mainWindow.btnFilterStatistic.Margin = new Thickness(175, 0, 0, 0);
                     break;
             }
         }
-        void AddTeamToComboboxStatistic(MainWindow mainWindow)
+        void AddToComboboxStatistic(MainWindow mainWindow)
         {
             mainWindow.cbSelectedTeam.Items.Clear();
             mainWindow.cbSelectedTeam.Items.Add("Tất cả đội");
@@ -2599,7 +2599,7 @@ namespace FCM.ViewModel
             {
                 int tmp = int.Parse(rounds[i]);
                 if (tmp > 0)
-                    mainWindow.cbSelectedRound.Items.Add(tmp.ToString());
+                    mainWindow.cbSelectedRound.Items.Add("Vòng " + tmp.ToString());
             }
             //
             for (int i = 0; i < rounds.Count; i++)
@@ -2609,16 +2609,16 @@ namespace FCM.ViewModel
                     switch (-tmp)
                     {
                         case 1:
-                            mainWindow.cbSelectedRound.Items.Add("Chung kết");
+                            mainWindow.cbSelectedRound.Items.Add("Vòng Chung kết");
                             break;
                         case 2:
-                            mainWindow.cbSelectedRound.Items.Add("Bán kết");
+                            mainWindow.cbSelectedRound.Items.Add("Vòng Bán kết");
                             break;
                         case 3:
-                            mainWindow.cbSelectedRound.Items.Add("Tứ kết");
+                            mainWindow.cbSelectedRound.Items.Add("Vòng Tứ kết");
                             break;
                         case 4:
-                            mainWindow.cbSelectedRound.Items.Add("1/8");
+                            mainWindow.cbSelectedRound.Items.Add("Vòng 1/8");
                             break;
                     }
                 else
@@ -2629,16 +2629,17 @@ namespace FCM.ViewModel
         }
         int GetRoundCbb(string name)
         {
-            if (name == "1/8")
+            if (name == "Vòng 1/8")
                 return -4;
-            if (name == "Tứ kết")
+            if (name == "Vòng Tứ kết")
                 return -3;
-            if (name == "Bán kết")
+            if (name == "Vòng Bán kết")
                 return -2;
-            if (name == "Chung kết")
+            if (name == "Vòng Chung kết")
                 return -1;
             if (name == "Tất cả vòng")
                 return 0;
+            name = name.Remove(0, 5);
             return int.Parse(name);
         }
         List<TeamStatistic> SttTeam(MainWindow mainWindow)

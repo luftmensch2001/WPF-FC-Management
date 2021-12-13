@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Windows;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 using FCM.DAO;
-using FCM.DTO;
 using FCM.View;
 
 namespace FCM.ViewModel

@@ -2347,7 +2347,7 @@
             x:Name="grdStatisticsScreen"
             Grid.Column="1"
             Background="#3a3a3a"
-            Visibility="Hidden">
+            Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
@@ -2360,7 +2360,7 @@
             </Grid>
             <!--Menu-->
             <Grid Grid.Row="1">
-                <Grid  Width="360" Height="50">
+                <Grid  Width="360" Height="50" Margin="0 0 0 40">
                     <Rectangle 
                     x:Name="rtStroke"
                     Fill="#52FF00" 
@@ -2488,26 +2488,26 @@
                         Width="150"
                         IsEditable="False"
                         SelectedIndex="0"
-                        Height="30" Margin="15 0 0 35"
+                        Height="30" Margin="180 0 0 3"
                         VerticalAlignment="Bottom" HorizontalAlignment="Left" >
                     <ComboBoxItem Content="Tất cả vòng" />
                 </ComboBox>
                 <Button 
-                    x:Name="btnFilterTeam"
+                    x:Name="btnFilterStatistic"
                     Style="{StaticResource MyGreenButtonStyle}"
                     Width="65" MinWidth="65"
                     Content="Lọc"
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Left"
-                    Margin="175 0 0 0">
+                    Margin="350 0 0 0">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <i:InvokeCommandAction Command="{Binding FilterTeamStatisticCommand}"
+                            <i:InvokeCommandAction Command="{Binding FilterStatisticCommand}"
                                                        CommandParameter="{Binding ElementName=wdHome}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button 
+                <!--<Button 
                     x:Name="btnFilterRound"
                     Style="{StaticResource MyGreenButtonStyle}"
                     Width="65" MinWidth="65"
@@ -2521,7 +2521,7 @@
                                                        CommandParameter="{Binding ElementName=wdHome}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                </Button>
+                </Button>-->
             </Grid>
             <!--Body-->
             <Grid Grid.Row="2"

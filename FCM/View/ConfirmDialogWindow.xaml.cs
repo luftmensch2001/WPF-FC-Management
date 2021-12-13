@@ -17,9 +17,15 @@ namespace FCM.View
     /// </summary>
     public partial class ConfirmDialogWindow : Window
     {
+        public bool confirm = false;
         public ConfirmDialogWindow()
         {
             InitializeComponent();
+        }
+        public ConfirmDialogWindow(string content)
+        {
+            InitializeComponent();
+            tblMessage.Text = content;
         }
     }
 }
