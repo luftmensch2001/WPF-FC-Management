@@ -898,7 +898,8 @@
                         </i:Interaction.Triggers>
                     </Button>
                     <ComboBox                 
-                        x:Name="cbxBoard"
+                        x:Name="cbxBoard"  
+                        MaxWidth="100"
                         materialDesign:HintAssist.Hint="Chọn bảng đấu"
                         VerticalAlignment="Bottom"
                         HorizontalAlignment="Left"
