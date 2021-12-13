@@ -6,6 +6,10 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="410"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             
+             x:Name="ucCardCard"
+             DataContext="{StaticResource ResultVM}"
              
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
             TextElement.FontWeight="Regular"
@@ -37,6 +41,8 @@
         <Grid Grid.Column="1">
             <TextBlock
                 x:Name="tblFootballer"
+                TextWrapping="WrapWithOverflow"
+                TextAlignment="Center"
                 Text="Messi" />
         </Grid>
         <Grid Grid.Column="2">
@@ -45,20 +51,28 @@
                 Text="72'" />
         </Grid>
         <Grid Grid.Column="3">
-            <TextBlock
-                x:Name="tblTypeOfCard"
-                Text="Thẻ vàng" />
+            <materialDesign:PackIcon 
+                x:Name="icTypeOfCard"
+                Kind="Cards" Foreground="Yellow"
+                Width="20" Height="20"
+                HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
         <Grid Grid.Column="4">
             <StackPanel Orientation="Horizontal"
                         Margin="25 0 0 0">
                 <Button 
                     x:Name="btnEditCard"
-                    Background="#00A807"
+                    Background="#4554ff"
                     Width="25"
                     Height="25"
                     Padding="0">
                     <materialDesign:PackIcon Kind="Pencil" />
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding EditCardInforCommand}"
+                                                    CommandParameter="{Binding ElementName=ucCardCard}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
 
                 <Button 
@@ -68,6 +82,12 @@
                     Height="25"
                     Padding="0">
                     <materialDesign:PackIcon Kind="DeleteOutline" />
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding DeleteCardCommand}"
+                                                    CommandParameter="{Binding ElementName=ucCardCard}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
             </StackPanel>
         </Grid>

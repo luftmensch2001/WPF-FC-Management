@@ -55,6 +55,9 @@
     <Compile Update="View\ChangePasswordWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\ConfirmDialogWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\EditDialogWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -62,6 +65,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\LoginWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\PenaltyWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\ResultRecordingWindow.xaml.cs">
@@ -135,6 +141,9 @@
     <Page Update="View\ChangePasswordWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\ConfirmDialogWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\EditDialogWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -142,6 +151,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\PenaltyWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\ResultRecordingWindow.xaml">

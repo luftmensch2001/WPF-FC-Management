@@ -8,7 +8,7 @@
         x:Name="wdAddLeague"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize"
-        Title="Tạo giải đấu" Height="600" Width="800"
+        Title="Tạo giải đấu" Height="700" Width="800"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         DataContext="{StaticResource AddLeagueVM}"
         Icon="/Resource/Images/software-logo.png"
@@ -56,7 +56,7 @@
                 <Border CornerRadius="12" 
                         Background="#fff" 
                         Width="350"
-                        Height="300"
+                        Height="380"
                         Margin="15 0 15 15">
                     <StackPanel>
                         <!--League name-->
@@ -82,6 +82,7 @@
                         
                         <!--Time-->
                         <DatePicker
+                            x:Name="datePicker"
                                 Width="250"
                                 Margin="0 20 0 0"
                                 FontSize="15"
@@ -97,6 +98,55 @@
                                 Width="250" 
                                 FontSize="15"
                                 Margin="0 20 0 0"/>
+                        <ComboBox
+                                x:Name="cbTypeOfLeague"
+                                materialDesign:HintAssist.Hint="Chọn thể thức"
+                                materialDesign:HintAssist.HintOpacity=".5"
+                                Margin="0 23 0 0"
+                                FontSize="15"
+                                Width="250">
+                                <ComboBoxItem
+                                    Content="Vòng tròn tính điểm" />
+                            <ComboBoxItem
+                                    Content="Loại trực tiếp" />
+                            <ComboBoxItem
+                                    Content="Chia bảng đấu" />
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding ChangeTypeLeagueCommand}"
+                                                       CommandParameter="{Binding ElementName=wdAddLeague}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
+                        <ComboBox
+                                x:Name="cbCountOfGroups"
+                                materialDesign:HintAssist.Hint="Số bảng đấu"
+                                materialDesign:HintAssist.HintOpacity=".5"
+                                Margin="0 23 0 0"
+                                FontSize="15"
+                                Width="250"
+                                Visibility="Hidden">
+                                
+                            <ComboBoxItem
+                                    Content="2 bảng" />
+                            <ComboBoxItem
+                                    Content="3 bảng" />
+                            <ComboBoxItem
+                                    Content="4 bảng" />
+                            <ComboBoxItem
+                                    Content="5 bảng" />
+                            <ComboBoxItem
+                                    Content="6 bảng" />
+                            <ComboBoxItem
+                                    Content="7 bảng" />
+                            <ComboBoxItem
+                                    Content="8 bảng" />
+                            <ComboBoxItem
+                                    Content="9 bảng" />
+                            <ComboBoxItem
+                                    Content="10 bảng" />
+                        </ComboBox>
+
                     </StackPanel>
                 </Border>
             </Grid>
@@ -128,7 +178,13 @@
                         Style="{StaticResource MyGreenButtonStyle}"
                         Width="110"
                         VerticalAlignment="Top"
-                        Margin="0 10 0 0">
+                        Margin="0 30 0 0">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding AddLogoLeagueCommand}"
+                                                       CommandParameter="{Binding ElementName=wdAddLeague}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon 
                                     Kind="TrayArrowUp"
@@ -151,7 +207,15 @@
                 FontSize="20"
                 Width="160"
                 Height="40"
-                VerticalAlignment="Top"/>
+                VerticalAlignment="Top"
+                Margin="0 0 0 10">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding AddLeagueCommand}"
+                                                       CommandParameter="{Binding ElementName=wdAddLeague}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
 
             <Button 
                 x:Name="btnCancel"

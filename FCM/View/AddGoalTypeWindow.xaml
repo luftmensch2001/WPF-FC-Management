@@ -4,12 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FCM.View"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="Thêm loại bàn thắng" Height="200" Width="260"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         x:Name="wdAddGoalType"
-        DataContext=""
+        DataContext="{StaticResource AddGoalTypeVM}"
         Icon="/Resource/Images/software-logo.png"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -40,11 +41,25 @@
                 <Button 
                     x:Name="btnAdd"
                     Content="Thêm"
-                    Style="{StaticResource MyGreenButtonStyle}" />
+                    Style="{StaticResource MyGreenButtonStyle}" >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction  Command="{Binding AddGoalTypeCommand}"
+                                                    CommandParameter="{Binding ElementName=wdAddGoalType}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
                 <Button 
                     x:Name="btnCancel"
                     Content="Huỷ" Margin="10 0 0 0"
-                    Style="{StaticResource MyRedButtonStyle}" />
+                    Style="{StaticResource MyRedButtonStyle}" >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding CancelAddGoalTypeCommand}" 
+                                                   CommandParameter="{Binding ElementName=wdAddGoalType}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
             </StackPanel>
         </Grid>
     </Grid>

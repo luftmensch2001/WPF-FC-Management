@@ -7,6 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="16.png" />
+    <None Remove="4.png" />
+    <None Remove="8.png" />
     <None Remove="background3.jpg" />
     <None Remove="coder.png" />
     <None Remove="engineer.png" />
@@ -44,8 +47,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="EPPlus" Version="5.8.2" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.2" />
     <PackageReference Include="MaterialDesignColors" Version="2.0.3" />
     <PackageReference Include="MaterialDesignThemes" Version="4.2.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
     <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
   </ItemGroup>
 
@@ -54,6 +61,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resource\Images\4.png" />
+    <Resource Include="Resource\Images\8.png" />
+    <Resource Include="Resource\Images\16.png" />
     <Resource Include="Resource\Images\arsenal-logo.png" />
     <Resource Include="Resource\Images\cat.png" />
     <Resource Include="Resource\Images\coder.png" />

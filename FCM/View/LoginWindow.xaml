@@ -28,9 +28,10 @@
         </Grid>
         <!--Body-->
         <materialDesign:Card 
+            x:Name="grdLogin"
             Visibility="Visible"
             Width="320" 
-            Height="300" 
+            Height="330" 
             Background="White"
             UniformCornerRadius="16"
             HorizontalAlignment="Right"
@@ -49,16 +50,15 @@
                             HorizontalAlignment="Center" 
                             FontWeight="Bold"/>
                 </Grid>
-                
+
                 <!--Grid Login-->
                 <Grid 
-                    x:Name="grdLogin"
                     Grid.Row="1"
                     Visibility="Visible">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition Height="1.2*"/>
                     </Grid.RowDefinitions>
                     <!--Username field-->
                     <Grid Grid.Row="0">
@@ -70,6 +70,7 @@
                         Margin="40 12 0 0"/>
                         <TextBox
                         x:Name="tbUsername"
+                        Text="{Binding UserName}"
                         materialDesign:HintAssist.Hint="Tài khoản"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                         VerticalAlignment="Center"
@@ -114,6 +115,12 @@
                                 HorizontalAlignment="Right"
                                 Margin="0 0 8 0">
                                 <!--Check logic event here-->
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding LoginCommand}"
+                                                       CommandParameter="{Binding ElementName=wdLogin}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                             </Button>
                         </Grid>
 
@@ -142,7 +149,7 @@
                                 Background="Transparent"
                                 Height="30"
                                 HorizontalAlignment="Center"
-                                Margin="0 0 0 10"
+                                Margin="0 0 0 15"
                                 Grid.ColumnSpan="2">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
@@ -153,17 +160,45 @@
                         </Button>
                     </Grid>
                 </Grid>
-                
+
+            </Grid>
+        </materialDesign:Card>
+
+        <materialDesign:Card 
+            x:Name="grdRegister"
+            Visibility="Hidden"
+            Width="320" 
+            Height="450" 
+            Background="White"
+            UniformCornerRadius="16"
+            HorizontalAlignment="Right"
+            Margin="0 0 40 0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="6*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <TextBlock 
+                            x:Name="tblTitle2"
+                            Text="ĐĂNG KÝ" 
+                            FontSize="25" 
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Center" 
+                            FontWeight="Bold"/>
+                </Grid>
+
                 <!--Grid Register-->
                 <Grid 
-                    x:Name="grdRegister"
                     Grid.Row="1"
-                    Visibility="Hidden">
+                    Visibility="Visible">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
-                        <RowDefinition Height="0.7*"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="0.8*"/>
                     </Grid.RowDefinitions>
                     <!--Username field-->
                     <Grid Grid.Row="0">
@@ -221,8 +256,48 @@
                         Margin="40 0 0 0"/>
                     </Grid>
 
-                    <!--Button Field-->
                     <Grid Grid.Row="3">
+                        <materialDesign:PackIcon 
+                        Width="25"
+                        Height="25"
+                        Kind="Lock"
+                        VerticalAlignment="Top"
+                        Margin="40 12 0 0"/>
+                        <PasswordBox
+                        x:Name="pbAdminPassword"
+                        materialDesign:HintAssist.Hint="Mật khẩu admin"
+                        Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                        VerticalAlignment="Top"
+                        Height="40"
+                        Width="200" 
+                        FontSize="15"
+                        Margin="40 0 0 0"/>
+                    </Grid>
+
+                    <Grid Grid.Row="4">
+                        <materialDesign:PackIcon 
+                        Width="25"
+                        Height="25"
+                        Kind="AccountCog"
+                        VerticalAlignment="Top"
+                        Margin="40 12 0 0"/>
+                        <ComboBox
+                                x:Name="cbAcccountType"
+                                materialDesign:HintAssist.Hint="Chọn loại tài khoản"
+                                materialDesign:HintAssist.HintOpacity=".26"
+                                Margin="40 0 0 0"
+                                Height="35" Width="200">
+                            <ComboBoxItem
+                                Content="Huấn luyện viên" />
+                            <ComboBoxItem
+                                Content="Trọng tài" />
+                            <ComboBoxItem
+                                Content="Chỉ xem" />
+                        </ComboBox>
+                    </Grid>
+
+                    <!--Button Field-->
+                    <Grid Grid.Row="5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition />
@@ -236,6 +311,12 @@
                                 VerticalAlignment="Top"
                                 HorizontalAlignment="Right"
                                 Margin="0 0 5 0">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding RegisterCommand}"
+                                                       CommandParameter="{Binding ElementName=wdLogin}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                                 <!--Check logic event here-->
                             </Button>
                         </Grid>
@@ -259,7 +340,7 @@
                         </Grid>
                     </Grid>
                 </Grid>
-                
+
             </Grid>
         </materialDesign:Card>
     </Grid>

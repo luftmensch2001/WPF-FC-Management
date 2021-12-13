@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FCM.View"
         mc:Ignorable="d"
-       x:Name="wdResultRecording"
+        x:Name="wdResultRecording"
         WindowStartupLocation="CenterScreen"
         xmlns:userControl="clr-namespace:FCM.UserControls"
         ResizeMode="CanMinimize"
-        Title="Phần mềm quản lý giải bóng đá" Height="750" Width="1000"
+        Title="Ghi kết quả trận đấu" Height="750" Width="1000"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         DataContext="{StaticResource ResultVM}"
         Icon="/Resource/Images/software-logo.png"
@@ -58,6 +58,12 @@
                             Kind="CheckBold"/>
                         <TextBlock Text="Lưu lại" VerticalAlignment="Center" Margin="5 0 0 0"/>
                     </StackPanel>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding SaveCommand}"
+                                                    CommandParameter="{Binding ElementName=wdResultRecording}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
 
                 <Button 
@@ -115,22 +121,10 @@
                 <StackPanel>
                     <TextBlock 
                         x:Name="tblScore1"
-                        Text="2"
+                        Text="0"
                         Style="{StaticResource H1}"
                         FontSize="52"
                         Margin="0 25 0 0"/>
-                    <Button
-                        x:Name="btnAddGoal1"
-                        Style="{StaticResource MaterialDesignIconButton}"
-                        ToolTip="MaterialDesignIconButton"
-                        Background="#00A807"
-                        Width="40"
-                        Height="40"
-                        Margin="0 10 0 0">
-                        <materialDesign:PackIcon
-                            Kind="Plus" 
-                            Foreground="#fff"/>
-                    </Button>
                 </StackPanel>
             </Grid>
 
@@ -147,22 +141,10 @@
                 <StackPanel>
                     <TextBlock 
                         x:Name="tblScore2"
-                        Text="1"
+                        Text="0"
                         Style="{StaticResource H1}"
                         FontSize="52"
                         Margin="0 25 0 0"/>
-                    <Button
-                        x:Name="btnAddGoal2"
-                        Style="{StaticResource MaterialDesignIconButton}"
-                        ToolTip="MaterialDesignIconButton"
-                        Background="#00A807"
-                        Width="40"
-                        Height="40"
-                        Margin="0 10 0 0">
-                        <materialDesign:PackIcon
-                            Kind="Plus" 
-                            Foreground="#fff"/>
-                    </Button>
                 </StackPanel>
             </Grid>
 
@@ -182,6 +164,38 @@
                         FontSize="25"
                         Margin="0 10 0 0"/>
                 </StackPanel>
+            </Grid>
+            <Grid
+                x:Name="grdPenalty"
+                Grid.Column="1"
+                Grid.ColumnSpan="3">
+                <TextBlock 
+                    Text="Kết quả luân lưu" FontSize="12"
+                    Style="{StaticResource H2}"
+                    VerticalAlignment="Bottom"
+                    Margin="0 0 0 50"/>
+                <TextBlock 
+                    x:Name="tblPenaltyScore"
+                    Text="0     -     0" FontSize="16"
+                    Style="{StaticResource H2}"
+                    VerticalAlignment="Bottom"
+                    Margin="0 0 0 23"/>
+                <Button 
+                    x:Name="btnEditPenalty"
+                    Background="#4554ff"
+                    Width="22"
+                    Height="22"
+                    Padding="0" Margin="0 0 0 2"
+                    VerticalAlignment="Bottom">
+                    <materialDesign:PackIcon Kind="Pencil" />
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding OpenPenaltyWindowCommand}"
+                                                    CommandParameter="{Binding ElementName=wdResultRecording}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
             </Grid>
             <Rectangle Fill="Gray" Height="1" VerticalAlignment="Bottom" Grid.ColumnSpan="5" Margin="0 0 0 0"/>
         </Grid>
@@ -355,6 +369,22 @@
                             </Grid>
                         </StackPanel>
                     </materialDesign:Card>
+                    <Button
+                        x:Name="btnAddGoal1"
+                        Content="Thêm bàn thắng"
+                        Style="{StaticResource MyGreenButtonStyle}"
+                        Width="130" Height="35"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        Margin="0 0 0 10">
+                        
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding AddScoreTeam1Command}"
+                                                    CommandParameter="{Binding ElementName=wdResultRecording}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
                 </Grid>
 
                 <!--Team 2 Goals-->
@@ -423,6 +453,22 @@
                             </Grid>
                         </StackPanel>
                     </materialDesign:Card>
+
+                    <Button
+                        x:Name="btnAddGoal2"
+                        Content="Thêm bàn thắng"
+                        Style="{StaticResource MyGreenButtonStyle}"
+                        Width="130" Height="35"
+                        Padding="0"
+                        VerticalAlignment="Bottom"
+                        Margin="0 0 0 10">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding AddScoreTeam2Command}"
+                                                    CommandParameter="{Binding ElementName=wdResultRecording}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
                 </Grid>
             </Grid>
             <!--Cards list-->
@@ -497,14 +543,6 @@
                                             </Style>
                                         </WrapPanel.Resources>
                                         <!--Add Cards here-->
-                                        <userControl:ucCard />
-                                        <userControl:ucCard />
-                                        <userControl:ucCard />
-                                        <userControl:ucCard />
-                                        <userControl:ucCard />
-                                        <userControl:ucCard />
-                                        <userControl:ucCard />
-                                        <userControl:ucCard />
                                     </WrapPanel>
                                 </ScrollViewer>
                             </Grid>
@@ -524,6 +562,12 @@
                                    FontWeight="Regular"
                                    Margin="5 0 0 0"/>
                         </StackPanel>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding AddCardTeam1Command}"
+                                                    CommandParameter="{Binding ElementName=wdResultRecording}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </Button>
                 </Grid>
 
@@ -606,6 +650,12 @@
                                    FontWeight="Regular"
                                    Margin="5 0 0 0"/>
                         </StackPanel>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding AddCardTeam2Command}"
+                                                    CommandParameter="{Binding ElementName=wdResultRecording}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </Button>
                 </Grid>
             </Grid>
@@ -640,6 +690,12 @@
                     <ComboBoxItem
                                 x:Name="cbiTeam2"
                                 Content="FC Chó" />
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding ChangeCbxTeamInLineupsWindowCommand}"
+                                                    CommandParameter="{Binding ElementName=wdResultRecording}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </ComboBox>
                 <!--Main Formation-->
                 <Grid Grid.Column="0">
@@ -827,7 +883,14 @@
                                     Width="100"
                                     Padding="0"
                                     Margin="0 10 0 0"
-                                    FontSize="12"/>
+                                    FontSize="12">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click">
+                                            <i:InvokeCommandAction Command="{Binding AddToOfficalLineupsCommand}"
+                                                    CommandParameter="{Binding ElementName=wdResultRecording}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    </Button>
                             </StackPanel>
                         </Border>
 
@@ -855,10 +918,10 @@
                                         <ColumnDefinition Width="0.4*"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid Grid.Column="0">
-                                        <TextBlock Text="Rời sân" Foreground="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" FontWeight="Medium"/>
+                                        <TextBlock Text="Vào sân" Foreground="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" FontWeight="Medium"/>
                                     </Grid>
                                     <Grid Grid.Column="1">
-                                        <TextBlock Text="Vào sân" Foreground="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" FontWeight="Medium"/>
+                                        <TextBlock Text="Rời sân" Foreground="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" FontWeight="Medium"/>
                                     </Grid>
                                     <Grid Grid.Column="2">
                                         <TextBlock Text="TG" Foreground="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" FontWeight="Medium"/>
@@ -899,7 +962,8 @@
                             Margin="0 5 0 0">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
-                                    <i:InvokeCommandAction Command="{Binding SwitchPlayersCommand}"/>
+                                    <i:InvokeCommandAction Command="{Binding SwitchPlayersCommand}"
+                                                           CommandParameter="{Binding ElementName=wdResultRecording}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Button>

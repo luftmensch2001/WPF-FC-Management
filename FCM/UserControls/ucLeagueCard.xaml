@@ -4,11 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FCM.UserControls"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
+             x:Name="wcLeagueCard"
              d:DesignHeight="190" d:DesignWidth="260"
              VerticalAlignment="Top"
              HorizontalAlignment="Left"
+             DataContext="{StaticResource LeagueCardVM}"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"      
              Margin="0 20 20 0">
+
+             
     <Border CornerRadius="8" 
             Background="Transparent" 
             BorderBrush="#fff"
@@ -21,18 +27,22 @@
                     <RowDefinition Height="1.4*"/>
                 </Grid.RowDefinitions>
                 <!--Logo-->
-                <Grid Grid.Row="0">
-                    <Image x:Name="imgLeagueLogo"
+                 <Image x:Name="imgLeagueLogo"
                        Margin="15 15 15 5"
-                       Width="210"
-                       Source="/Resource/Images/vleague.png" />
-                </Grid>
-                <!--Detail-->
+                       Width="210">
+
+                    <Image.Source>
+                    <BitmapImage UriSource="/Resource/Images/vleague.png" />
+                    </Image.Source>
+                </Image>
+            <!--Detail-->
                 <Grid Grid.Row="1">
                     <TextBlock x:Name="tblLeagueName"
                            Text="Giải bóng đá ao làng"
                            Foreground="White"
                            FontSize="16"
+                           TextWrapping="WrapWithOverflow"
+                           TextAlignment="Center"
                            FontWeight="SemiBold"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Bottom"/>
@@ -48,8 +58,8 @@
                 </Grid>
 
                 <Grid Grid.Row="3">
-                    <TextBlock x:Name="tblLeagueStatus"
-                           Text="Đang diễn ra"
+                    <TextBlock x:Name="tblLeagueFormula"
+                           Text="Loại trực tiếp"
                            Foreground="White"
                            FontSize="13"
                            FontStyle="Italic"
@@ -65,20 +75,52 @@
                            HorizontalAlignment="Left"
                            Margin="20 0 0 10"
                            VerticalAlignment="Bottom"/>
-
+                <Grid Grid.Column="0">
                     <Button x:Name="btnLeagueDetail"
                             Style="{StaticResource MyGreenButtonStyle}"
-                            Content="Đi tới"
                             MinWidth="20"
-                            Width="60"
+                            Width="30"
                             Height="30"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
                             FontSize="14"
                             FontWeight="Medium"
                             Padding="0"
-                            Margin="0 0 10 5" 
+                            Margin="0 0 5 5">
+                        <materialDesign:PackIcon
+                            Kind="ArrowRightBold"/>
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding GetDetailCommand}"
+                                                       CommandParameter="{Binding ElementName=wcLeagueCard}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                    </Button>
+                    <Button x:Name="btnRemoveLeague"
+                            Style="{StaticResource MyRedButtonStyle}"
+                            MinWidth="20"
+                            Width="30"
+                            Height="30"
                             HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"/>
+                            VerticalAlignment="Bottom"
+                            FontSize="14"
+                            FontWeight="Medium"
+                            Padding="0"
+                            Margin="0 0 35 5">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding DeleteLeagueCommand}"
+                                                       CommandParameter="{Binding ElementName=wcLeagueCard}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <materialDesign:PackIcon
+                            Kind="DeleteOutline"/>
+                    </Button>
                 </Grid>
+
+            </Grid>
      
             </Grid>
     </Border>
