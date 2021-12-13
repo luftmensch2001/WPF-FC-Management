@@ -211,6 +211,8 @@ namespace FCM.ViewModel
                     if (mainWindow.league.typeLeague == 2)
                     {
                         mainWindow.cbxBoard.Visibility = Visibility.Visible;
+                        mainWindow.btnFillMatch.Margin = new Thickness(260,5,0,0);
+                        mainWindow.cbxRound.Margin = new Thickness(140, -60, 0, 5);
                     }
                     else
                     {
