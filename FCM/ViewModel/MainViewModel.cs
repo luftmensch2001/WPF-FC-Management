@@ -215,6 +215,8 @@ namespace FCM.ViewModel
                     else
                     {
                         mainWindow.cbxBoard.Visibility = Visibility.Hidden;
+                        mainWindow.btnFillMatch.Margin = new Thickness(150, 5, 0, 0);
+                        mainWindow.cbxRound.Margin = new Thickness(25, -60, 0, 5);
                     }
                     if (MatchDAO.Instance.HaveMatch(mainWindow.league.id))
                     {
