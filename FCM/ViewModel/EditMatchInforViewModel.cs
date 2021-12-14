@@ -54,7 +54,6 @@ namespace FCM.ViewModel
                 return;
             }
             {
-                parameter.main.CancelResultMatch(parameter.mainWindow, parameter.match);
                 if (!parameter.match.allowDraw)
                 {
                     TreeMatch tree = TreeMatchDAO.Instance.GetTree(parameter.match.idTournaments);
@@ -63,7 +62,9 @@ namespace FCM.ViewModel
                 parameter.match.Score1 = -1;
                 parameter.match.Score2 = -1;
                 MatchDAO.Instance.UpdateMatch(parameter.match);
-                parameter.main.LoadListMatchRound(parameter.mainWindow, "Tất cả vòng", "Tất cả bảng đấu");
+                // MessageBox.Show(parameter.mainWindow.cbxRound.Items[parameter.mainWindow.cbxRound.SelectedIndex].ToString());
+                // parameter.main.LoadListMatchRound(parameter.mainWindow, parameter.mainWindow.cbxRound.Items[parameter.mainWindow.cbxRound.SelectedIndex].ToString(), "Tất cả bảng đấu");
+                parameter.main.CancelResultMatch(parameter.mainWindow, parameter.match);
             }
         }
 
@@ -102,23 +103,46 @@ namespace FCM.ViewModel
             if (league.typeLeague == 2)
             {
                 DateTime date = MatchDAO.Instance.MaxTimeBoard(parameter.match);
-
-                date = date.AddHours(1);
-                date = date.AddMinutes(30);
-                DateTime date1 = DateTime.Parse(parameter.dpDate.Text);
-                DateTime time = DateTime.Parse(parameter.tpTime.Text);
-                date1 = date1.AddHours(time.Hour - date1.Hour);
-                date1 = date1.AddMinutes(time.Minute - date1.Minute);
-                //MessageBox.Show(time.Hour.ToString());
-                //   MessageBox.Show(date1 + "             " + date);
-                if (DateTime.Compare(date1, date) < 0)
+                if (BoardDAO.Instance.HaveNockOutBoard(parameter.match.idTournaments))
                 {
-                    // MessageBox.Show(date1 + "             " + date);
-                    wd = new MessageBoxWindow(false, "Thời gian trận đấu phải sau thời gian vòng đấu trước");
-                    wd.ShowDialog();
-                    return;
+                    date = date.AddHours(1);
+                    date = date.AddMinutes(30);
+                    DateTime date1 = DateTime.Parse(parameter.dpDate.Text);
+                    DateTime time = DateTime.Parse(parameter.tpTime.Text);
+                    date1 = date1.AddHours(time.Hour - date1.Hour);
+                    date1 = date1.AddMinutes(time.Minute - date1.Minute);
+                    //MessageBox.Show(time.Hour.ToString());
+                    //   MessageBox.Show(date1 + "             " + date);
+
+                    if (DateTime.Compare(date1, date) < 0)
+                    {
+                        // MessageBox.Show(date1 + "             " + date);
+                        wd = new MessageBoxWindow(false, "Thời gian trận đấu phải sau thời gian vòng bảng");
+                        wd.ShowDialog();
+                        return;
+                    }
                 }
+                else
+                {
+                    date = MatchDAO.Instance.MaxTimeNockOut(parameter.match);
+
+                    date = date.AddHours(2);
+                    DateTime date1 = DateTime.Parse(parameter.dpDate.Text);
+                    DateTime time = DateTime.Parse(parameter.tpTime.Text);
+                    date1 = date1.AddHours(time.Hour - date1.Hour);
+                    date1 = date1.AddMinutes(time.Minute - date1.Minute);
+                    //MessageBox.Show(time.Hour.ToString());
+                    //   MessageBox.Show(date1 + "             " + date);
+                    if (DateTime.Compare(date1, date) < 0)
+                    {
+                        // MessageBox.Show(date1 + "             " + date);
+                        wd = new MessageBoxWindow(false, "Thời gian trận đấu phải sau thời gian vòng đấu trước");
+                        wd.ShowDialog();
+                        return;
+                    }
+                }    
             }
+
 
 
             parameter.match.statium = parameter.cbStadium.Text;

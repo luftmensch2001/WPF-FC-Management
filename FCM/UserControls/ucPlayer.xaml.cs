@@ -42,7 +42,7 @@ namespace FCM.UserControls
             tblPosition.Text = player.position;
             this.mainWindow = mainWindow;
             this.mainViewModel = mainViewModel;
-            if ((roleLevel !=1 && roleLevel != 2) || status > 0)
+            if ((roleLevel !=1 && roleLevel != 2) || MatchDAO.Instance.HaveMatch(mainWindow.league.id))
                 btnDeletePlayer.IsEnabled = false;
         }
     }

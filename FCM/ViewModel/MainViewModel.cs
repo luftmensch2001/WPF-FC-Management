@@ -266,9 +266,9 @@ namespace FCM.ViewModel
                     {
                         mainWindow.btnCreateSchedule.IsEnabled = false;
                         mainWindow.btnScheduleChart.IsEnabled = false;
+                        mainWindow.btnShowChart.IsEnabled = false;
+                        
                     }
-
-
                     break;
                 case 3:
                     mainWindow.btnTeams.Foreground = lightGreen;
@@ -508,6 +508,10 @@ namespace FCM.ViewModel
                     window.btnEditLeague.IsEnabled = false;
                     window.btnCreateLeague.IsEnabled = false;
                 }
+                if (MatchDAO.Instance.HaveMatch(window.league.id))
+                {
+                    window.btnEditLeague.IsEnabled = false;
+                }    
             }
             catch
             {
@@ -543,6 +547,8 @@ namespace FCM.ViewModel
                     mainWindow.btnReport.IsEnabled = true;
                     mainWindow.btnTeams.IsEnabled = true;
                     if (TreeMatchDAO.Instance.GetTree(mainWindow.league.id) == null)
+                        mainWindow.btnStanding.IsEnabled = true;
+                    else
                         mainWindow.btnStanding.IsEnabled = true;
                     mainWindow.btnStatistics.IsEnabled = true;
                     mainWindow.btnSetting.IsEnabled = true;
@@ -763,22 +769,24 @@ namespace FCM.ViewModel
             mainWindow.tblNational.Text = team.nation;
             mainWindow.tblStadium.Text = team.stadium;
             mainWindow.imgTeamLogo.Source = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(team.logo));
+            LoadListPlayer(mainWindow, team.id);
+            mainWindow.tblCountOfMembers.Text = mainWindow.wpPlayersList.Children.Count.ToString();
+            mainWindow.tblStatus.Text = mainWindow.team.nameBoard;
 
-            if (MatchDAO.Instance.HaveMatch(mainWindow.league.id))
+            if (MatchDAO.Instance.HaveMatch(mainWindow.league.id) || (mainWindow.currentAccount.roleLevel!=1 && mainWindow.currentAccount.roleLevel != 2))
             {
                 mainWindow.btnDeleteTeam.IsEnabled = false;
                 mainWindow.btnAddPlayer.IsEnabled = false;
                 mainWindow.btnEditTeam.IsEnabled = false;
+                mainWindow.btnAddTeam.IsEnabled = false;
             }
             else
             {
                 mainWindow.btnDeleteTeam.IsEnabled = true;
                 mainWindow.btnAddPlayer.IsEnabled = true;
                 mainWindow.btnEditTeam.IsEnabled = true;
+                mainWindow.btnAddTeam.IsEnabled = true;
             }
-            LoadListPlayer(mainWindow, team.id);
-            mainWindow.tblCountOfMembers.Text = mainWindow.wpPlayersList.Children.Count.ToString();
-            mainWindow.tblStatus.Text = mainWindow.team.nameBoard;
             if (mainWindow.league.typeLeague != 2)
                 mainWindow.tblStatus.Visibility = Visibility.Hidden;
             else
@@ -1240,6 +1248,7 @@ namespace FCM.ViewModel
                 LoadCBXBoard(mainWindow);
                 AddItemsForCbxRound(mainWindow);
                 LoadListMatchRound(mainWindow, "Tất cả vòng", "Tất cả bảng");
+                mainWindow.btnEditLeague.IsEnabled = false;
                 mainWindow.btnStanding.IsEnabled = false;
                 OpenScheduleMatch(mainWindow);
             }
@@ -1444,6 +1453,8 @@ namespace FCM.ViewModel
                 size = 8;
             if (mainWindow.league.countTeam <= 4)
                 size = 4;
+            comboBoxes.Clear();
+            textBlockes.Clear();
             switch (size)
             {
                 case 4:
@@ -1699,6 +1710,7 @@ namespace FCM.ViewModel
                 if (mainWindow.league.typeLeague != 1 && !BoardDAO.Instance.HaveNockOutBoard(mainWindow.league.id))
                 {
                     MessageBoxWindow wd = new MessageBoxWindow(true, "Tạo lịch thi đấu thành công");
+                    mainWindow.btnEditLeague.IsEnabled = false;
                     wd.ShowDialog();
                     mainWindow.btnCreateSchedule.IsEnabled = false;
                 }

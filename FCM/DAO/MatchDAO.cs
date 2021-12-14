@@ -266,7 +266,14 @@ namespace FCM.DAO
                     DateTime time = (DateTime)dataRow["time"];
                     time.AddHours(hour);
                     time.AddMinutes(minute);
-                    if (match.time.TimeOfDay >= time.TimeOfDay && match.time.TimeOfDay <= time.TimeOfDay)
+                    if (match.date.TimeOfDay >= time.TimeOfDay)
+                    {
+                        return true;
+                    }
+
+                    time.AddHours(-2*hour);
+                    time.AddMinutes(-2* minute);
+                    if (match.time.TimeOfDay <= time.TimeOfDay)
                     {
                         return true;
                     }
