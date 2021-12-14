@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\vuduc\\Documents\\GitHub\\WPF-FC-Management\\FCM\\FCM.csproj": {}
+    "G:\\Nam 3\\OOP\\Project\\WPF-FC-Management\\FCM\\FCM.csproj": {}
   },
   "projects": {
-    "C:\\Users\\vuduc\\Documents\\GitHub\\WPF-FC-Management\\FCM\\FCM.csproj": {
+    "G:\\Nam 3\\OOP\\Project\\WPF-FC-Management\\FCM\\FCM.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vuduc\\Documents\\GitHub\\WPF-FC-Management\\FCM\\FCM.csproj",
+        "projectUniqueName": "G:\\Nam 3\\OOP\\Project\\WPF-FC-Management\\FCM\\FCM.csproj",
         "projectName": "FCM",
-        "projectPath": "C:\\Users\\vuduc\\Documents\\GitHub\\WPF-FC-Management\\FCM\\FCM.csproj",
-        "packagesPath": "C:\\Users\\vuduc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vuduc\\Documents\\GitHub\\WPF-FC-Management\\FCM\\obj\\",
+        "projectPath": "G:\\Nam 3\\OOP\\Project\\WPF-FC-Management\\FCM\\FCM.csproj",
+        "packagesPath": "C:\\Users\\phuon\\.nuget\\packages\\",
+        "outputPath": "G:\\Nam 3\\OOP\\Project\\WPF-FC-Management\\FCM\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\vuduc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\phuon\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -87,7 +87,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
