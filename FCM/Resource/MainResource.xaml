@@ -15,6 +15,7 @@
     <viewmodel:EditDialogViewModel x:Key="EditDialogVM"/>
     <viewmodel:AddGoalTypeViewModel x:Key="AddGoalTypeVM"/>
     <viewmodel:ConfirmDialogViewModel x:Key="ConfirmDialogVM"/>
+    <viewmodel:MessageBoxViewModel x:Key="MessageBoxVM"/>
 
     <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#222"/>
 

@@ -31,13 +31,13 @@
         <Grid Grid.Row="0">
             <TextBlock
                 x:Name="tblMessage"
-                Text="Bạn có chắc chắn muốn xoá đội bóng này không ? Sau khi xoá sẽ không thể hoàn tác"
+                Text="Bạn có chắc chắn muốn xoá đội bóng này không ? Sau khi xoá sẽ không thể hoàn tác thêm được nữa đâu đó"
                 TextWrapping="Wrap"
                 LineHeight="30"
                 TextAlignment="Center" 
                 VerticalAlignment="Center"
                 Width="360"
-                Height="Auto" Margin="0 10 0 0"
+                Height="80" Margin="0 10 0 0"
                 Foreground="#FFF"
                 FontSize="15"/>
         </Grid>

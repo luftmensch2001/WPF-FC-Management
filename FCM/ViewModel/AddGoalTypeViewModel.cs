@@ -28,23 +28,28 @@ namespace FCM.ViewModel
                     string name = InputFormat.Instance.FomartSpace(parameter.tbName.Text);
                     if (name == "")
                     {
-                        MessageBox.Show("Tên bàn thắng không được để trống");
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Tên bàn thắng không được để trống");
+                        wd.ShowDialog();
                         return;
                     }
                     if (TypeOfGoalDAO.Instance.IsExistNameTypeGoal(parameter.idTournament, name))
                     {
-                        MessageBox.Show("Loại bàn thắng đã tồn tại");
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Loại bàn thắng đã tồn tại");
+                        wd.ShowDialog();
+                        return;
                     }
                     else
                     {
                         TypeOfGoalDAO.Instance.AddTypeGoal(parameter.idTournament, name);
-                        MessageBox.Show("Thêm loại bàn thắng thành công");
+                        MessageBoxWindow wd = new MessageBoxWindow(true, "Thêm loại bàn thắng thành công");
+                        wd.ShowDialog();
                         parameter.Close();
                     }
                 }
                 catch
                 {
-                    MessageBox.Show("Lỗi kết nối");
+                    MessageBoxWindow wd = new MessageBoxWindow(false, "Lỗi kết nối");
+                    wd.ShowDialog();
                     return;
                 }
             }
@@ -56,23 +61,28 @@ namespace FCM.ViewModel
                     string name = InputFormat.Instance.FomartSpace(parameter.tbName.Text);
                     if (name == "")
                     {
-                        MessageBox.Show("Tên bàn thắng không được để trống");
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Tên bàn thắng không được để trống");
+                        wd.ShowDialog();
                         return;
                     }
                     if (name != oldName && TypeOfGoalDAO.Instance.IsExistNameTypeGoal(parameter.idTournament, name))
                     {
-                        MessageBox.Show("Loại bàn thắng đã tồn tại");
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Loại bàn thắng đã tồn tại");
+                        wd.ShowDialog();
+                        return;
                     }
                     else
                     {
                         TypeOfGoalDAO.Instance.EditNameTypeGoal(parameter.idTournament, name, oldName);
-                        MessageBox.Show("Sửa loại bàn thắng thành công");
+                        MessageBoxWindow wd = new MessageBoxWindow(true, "Sửa loại bàn thắng thành công");
+                        wd.ShowDialog();
                         parameter.Close();
                     }
                 }
                 catch
                 {
-                    MessageBox.Show("Lỗi kết nối");
+                    MessageBoxWindow wd = new MessageBoxWindow(false, "Lỗi kết nối");
+                    wd.ShowDialog();
                     return;
                 }
             }

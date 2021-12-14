@@ -22,17 +22,19 @@ namespace FCM.ViewModel
             int value;
             try
             {
-                value = Int32.Parse(parameter.tbValue.Text);
+                value = int.Parse(parameter.tbValue.Text);
             }
             catch
             {
-                MessageBox.Show("Định dạng không hợp lệ");
+                MessageBoxWindow wd = new MessageBoxWindow(false, "Định dạng không hợp lệ");
+                wd.ShowDialog();
                 return;
             }
 
-            if (value > 100)
+            if (value > 60)
             {
-                MessageBox.Show("Giá trị vượt quá quy định");
+                MessageBoxWindow wd = new MessageBoxWindow(false, "Giá trị vượt quá quy định (60)");
+                wd.ShowDialog();
                 return;
             }    
             //Logic
@@ -41,110 +43,122 @@ namespace FCM.ViewModel
                 case 0:
                     if (value < 2)
                     {
-                        MessageBox.Show("Số lượng đội bóng phải lớn hơn 1");
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Số lượng đội bóng phải lớn hơn 1");
+                        wd.ShowDialog();
                         return;
                     }
                     if (value <= parameter.curSetting.NumberOfTeamIn)
                     {
-                        MessageBox.Show("Số lượng đội bóng tham gia phải lớn hơn số đội vào vòng trong");
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Số lượng đội bóng tham gia phải lớn hơn số đội vào vòng trong");
+                        wd.ShowDialog();
                         return;
-                    }
+                    }  
                     break;
                 case 1:
                     if (parameter.curSetting.minPlayerOfTeam < 1)
                     {
-                        MessageBox.Show("Số lượng cầu thủ tối thiểu phải lớn hơn 0", "Lỗi");
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Số lượng cầu thủ tối thiểu phải lớn hơn 0");
+                        wd.ShowDialog();
                         return;
                     }
                     if (value > parameter.curSetting.maxPlayerOfTeam)
                     {
-                        MessageBox.Show("Số lượng cầu thủ tối thiểu không được lớn hơn số lượng cầu thủ tối đa", "Lỗi");
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Số lượng cầu thủ tối thiểu không được lớn hơn số lượng cầu thủ tối đa");
+                        wd.ShowDialog();
                         return;
                     }
                     break;
                 case 2:
                     if (parameter.curSetting.maxPlayerOfTeam < 1)
                     {
-                        MessageBox.Show("Số lượng cầu thủ tối đa phải lớn hơn 0", "Lỗi");
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Số lượng cầu thủ tối đa phải lớn hơn 0");
+                        wd.ShowDialog();
                         return;
                     }
                     if (value < parameter.curSetting.minPlayerOfTeam)
                     {
-                        MessageBox.Show("Số lượng cầu thủ tối đa không được nhỏ hơn số lượng cầu thủ tối thiểu", "Lỗi");
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Số lượng cầu thủ tối đa không được nhỏ hơn số lượng cầu thủ tối thiểu");
+                        wd.ShowDialog();
                         return;
                     }
                     break;
                 case 3:
                     if (value < 1)
                     {
-                        MessageBox.Show("Số tuổi phải lớn hơn 0", "Lỗi");
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Số tuổi phải lớn hơn 0");
+                        wd.ShowDialog();
                         return;
                     }
                     if (value > parameter.curSetting.maxAge)
                     {
-                        MessageBox.Show("Tuổi tối thiểu không được lớn hơn tuổi tối đa", "Lỗi");
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Tuổi tối thiểu không được lớn hơn tuổi tối đa");
+                        wd.ShowDialog();
                         return;
                     }
                     break;
                 case 4:
                     if (value < 1)
                     {
-                        MessageBox.Show("Số tuổi phải lớn hơn 0", "Lỗi");
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Số tuổi phải lớn hơn 0");
+                        wd.ShowDialog();
                         return;
                     }
                     if (value < parameter.curSetting.minAge)
                     {
-                        MessageBox.Show("Tuổi tối đa không được nhỏ hơn tuổi tối thiểu", "Lỗi");
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Tuổi tối đa không được nhỏ hơn tuổi tối thiểu");
+                        wd.ShowDialog();
                         return;
                     }
                     break;
                 case 5:
                     if (value < 0)
                     {
-                        MessageBox.Show("Số lượng tối thiểu là 0", "Lỗi");
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Số lượng tối thiểu là 0");
+                        wd.ShowDialog();
                         return;
                     }
                     break;
                 case 6:
                     if (value < 2)
                     {
-                        MessageBox.Show("Số lượng tối thiểu là 2", "Lỗi");
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Số lượng tối thiểu là 2");
+                        wd.ShowDialog();
                         return;
                     }
                     if (value >= parameter.curSetting.numberOfTeam)
                     {
-                        MessageBox.Show("Số lượng đội vào vòng trong phải nhỏ hơn số đội tham gia giải", "Lỗi");
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Số lượng đội vào vòng trong phải nhỏ hơn số đội tham gia giải");
+                        wd.ShowDialog();
                         return;
                     }
                     if (value > 16)
                     {
-                        MessageBox.Show("Số lượng đội vào vòng trong tối đa là 16 đội", "Lỗi");
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Số lượng đội vào vòng trong tối đa là 16 đội");
+                        wd.ShowDialog();
                         return;
-                    }
-                    //if (value % 2 == 1 || !Check2P(value))
-                    //{
-                    //    MessageBox.Show("Số lượng đội vào vòng trong phải là 2^n", "Lỗi");
-                    //    return;
-                    //}    
+                    }  
                     break;
                 case 7:
                     if (value <= parameter.curSetting.scoreDraw || value <= parameter.curSetting.scoreLose)
                     {
-                        MessageBox.Show("Điểm thắng > Điểm Hoà > Điểm Thua", "Lỗi");
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Điểm thắng > Điểm Hoà > Điểm Thua");
+                        wd.ShowDialog();
                         return;
                     }
                     break;
                 case 8:
                     if (value <= parameter.curSetting.scoreLose || value >= parameter.curSetting.scoreWin)
                     {
-                        MessageBox.Show("Điểm thắng > Điểm Hoà > Điểm Thua", "Lỗi");
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Điểm thắng > Điểm Hoà > Điểm Thua");
+                        wd.ShowDialog();
                         return;
                     }
                     break;
                 case 9:
                     if (value >= parameter.curSetting.scoreDraw || value >= parameter.curSetting.scoreWin)
                     {
-                        MessageBox.Show("Điểm thắng > Điểm Hoà > Điểm Thua", "Lỗi");
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Điểm thắng > Điểm Hoà > Điểm Thua");
+                        wd.ShowDialog();
                         return;
                     }
                     break;
@@ -194,31 +208,19 @@ namespace FCM.ViewModel
                 if (parameter.idSetting == 0)
                 {
                     LeagueDAO.Instance.UpdateNumberOfTeams(parameter.idTournament, value);
-                    int cb = LeagueDAO.Instance.GetLeagueById(parameter.idTournament).countBoard;
-                    if (cb == 1)
-                        SettingDAO.Instance.EditSetting(parameter.idTournament, "NumberOfTeamsIn", "0");
                 }
 
 
-                MessageBox.Show("Cập nhật quy định thành công");
+                MessageBoxWindow wd = new MessageBoxWindow(true, "Cập nhật quy định thành công");
+                wd.ShowDialog();
                 parameter.Close();
             }
             catch
             {
-                MessageBox.Show("Lỗi kết nối dữ liệu");
+                MessageBoxWindow wd = new MessageBoxWindow(false, "Lỗi kết nối dữ liệu");
+                wd.ShowDialog();
                 return;
             }
-        }
-
-        bool Check2P(int val)
-        {
-            while (val != 1)
-            {
-                val = val / 2;
-                if (val % 2 == 1 && val != 1)
-                    return false;
-            }    
-            return true;
         }
     }
 }

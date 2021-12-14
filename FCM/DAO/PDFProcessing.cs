@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using FCM.View;
 
 namespace FCM.DAO
 {
@@ -136,8 +137,9 @@ namespace FCM.DAO
                     pdfdoc.Close();
                     stream.Close();
                 }
-                MessageBoxResult result = MessageBox.Show("Xuất file thành công \n Mở file ?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (result == MessageBoxResult.Yes)
+                ConfirmDialogWindow wd = new ConfirmDialogWindow("Xuất file thành công \n Mở file ?");
+                wd.ShowDialog();
+                if (wd.confirm)
                 {
                     var proc = new Process();
                     proc.StartInfo = new ProcessStartInfo(Path.GetFullPath(savefiledialoge.FileName))
@@ -148,7 +150,6 @@ namespace FCM.DAO
                 }
             }
         }
-
         public void ExportTeamStatistic(System.Windows.Controls.DataGrid grid, List<TeamStatistic> list, string round)
         {
             //Add Header
@@ -243,7 +244,7 @@ namespace FCM.DAO
             if (round == "Tất cả vòng")
                 savefiledialoge.FileName = "Thống kê đội bóng";
             else
-                savefiledialoge.FileName = "Thống kê đội bóng Vòng " + round;
+                savefiledialoge.FileName = "Thống kê đội bóng " + round;
             savefiledialoge.DefaultExt = ".pdf";
 
             if (savefiledialoge.ShowDialog() == true)
@@ -256,7 +257,7 @@ namespace FCM.DAO
                     pdfdoc.Add(prgHeading);
                     if (round != "Tất cả vòng")
                     {
-                        Paragraph p = new Paragraph("Vòng " + round, text);
+                        Paragraph p = new Paragraph(round, text);
                         p.Alignment = Element.ALIGN_CENTER;
                         pdfdoc.Add(p);
                     }
@@ -264,8 +265,9 @@ namespace FCM.DAO
                     pdfdoc.Close();
                     stream.Close();
                 }
-                MessageBoxResult result = MessageBox.Show("Xuất file thành công \n Mở file ?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (result == MessageBoxResult.Yes)
+                ConfirmDialogWindow wd = new ConfirmDialogWindow("Xuất file thành công \n Mở file ?");
+                wd.ShowDialog();
+                if (wd.confirm)
                 {
                     var proc = new Process();
                     proc.StartInfo = new ProcessStartInfo(Path.GetFullPath(savefiledialoge.FileName))
@@ -370,7 +372,7 @@ namespace FCM.DAO
             if (round == "Tất cả vòng")
                 savefiledialoge.FileName = "Thống kê cầu thủ";
             else
-                savefiledialoge.FileName = "Thống kê cầu thủ Vòng " + round;
+                savefiledialoge.FileName = "Thống kê cầu thủ " + round;
             savefiledialoge.DefaultExt = ".pdf";
 
             if (savefiledialoge.ShowDialog() == true)
@@ -383,7 +385,7 @@ namespace FCM.DAO
                     pdfdoc.Add(prgHeading);
                     if (round != "Tất cả vòng")
                     {
-                        Paragraph p = new Paragraph("Vòng " + round, text);
+                        Paragraph p = new Paragraph(round, text);
                         p.Alignment = Element.ALIGN_CENTER;
                         pdfdoc.Add(p);
                     }
@@ -391,8 +393,9 @@ namespace FCM.DAO
                     pdfdoc.Close();
                     stream.Close();
                 }
-                MessageBoxResult result = MessageBox.Show("Xuất file thành công \n Mở file ?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (result == MessageBoxResult.Yes)
+                ConfirmDialogWindow wd = new ConfirmDialogWindow("Xuất file thành công \n Mở file ?");
+                wd.ShowDialog();
+                if (wd.confirm)
                 {
                     var proc = new Process();
                     proc.StartInfo = new ProcessStartInfo(Path.GetFullPath(savefiledialoge.FileName))
@@ -490,8 +493,9 @@ namespace FCM.DAO
                     pdfdoc.Close();
                     stream.Close();
                 }
-                MessageBoxResult result = MessageBox.Show("Xuất file thành công \n Mở file ?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (result == MessageBoxResult.Yes)
+                ConfirmDialogWindow wd = new ConfirmDialogWindow("Xuất file thành công \n Mở file ?");
+                wd.ShowDialog();
+                if (wd.confirm)
                 {
                     var proc = new Process();
                     proc.StartInfo = new ProcessStartInfo(Path.GetFullPath(savefiledialoge.FileName))

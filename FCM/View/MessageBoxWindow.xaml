@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Icon="/Resource/Images/software-logo.png"
         ResizeMode="NoResize"
-        x:Name="wdConfirmDialog"
-        DataContext="{StaticResource ConfirmDialogVM}"
+        x:Name="wdMessageBox"
+        DataContext="{StaticResource MessageBoxVM}"
         WindowStartupLocation="CenterScreen"
         Title="Thành công" Width="370" Height="260"
         BorderBrush="#fff"
@@ -55,9 +55,13 @@
                     Content="OK"
                     Width="100"
                     Style="{StaticResource MyGreenButtonStyle}" >
-                    
-                </Button>
-           
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding OkCommand}"
+                                                       CommandParameter="{Binding ElementName=wdMessageBox}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
         </Grid>
     </Grid>
 </Window>

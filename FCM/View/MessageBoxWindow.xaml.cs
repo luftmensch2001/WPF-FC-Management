@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace FCM.View
 {
@@ -20,6 +10,22 @@ namespace FCM.View
         public MessageBoxWindow()
         {
             InitializeComponent();
+        }
+
+        public MessageBoxWindow(bool isSuccess, string content)
+        {
+            InitializeComponent();
+            if (isSuccess) 
+            {
+                imgSuccess.Visibility = Visibility.Visible;
+                imgError.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                imgSuccess.Visibility = Visibility.Hidden;
+                imgError.Visibility = Visibility.Visible;
+            }
+            tblMessage.Text = content;
         }
     }
 }

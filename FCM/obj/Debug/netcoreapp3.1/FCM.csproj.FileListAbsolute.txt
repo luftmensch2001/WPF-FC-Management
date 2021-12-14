@@ -514,3 +514,5 @@ G:\Nam 3\OOP\Fix\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.genruntimecon
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.CopyComplete
 G:\Nam 3\OOP\Fix\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\MessageBoxWindow.g.cs
 G:\Nam 3\OOP\Fix\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\MessageBoxWindow.baml
+E:\U\SE100_PMHDT\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\MessageBoxWindow.g.cs
+E:\U\SE100_PMHDT\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\MessageBoxWindow.baml

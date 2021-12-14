@@ -2088,7 +2088,8 @@ namespace FCM.ViewModel
         {
             if (mainWindow.dgvTypeOfGoal.SelectedIndex == -1)
             {
-                MessageBox.Show("Vui lòng chọn loại bàn thắng cần sửa");
+                MessageBoxWindow msbwd = new MessageBoxWindow(false, "Vui lòng chọn loại bàn thắng cần sửa");
+                msbwd.ShowDialog();
                 return;
             }
             string name = (mainWindow.dgvTypeOfGoal.SelectedItem as TypeOfGoal).displayName;
@@ -2102,7 +2103,8 @@ namespace FCM.ViewModel
         {
             if (mainWindow.dgvTypeOfGoal.SelectedIndex == -1)
             {
-                MessageBox.Show("Vui lòng chọn loại bàn thắng cần xoá");
+                MessageBoxWindow msbwd = new MessageBoxWindow(false, "Vui lòng chọn loại bàn thắng cần xoá");
+                msbwd.ShowDialog();
                 return;
             }
             string name = (mainWindow.dgvTypeOfGoal.SelectedItem as TypeOfGoal).displayName;
@@ -2117,11 +2119,14 @@ namespace FCM.ViewModel
                 try
                 {
                     TypeOfGoalDAO.Instance.DeleteTypeGoal(mainWindow.league.id, name);
-                    MessageBox.Show("Xoá loại bàn thắng thành công");
+                    MessageBoxWindow msbwd = new MessageBoxWindow(true, "Xoá loại bàn thắng thành công");
+                    msbwd.ShowDialog();
                 }
                 catch
                 {
-                    MessageBox.Show("Lỗi kết nối");
+                    MessageBoxWindow msbwd = new MessageBoxWindow(false, "Lỗi kết nối");
+                    msbwd.ShowDialog();
+                    return;
                 }
                 LoadTypesOfGoal(mainWindow);
             }
