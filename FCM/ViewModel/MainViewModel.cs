@@ -329,7 +329,7 @@ namespace FCM.ViewModel
                         mainWindow.grdSettingScreen.Visibility = Visibility.Visible;
 
                         bool btState = false;
-                        if (TeamDAO.Instance.GetListTeamInLeague(mainWindow.league.id).Count > 0)
+                        if (TeamDAO.Instance.GetListTeamInLeague(mainWindow.league.id).Count > 0 || mainWindow.currentAccount.roleLevel != 1 && mainWindow.currentAccount.roleLevel != 3)
                             btState = false;
                         else
                             btState = true;
