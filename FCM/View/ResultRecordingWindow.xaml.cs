@@ -207,8 +207,8 @@ namespace FCM.View
 
             this.match.PenaltyTeam1 = 0;
             this.match.PenaltyTeam2 = 0;
-            this.match.Score1 = 0;
-            this.match.Score2 = 0;
+            this.match.Score1 = -1;
+            this.match.Score2 = -1;
             this.match.isStarted = false;
             MatchDAO.Instance.UpdateMatch(this.match);
 

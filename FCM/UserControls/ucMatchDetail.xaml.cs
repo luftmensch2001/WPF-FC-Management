@@ -41,6 +41,7 @@ namespace FCM.UserControls
             this.tblDate.Text = match.date.ToString("dd/MM/yyyy");
             this.tblTime.Text = match.time.ToString("HH:mm");
             if (tblDate.Text == "11/11/2000")
+            //if (this.match.isStarted == false)
             {
                 tblDate.Text = "--/--/----";
                 tblTime.Text = "--:--";
@@ -73,6 +74,7 @@ namespace FCM.UserControls
                 tblStadium.Text = "-";
 
             if (match.Score1 == -1 && match.Score2 == -1)
+            //if (this.match.isStarted == false)
             {
                 this.tblScore.Text = "-- - --";
                 btnCancelResult.IsEnabled = false;
