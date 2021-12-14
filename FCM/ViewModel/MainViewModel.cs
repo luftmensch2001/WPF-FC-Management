@@ -1136,6 +1136,17 @@ namespace FCM.ViewModel
                             if (i > -1)
                                 count4++;
                         }
+                        for (int i = 0; i < index4.Count; i++)
+                            for (int j = 0; j < index4.Count; j++)
+                            {
+                                if (i != j && index4[i] == index4[j])
+                                {
+                                    MessageBoxWindow wdd = new MessageBoxWindow(false, "Trùng đội bóng");
+                                    wdd.ShowDialog();
+                                    return;
+                                }
+                            }
+
                         if (count4 < teamsInNockOut.Count)
                         {
                             MessageBoxWindow wdd = new MessageBoxWindow(false, "Thiếu đội bóng");
@@ -1172,6 +1183,16 @@ namespace FCM.ViewModel
                             if (i > -1)
                                 count8++;
                         }
+                        for (int i = 0; i < index8.Count; i++)
+                            for (int j = 0; j < index8.Count; j++)
+                            {
+                                if (i != j && index8[i] == index8[j])
+                                {
+                                    MessageBoxWindow wdd = new MessageBoxWindow(false, "Trùng đội bóng");
+                                    wdd.ShowDialog();
+                                    return;
+                                }
+                            }
                         if (count8 < teamsInNockOut.Count)
                         {
                             MessageBoxWindow wdd = new MessageBoxWindow(false, "Thiếu đội bóng");
@@ -1218,6 +1239,16 @@ namespace FCM.ViewModel
                             if (i > -1)
                                 count16++;
                         }
+                        for (int i = 0; i < index16.Count; i++)
+                            for (int j = 0; j < index16.Count; j++)
+                            {
+                                if (i != j && index16[i] == index16[j])
+                                {
+                                    MessageBoxWindow wdd = new MessageBoxWindow(false, "Trùng đội bóng");
+                                    wdd.ShowDialog();
+                                    return;
+                                }
+                            }
                         if (count16 < teamsInNockOut.Count)
                         {
                             MessageBoxWindow wdd = new MessageBoxWindow(false, "Thiếu đội bóng");
@@ -1997,6 +2028,12 @@ namespace FCM.ViewModel
             try
             {
                 int r = Int32.Parse(round[round.Length - 1].ToString());
+                if (round[round.Length - 2] != ' ')
+                {
+                    int a = Int32.Parse(round[round.Length - 2].ToString());
+                    r = a * 10 + r;
+                }
+
                 LoadListMatch(mainWindow, r, board);
             }
             catch
