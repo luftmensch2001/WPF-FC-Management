@@ -511,10 +511,11 @@ G:\Nam 3\OOP\Fix\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.CopyCo
 G:\Nam 3\OOP\Fix\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.dll
 G:\Nam 3\OOP\Fix\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.pdb
 G:\Nam 3\OOP\Fix\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.genruntimeconfig.cache
-C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.CopyComplete
 G:\Nam 3\OOP\Fix\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\MessageBoxWindow.g.cs
 G:\Nam 3\OOP\Fix\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\MessageBoxWindow.baml
 E:\U\SE100_PMHDT\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\MessageBoxWindow.g.cs
 E:\U\SE100_PMHDT\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\MessageBoxWindow.baml
 F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\MessageBoxWindow.g.cs
 F:\Clone\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\MessageBoxWindow.baml
+C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\MessageBoxWindow.g.cs
+C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\MessageBoxWindow.baml
