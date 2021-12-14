@@ -1236,6 +1236,7 @@ namespace FCM.ViewModel
                 MessageBoxWindow wd = new MessageBoxWindow(true, "Tạo lịch thi đấu thành công");
                 wd.ShowDialog();
                 mainWindow.btnCreateSchedule.IsEnabled = false;
+                mainWindow.btnStanding.IsEnabled = false;
                 LoadCBXBoard(mainWindow);
                 AddItemsForCbxRound(mainWindow);
                 LoadListMatchRound(mainWindow, "Tất cả vòng", "Tất cả bảng");
