@@ -1506,12 +1506,24 @@ namespace FCM.ViewModel
             mainWindow.btnCancelCreateScheduleChart.Visibility = Visibility.Visible;
             mainWindow.btnCancelCreateScheduleChart.Content = "Hủy";
             int size = 0;
-            if (mainWindow.league.countTeam <= 16)
-                size = 16;
-            if (mainWindow.league.countTeam <= 8)
-                size = 8;
-            if (mainWindow.league.countTeam <= 4)
-                size = 4;
+            if (mainWindow.league.typeLeague == 2)
+            {
+                if (mainWindow.setting.NumberOfTeamIn <= 16)
+                    size = 16;
+                if (mainWindow.setting.NumberOfTeamIn <= 8)
+                    size = 8;
+                if (mainWindow.setting.NumberOfTeamIn <= 4)
+                    size = 4;
+            }
+            else
+            {
+                if (mainWindow.league.countTeam <= 16)
+                    size = 16;
+                if (mainWindow.league.countTeam <= 8)
+                    size = 8;
+                if (mainWindow.league.countTeam <= 4)
+                    size = 4;
+            }
             comboBoxes.Clear();
             textBlockes.Clear();
             switch (size)
