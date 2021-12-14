@@ -117,7 +117,7 @@ namespace FCM.ViewModel
             }
             MatchDAO.Instance.UpdateMatch(parameter.match);
 
-            wd = new MessageBoxWindow(false, "Sửa thông tin trận đấu thành công");
+            wd = new MessageBoxWindow(true, "Sửa thông tin trận đấu thành công");
             wd.ShowDialog();
             parameter.Close();
         }
