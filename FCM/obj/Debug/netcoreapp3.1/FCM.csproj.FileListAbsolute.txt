@@ -521,3 +521,4 @@ C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\Vi
 C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\MessageBoxWindow.baml
 G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\MessageBoxWindow.g.cs
 G:\Nam 3\OOP\Project\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\View\MessageBoxWindow.baml
+C:\Users\vuduc\Documents\GitHub\WPF-FC-Management\FCM\obj\Debug\netcoreapp3.1\FCM.csproj.CopyComplete

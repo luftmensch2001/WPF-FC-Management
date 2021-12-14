@@ -1719,6 +1719,88 @@ namespace FCM.ViewModel
             }
         }
 
+        static List<Match> CreateListMatch(MainWindow mainWindow, List<Team> Teams, string nameBoard)
+        {
+            List<Match> matches = new List<Match>();
+
+            List<Team> Team1 = new List<Team>();
+            List<Team> Team2 = new List<Team>();
+            int countOfTeam = Teams.Count;
+            int countOfMatch = (countOfTeam * (countOfTeam - 1)) / 2;
+
+            if (countOfTeam <= 1)
+            {
+                MessageBox.Show("Số lượng đội bóng không đủ đê tạo lịch", "Lỗi");
+                return matches;
+            }
+
+            int[] arr = new int[200];
+            bool check = true; // check = true neu n chan va nguoc lai
+
+            if (countOfTeam % 2 == 1)
+            {
+                countOfTeam++;
+                check = false;
+            }
+
+            int center = countOfTeam - 1;
+            for (int i = 0; i < center * 3; i++)
+            {
+                arr[i] = i % center;
+            }
+
+            for (int i = center; i < center * 2; i++)
+            {
+                if (check == true)
+                {
+                    Team1.Add(Teams[center]);
+                    Team2.Add(Teams[arr[i]]);
+                }
+
+                int l = i - 1;
+                int r = i + 1;
+
+                for (int j = 0; j < countOfTeam / 2 - 1; j++)
+                {
+                    Team1.Add(Teams[arr[l]]);
+                    Team2.Add(Teams[arr[r]]);
+                    l--;
+                    r++;
+                }
+            }
+
+            int round = 0;
+            if (check == false) countOfTeam--;
+
+            // Luot di
+            for (int i = 0; i < countOfMatch; i++)
+            {
+                if (i % (countOfTeam / 2) == 0) round++;
+
+                Match match = new Match(mainWindow.league.id, Team1[i].id, Team2[i].id, round, Team1[i].stadium, nameBoard);
+                match.allowDraw = true;
+                match.date = DateTime.Now;
+                match.time = DateTime.Now;
+
+                matches.Add(match);
+            }
+            // Luot ve
+            for (int i = 0; i < countOfMatch; i++)
+            {
+                if (i % (countOfTeam / 2) == 0) round++;
+
+                Match match = new Match(mainWindow.league.id, Team2[i].id, Team1[i].id, round, Team2[i].stadium, nameBoard);
+                match.allowDraw = true;
+                match.date = DateTime.Now;
+                match.time = DateTime.Now;
+
+                matches.Add(match);
+            }
+
+
+
+            return matches;
+        }
         // Tạo lịch thi đấu vòng tròn tại mỗi bảng đấu (Cho trường hợp giải đấu chia bảng)
         public void CreateScheduleWithBoard(MainWindow mainWindow)
         {
@@ -1730,150 +1812,31 @@ namespace FCM.ViewModel
             for (int iBoard = 0; iBoard < nBoard; iBoard++)
             {
                 List<Team> teams = TeamDAO.Instance.GetListTeam(boards[iBoard].nameBoard, mainWindow.league.id);
-                int nTeams = teams.Count;
 
-                bool[,] haveMet = new bool[nTeams, nTeams];
-                // lưu trữ xem đội i đã từng đá với đội j (sân nhà đội i) hay chưa. have[i,j] = true : đã gặp nhau trên sân của i
-                for (int i = 0; i < nTeams; i++) for (int j = 0; j < nTeams; j++) haveMet[i, j] = false;
+                string nameBoard = boards[iBoard].nameBoard;
 
-                int nRound = nTeams % 2 == 0 ? (nTeams - 1) * 2 : nTeams * 2;
+                List<Match> matches = CreateListMatch(mainWindow, teams, nameBoard);
 
-                bool[] isAttended = new bool[nTeams + 1];
-                // Tại 1 vòng đấu nào đóm đội i nếu đã tham gia thì isAttended[i] = true;
-
-                // Danh sách trận đấu
-                Match[] matches = new Match[nRound * (nTeams / 2) + 1];
-                int nMatch = 0;
-
-                // Duyệt qua mỗi vòng đấu và tạo lịch
-                for (int iRound = 1; iRound <= nRound / 2; iRound++)
+                for (int i = 0; i < matches.Count; i++)
                 {
-                    // Đánh dấu rằng: tại vòng đấu thứ round, tất cả các đội bóng đều chưa tham gia
-                    for (int attended = 0; attended <= nTeams; attended++)
-                    {
-                        isAttended[attended] = false;
-                    }
-
-                    for (int iTeam1 = 0; iTeam1 < nTeams; iTeam1++)
-                    {
-                        if (!isAttended[iTeam1])        //  Nếu đội iTeam1 chưa tham gia trong vòng đấu này
-                        {
-                            for (int iTeam2 = 0; iTeam2 < nTeams; iTeam2++)
-                            {
-                                if (!isAttended[iTeam2] && iTeam1 != iTeam2)    // Nếu đội iTeam2 chưa tham gia vòng đấu này
-                                {
-                                    if (!haveMet[iTeam1, iTeam2])
-                                    {
-                                        Match match = new Match(mainWindow.league.id, teams[iTeam1].id, teams[iTeam2].id, iRound, teams[iTeam1].stadium, boards[iBoard].nameBoard);
-
-                                        matches[nMatch] = match;
-
-                                        nMatch++;
-
-                                        // đánh dấu lại iTeam1 và iTeam2 đã tham gia vòng đấu thứ iRound và lưu lại trận iTeam1 vs iTeam2 đã diễn ra
-                                        // đồng thời thoát khỏi vòng lặp
-                                        isAttended[iTeam1] = true;
-                                        isAttended[iTeam2] = true;
-                                        haveMet[iTeam1, iTeam2] = true;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    MatchDAO.Instance.AddMatch(matches[i]);
                 }
 
-                // Thêm vào database danh sách trận đấu (lượt đi)
-                for (int iMatch = 0; iMatch < nMatch; iMatch++)
-                {
-                    Match match = matches[iMatch];
-                    match.date = DateTime.Now;
-                    match.time = DateTime.Now;
-                    match.allowDraw = true;
-                    match.allowDraw = true;
-                    MatchDAO.Instance.AddMatch(match);
-                }
-
-                // Thêm vào database danh sách trận đấu (lượt về)
-                for (int iMatch = 0; iMatch < nMatch; iMatch++)
-                {
-                    // Đổi ngược lại vị trí idTeam1 và idTeam2, đồng thời đổi cả sân đấu
-                    string stadium = TeamDAO.Instance.GetTeamById(matches[iMatch].idTeam02).stadium;
-                    Match match = new Match(mainWindow.league.id, matches[iMatch].idTeam02, matches[iMatch].idTeam01, matches[iMatch].round + nRound / 2, stadium, boards[iBoard].nameBoard);
-                    match.date = DateTime.Now;
-                    match.time = DateTime.Now;
-                    match.allowDraw = true;
-                    MatchDAO.Instance.AddMatch(match);
-                }
             }
         }
 
         // Tạo lịch thi đấu với cách vòng tròn tính điểm (Cho trường hợp giải đấu vòng tròn tính điểm)
         public void CreateScheduleWithCircle(MainWindow mainWindow)
         {
-            // Lưu ý: số lượng đội bóng BẮT BUỘC PHẢI là số CHẴN
             List<Team> teams = TeamDAO.Instance.GetListTeamInLeague(mainWindow.league.id);
 
-            // Số lượng đội bóng
-            int nTeams = teams.Count;
+            List<Match> matches = CreateListMatch(mainWindow, teams, "Bảng đấu vòng");
 
-            bool[,] homeStadium = new bool[nTeams + 1, nTeams + 1];
-            // homeStadium[i,j] = true  : đã có 1 trận đấu đội i vs j và sân là sân nhà của đội i, = false : chưa diễn ra trận đấu giữa đội i và j
-            for (int i = 0; i <= nTeams; i++) for (int j = 0; j <= nTeams; j++) homeStadium[i, j] = false;
-
-            bool[] isAttended = new bool[nTeams + 1];
-            // Tại 1 vòng đấu nào đóm đội i nếu đã tham gia thì isAttended[i] = true;
-
-            Match[] matches = new Match[(nTeams - 1) * nTeams + 1];
-            int nTrandau = 0;
-
-            // Tạo lịch
-            for (int vongdau = 1; vongdau <= (nTeams - 1) * 2; vongdau++)
+            for (int i = 0; i < matches.Count; i++)
             {
-                // Đánh dấu rằng: tại vòng đấu thứ vongdau, tất cả các đội bóng đều chưa tham gia
-                for (int attended = 0; attended <= nTeams; attended++)
-                {
-                    isAttended[attended] = false;
-                }
-
-                int nAttended = 0; // Số đội bóng đã tham gia vòng đấu hiện tại
-
-                Random rdTeam01 = new Random();
-                Random rdTeam02 = new Random();
-
-                while (nAttended < nTeams / 2) // Số trận đấu tối đa trong một vòng đấu = số đội bóng/2
-                {
-                    int team01 = rdTeam01.Next(1, nTeams + 1);
-                    int team02 = rdTeam02.Next(1, nTeams + 1);
-
-                    while (isAttended[team01] || isAttended[team02] || homeStadium[team01, team02] || team01 == team02)
-                    {
-                        team01 = rdTeam01.Next(1, nTeams + 1);
-                        team02 = rdTeam02.Next(1, nTeams + 1);
-                    }
-
-                    isAttended[team01] = true;
-                    isAttended[team02] = true;
-                    homeStadium[team01, team02] = true;
-
-                    nTrandau++;
-                    matches[nTrandau] = new Match(mainWindow.league.id, teams[team01 - 1].id, teams[team02 - 1].id, vongdau, teams[team01 - 1].stadium, "Bảng đấu vòng");
-
-                    nAttended++;
-                }
-            }
-
-            for (int i = 1; i <= nTrandau; i++)
-            {
-                //matches[i].date = DateTime.Now.Date;
-                //matches[i].date = DateTime.Now;
-                //matches[i].time = DateTime.Now;
-                matches[i].allowDraw = true;
                 MatchDAO.Instance.AddMatch(matches[i]);
             }
         }
-
-        // Thêm dữ liệu vào thanh lọc Vòng đấu
         public void AddItemsForCbxRound(MainWindow mainWindow)
         {
             mainWindow.cbxRound.Items.Clear();
