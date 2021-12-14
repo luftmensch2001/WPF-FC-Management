@@ -404,6 +404,8 @@ namespace FCM.ViewModel
         {
             if (mainWindow.league != null)
             {
+                mainWindow.grdHomeNoLeagueScreen.Visibility = Visibility.Hidden;
+                mainWindow.grdHomeScreen.Visibility = Visibility.Visible;
                 mainWindow.HomeLeagueLogo.Source = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(mainWindow.league.logo));
                 mainWindow.tblHomeLeagueName.Text = mainWindow.league.nameLeague;
                 mainWindow.tblHomeSponer.Text = "Nhà tài trợ chính: " + mainWindow.league.nameSpender;

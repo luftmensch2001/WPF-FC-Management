@@ -274,7 +274,7 @@ namespace FCM.DAO
                            " And score1 = -1 " +
                            " And score2 = -1 " +
                            " And idTournaments = " + idLeague +
-                           " Order by[date]";
+                           " Order by date,time ";
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
             foreach (DataRow dataRow in tb.Rows)
             {
