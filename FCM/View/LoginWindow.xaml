@@ -292,7 +292,7 @@
                             <ComboBoxItem
                                 Content="Trọng tài" />
                             <ComboBoxItem
-                                Content="Chỉ xem" />
+                                Content="Người xem" />
                         </ComboBox>
                     </Grid>
 
