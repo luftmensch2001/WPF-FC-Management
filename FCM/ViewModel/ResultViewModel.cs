@@ -266,9 +266,11 @@ namespace FCM.ViewModel
                 return;
             }
 
-            if (!isExactTime(parameter.tbTime.Text))
+            int maxTime = parameter.resultWD.match.allowDraw == true ? 90 : 120;
+
+            if (!isExactTime(parameter.tbTime.Text, maxTime))
             { 
-                wd = new MessageBoxWindow(false, "Thông tin về thời gian phải là định dạng số và nằm trong khoảng [0,120]");
+                wd = new MessageBoxWindow(false, "Thông tin về thời gian phải là định dạng số và nằm trong khoảng [0," + maxTime.ToString() + "]");
                 wd.ShowDialog();
                 return;
             }
@@ -321,9 +323,11 @@ namespace FCM.ViewModel
         }
         public void AddCard(AddCardWindow parameter)
         {
-            if (!isExactTime(parameter.tbTime.Text))
+            int maxTime = parameter.resultWD.match.allowDraw == true ? 90 : 120;
+
+            if (!isExactTime(parameter.tbTime.Text, maxTime))
             {
-                wd = new MessageBoxWindow(false, "Thông tin về thời gian phải là định dạng số và nằm trong khoảng [0,120]");
+                wd = new MessageBoxWindow(false, "Thông tin về thời gian phải là định dạng số và nằm trong khoảng [0," + maxTime.ToString() + "]");
                 wd.ShowDialog();
                 return;
             }
@@ -365,9 +369,11 @@ namespace FCM.ViewModel
         }
         public void OKSwitchedPlayers(SwitchPlayersWindow parameter)
         {
-            if (!isExactTime(parameter.tbTime.Text))
+            int maxTime = parameter.resultWD.match.allowDraw == true ? 90 : 120;
+
+            if (!isExactTime(parameter.tbTime.Text, maxTime))
             {
-                wd = new MessageBoxWindow(false, "Thông tin về thời gian phải là định dạng số và nằm trong khoảng [0,120]");
+                wd = new MessageBoxWindow(false, "Thông tin về thời gian phải là định dạng số và nằm trong khoảng [0," + maxTime.ToString() + "]");
                 wd.ShowDialog();
                 return;
             }
@@ -383,7 +389,7 @@ namespace FCM.ViewModel
             parameter.Close();
         }
 
-        bool isExactTime(string s)
+        bool isExactTime(string s, int maxTime)
         {
             if (s == "") return false;
 
@@ -397,7 +403,9 @@ namespace FCM.ViewModel
 
             int time = Int32.Parse(s);
             
-            if (time > 120 || time < 0)
+            
+
+            if (time > maxTime || time < 0)
             {
                 return false;
             }

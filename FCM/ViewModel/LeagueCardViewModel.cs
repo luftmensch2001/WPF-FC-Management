@@ -27,7 +27,7 @@ namespace FCM.ViewModel
         MessageBoxWindow wd;
         void DeleteLeague(ucLeagueCard parameter)
         {
-            ConfirmDialogWindow wdd = new ConfirmDialogWindow("Xác nhận xóa mùa giải : " + parameter.Name + " ?");
+            ConfirmDialogWindow wdd = new ConfirmDialogWindow("Xác nhận xóa mùa giải : " + parameter.league.nameLeague + " ?");
             wdd.ShowDialog();
             if (wdd.confirm == false)
             {

@@ -59,7 +59,7 @@ namespace FCM.ViewModel
             }
             AccountDAO.Instance.UpdatePassword(parameter.account.userName,AccountDAO.MD5Hash(AccountDAO.Base64Encode(newPass)));
             parameter.account.password = AccountDAO.MD5Hash(AccountDAO.Base64Encode(newPass));
-            wd = new MessageBoxWindow(false, "Đổi mật khẩu thành công");
+            wd = new MessageBoxWindow(true, "Đổi mật khẩu thành công");
             wd.ShowDialog();
             parameter.Close();
         }

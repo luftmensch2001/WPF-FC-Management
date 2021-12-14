@@ -10,7 +10,7 @@
         x:Name="wdMessageBox"
         DataContext="{StaticResource MessageBoxVM}"
         WindowStartupLocation="CenterScreen"
-        Title="Thành công" Width="370" Height="260"
+        Title="Thành công" Width="370" Height="280"
         BorderBrush="#fff"
         BorderThickness="1"
         
@@ -41,7 +41,7 @@
                 x:Name="tblMessage"
                 Text="Tạo lịch thi đấu thành công! Hãy tuỳ chỉnh thông tin cho các trận đấu"
                 TextWrapping="WrapWithOverflow"
-                LineHeight="30"
+                LineHeight="28"
                 TextAlignment="Center" 
                 VerticalAlignment="Center"
                 Width="320"

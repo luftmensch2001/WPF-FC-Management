@@ -122,7 +122,7 @@ namespace FCM.ViewModel
                 Player player = new Player(parameter.team.id,name,Int32.Parse(unformNumber), DateTime.Parse(parameter.dpDoB.ToString()), position,nation,note, ImageProcessing.Instance.convertImgToByte(imaged));
                 PlayerDAO.Instance.CreatePlayers(player);
 
-                wd = new MessageBoxWindow(false, "Thêm cầu thủ thành công");
+                wd = new MessageBoxWindow(true, "Thêm cầu thủ thành công");
                 wd.ShowDialog();
 
 
