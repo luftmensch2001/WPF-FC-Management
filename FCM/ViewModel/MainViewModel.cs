@@ -290,10 +290,6 @@ namespace FCM.ViewModel
                         mainWindow.LbGroup.Text = "Bảng đấu";
                         GetBoards(mainWindow);
                     }
-                    if (mainWindow.league.status != 0)
-                    {
-                        //  mainWindow.btnEditTeam.IsEnabled = false;
-                    }
                     LoadListTeams(mainWindow);
                     if (mainWindow.league.typeLeague == 1)
                     {
@@ -513,7 +509,8 @@ namespace FCM.ViewModel
             }
             catch
             {
-                MessageBox.Show("Lỗi dữ liệu mùa giải");
+                MessageBoxWindow wd = new MessageBoxWindow(false, "Lỗi dữ liệu mùa giải");
+                wd.ShowDialog();
             }
         }
         public void ChangeStatus(int status, MainWindow mainWindow)
@@ -548,8 +545,8 @@ namespace FCM.ViewModel
                     mainWindow.btnStatistics.IsEnabled = true;
                     mainWindow.btnSetting.IsEnabled = true;
                     mainWindow.btnAddTeam.IsEnabled = false;
-                    mainWindow.btnDeleteTeam.IsEnabled = false;
-                    mainWindow.btnAddPlayer.IsEnabled = false;
+                    //mainWindow.btnDeleteTeam.IsEnabled = false;
+                    //mainWindow.btnAddPlayer.IsEnabled = false;
                     break;
                 case 2:
                     mainWindow.btnSchedule.IsEnabled = true;
@@ -678,7 +675,10 @@ namespace FCM.ViewModel
                         ChangeStatus(0, mainWindow);
                 }
                 else
+                {
+                    ChangeStatus(0, mainWindow);
                     mainWindow.btnAddTeam.Visibility = Visibility.Visible;
+                }
                 if (teams.Count > 0)
                 {
                     if (mainWindow.team == null)
@@ -761,6 +761,19 @@ namespace FCM.ViewModel
             mainWindow.tblNational.Text = team.nation;
             mainWindow.tblStadium.Text = team.stadium;
             mainWindow.imgTeamLogo.Source = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(team.logo));
+
+            if (MatchDAO.Instance.HaveMatch(mainWindow.league.id))
+            {
+                mainWindow.btnDeleteTeam.IsEnabled = false;
+                mainWindow.btnAddPlayer.IsEnabled = false;
+                mainWindow.btnEditTeam.IsEnabled = false;
+            }
+            else
+            {
+                mainWindow.btnDeleteTeam.IsEnabled = true;
+                mainWindow.btnAddPlayer.IsEnabled = true;
+                mainWindow.btnEditTeam.IsEnabled = true;
+            }
             LoadListPlayer(mainWindow, team.id);
             mainWindow.tblCountOfMembers.Text = mainWindow.wpPlayersList.Children.Count.ToString();
             mainWindow.tblStatus.Text = mainWindow.team.nameBoard;
@@ -788,18 +801,17 @@ namespace FCM.ViewModel
             {
                 if (TeamDAO.Instance.GetListTeamInLeague(mainWindow.league.id).Count == 0)
                 {
-                    if (MessageBox.Show("Sau khi tạo đội bóng đầu tiên sẽ không thể thay đổi quy định của giải nữa \nXác nhận tạo đội?", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                    ConfirmDialogWindow wdd = new ConfirmDialogWindow("Sau khi tạo đội bóng đầu tiên sẽ không thể thay đổi quy định của giải nữa \nXác nhận tạo đội?");
+                    wdd.ShowDialog();
+                    if (wdd.confirm == false)
                     {
                         return;
                     }
-                    else
-                    {
-
-                    }
                 }
                 if (mainWindow.wpTeamsList.Children.Count == mainWindow.setting.numberOfTeam)
-                {
-                    MessageBox.Show("Số lượng đội bóng đá đạt tối đa");
+                {     
+                    MessageBoxWindow wdd = new MessageBoxWindow(false, "Số lượng đội bóng đá đạt tối đa");
+                    wdd.ShowDialog();
                 }
                 AddTeamWindow wd = new AddTeamWindow(mainWindow.league.id, mainWindow.boards, mainWindow.setting);
                 wd.ShowDialog();
@@ -831,6 +843,7 @@ namespace FCM.ViewModel
         }
         public void DeleteTeam(MainWindow mainWindow)
         {
+
             if (mainWindow.currentAccount.roleLevel == 1)
             {
                 if (mainWindow.team == null)
@@ -838,6 +851,12 @@ namespace FCM.ViewModel
                 }
                 else
                 {
+                    ConfirmDialogWindow wdd = new ConfirmDialogWindow("Xác nhận xóa đội" + mainWindow.team.nameTeam+ " ?");
+                    wdd.ShowDialog();
+                    if (wdd.confirm == false)
+                    {
+                        return;
+                    }
                     TeamDAO.Instance.DeleteTeam(mainWindow.team);
                     mainWindow.team = null;
 
@@ -850,6 +869,8 @@ namespace FCM.ViewModel
                     mainWindow.imgTeamLogo.Source = new BitmapImage(new Uri("pack://application:,,,/Resource/Images/software-logo.png"));
                     mainWindow.btnAddPlayer.Visibility = Visibility.Hidden;
                     mainWindow.btnExportTeam.Visibility = Visibility.Hidden;
+                    MessageBoxWindow wd = new MessageBoxWindow(true, "Xóa đội bóng thành công");
+                    wd.ShowDialog();
                     LoadListTeams(mainWindow);
                     LoadListPlayer(mainWindow, -1);
                 }
@@ -864,7 +885,8 @@ namespace FCM.ViewModel
             {
                 if (mainWindow.setting.maxPlayerOfTeam == mainWindow.wpPlayersList.Children.Count)
                 {
-                    MessageBox.Show("Số lượng cầu thủ đã đạt tối đa");
+                    MessageBoxWindow wdd = new MessageBoxWindow(false, "Số lượng cầu thủ đá đạt tối đa");
+                    wdd.ShowDialog();
                     return;
                 }
                 AddPlayerWindow wd = new AddPlayerWindow(mainWindow.team, mainWindow.setting, (CountNationatily(mainWindow) < mainWindow.setting.maxForeignPlayers));
@@ -960,12 +982,13 @@ namespace FCM.ViewModel
                     i++;
                 }
             }
-            // MessageBox.Show(accountViews.Count.ToString());
             mainWindow.dgvAccountList.ItemsSource = accountViews;
         }
         public void DeleteAccount(MainWindow mainWindow)
         {
-            if (MessageBox.Show("Xác nhận xóa tài khoản? " , "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+            ConfirmDialogWindow wdd = new ConfirmDialogWindow("Xác nhận xóa tài khoản? ");
+            wdd.ShowDialog();
+            if (wdd.confirm == false)
             {
                 return;
             }
@@ -973,13 +996,11 @@ namespace FCM.ViewModel
             accounts = AccountDAO.Instance.GetListAccount();
             accountViews = new List<AccountView>();
             int i = 1;
-            //MessageBox.Show(mainWindow.dgvAccountList.SelectedIndex.ToString());
             bool isDeleted = false;
             foreach (Account account in accounts)
             {
                 if (account.roleLevel != 1)
                 {
-                    //MessageBox.Show(mainWindow.dgvAccountList.SelectedIndex.ToString() + "    "  +  i.ToString() + "   " + isDeleted.ToString());
                     if (i - 1 == mainWindow.dgvAccountList.SelectedIndex && isDeleted == false)
                     {
                         AccountDAO.Instance.DeleteAtId(account.id);
@@ -993,7 +1014,6 @@ namespace FCM.ViewModel
                     }
                 }
             }
-            // MessageBox.Show(accountViews.Count.ToString());
             mainWindow.dgvAccountList.ItemsSource = accountViews;
         }
         #endregion
@@ -1074,7 +1094,8 @@ namespace FCM.ViewModel
             }
             if (teamsInNockOut == null)
             {
-                MessageBox.Show("Có lỗi xảy ra");
+                MessageBoxWindow wd = new MessageBoxWindow(false, "Có lỗi xảy ra");
+                wd.ShowDialog();
                 return;
             }
             int size = 0;
@@ -1105,7 +1126,8 @@ namespace FCM.ViewModel
                         }
                         if (count4 < teamsInNockOut.Count)
                         {
-                            MessageBox.Show("Thiếu đội bóng");
+                            MessageBoxWindow wdd = new MessageBoxWindow(false, "Thiếu đội bóng");
+                            wdd.ShowDialog();
                             return;
                         }
                         else
@@ -1138,10 +1160,10 @@ namespace FCM.ViewModel
                             if (i > -1)
                                 count8++;
                         }
-                        // MessageBox.Show(count4.ToString());
                         if (count8 < teamsInNockOut.Count)
                         {
-                            MessageBox.Show("Thiếu đội bóng");
+                            MessageBoxWindow wdd = new MessageBoxWindow(false, "Thiếu đội bóng");
+                            wdd.ShowDialog();
                             return;
                         }
                         else
@@ -1179,16 +1201,15 @@ namespace FCM.ViewModel
                         index16.Add(GetIndexTeam(mainWindow.cb16Team14.Items[mainWindow.cb16Team14.SelectedIndex].ToString()));
                         index16.Add(GetIndexTeam(mainWindow.cb16Team15.Items[mainWindow.cb16Team15.SelectedIndex].ToString()));
                         index16.Add(GetIndexTeam(mainWindow.cb16Team16.Items[mainWindow.cb16Team16.SelectedIndex].ToString()));
-                        // MessageBox.Show(count8.ToString());
                         foreach (int i in index16)
                         {
                             if (i > -1)
                                 count16++;
                         }
-                        // MessageBox.Show(count4.ToString());
                         if (count16 < teamsInNockOut.Count)
                         {
-                            MessageBox.Show("Thiếu đội bóng");
+                            MessageBoxWindow wdd = new MessageBoxWindow(false, "Thiếu đội bóng");
+                            wdd.ShowDialog();
                             return;
                         }
                         else
@@ -1208,7 +1229,8 @@ namespace FCM.ViewModel
                         }
                         break;
                 }
-                MessageBox.Show("Tạo lịch thi đấu thành công");
+                MessageBoxWindow wd = new MessageBoxWindow(true, "Tạo lịch thi đấu thành công");
+                wd.ShowDialog();
                 mainWindow.btnCreateSchedule.IsEnabled = false;
                 LoadCBXBoard(mainWindow);
                 AddItemsForCbxRound(mainWindow);
@@ -1218,7 +1240,8 @@ namespace FCM.ViewModel
             }
             catch
             {
-                MessageBox.Show("Chưa chọn đủ đội bóng");
+                MessageBoxWindow wd = new MessageBoxWindow(false, "Có lỗi xảy ra");
+                wd.ShowDialog();
                 return;
             }
         }
@@ -1234,7 +1257,8 @@ namespace FCM.ViewModel
             TreeMatch treeMatch = TreeMatchDAO.Instance.GetTree(mainWindow.league.id);
             if (treeMatch == null)
             {
-                MessageBox.Show("Chưa có biểu đồ");
+                MessageBoxWindow wd = new MessageBoxWindow(false, "Chưa có biểu đồ");
+                wd.ShowDialog();
                 return;
             }
             int size = 0;
@@ -1610,39 +1634,34 @@ namespace FCM.ViewModel
         // Tạo lịch thi đấu
         public void CreateSchedule(MainWindow mainWindow)
         {
-            //// Status = Đang đăng ký (Chưa đủ thông tin)
-            //if (mainWindow.league.status == 0)
-            //{
-            //    MessageBox.Show("Giải đấu này đang trong tình trạng đăng ký!\nVui lòng cung cấp đầy đủ thông tin về đội bóng để tạo lịch thi đấu!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-            //    return;
-            //}
-            //// Status = Đã bắt đầu (Đã bắt đầu)
-            //if (mainWindow.league.status == 2)
-            //{
-            //    MessageBox.Show("Giải đấu này đã được bắt đầu!\nKhông thể tạo lịch thi đấu!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-            //    return;
-            //}
-
             // Tiến hành tạo lịch
             if (MatchDAO.Instance.HaveMatch(mainWindow.league.id))
             {
                 if (mainWindow.league.typeLeague == 0 || mainWindow.league.typeLeague == 1)
                 {
-                    MessageBox.Show("Đã có lịch thi đấu");
+                    MessageBoxWindow wd = new MessageBoxWindow(false, "Đã có lịch thi đấu");
+                    wd.ShowDialog();
                     return;
                 }
                 if (mainWindow.league.typeLeague == 2 &&
                     (!BoardDAO.Instance.HaveNockOutBoard(mainWindow.league.id) ||
                        (BoardDAO.Instance.HaveNockOutBoard(mainWindow.league.id) && TreeMatchDAO.Instance.GetTree(mainWindow.league.id) != null)))
                 {
-                    MessageBox.Show("Đã có lịch thi đấu");
+                    MessageBoxWindow wd = new MessageBoxWindow(false, "Đã có lịch thi đấu");
+                    wd.ShowDialog();
                     return;
                 }
 
             }
-            if (MessageBox.Show("Sau khi tiến hành tạo lịch, các thông tin về Câu lạc bộ, Cầu thủ sẽ không được phép thay đổi nữa!\n" +
-                "Các trận đấu sẽ được tạo ngẫu nhiên theo nguyên tắc vòng tròn tính điểm.\n" +
-                "Bạn có muốn tạo lịch thi đấu?", "Lưu ý", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+
+            ConfirmDialogWindow wdd = new ConfirmDialogWindow("Sau khi tiến hành tạo lịch, các thông tin về Câu lạc bộ, Cầu thủ sẽ không được phép thay đổi nữa!\n" +
+                "Bạn có muốn tạo lịch thi đấu?");
+            wdd.ShowDialog();
+            if (wdd.confirm == false)
+            {
+                return;
+            }
+            else
             {
 
                 // trường hợp đấu vòng tròn
@@ -1674,7 +1693,8 @@ namespace FCM.ViewModel
 
                 if (mainWindow.league.typeLeague != 1 && !BoardDAO.Instance.HaveNockOutBoard(mainWindow.league.id))
                 {
-                    MessageBox.Show("Tạo lịch thi đấu thành công!", "Thành công", MessageBoxButton.OK);
+                    MessageBoxWindow wd = new MessageBoxWindow(true, "Tạo lịch thi đấu thành công");
+                    wd.ShowDialog();
                     mainWindow.btnCreateSchedule.IsEnabled = false;
                 }
 
@@ -2074,8 +2094,19 @@ namespace FCM.ViewModel
             Setting curSetting = mainWindow.setting;
             EditDialogWindow wd = new EditDialogWindow(idTournament, index, curSetting);
             wd.ShowDialog();
+            List<Board> boards = BoardDAO.Instance.GetListBoard(mainWindow.league.id);
+
             mainWindow.setting = SettingDAO.Instance.GetSetting(idTournament);
             mainWindow.league.countTeam = mainWindow.setting.numberOfTeam;
+            
+            foreach (Board board in boards)
+            {
+                board.countTeam = mainWindow.league.countTeam / boards.Count;
+                if (mainWindow.league.countTeam % boards.Count > 0)
+                    board.countTeam++;
+                BoardDAO.Instance.Update(board);
+            }
+            mainWindow.boards = boards;
             GetDetailSetting(mainWindow);
         }
         public void OpenAddGoalTypeWindow(MainWindow mainWindow)
@@ -2151,10 +2182,14 @@ namespace FCM.ViewModel
             List<Match> matches = MatchDAO.Instance.GetListMatch(mainWindow.league.id);
             if (MatchDAO.Instance.GetCountMatchWait(mainWindow.league.id) > 0 || matches.Count == 0)
             {
-                MessageBox.Show("Chưa hoàn thành vòng bảng");
+                MessageBoxWindow wd = new MessageBoxWindow(false, "Chưa hoàn thành vòng bảng");
+                wd.ShowDialog();
                 return;
             }
-            if (MessageBox.Show("Sau khi bắt đầu vòng trong sẽ không cho phép sửa các trận đấu vòng bảng \n Xác nhận bắt đầu?", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+
+            ConfirmDialogWindow wdd = new ConfirmDialogWindow("Sau khi bắt đầu vòng trong sẽ không cho phép sửa các trận đấu vòng bảng \n Xác nhận bắt đầu?");
+            wdd.ShowDialog();
+            if (wdd.confirm == false)
             {
                 return;
             }
@@ -2162,7 +2197,6 @@ namespace FCM.ViewModel
                 return;
             if (BoardDAO.Instance.HaveNockOutBoard(mainWindow.league.id))
             {
-                MessageBox.Show("");
                 return;
             }
             int cntBoard = mainWindow.league.countBoard;
@@ -2215,7 +2249,9 @@ namespace FCM.ViewModel
                     mainWindow.btnShowChart.Width = 140;
                     mainWindow.btnShowChart.Content = "Xem biểu đồ";
                 }
-                MessageBox.Show("Tạo danh sách vào vòng loại trực tiếp thành công");
+                MessageBoxWindow wd = new MessageBoxWindow(true, "Tạo danh sách vào vòng loại trực tiếp thành công");
+                wd.ShowDialog();
+
                 LoadCBXBoard(mainWindow);
                 AddItemsForCbxRound(mainWindow);
                 LoadListMatchRound(mainWindow, "Tất cả vòng", "Tất cả bảng");
@@ -2223,7 +2259,8 @@ namespace FCM.ViewModel
             }
             catch
             {
-                MessageBox.Show("Lỗi kết nối dữ liệu");
+                MessageBoxWindow wd = new MessageBoxWindow(false, "Lỗi kết nối dữ liệu");
+                wd.ShowDialog();
             }
         }
         void ExportRanking(MainWindow mainWindow)
@@ -2270,8 +2307,8 @@ namespace FCM.ViewModel
             }
             catch
             {
-                MessageBox.Show("Lỗi kết nối dữ liệu");
-                return;
+                MessageBoxWindow wd = new MessageBoxWindow(false, "Lỗi kết nối dữ liệu");
+                wd.ShowDialog();
             }
         }
         List<TeamScoreDetails> CalcDetails(MainWindow mainWindow, string nameBoard)
@@ -2496,7 +2533,9 @@ namespace FCM.ViewModel
             }
             catch
             {
-                MessageBox.Show("Không tìm thấy file, vui lòng liên hệ hỗ trợ hoặc cài đặt lại phần mềm");
+
+                MessageBoxWindow wd = new MessageBoxWindow(false, "Không tìm thấy file, vui lòng liên hệ hỗ trợ hoặc cài đặt lại phần mềm");
+                wd.ShowDialog();
                 return;
             }
         }

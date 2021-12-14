@@ -22,7 +22,7 @@ namespace FCM.ViewModel
         public ICommand AddLogoLeagueCommand { get; set; }
         public ICommand ChangeTypeLeagueCommand { get; set; }
         private System.Drawing.Image imaged;
-
+        MessageBoxWindow wd;
         public AddLeagueViewModel()
         {
             CancelAddLeagueCommand = new RelayCommand<AddLeagueWindow>((parameter) => true, (parameter) => parameter.Close());
@@ -58,44 +58,51 @@ namespace FCM.ViewModel
                 }
                 catch
                 {
-                    MessageBox.Show("File không hợp lệ, vui lòng chọn lại", "Lỗi");
+                    wd = new MessageBoxWindow(false, "File không hợp lệ, vui lòng chọn lại");
+                    wd.ShowDialog();
                 }
         }
         public bool IsValidInformation(string name, string sponsor, string countTeam, string time, string logo, string typeLeague, string countBoard)
         {
             if (name == "" || sponsor == "" || countTeam == "" || time == "" || logo == "pack://application:,,,/Resource/Images/NoLogoSelected.png" || typeLeague == "" || countBoard == "")
             {
-                MessageBox.Show("Thiếu thông tin", "Lỗi");
-                return false;
+                wd = new MessageBoxWindow(false, "Thiếu thông tin");
+                wd.ShowDialog();
             }
             if (!InputFormat.Instance.isNumber(countTeam))
             {
-                MessageBox.Show("Số đội tham gia chỉ nhận giá trị số nguyên >=2 và <=60");
+                wd = new MessageBoxWindow(false, "Số đội tham gia chỉ nhận giá trị số nguyên >=2 và <=60");
+                wd.ShowDialog();
                 return false;
             }
             if (typeLeague != "Loại trực tiếp" && (Int32.Parse(countTeam) < 2 || Int32.Parse(countTeam) > 60))
             {
-                MessageBox.Show("Số đội thể loại thi đấu này phải >=2 và <=60");
+                wd = new MessageBoxWindow(false, "Số đội thể loại thi đấu này phải >=2 và <=60");
+                wd.ShowDialog();
                 return false;
             }
             if (typeLeague == "Loại trực tiếp" && (Int32.Parse(countTeam) < 2 || Int32.Parse(countTeam) > 16))
             {
-                MessageBox.Show("Số đội thể loại thi đấu này phải >=2 và <=16");
+                wd = new MessageBoxWindow(false, "Số đội thể loại thi đấu này phải >=2 và <=16");
+                wd.ShowDialog();
                 return false;
             }
             if (Int32.Parse(countTeam) < 2 || Int32.Parse(countTeam) > 60)
             {
-                MessageBox.Show("Số đội thể loại thi đấu này phải >=2 và <=60");
+                wd = new MessageBoxWindow(false, "Số đội thể loại thi đấu này phải >=2 và <=60");
+                wd.ShowDialog();
                 return false;
             }
             if (Int32.Parse(countTeam) < Int32.Parse(countBoard))
             {
-                MessageBox.Show("Số đội tham gia không được nhỏ hơn số bảng đấu");
+                wd = new MessageBoxWindow(false, "Số đội tham gia không được nhỏ hơn số bảng đấu");
+                wd.ShowDialog();
                 return false;
             }
-            if (Int32.Parse(countTeam)/2 < Int32.Parse(countBoard)/2)
+            if (Int32.Parse(countTeam)/ Int32.Parse(countBoard) <2)
             {
-                MessageBox.Show("Số bảng đấu phải lớn hơn bằng 1 nửa số đội tham gia");
+                wd = new MessageBoxWindow(false, "Số đội trong 1 bảng tối thiểu là 2");
+                wd.ShowDialog();
                 return false;
             }
             return true;
@@ -113,7 +120,8 @@ namespace FCM.ViewModel
             }
             catch
             {
-                MessageBox.Show("Thiếu thông tin");
+                wd = new MessageBoxWindow(false, "Thiếu thông tin");
+                wd.ShowDialog();
                 return;
             }
 
@@ -130,7 +138,8 @@ namespace FCM.ViewModel
             {
                 if (LeagueDAO.Instance.IsExistLeagueName(name))
                 {
-                    MessageBox.Show("Tên mùa giải đã tồn tại");
+                    wd = new MessageBoxWindow(false, "Tên mùa giải đã tồn tại");
+                    wd.ShowDialog();
                     return;
                 }    
                 //League league = new League(sponsor, name, 0, DateTime.Parse(parameter.datePicker.ToString()), ImageProcessing.Instance.convertImgToByte(imaged), Int32.Parse(countTeam));
@@ -139,7 +148,8 @@ namespace FCM.ViewModel
                 league.id = LeagueDAO.Instance.GetNewestLeagurId();
 
                 CreateBoard(parameter.cbTypeOfLeague.SelectedIndex, Int32.Parse(countTeam), Int32.Parse(countBoard), league.id);
-                MessageBox.Show("Tạo mùa giải thành công");
+                wd = new MessageBoxWindow(true, "Tạo mùa giải thành công");
+                wd.ShowDialog();
                 parameter.Close();
             }
             else
@@ -147,7 +157,8 @@ namespace FCM.ViewModel
                 League league;
                 if (parameter.league.nameLeague!= name  && LeagueDAO.Instance.IsExistLeagueName(name))
                 {
-                    MessageBox.Show("Tên mùa giải đã tồn tại");
+                    wd = new MessageBoxWindow(false, "Tên mùa giải đã tồn tại");
+                    wd.ShowDialog();
                     return;
                 }
 
@@ -174,8 +185,9 @@ namespace FCM.ViewModel
                     }    
 
                     BoardDAO.Instance.Update(board);
-                }    
-                MessageBox.Show("Sửa mùa giải thành công");
+                }
+                wd = new MessageBoxWindow(true, "Sửa mùa giải thành công");
+                wd.ShowDialog();
                 parameter.Close();
             }
             void CreateBoard(int type, int countTeam, int countBoard, int idLeague)

@@ -46,6 +46,7 @@ namespace FCM.ViewModel
         public SolidColorBrush white = new SolidColorBrush(Colors.White);
 
         public string uid;
+        MessageBoxWindow wd;
         public ResultViewModel()
         {
             SwitchTabCommand = new RelayCommand<ResultRecordingWindow>((parameter) => true, (parameter) => SwitchTab(parameter));
@@ -88,7 +89,8 @@ namespace FCM.ViewModel
 
             if (penaltyScoreTeam1 == penaltyScoreTeam2)
             {
-                MessageBox.Show("Kết quả luân lưu không thể hòa", "Lưu ý", MessageBoxButton.OK, MessageBoxImage.Information);
+                wd = new MessageBoxWindow(false, "Kết quả luân lưu không thể hòa");
+                wd.ShowDialog();
             }    
             else
             {
@@ -110,7 +112,8 @@ namespace FCM.ViewModel
         {
             if (parameter.match.allowDraw == true)
             {
-                MessageBox.Show("Trận đấu này được phép hòa, do đó không cần tới kết quả luân lưu", "Lưu ý", MessageBoxButton.OK, MessageBoxImage.Information);
+                wd = new MessageBoxWindow(false, "Trận đấu này được phép hòa, do đó không cần tới kết quả luân lưu");
+                wd.ShowDialog();
                 return;
             }    
 
@@ -121,7 +124,8 @@ namespace FCM.ViewModel
             }    
             else
             {
-                MessageBox.Show("Bạn chỉ cần lưu kết quả luân lưu khi 2 đội hòa", "Lưu ý", MessageBoxButton.OK, MessageBoxImage.Information);
+                wd = new MessageBoxWindow(false, "Bạn chỉ cần lưu kết quả luân lưu khi 2 đội hòa");
+                wd.ShowDialog();
             }   
         }
 
@@ -176,7 +180,8 @@ namespace FCM.ViewModel
         {
             if (parameter.UpdateDatabase())
             {
-                MessageBox.Show("Lưu thông tin mới thành công", "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+                wd = new MessageBoxWindow(true, "Lưu thông tin mới thành công");
+                wd.ShowDialog();
                 parameter.Close();
             }
         }
@@ -256,13 +261,15 @@ namespace FCM.ViewModel
         {
             if (parameter.cbTypeOfGoal.SelectedIndex < 0)
             {
-                MessageBox.Show("Thiếu thông tin về loại bàn thắng", "Thiếu thông tin", MessageBoxButton.OK, MessageBoxImage.Error);
+                wd = new MessageBoxWindow(false, "Thiếu thông tin về loại bàn thắng");
+                wd.ShowDialog();
                 return;
             }
 
             if (!isExactTime(parameter.tbTime.Text))
-            {
-                MessageBox.Show("Thông tin về thời gian phải là định dạng số và nằm trong khoảng [0,120]", "Sai thông tin", MessageBoxButton.OK, MessageBoxImage.Error);
+            { 
+                wd = new MessageBoxWindow(false, "Thông tin về thời gian phải là định dạng số và nằm trong khoảng [0,120]");
+                wd.ShowDialog();
                 return;
             }
 
@@ -281,13 +288,15 @@ namespace FCM.ViewModel
 
             if (Int32.Parse(timeGoal) > timeReveiveRedCardOfScorePlayer)
             {
-                MessageBox.Show("Cầu thủ ghi bàn đã bị nhận thẻ đỏ và ra khỏi sân trước đó!\nDo đó cầu thủ này không thể ghi bàn", "Sai thông tin thời gian", MessageBoxButton.OK, MessageBoxImage.Error);
+                wd = new MessageBoxWindow(false, "Cầu thủ ghi bàn đã bị nhận thẻ đỏ và ra khỏi sân trước đó!\nDo đó cầu thủ này không thể ghi bàn");
+                wd.ShowDialog();
                 return;
             }
 
             if (Int32.Parse(timeGoal) > timeReveiveRedCardOfAssistPlayer)
             {
-                MessageBox.Show("Cầu thủ kiến tạo đã bị nhận thẻ đỏ và ra khỏi sân trước đó!\nDo đó cầu thủ này không thể kiến tạo", "Sai thông tin thời gian", MessageBoxButton.OK, MessageBoxImage.Error);
+                wd = new MessageBoxWindow(false, "Cầu thủ kiến tạo đã bị nhận thẻ đỏ và ra khỏi sân trước đó!\nDo đó cầu thủ này không thể kiến tạo");
+                wd.ShowDialog();
                 return;
             }
 
@@ -314,7 +323,8 @@ namespace FCM.ViewModel
         {
             if (!isExactTime(parameter.tbTime.Text))
             {
-                MessageBox.Show("Thông tin về thời gian phải là định dạng số và nằm trong khoảng [0,120]", "Sai thông tin", MessageBoxButton.OK, MessageBoxImage.Error);
+                wd = new MessageBoxWindow(false, "Thông tin về thời gian phải là định dạng số và nằm trong khoảng [0,120]");
+                wd.ShowDialog();
                 return;
             }
            
@@ -357,7 +367,8 @@ namespace FCM.ViewModel
         {
             if (!isExactTime(parameter.tbTime.Text))
             {
-                MessageBox.Show("Thông tin về thời gian phải là định dạng số và nằm trong khoảng [0,120]", "Sai thông tin", MessageBoxButton.OK, MessageBoxImage.Error);
+                wd = new MessageBoxWindow(false, "Thông tin về thời gian phải là định dạng số và nằm trong khoảng [0,120]");
+                wd.ShowDialog();
                 return;
             }
 

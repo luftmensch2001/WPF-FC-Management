@@ -10,7 +10,7 @@
         x:Name="wdConfirmDialog"
         DataContext="{StaticResource ConfirmDialogVM}"
         WindowStartupLocation="CenterScreen"
-        Title="Xác nhận" MinHeight="200" Width="450" Height="Auto"
+        Title="Xác nhận" MinHeight="200" Width="450" Height="200"
         BorderBrush="#fff"
         BorderThickness="1"
         
@@ -37,7 +37,7 @@
                 TextAlignment="Center" 
                 VerticalAlignment="Center"
                 Width="360"
-                Height="80" Margin="0 10 0 0"
+                Height="Auto" Margin="0 10 0 0"
                 Foreground="#FFF"
                 FontSize="15"/>
         </Grid>

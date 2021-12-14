@@ -24,9 +24,12 @@ namespace FCM.ViewModel
         {
             parameter.main.LoadDetailLeague(parameter.league, parameter.mainWindow);
         }
+        MessageBoxWindow wd;
         void DeleteLeague(ucLeagueCard parameter)
         {
-            if (MessageBox.Show("Xác nhận xóa mùa giải " + parameter.league.nameLeague , "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+            ConfirmDialogWindow wdd = new ConfirmDialogWindow("Xác nhận xóa mùa giải : " + parameter.Name + " ?");
+            wdd.ShowDialog();
+            if (wdd.confirm == false)
             {
                 return;
             }
@@ -35,8 +38,8 @@ namespace FCM.ViewModel
                 parameter.main.DeleteLeague(parameter.mainWindow);
             else
                 parameter.main.LoadListLeague(parameter.mainWindow);
-
-            MessageBox.Show("Xóa mùa giải " + parameter.league.nameLeague + " thành công");
+            wd = new MessageBoxWindow(true, "Xóa mùa giải " + parameter.league.nameLeague + " thành công");
+            wd.ShowDialog();
         }
     }
 }

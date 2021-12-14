@@ -22,6 +22,12 @@ namespace FCM.ViewModel
         }
         void DeletePlayer(ucPlayer parameter)
         {
+            ConfirmDialogWindow wdd = new ConfirmDialogWindow("Xác nhận xóa cầu thủ : "+parameter.Name +" ?");
+            wdd.ShowDialog();
+            if (wdd.confirm == false)
+            {
+                return;
+            }
             PlayerDAO.Instance.DeletePlayer(parameter.player.id);
             if (parameter.roleLevel==1)
             {

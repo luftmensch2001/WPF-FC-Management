@@ -52,7 +52,13 @@ namespace FCM.ViewModel
                         MessageBoxWindow wd = new MessageBoxWindow(false, "Số lượng đội bóng tham gia phải lớn hơn số đội vào vòng trong");
                         wd.ShowDialog();
                         return;
-                    }  
+                    }
+                    if (value / BoardDAO.Instance.GetListBoard(parameter.idTournament).Count < 2)
+                    {
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Số đội trong 1 bảng tối thiểu là 2");
+                        wd.ShowDialog();
+                        return;
+                    }
                     break;
                 case 1:
                     if (parameter.curSetting.minPlayerOfTeam < 1)
