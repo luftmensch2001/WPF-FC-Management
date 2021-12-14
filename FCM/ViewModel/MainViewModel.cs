@@ -1155,7 +1155,7 @@ namespace FCM.ViewModel
                         for (int i = 0; i < index4.Count; i++)
                             for (int j = 0; j < index4.Count; j++)
                             {
-                                if (i != j && index4[i] == index4[j])
+                                if (i != j && index4[i] == index4[j] && index4[j] != -1)
                                 {
                                     MessageBoxWindow wdd = new MessageBoxWindow(false, "Trùng đội bóng");
                                     wdd.ShowDialog();
@@ -1202,7 +1202,7 @@ namespace FCM.ViewModel
                         for (int i = 0; i < index8.Count; i++)
                             for (int j = 0; j < index8.Count; j++)
                             {
-                                if (i != j && index8[i] == index8[j])
+                                if (i != j && index8[i] == index8[j] && index8[j] != -1)
                                 {
                                     MessageBoxWindow wdd = new MessageBoxWindow(false, "Trùng đội bóng");
                                     wdd.ShowDialog();
@@ -1258,7 +1258,7 @@ namespace FCM.ViewModel
                         for (int i = 0; i < index16.Count; i++)
                             for (int j = 0; j < index16.Count; j++)
                             {
-                                if (i != j && index16[i] == index16[j])
+                                if (i != j && index16[i] == index16[j] && index16[j]!=-1)
                                 {
                                     MessageBoxWindow wdd = new MessageBoxWindow(false, "Trùng đội bóng");
                                     wdd.ShowDialog();
