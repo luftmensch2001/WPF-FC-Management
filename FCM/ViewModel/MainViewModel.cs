@@ -1017,6 +1017,8 @@ namespace FCM.ViewModel
                 }
             }
             mainWindow.dgvAccountList.ItemsSource = accountViews;
+            MessageBoxWindow wd = new MessageBoxWindow(true, "Xóa tài khoản thành công");
+            wd.ShowDialog();
         }
         #endregion
 

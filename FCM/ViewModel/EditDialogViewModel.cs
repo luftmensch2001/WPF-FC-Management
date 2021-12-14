@@ -72,6 +72,12 @@ namespace FCM.ViewModel
                         wd.ShowDialog();
                         return;
                     }
+                    if (value > 16 && LeagueDAO.Instance.GetLeagueById(parameter.idTournament).typeLeague==1)
+                    {
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Số lượng đội tối đa của thể loại thi đấu loại trực tiếp là 16");
+                        wd.ShowDialog();
+                        return;
+                    }
                     break;
                 case 1:
                     if (parameter.curSetting.minPlayerOfTeam < 1)
