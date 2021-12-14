@@ -238,17 +238,25 @@ namespace FCM.DAO
             dateTime = dateTime.AddMinutes(((DateTime)tb.Rows[0]["time"]).Minute);
             return dateTime;
         }
+
         public bool IsExistTimeMatch(Match match)
         {
             string query = " Select *  " +
                             " From Matchs " +
                             " Where idTournaments = " + match.idTournaments + "" +
                             " and id <> + " + match.id +
-                            " and (idteam01 = " +match.idTeam01 +
+                            " and (idteam01 = " + match.idTeam01 +
                              " or idteam01 = " + match.idTeam02 +
                               " or idteam02 = " + match.idTeam01 +
-                            " or idteam02 = " +match.idTeam02+")";
+                            " or idteam02 = " + match.idTeam02 + ")";
 
+            int hour = 2;
+            int minute = 0;
+            if (match.allowDraw == true)
+            {
+                hour = 1;
+                minute = 30;
+            }
             DataTable tb = DataProvider.Instance.ExecuteQuery(query);
             foreach (DataRow dataRow in tb.Rows)
             {
@@ -256,12 +264,14 @@ namespace FCM.DAO
                 if (date.Date.ToString("d") == match.date.Date.ToString("d"))
                 {
                     DateTime time = (DateTime)dataRow["time"];
-                    if (match.time.TimeOfDay >= time.TimeOfDay && match.time.TimeOfDay <= time.AddHours(2).TimeOfDay)
+                    time.AddHours(hour);
+                    time.AddMinutes(minute);
+                    if (match.time.TimeOfDay >= time.TimeOfDay && match.time.TimeOfDay <= time.TimeOfDay)
                     {
                         return true;
                     }
-                } 
-                   
+                }
+
             }
             return false;
         }

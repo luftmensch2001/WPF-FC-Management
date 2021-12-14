@@ -58,37 +58,42 @@ namespace FCM.ViewModel
                 if (!parameter.match.allowDraw)
                 {
                     TreeMatch tree = TreeMatchDAO.Instance.GetTree(parameter.match.idTournaments);
-                    tree.DeleteNode(NodeMatchDAO.Instance.GetNodeById(tree.idFirstNode) ,parameter.match.id);
+                    tree.DeleteNode(NodeMatchDAO.Instance.GetNodeById(tree.idFirstNode), parameter.match.id);
                 }
                 parameter.match.Score1 = -1;
                 parameter.match.Score2 = -1;
                 MatchDAO.Instance.UpdateMatch(parameter.match);
-                parameter.main.LoadListMatchRound(parameter.mainWindow, "Tất cả vòng" , "Tất cả bảng đấu");
+                parameter.main.LoadListMatchRound(parameter.mainWindow, "Tất cả vòng", "Tất cả bảng đấu");
             }
         }
+
         void SaveNewInfor(EditMatchInforWindow parameter)
         {
 
             League league = LeagueDAO.Instance.GetLeagueById(parameter.match.idTournaments);
             if (DateTime.Compare(league.dateTime, DateTime.Parse(parameter.dpDate.Text)) > 0)
             {
-                wd = new MessageBoxWindow(false, "Thời gian trận đấu phải sau thời gian giải khởi tranh");
-                wd.ShowDialog();
-                return;
+                if (league.dateTime.TimeOfDay > DateTime.Parse(parameter.tpTime.Text).TimeOfDay)
+                {
+                    wd = new MessageBoxWindow(false, "Thời gian trận đấu phải sau thời gian giải khởi tranh");
+                    wd.ShowDialog();
+                    return;
+                }
             }
             if (league.typeLeague == 1)
             {
                 DateTime date = MatchDAO.Instance.MaxTimeNockOut(parameter.match);
+
                 date = date.AddHours(2);
                 DateTime date1 = DateTime.Parse(parameter.dpDate.Text);
                 DateTime time = DateTime.Parse(parameter.tpTime.Text);
-                date1 =  date1.AddHours(time.Hour - date1.Hour);
-                date1 =  date1.AddMinutes(time.Minute - date1.Minute);
+                date1 = date1.AddHours(time.Hour - date1.Hour);
+                date1 = date1.AddMinutes(time.Minute - date1.Minute);
                 //MessageBox.Show(time.Hour.ToString());
-             //   MessageBox.Show(date1 + "             " + date);
+                //   MessageBox.Show(date1 + "             " + date);
                 if (DateTime.Compare(date1, date) < 0)
                 {
-                   // MessageBox.Show(date1 + "             " + date);
+                    // MessageBox.Show(date1 + "             " + date);
                     wd = new MessageBoxWindow(false, "Thời gian trận đấu phải sau thời gian vòng đấu trước");
                     wd.ShowDialog();
                     return;
@@ -96,8 +101,19 @@ namespace FCM.ViewModel
             }
             if (league.typeLeague == 2)
             {
-                if (DateTime.Compare(DateTime.Parse(parameter.dpDate.Text), MatchDAO.Instance.MaxTimeBoard(parameter.match)) < 0)
+                DateTime date = MatchDAO.Instance.MaxTimeBoard(parameter.match);
+
+                date = date.AddHours(1);
+                date = date.AddMinutes(30);
+                DateTime date1 = DateTime.Parse(parameter.dpDate.Text);
+                DateTime time = DateTime.Parse(parameter.tpTime.Text);
+                date1 = date1.AddHours(time.Hour - date1.Hour);
+                date1 = date1.AddMinutes(time.Minute - date1.Minute);
+                //MessageBox.Show(time.Hour.ToString());
+                //   MessageBox.Show(date1 + "             " + date);
+                if (DateTime.Compare(date1, date) < 0)
                 {
+                    // MessageBox.Show(date1 + "             " + date);
                     wd = new MessageBoxWindow(false, "Thời gian trận đấu phải sau thời gian vòng đấu trước");
                     wd.ShowDialog();
                     return;
@@ -121,5 +137,7 @@ namespace FCM.ViewModel
             wd.ShowDialog();
             parameter.Close();
         }
+
+
     }
 }

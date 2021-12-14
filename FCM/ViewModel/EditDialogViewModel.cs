@@ -31,12 +31,25 @@ namespace FCM.ViewModel
                 return;
             }
 
+
             if (value > 60)
             {
-                MessageBoxWindow wd = new MessageBoxWindow(false, "Giá trị vượt quá quy định (60)");
-                wd.ShowDialog();
-                return;
-            }    
+                if (parameter.idSetting == 4)
+                {
+                    if (value > 100)
+                    {
+                        MessageBoxWindow wd = new MessageBoxWindow(false, "Số tuổi tối đa là 100");
+                        wd.ShowDialog();
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBoxWindow wd = new MessageBoxWindow(false, "Giá trị vượt quá quy định (60)");
+                    wd.ShowDialog();
+                    return;
+                }
+            }
             //Logic
             switch (parameter.idSetting)
             {
