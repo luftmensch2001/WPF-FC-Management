@@ -797,7 +797,7 @@ namespace FCM.ViewModel
         }
         public void OpenAddTeamWindow(MainWindow mainWindow)
         {
-            if (mainWindow.currentAccount.roleLevel == 1)
+            if (mainWindow.currentAccount.roleLevel == 1 || mainWindow.currentAccount.roleLevel==2)
             {
                 if (TeamDAO.Instance.GetListTeamInLeague(mainWindow.league.id).Count == 0)
                 {
@@ -844,14 +844,14 @@ namespace FCM.ViewModel
         public void DeleteTeam(MainWindow mainWindow)
         {
 
-            if (mainWindow.currentAccount.roleLevel == 1)
+            if (mainWindow.currentAccount.roleLevel == 1|| mainWindow.currentAccount.roleLevel == 2)
             {
                 if (mainWindow.team == null)
                 {
                 }
                 else
                 {
-                    ConfirmDialogWindow wdd = new ConfirmDialogWindow("Xác nhận xóa đội" + mainWindow.team.nameTeam+ " ?");
+                    ConfirmDialogWindow wdd = new ConfirmDialogWindow("Xác nhận xóa đội " + mainWindow.team.nameTeam+ " ?");
                     wdd.ShowDialog();
                     if (wdd.confirm == false)
                     {
