@@ -2347,7 +2347,7 @@
             x:Name="grdStatisticsScreen"
             Grid.Column="1"
             Background="#3a3a3a"
-            Visibility="Visible">
+            Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
@@ -3438,13 +3438,13 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button 
-                                    
+                                    Padding="0"
                                     Style="{StaticResource MyRedButtonStyle}"
                                     MinWidth="25" MinHeight="25"
                                     Width="25" Height="25" Click="Button_Click">
                                     
                                     <materialDesign:PackIcon 
-                                        Width="20" Height="20"
+                                        Width="15" Height="15"
                                         Kind="DeleteOutline"/>
                                     
                                 </Button>
