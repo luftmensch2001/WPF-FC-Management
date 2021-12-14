@@ -602,7 +602,7 @@ namespace FCM.ViewModel
         {
             if (mainWindow.currentAccount.roleLevel == 1)
             {
-                if (mainWindow.league != null && mainWindow.league.status == 0)
+                if (mainWindow.league!=null)
                 {
                     AddLeagueWindow wd = new AddLeagueWindow(mainWindow.league);
                     wd.tblTitle.Text = "SỬA THÔNG TIN GIẢI ĐẤU";
