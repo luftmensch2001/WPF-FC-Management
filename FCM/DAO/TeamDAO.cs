@@ -91,11 +91,7 @@ namespace FCM.DAO
         }
         public void DeleteTeam(Team team)
         {
-            List<Team> teams = GetListTeam(team.nameBoard, team.idTournamnt);
-            foreach (Team t in teams)
-            {
-                PlayerDAO.Instance.DeletePlayerInTeam(t.id);
-            }
+             PlayerDAO.Instance.DeletePlayerInTeam(team.id);
             string query = "Delete " +
                             "From Teams " +
                             "Where idTournaments = " + team.idTournamnt + "" +

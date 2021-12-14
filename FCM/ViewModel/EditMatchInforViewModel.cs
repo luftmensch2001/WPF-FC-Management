@@ -18,7 +18,7 @@ namespace FCM.ViewModel
 
         public ICommand ExitCommand { get; set; }
         public ICommand SaveCommand { get; set; }
-
+        MessageBoxWindow wd;
 
         public EditMatchInforViewModel()
         {
@@ -38,7 +38,8 @@ namespace FCM.ViewModel
         {
             if (parameter.match.date.ToString("dd/MM/yyyy") == "11/11/2000")
             {
-                MessageBox.Show("Chưa chọn thời gian");
+                wd = new MessageBoxWindow(false, "Chưa chọn thời gian");
+                wd.ShowDialog();
                 return;
             }
             parameter.main.OpenResultRecordingWindow(parameter.mainWindow, parameter.match);
@@ -46,8 +47,12 @@ namespace FCM.ViewModel
 
         void CancelResult(ucMatchDetail parameter)
         {
-            if (MessageBox.Show("Bạn thực sự muốn xóa kết quả của trận đấu này?", "Lưu ý", MessageBoxButton.OKCancel, MessageBoxImage.Question)
-                == MessageBoxResult.OK)
+            ConfirmDialogWindow wdd = new ConfirmDialogWindow("Bạn thực sự muốn xóa kết quả của trận đấu này?");
+            wdd.ShowDialog();
+            if (wdd.confirm == false)
+            {
+                return;
+            }
             {
                 parameter.main.CancelResultMatch(parameter.mainWindow, parameter.match);
                 if (!parameter.match.allowDraw)
@@ -67,7 +72,8 @@ namespace FCM.ViewModel
             League league = LeagueDAO.Instance.GetLeagueById(parameter.match.idTournaments);
             if (DateTime.Compare(league.dateTime, DateTime.Parse(parameter.dpDate.Text)) > 0)
             {
-                MessageBox.Show("Thời gian trận đấu phải sau thời gian giải khởi tranh");
+                wd = new MessageBoxWindow(false, "Thời gian trận đấu phải sau thời gian giải khởi tranh");
+                wd.ShowDialog();
                 return;
             }
             if (league.typeLeague == 1)
@@ -83,7 +89,8 @@ namespace FCM.ViewModel
                 if (DateTime.Compare(date1, date) < 0)
                 {
                    // MessageBox.Show(date1 + "             " + date);
-                    MessageBox.Show("Thời gian trận đấu phải sau thời gian vòng đấu trước");
+                    wd = new MessageBoxWindow(false, "Thời gian trận đấu phải sau thời gian vòng đấu trước");
+                    wd.ShowDialog();
                     return;
                 }
             }
@@ -91,7 +98,8 @@ namespace FCM.ViewModel
             {
                 if (DateTime.Compare(DateTime.Parse(parameter.dpDate.Text), MatchDAO.Instance.MaxTimeBoard(parameter.match)) < 0)
                 {
-                    MessageBox.Show("Thời gian trận đấu phải sau thời gian vòng đấu trước");
+                    wd = new MessageBoxWindow(false, "Thời gian trận đấu phải sau thời gian vòng đấu trước");
+                    wd.ShowDialog();
                     return;
                 }
             }
@@ -103,12 +111,14 @@ namespace FCM.ViewModel
 
             if (MatchDAO.Instance.IsExistTimeMatch(parameter.match))
             {
-                MessageBox.Show("Trùng thời gian", "Lỗi");
+                wd = new MessageBoxWindow(false, "Trùng thời gian");
+                wd.ShowDialog();
                 return;
             }
             MatchDAO.Instance.UpdateMatch(parameter.match);
 
-            MessageBox.Show("Thay đổi thông tin trận đấu thành công", "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+            wd = new MessageBoxWindow(false, "Sửa thông tin trận đấu thành công");
+            wd.ShowDialog();
             parameter.Close();
         }
     }

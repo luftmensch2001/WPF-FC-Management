@@ -19,6 +19,7 @@ namespace FCM.DTO
         public int countTeam { get; set; }
         public Board(DataRow row)
         {
+            this.id = (int)row["id"];
             this.idTournament = (int)row["idTournament"];
             this.nameBoard = (string)row["nameBoard"];
             this.countTeam = (int)row["countTeam"];

@@ -22,6 +22,7 @@ namespace FCM.DAO
     {
         private static ExcelProcessing instance;
         private string formatInfor;
+        MessageBoxWindow wdd;
 
         public static ExcelProcessing Instance
         {
@@ -36,6 +37,8 @@ namespace FCM.DAO
             OpenFileDialog openFileDialog = new OpenFileDialog() { Filter = "Excel files(*.xml;*.xlsx;*.xlsm)|*.xml;*.xlsx;*.xlsm", Multiselect = false };
             openFileDialog.ShowDialog();
             string path = openFileDialog.FileName;
+            string cauthuloi = "Thông tin cầu thủ lỗi : ";
+            List<int> viTriLoi = new List<int>();
             ExcelPackage package = null;
             if (path != "")
             {
@@ -51,7 +54,8 @@ namespace FCM.DAO
                         var pic = workSheet.Drawings[namePicture] as ExcelPicture;
                         if (pic == null)
                         {
-                            MessageBox.Show("Thông tin đôi bóng không hợp lệ");
+                            wdd = new MessageBoxWindow(false, "Thông tin đôi bóng không hợp lệ");
+                            wdd.ShowDialog();
                             return false;
                         }    
                         int countPlayer = Int32.Parse(workSheet.Cells[4, 2].Value.ToString());
@@ -63,13 +67,15 @@ namespace FCM.DAO
                                                                 ImageProcessing.Instance.convertImgToByte(pic.Image));
                         if (team.idTournamnt == -1 || team.nameTeam == "" || team.coach == "" || team.nation == "" || team.stadium == "")
                         {
-                            MessageBox.Show("Thiếu thông tin đội bóng", "lỗi");
+                            wdd = new MessageBoxWindow(false, "Thông tin đôi bóng không hợp lệ");
+                            wdd.ShowDialog();
                             return false;
                         }
                         team.nameTeam = InputFormat.Instance.FomartSpace(team.nameTeam);
                         if (TeamDAO.Instance.IsExistTeamName(team.nameTeam,parameter.idTournament))
                         {
-                            MessageBox.Show("Tên đội bóng đã tồn tại");
+                            wdd = new MessageBoxWindow(false, "Tên đội bóng đã tồn tại");
+                            wdd.ShowDialog();
                             return false;
                         }    
                         TeamDAO.Instance.CreateTeams(team);
@@ -107,6 +113,16 @@ namespace FCM.DAO
                                             //MessageBox.Show(date);
                                             result = DateTime.ParseExact(date, "dd/MM/yyyy", null, DateTimeStyles.None);
                                             //MessageBox.Show(result.ToString("dd/MM/yyyy"));
+
+                                            var today = DateTime.Today;
+                                            var age = today.Year - result.Year;
+                                            if (result > today.AddYears(-age)) age--;
+                                            if (age < parameter.setting.minAge || age > parameter.setting.maxAge)
+                                            {
+                                                Int32.Parse(" ");
+                                            }
+
+
                                             Player player = new Player(TeamDAO.Instance.GetNewestTeamid(team.idTournamnt),
                                                                         InputFormat.Instance.FomartSpace(workSheet.Cells[i, 3].Value.ToString()),
                                                                         Int32.Parse(workSheet.Cells[i, 4].Value.ToString()),
@@ -127,12 +143,14 @@ namespace FCM.DAO
                             {
                                 //  MessageBox.Show("Thông tin cầu thủ " + (i - 13).ToString() + " lỗi", "Lỗi");
                                 // return false;
+                                viTriLoi.Add(i - 13+1);
                             }
                         }
                     }
                     catch
                     {
-                        MessageBox.Show("Thông tin đội bóng lỗi", "Lỗi");
+                        wdd = new MessageBoxWindow(false, "Thông tin đội bóng lỗi");
+                        wdd.ShowDialog();
                         return false;
                     }
                 }
@@ -140,13 +158,28 @@ namespace FCM.DAO
 
                 catch
                 {
-                    MessageBox.Show("File không hợp lệ, vui lòng chọn lại", "Lỗi");
+                    wdd = new MessageBoxWindow(false, "File không hợp lệ, vui lòng chọn lại");
+                    wdd.ShowDialog();
                     return false;
                 }
             }
             if (package == null)
                 return false;
-            MessageBox.Show("Thêm đội bóng thành công \n Số cầu thủ hợp lệ : " + countPlayerDone.ToString());
+            if (viTriLoi.Count == 0)
+            {
+                wdd = new MessageBoxWindow(true, "Thêm đội bóng thành công \n Số cầu thủ hợp lệ : " + countPlayerDone.ToString());
+                wdd.ShowDialog();
+            }
+            else
+            {
+                foreach (int i in viTriLoi)
+                {
+                    cauthuloi += i.ToString() + ',';
+                }
+                cauthuloi = cauthuloi.Remove(cauthuloi.Length-1,1);
+                wdd = new MessageBoxWindow(true, "Thêm đội bóng thành công \n Số cầu thủ hợp lệ : " + countPlayerDone.ToString() + " \n "+cauthuloi);
+                wdd.ShowDialog();
+            }    
             return true;
         }
     public void ExportFile(Team team)
@@ -168,8 +201,9 @@ namespace FCM.DAO
             }
             if (string.IsNullOrEmpty(filePath))
             {
-                MessageBox.Show("Đường dẫn báo cáo không hợp lệ");
-                return;
+                    wdd = new MessageBoxWindow(false, "Đường dẫn báo cáo không hợp lệ");
+                    wdd.ShowDialog();
+                    return;
             }
 
             using (ExcelPackage p = new ExcelPackage())
@@ -327,14 +361,16 @@ namespace FCM.DAO
                 {
                     UseShellExecute = true
                 };
-                MessageBox.Show("Xuất tệp tin thành công");
+                wdd = new MessageBoxWindow(true, "Xuất tệp tin thành công");
+                wdd.ShowDialog();
                 proc.Start();
             }
         }
         catch
         {
-            MessageBox.Show("Xuất tệp tin thất bại");
-        }
+                wdd = new MessageBoxWindow(false, "Xuất tệp tin thất bại");
+                wdd.ShowDialog();
+            }
     }
         public void OpenTemPlace()
         {
@@ -356,7 +392,8 @@ namespace FCM.DAO
             }
             catch
             {
-                MessageBox.Show("Tệp tin mẫu không tồn tại");
+                wdd = new MessageBoxWindow(false, "Tệp tin mẫu không tồn tại");
+                wdd.ShowDialog();
             }
         }
 }

@@ -16,7 +16,7 @@ namespace FCM.ViewModel
 {
     class AddPlayerViewModel : BaseViewModel
     {
-
+        MessageBoxWindow wd;
 
         public ICommand CancelAddPlayerCommand { get; set; }
         public ICommand AddPlayerCommand { get; set; }
@@ -42,7 +42,8 @@ namespace FCM.ViewModel
                 }
                 catch
                 {
-                    MessageBox.Show("File không hợp lệ, vui lòng chọn lại", "Lỗi");
+                    wd = new MessageBoxWindow(false, "File không hợp lệ, vui lòng chọn lại");
+                    wd.ShowDialog();
                 }
         }
 
@@ -84,18 +85,21 @@ namespace FCM.ViewModel
 
             if (name == "" || unformNumber == "" ||parameter.dpDoB.SelectedDate.ToString()==""|| nation == "" || position == "" || parameter.imgPlayerImage.Source.ToString() == "pack://application:,,,/Resource/Images/NoImageSelected.png")
             {
-                MessageBox.Show("Thiếu thông tin", "Lỗi");
+                wd = new MessageBoxWindow(false, "Thiếu thông tin");
+                wd.ShowDialog();
                 return;
             }
             if (!InputFormat.Instance.isNumber(unformNumber) || Int32.Parse(unformNumber) < 0)
             {
-                MessageBox.Show("Số áo chỉ nhận giá trị là số nguyên dương >= 0");
+                wd = new MessageBoxWindow(false, "Số áo chỉ nhận giá trị là số nguyên dương >= 0");
+                wd.ShowDialog();
                 return;
             }
             if ((parameter.player == null || parameter.player.uniformNumber != Int32.Parse(unformNumber))
                 && PlayerDAO.Instance.IsHaveNumber(Int32.Parse(unformNumber), parameter.team.id))
             {
-                MessageBox.Show("Số áo đã tồn tại");
+                wd = new MessageBoxWindow(false, "Số áo đã tồn tại");
+                wd.ShowDialog();
                 return;
             }
             var today = DateTime.Today;
@@ -103,20 +107,23 @@ namespace FCM.ViewModel
             if ( DateTime.Parse(parameter.dpDoB.ToString()).Date > today.AddYears(-age)) age--;
             if (age<parameter.setting.minAge || age>parameter.setting.maxAge)
             {
-                MessageBox.Show("Tuổi của cầu thủ phải >"+ parameter.setting.minAge +" và <= "+ parameter.setting.maxAge, "Lỗi");
+                wd = new MessageBoxWindow(false, "Tuổi của cầu thủ phải >" + parameter.setting.minAge + " và <= " + parameter.setting.maxAge);
+                wd.ShowDialog();
                 return;
             }    
             if (parameter.player == null)
             {
                 if (!parameter.CanGetOutNation && parameter.team.nation!=nation)
                 {
-                    MessageBox.Show("Số cầu thủ ngước ngoài đã đạt tối đa");
+                    wd = new MessageBoxWindow(false, "Số cầu thủ ngước ngoài đã đạt tối đa");
+                    wd.ShowDialog();
                     return;
                 }    
                 Player player = new Player(parameter.team.id,name,Int32.Parse(unformNumber), DateTime.Parse(parameter.dpDoB.ToString()), position,nation,note, ImageProcessing.Instance.convertImgToByte(imaged));
                 PlayerDAO.Instance.CreatePlayers(player);
 
-                MessageBox.Show("Thêm cầu thủ thành công");
+                wd = new MessageBoxWindow(false, "Thêm cầu thủ thành công");
+                wd.ShowDialog();
 
 
                 parameter.Close();
@@ -131,11 +138,13 @@ namespace FCM.ViewModel
                 player.id = parameter.player.id;
                 if (!parameter.CanGetOutNation && parameter.team.nation != nation &&parameter.player.nationality!=nation)
                 {
-                    MessageBox.Show("Số cầu thủ ngước ngoài đã đạt tối đa");
+                    wd = new MessageBoxWindow(false, "Số cầu thủ ngước ngoài đã đạt tối đa");
+                    wd.ShowDialog();
                     return;
                 }
                 PlayerDAO.Instance.UpdatePlayer(player);
-                MessageBox.Show("Sửa cầu thủ thành công");
+                wd = new MessageBoxWindow(true, "Sửa cầu thủ thành công");
+                wd.ShowDialog();
                 parameter.Close();
             }
         }

@@ -17,7 +17,7 @@ namespace FCM.ViewModel
         public ICommand OpenLoginCommand { get; set; }
         public ICommand LoginCommand { get; set; }
 
-        
+        MessageBoxWindow wd;
         public LoginViewModel()
         {
             
@@ -43,12 +43,14 @@ namespace FCM.ViewModel
             //   MessageBox.Show(UserName);
             if (parameter.tbUsername.Text == "")
             {
-                MessageBox.Show("Vui lòng nhập tên tài khoản");
+                wd = new MessageBoxWindow(false, "Vui lòng nhập tên tài khoản");
+                wd.ShowDialog();
                 return;
             }
-            if (parameter.pbPassword.Password == "")
-            {
-                MessageBox.Show("Vui lòng nhập mật khẩu");
+            if (parameter.pbPassword.Password == "") 
+            { 
+                wd = new MessageBoxWindow(false, "Vui lòng nhập mật khẩu");
+                wd.ShowDialog();
                 return;
             }
 
@@ -69,42 +71,50 @@ namespace FCM.ViewModel
                 }
                 if (account.userName == userName && account.password != password)
                 {
-                    MessageBox.Show("Sai mật khẩu");
+                    wd = new MessageBoxWindow(false, "Sai mật khẩu");
+                    wd.ShowDialog();
                     return;
                 }    
             }
-            MessageBox.Show("Tài khoản không tồn tại");
+            wd = new MessageBoxWindow(false, "Tên tài khoản không tồn tại");
+            wd.ShowDialog();
         }
         public void Register(LoginWindow parameter)
         {
             if (parameter.tbRegUsername.Text == "")
             {
-                MessageBox.Show("Vui lòng nhập tên tài khoản");
+                wd = new MessageBoxWindow(false, "Vui lòng nhập tên tài khoản");
+                wd.ShowDialog();
                 return;
             }
             if (parameter.pbRegPassword.Password == "")
             {
-                MessageBox.Show("Vui lòng nhập mật khẫu");
+                wd = new MessageBoxWindow(false, "Vui lòng nhập mật khẫu");
+                wd.ShowDialog();
                 return;
             }
             if (parameter.pbRePassword.Password == "")
             {
-                MessageBox.Show("Vui lòng nhập mật khẩu xác nhận");
+                wd = new MessageBoxWindow(false, "Vui lòng nhập mật khẩu xác nhận");
+                wd.ShowDialog();
                 return;
             }
             if (parameter.pbRePassword.Password != parameter.pbRegPassword.Password)
             {
-                MessageBox.Show("Mật khẩu không khớp với Mật khẩu xác nhận");
+                wd = new MessageBoxWindow(false, "Mật khẩu không khớp với Mật khẩu xác nhận");
+                wd.ShowDialog();
                 return;
             }
             if (parameter.pbAdminPassword.Password == "")
             {
-                MessageBox.Show("Vui lòng nhập mật khẩu admin");
+                wd = new MessageBoxWindow(false, "Vui lòng nhập mật khẩu admin");
+                wd.ShowDialog();
                 return;
             }
             if (parameter.cbAcccountType.SelectedItem == null)
             {
-                MessageBox.Show("Vui lòng chọn loại tài khoản");
+                wd = new MessageBoxWindow(false, "Vui lòng chọn loại tài khoản");
+                wd.ShowDialog();
                 return;
             }
 
@@ -119,14 +129,16 @@ namespace FCM.ViewModel
             {
                 if (account.userName == userName)
                 {
-                    MessageBox.Show("Tài khoản đã tồn tại");
+                    wd = new MessageBoxWindow(false, "Tài khoản đã tồn tại");
+                    wd.ShowDialog();
                     return;
                 }
             }
             string passwordAdmin = AccountDAO.Instance.GetPasswordAdmin();
             if (passwordAdmin != regPasswordAdmin)
             {
-                MessageBox.Show("Mật khẩu admin không chính xác    ");
+                wd = new MessageBoxWindow(false, "Mật khẩu admin không chính xác");
+                wd.ShowDialog();
                 return;
             }
             Account account1 = new Account(userName, password, "",parameter.cbAcccountType.SelectedIndex+2, -1);

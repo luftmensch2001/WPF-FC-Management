@@ -23,6 +23,7 @@ namespace FCM.ViewModel
         public ICommand ImportTeamCommand { get; set; }
         public ICommand TemplaceCommand { get; set; }
         private System.Drawing.Image imaged;
+        MessageBoxWindow wd;
 
         public AddTeamViewModel()
         {
@@ -45,7 +46,8 @@ namespace FCM.ViewModel
                 }
                 catch
                 {
-                    MessageBox.Show("File không hợp lệ, vui lòng chọn lại", "Lỗi");
+                    wd = new MessageBoxWindow(false , "File không hợp lệ");
+                    wd.ShowDialog();
                 }
         }
         void Templace(AddTeamWindow parameter)
@@ -60,8 +62,8 @@ namespace FCM.ViewModel
                     parameter.Close();
             } else
             {
-                MessageBox.Show("Chưa chọn bảng đấu");
-                return;
+                wd = new MessageBoxWindow(false, "Chưa chọn bảng đấu");
+                wd.ShowDialog();
             }    
         }
         void AddTeam(AddTeamWindow parameter)
@@ -72,12 +74,14 @@ namespace FCM.ViewModel
             string stadium = InputFormat.Instance.FomartSpace(parameter.tbStadium.Text);
             if (name == "" || coach == "" || national == "" || stadium == "" || parameter.imgTeamLogo.Source.ToString() == "pack://application:,,,/Resource/Images/NoLogoSelected.png")
             {
-                MessageBox.Show("Thiếu thông tin", "Lỗi");
+                wd = new MessageBoxWindow(false, "Thiếu thông tin");
+                wd.ShowDialog();
                 return;
             }
             if (parameter.team == null && TeamDAO.Instance.IsExistTeamName(name, parameter.idTournament))
             {
-                MessageBox.Show("Trùng tên đội bóng","Lỗi");
+                wd = new MessageBoxWindow(false, "Trùng tên đội bóng bóng");
+                wd.ShowDialog();
                 return;
             }
             if (parameter.team == null)
@@ -85,7 +89,8 @@ namespace FCM.ViewModel
                 Team team = new Team(parameter.idTournament, parameter.cbGroups.Text, name, coach, stadium, national, ImageProcessing.Instance.convertImgToByte(imaged));
                 TeamDAO.Instance.CreateTeams(team);
 
-                MessageBox.Show("Thêm đội bóng thành công");
+                wd = new MessageBoxWindow(true, "Thêm đội bóng thành công");
+                wd.ShowDialog();
                 parameter.Close();
             }
 
@@ -98,7 +103,8 @@ namespace FCM.ViewModel
                     team = new Team(parameter.idTournament, parameter.cbGroups.Text, name, coach, stadium, national, ImageProcessing.Instance.convertImgToByte(imaged));
                 team.id = parameter.team.id;
                 TeamDAO.Instance.UpdateTeam(team);
-                MessageBox.Show("Sửa đội bóng thành công");
+                wd = new MessageBoxWindow(true, "Sửa đội bóng thành công");
+                wd.ShowDialog();
                 parameter.Close();
             }
         }

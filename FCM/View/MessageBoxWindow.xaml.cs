@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Drawing;
+using System.Windows;
+using System.Windows.Media;
 
 namespace FCM.View
 {
@@ -15,15 +17,18 @@ namespace FCM.View
         public MessageBoxWindow(bool isSuccess, string content)
         {
             InitializeComponent();
-            if (isSuccess) 
+            if (isSuccess)
             {
                 imgSuccess.Visibility = Visibility.Visible;
                 imgError.Visibility = Visibility.Hidden;
+                Title = "Thành công";
             }
             else
             {
                 imgSuccess.Visibility = Visibility.Hidden;
                 imgError.Visibility = Visibility.Visible;
+                Title = "Lỗi";
+                btnAccept.Background = new SolidColorBrush(Colors.Red);
             }
             tblMessage.Text = content;
         }
