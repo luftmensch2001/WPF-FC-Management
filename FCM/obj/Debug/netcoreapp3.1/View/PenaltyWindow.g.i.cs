@@ -130,7 +130,7 @@ namespace FCM.View {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/FCM;V1.0.0.0;component/view/penaltywindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/FCM;component/view/penaltywindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\View\PenaltyWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

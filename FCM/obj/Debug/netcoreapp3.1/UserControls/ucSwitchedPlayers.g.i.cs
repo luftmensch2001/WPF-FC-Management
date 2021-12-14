@@ -97,7 +97,7 @@ namespace FCM.UserControls {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/FCM;V1.0.0.0;component/usercontrols/ucswitchedplayers.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/FCM;component/usercontrols/ucswitchedplayers.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\UserControls\ucSwitchedPlayers.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

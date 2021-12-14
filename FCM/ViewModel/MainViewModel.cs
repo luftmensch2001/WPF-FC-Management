@@ -498,6 +498,14 @@ namespace FCM.ViewModel
                 ChangeStatus(league.status, window);
                 window.tblLeagueTime.Text = "Thời gian: " + league.dateTime.ToString("dd/MM/yyyy");
                 LoadListTeams(window);
+                if (MatchDAO.Instance.HaveMatch(window.league.id))
+                {
+                    window.btnEditLeague.IsEnabled = false;
+                }
+                else
+                {
+                    window.btnEditLeague.IsEnabled = true;
+                }
                 if (TreeMatchDAO.Instance.GetTree(window.league.id) != null)
                 {
                     window.btnStanding.IsEnabled = false;
@@ -508,10 +516,6 @@ namespace FCM.ViewModel
                     window.btnEditLeague.IsEnabled = false;
                     window.btnCreateLeague.IsEnabled = false;
                 }
-                if (MatchDAO.Instance.HaveMatch(window.league.id))
-                {
-                    window.btnEditLeague.IsEnabled = false;
-                }    
             }
             catch
             {
@@ -1049,53 +1053,53 @@ namespace FCM.ViewModel
         }
         public void SelectedTeamNockOutChange(ComboBox selectedComboBox)
         {
-            try
-            {
-                if (selectedComboBox.Text == selectedComboBox.Items[selectedComboBox.SelectedIndex].ToString())
-                    return;
-                foreach (ComboBox comboBox in comboBoxes)
-                {
-                    if (comboBox != selectedComboBox)
-                    {
-                        if (selectedComboBox.Text != null)
-                        {
-                            bool haveName = false;
-                            foreach (string item in comboBox.Items)
-                            {
-                                if (item == selectedComboBox.Text)
-                                    haveName = true;
-                            }
-                            if (!haveName)
-                                comboBox.Items.Add(selectedComboBox.Text);
-                        }
-                        int remove = -1;
-                        for (int i = 0; i < comboBox.Items.Count; i++)
-                        {
-                            string item = comboBox.Items[i].ToString();
-                            if (item != "Ưu tiên" && item == selectedComboBox.Items[selectedComboBox.SelectedIndex].ToString())
-                                remove = i;
-                        }
-                        if (remove != -1)
-                            comboBox.Items.RemoveAt(remove);
-                    }
-                }
+            //try
+            //{
+                //if (selectedComboBox.Text == selectedComboBox.Items[selectedComboBox.SelectedIndex].ToString())
+                //    return;
+                //foreach (ComboBox comboBox in comboBoxes)
+                //{
+                //    if (comboBox != selectedComboBox)
+                //    {
+                //        if (selectedComboBox.Text != null)
+                //        {
+                //            bool haveName = false;
+                //            foreach (string item in comboBox.Items)
+                //            {
+                //                if (item == selectedComboBox.Text)
+                //                    haveName = true;
+                //            }
+                //            if (!haveName)
+                //                comboBox.Items.Add(selectedComboBox.Text);
+                //        }
+                //        int remove = -1;
+                //        for (int i = 0; i < comboBox.Items.Count; i++)
+                //        {
+                //            string item = comboBox.Items[i].ToString();
+                //            if (item != "Ưu tiên" && item == selectedComboBox.Items[selectedComboBox.SelectedIndex].ToString())
+                //                remove = i;
+                //        }
+                //        if (remove != -1)
+                //            comboBox.Items.RemoveAt(remove);
+                //    }
+                //}
 
-                foreach (ComboBox comboBox in comboBoxes)
-                {
-                    for (int i = 0; i < comboBox.Items.Count; i++)
-                    {
-                        if (comboBox.Items[i].ToString() == "")
-                        {
-                            comboBox.Items.RemoveAt(i);
-                            i--;
-                        }
-                    }
-                }
-            }
-            catch
-            {
+                //foreach (ComboBox comboBox in comboBoxes)
+                //{
+                //    for (int i = 0; i < comboBox.Items.Count; i++)
+                //    {
+                //        if (comboBox.Items[i].ToString() == "")
+                //        {
+                //            comboBox.Items.RemoveAt(i);
+                //            i--;
+                //        }
+                //    }
+                //}
+            //}
+            //catch
+            //{
 
-            }
+            //}
         }
         public void CreateScheduleNockOut(MainWindow mainWindow)
         {
@@ -1111,12 +1115,24 @@ namespace FCM.ViewModel
                 return;
             }
             int size = 0;
-            if (mainWindow.league.countTeam <= 16)
-                size = 16;
-            if (mainWindow.league.countTeam <= 8)
-                size = 8;
-            if (mainWindow.league.countTeam <= 4)
-                size = 4;
+            if (mainWindow.league.typeLeague == 2)
+            {
+                if (mainWindow.setting.NumberOfTeamIn <= 16)
+                    size = 16;
+                if (mainWindow.setting.NumberOfTeamIn <= 8)
+                    size = 8;
+                if (mainWindow.setting.NumberOfTeamIn <= 4)
+                    size = 4;
+            }
+            else
+            {
+                if (mainWindow.league.countTeam <= 16)
+                    size = 16;
+                if (mainWindow.league.countTeam <= 8)
+                    size = 8;
+                if (mainWindow.league.countTeam <= 4)
+                    size = 4;
+            }
             comboBoxes.Clear();
             textBlockes.Clear();
             try
@@ -1307,12 +1323,24 @@ namespace FCM.ViewModel
                 return;
             }
             int size = 0;
-            if (mainWindow.league.countTeam <= 16)
-                size = 16;
-            if (mainWindow.league.countTeam <= 8)
-                size = 8;
-            if (mainWindow.league.countTeam <= 4)
-                size = 4;
+            if (mainWindow.league.typeLeague == 2)
+            {
+                if (mainWindow.setting.NumberOfTeamIn <= 16)
+                    size = 16;
+                if (mainWindow.setting.NumberOfTeamIn <= 8)
+                    size = 8;
+                if (mainWindow.setting.NumberOfTeamIn <= 4)
+                    size = 4;
+            }
+            else
+            {
+                if (mainWindow.league.countTeam <= 16)
+                    size = 16;
+                if (mainWindow.league.countTeam <= 8)
+                    size = 8;
+                if (mainWindow.league.countTeam <= 4)
+                    size = 4;
+            }
             comboBoxes.Clear();
             textBlockes.Clear();
             switch (size)
