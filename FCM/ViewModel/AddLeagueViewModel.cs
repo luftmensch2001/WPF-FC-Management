@@ -68,6 +68,7 @@ namespace FCM.ViewModel
             {
                 wd = new MessageBoxWindow(false, "Thiếu thông tin");
                 wd.ShowDialog();
+                return false;
             }
             if (!InputFormat.Instance.isNumber(countTeam))
             {
