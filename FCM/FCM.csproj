@@ -25,6 +25,7 @@
     <None Remove="Resource\Images\coder.png" />
     <None Remove="Resource\Images\dog.png" />
     <None Remove="Resource\Images\engineer.png" />
+    <None Remove="Resource\Images\error.png" />
     <None Remove="Resource\Images\field.png" />
     <None Remove="Resource\Images\football.png" />
     <None Remove="Resource\Images\football3.png" />
@@ -37,13 +38,16 @@
     <None Remove="Resource\Images\players.png" />
     <None Remove="Resource\Images\settings.png" />
     <None Remove="Resource\Images\software-logo.png" />
+    <None Remove="Resource\Images\success.png" />
     <None Remove="Resource\Images\vleague.png" />
     <None Remove="settings.png" />
     <None Remove="software-logo.png" />
     <None Remove="UserControls\arsenal-logo.png" />
     <None Remove="View\cat.png" />
+    <None Remove="View\error.png" />
     <None Remove="View\NoImageSelected.png" />
     <None Remove="View\NoLogoSelected.png" />
+    <None Remove="View\success.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -69,6 +73,7 @@
     <Resource Include="Resource\Images\coder.png" />
     <Resource Include="Resource\Images\dog.png" />
     <Resource Include="Resource\Images\engineer.png" />
+    <Resource Include="Resource\Images\error.png" />
     <Resource Include="Resource\Images\field.png" />
     <Resource Include="Resource\Images\football.png" />
     <Resource Include="Resource\Images\football3.png" />
@@ -83,6 +88,7 @@
     <Resource Include="Resource\Images\software-logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resource\Images\success.png" />
     <Resource Include="Resource\Images\vleague.png" />
   </ItemGroup>
 
