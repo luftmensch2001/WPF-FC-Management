@@ -2196,7 +2196,7 @@ namespace FCM.ViewModel
         }
         public void SendError()
         {
-            var ps = new ProcessStartInfo("https://github.com/luftmensch2001/WPF-FC-Management")
+            var ps = new ProcessStartInfo("https://docs.google.com/forms/d/1XVu3sWGxHIH8NUHQW_aZ8Q6B8bX6A25LuaaZqkFpi1E/viewform?edit_requested=true")
             {
                 UseShellExecute = true,
                 Verb = "open"
