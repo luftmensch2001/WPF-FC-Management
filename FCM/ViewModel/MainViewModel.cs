@@ -2205,7 +2205,7 @@ namespace FCM.ViewModel
         }
         public void ContactToDeveloper()
         {
-            var ps = new ProcessStartInfo("https://github.com/luftmensch2001/WPF-FC-Management")
+            var ps = new ProcessStartInfo("https://www.facebook.com/tam.oix")
             {
                 UseShellExecute = true,
                 Verb = "open"
