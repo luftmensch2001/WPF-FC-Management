@@ -49,7 +49,7 @@ namespace FCM.UserControls
                     break;
             }
             tblLeagueTeamsCount.Text = league.countTeam.ToString()+" Đội";
-            tblLeagueTime.Text ="Thời gian: " + league.dateTime.ToString("M/d/yyyy");
+            tblLeagueTime.Text ="Thời gian: " + league.dateTime.ToString("dd/MM/yyyy");
             if (!canDelete)
                 btnRemoveLeague.IsEnabled = false;
         }

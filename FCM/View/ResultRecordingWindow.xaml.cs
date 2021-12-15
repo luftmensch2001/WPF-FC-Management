@@ -3,16 +3,7 @@ using FCM.DTO;
 using FCM.UserControls;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace FCM.View
 {
@@ -216,8 +207,8 @@ namespace FCM.View
 
             this.match.PenaltyTeam1 = 0;
             this.match.PenaltyTeam2 = 0;
-            this.match.Score1 = 0;
-            this.match.Score2 = 0;
+            this.match.Score1 = -1;
+            this.match.Score2 = -1;
             this.match.isStarted = false;
             MatchDAO.Instance.UpdateMatch(this.match);
 
@@ -229,7 +220,8 @@ namespace FCM.View
             {
                 if (ScoreTeam1 == ScoreTeam2 && penaltyTeam1 == penaltyTeam2)
                 {
-                    MessageBox.Show("Trận đấu này yêu cầu không được có kết quả hòa!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBoxWindow wd = new MessageBoxWindow(false, "Trận đấu này yêu cầu không được có kết quả hòa!");
+                    wd.ShowDialog();
                     return false;
                 }
 
@@ -622,7 +614,8 @@ namespace FCM.View
             DeleteFromOfficial(player);
             InsertIntoPrep(player);
 
-            MessageBox.Show("Cầu thủ này đã nhận đủ 2 thẻ vàng, cầu thủ này sẽ tự động thêm thẻ đỏ!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBoxWindow wd = new MessageBoxWindow(true, "Cầu thủ này đã nhận đủ 2 thẻ vàng, cầu thủ này sẽ tự động thêm thẻ đỏ!");
+            wd.ShowDialog();
         }
         public void AddCard(Card card)
         {
@@ -685,12 +678,14 @@ namespace FCM.View
         {
             if (CountRedCard(card) > 0)
             {
-                MessageBox.Show("Cầu thủ này đã nhận thẻ đỏ", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxWindow wd = new MessageBoxWindow(false, "Cầu thủ này đã nhận thẻ đỏ");
+                wd.ShowDialog();
                 return false;
             }
             if (CountYellowCard(card) == 2)
             {
-                MessageBox.Show("Cầu thủ này đã nhận 2 thẻ vàng", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxWindow wd = new MessageBoxWindow(false, "Cầu thủ này đã nhận 2 thẻ vàng");
+                wd.ShowDialog();
                 return false;
             }
             return true;
@@ -788,13 +783,15 @@ namespace FCM.View
             {
                 if (card.typeOfCard == "Thẻ đỏ")
                 {
-                    MessageBox.Show("Thẻ đỏ này đi kèm với thẻ vàng thứ 2, không thể xóa!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBoxWindow wd = new MessageBoxWindow(false, "Thẻ đỏ này đi kèm với thẻ vàng thứ 2, không thể xóa!");
+                    wd.ShowDialog();
                     return;
                 }    
                 if (card.typeOfCard == "Thẻ vàng")
                 {
                     DeleteRedCard(card);
-                    MessageBox.Show("Thẻ vàng thứ 2 đã đưuọc xóa, thẻ đỏ đi kèm sẽ tự động được xóa theo!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBoxWindow wd = new MessageBoxWindow(true, "Thẻ vàng thứ 2 đã được xóa, thẻ đỏ đi kèm sẽ tự động được xóa theo!");
+                    wd.ShowDialog();
                 }    
             }
             for (int i = 0; i < this.listCardsTeam1.Count; i++)
@@ -1019,19 +1016,21 @@ namespace FCM.View
         {
             for (int i = 0; i < this.listSwitchedPlayerTeam1.Count; i++)
             {
-                MessageBox.Show(TeamDAO.Instance.GetTeamById(this.listSwitchedPlayerTeam1[i].idTeam).nameTeam + "-" +
+                MessageBoxWindow wd = new MessageBoxWindow(true, TeamDAO.Instance.GetTeamById(this.listSwitchedPlayerTeam1[i].idTeam).nameTeam + "-" +
                     this.listSwitchedPlayerTeam1[i].idPlayerIn + " - " +
                     PlayerDAO.Instance.GetPlayerById(this.listSwitchedPlayerTeam1[i].idPlayerIn).namePlayer + "-" +
                     this.listSwitchedPlayerTeam1[i].idPlayerOut + " - " +
                     PlayerDAO.Instance.GetPlayerById(this.listSwitchedPlayerTeam1[i].idPlayerOut).namePlayer);
+                wd.ShowDialog();
             }
             for (int i = 0; i < this.listSwitchedPlayerTeam2.Count; i++)
             {
-                MessageBox.Show(TeamDAO.Instance.GetTeamById(this.listSwitchedPlayerTeam2[i].idTeam).nameTeam + "-" +
+                MessageBoxWindow wd = new MessageBoxWindow(true, TeamDAO.Instance.GetTeamById(this.listSwitchedPlayerTeam2[i].idTeam).nameTeam + "-" +
                     this.listSwitchedPlayerTeam2[i].idPlayerIn + " - " +
                     PlayerDAO.Instance.GetPlayerById(this.listSwitchedPlayerTeam2[i].idPlayerIn).namePlayer + "-" +
                     this.listSwitchedPlayerTeam2[i].idPlayerOut + " - " +
                     PlayerDAO.Instance.GetPlayerById(this.listSwitchedPlayerTeam2[i].idPlayerOut).namePlayer);
+                wd.ShowDialog();
             }
         }
         public void InsertIntoPrep(Player p)

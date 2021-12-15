@@ -266,9 +266,9 @@ namespace FCM.ViewModel
                     {
                         mainWindow.btnCreateSchedule.IsEnabled = false;
                         mainWindow.btnScheduleChart.IsEnabled = false;
+                        mainWindow.btnShowChart.IsEnabled = false;
+                        
                     }
-
-
                     break;
                 case 3:
                     mainWindow.btnTeams.Foreground = lightGreen;
@@ -329,7 +329,7 @@ namespace FCM.ViewModel
                         mainWindow.grdSettingScreen.Visibility = Visibility.Visible;
 
                         bool btState = false;
-                        if (TeamDAO.Instance.GetListTeamInLeague(mainWindow.league.id).Count > 0)
+                        if (TeamDAO.Instance.GetListTeamInLeague(mainWindow.league.id).Count > 0 || mainWindow.currentAccount.roleLevel != 1 && mainWindow.currentAccount.roleLevel != 3)
                             btState = false;
                         else
                             btState = true;
@@ -498,6 +498,14 @@ namespace FCM.ViewModel
                 ChangeStatus(league.status, window);
                 window.tblLeagueTime.Text = "Thời gian: " + league.dateTime.ToString("dd/MM/yyyy");
                 LoadListTeams(window);
+                if (MatchDAO.Instance.HaveMatch(window.league.id))
+                {
+                    window.btnEditLeague.IsEnabled = false;
+                }
+                else
+                {
+                    window.btnEditLeague.IsEnabled = true;
+                }
                 if (TreeMatchDAO.Instance.GetTree(window.league.id) != null)
                 {
                     window.btnStanding.IsEnabled = false;
@@ -543,6 +551,8 @@ namespace FCM.ViewModel
                     mainWindow.btnReport.IsEnabled = true;
                     mainWindow.btnTeams.IsEnabled = true;
                     if (TreeMatchDAO.Instance.GetTree(mainWindow.league.id) == null)
+                        mainWindow.btnStanding.IsEnabled = true;
+                    else
                         mainWindow.btnStanding.IsEnabled = true;
                     mainWindow.btnStatistics.IsEnabled = true;
                     mainWindow.btnSetting.IsEnabled = true;
@@ -592,7 +602,7 @@ namespace FCM.ViewModel
         {
             if (mainWindow.currentAccount.roleLevel == 1)
             {
-                if (mainWindow.league != null && mainWindow.league.status == 0)
+                if (mainWindow.league!=null)
                 {
                     AddLeagueWindow wd = new AddLeagueWindow(mainWindow.league);
                     wd.tblTitle.Text = "SỬA THÔNG TIN GIẢI ĐẤU";
@@ -763,22 +773,24 @@ namespace FCM.ViewModel
             mainWindow.tblNational.Text = team.nation;
             mainWindow.tblStadium.Text = team.stadium;
             mainWindow.imgTeamLogo.Source = ImageProcessing.Instance.Convert(ImageProcessing.Instance.ByteToImg(team.logo));
+            LoadListPlayer(mainWindow, team.id);
+            mainWindow.tblCountOfMembers.Text = mainWindow.wpPlayersList.Children.Count.ToString();
+            mainWindow.tblStatus.Text = mainWindow.team.nameBoard;
 
-            if (MatchDAO.Instance.HaveMatch(mainWindow.league.id))
+            if (MatchDAO.Instance.HaveMatch(mainWindow.league.id) || (mainWindow.currentAccount.roleLevel!=1 && mainWindow.currentAccount.roleLevel != 2))
             {
                 mainWindow.btnDeleteTeam.IsEnabled = false;
                 mainWindow.btnAddPlayer.IsEnabled = false;
                 mainWindow.btnEditTeam.IsEnabled = false;
+                mainWindow.btnAddTeam.IsEnabled = false;
             }
             else
             {
                 mainWindow.btnDeleteTeam.IsEnabled = true;
                 mainWindow.btnAddPlayer.IsEnabled = true;
                 mainWindow.btnEditTeam.IsEnabled = true;
+                mainWindow.btnAddTeam.IsEnabled = true;
             }
-            LoadListPlayer(mainWindow, team.id);
-            mainWindow.tblCountOfMembers.Text = mainWindow.wpPlayersList.Children.Count.ToString();
-            mainWindow.tblStatus.Text = mainWindow.team.nameBoard;
             if (mainWindow.league.typeLeague != 2)
                 mainWindow.tblStatus.Visibility = Visibility.Hidden;
             else
@@ -1017,6 +1029,8 @@ namespace FCM.ViewModel
                 }
             }
             mainWindow.dgvAccountList.ItemsSource = accountViews;
+            MessageBoxWindow wd = new MessageBoxWindow(true, "Xóa tài khoản thành công");
+            wd.ShowDialog();
         }
         #endregion
 
@@ -1039,53 +1053,53 @@ namespace FCM.ViewModel
         }
         public void SelectedTeamNockOutChange(ComboBox selectedComboBox)
         {
-            try
-            {
-                if (selectedComboBox.Text == selectedComboBox.Items[selectedComboBox.SelectedIndex].ToString())
-                    return;
-                foreach (ComboBox comboBox in comboBoxes)
-                {
-                    if (comboBox != selectedComboBox)
-                    {
-                        if (selectedComboBox.Text != null)
-                        {
-                            bool haveName = false;
-                            foreach (string item in comboBox.Items)
-                            {
-                                if (item == selectedComboBox.Text)
-                                    haveName = true;
-                            }
-                            if (!haveName)
-                                comboBox.Items.Add(selectedComboBox.Text);
-                        }
-                        int remove = -1;
-                        for (int i = 0; i < comboBox.Items.Count; i++)
-                        {
-                            string item = comboBox.Items[i].ToString();
-                            if (item != "Ưu tiên" && item == selectedComboBox.Items[selectedComboBox.SelectedIndex].ToString())
-                                remove = i;
-                        }
-                        if (remove != -1)
-                            comboBox.Items.RemoveAt(remove);
-                    }
-                }
+            //try
+            //{
+                //if (selectedComboBox.Text == selectedComboBox.Items[selectedComboBox.SelectedIndex].ToString())
+                //    return;
+                //foreach (ComboBox comboBox in comboBoxes)
+                //{
+                //    if (comboBox != selectedComboBox)
+                //    {
+                //        if (selectedComboBox.Text != null)
+                //        {
+                //            bool haveName = false;
+                //            foreach (string item in comboBox.Items)
+                //            {
+                //                if (item == selectedComboBox.Text)
+                //                    haveName = true;
+                //            }
+                //            if (!haveName)
+                //                comboBox.Items.Add(selectedComboBox.Text);
+                //        }
+                //        int remove = -1;
+                //        for (int i = 0; i < comboBox.Items.Count; i++)
+                //        {
+                //            string item = comboBox.Items[i].ToString();
+                //            if (item != "Ưu tiên" && item == selectedComboBox.Items[selectedComboBox.SelectedIndex].ToString())
+                //                remove = i;
+                //        }
+                //        if (remove != -1)
+                //            comboBox.Items.RemoveAt(remove);
+                //    }
+                //}
 
-                foreach (ComboBox comboBox in comboBoxes)
-                {
-                    for (int i = 0; i < comboBox.Items.Count; i++)
-                    {
-                        if (comboBox.Items[i].ToString() == "")
-                        {
-                            comboBox.Items.RemoveAt(i);
-                            i--;
-                        }
-                    }
-                }
-            }
-            catch
-            {
+                //foreach (ComboBox comboBox in comboBoxes)
+                //{
+                //    for (int i = 0; i < comboBox.Items.Count; i++)
+                //    {
+                //        if (comboBox.Items[i].ToString() == "")
+                //        {
+                //            comboBox.Items.RemoveAt(i);
+                //            i--;
+                //        }
+                //    }
+                //}
+            //}
+            //catch
+            //{
 
-            }
+            //}
         }
         public void CreateScheduleNockOut(MainWindow mainWindow)
         {
@@ -1101,12 +1115,24 @@ namespace FCM.ViewModel
                 return;
             }
             int size = 0;
-            if (mainWindow.league.countTeam <= 16)
-                size = 16;
-            if (mainWindow.league.countTeam <= 8)
-                size = 8;
-            if (mainWindow.league.countTeam <= 4)
-                size = 4;
+            if (mainWindow.league.typeLeague == 2)
+            {
+                if (mainWindow.setting.NumberOfTeamIn <= 16)
+                    size = 16;
+                if (mainWindow.setting.NumberOfTeamIn <= 8)
+                    size = 8;
+                if (mainWindow.setting.NumberOfTeamIn <= 4)
+                    size = 4;
+            }
+            else
+            {
+                if (mainWindow.league.countTeam <= 16)
+                    size = 16;
+                if (mainWindow.league.countTeam <= 8)
+                    size = 8;
+                if (mainWindow.league.countTeam <= 4)
+                    size = 4;
+            }
             comboBoxes.Clear();
             textBlockes.Clear();
             try
@@ -1126,6 +1152,17 @@ namespace FCM.ViewModel
                             if (i > -1)
                                 count4++;
                         }
+                        for (int i = 0; i < index4.Count; i++)
+                            for (int j = 0; j < index4.Count; j++)
+                            {
+                                if (i != j && index4[i] == index4[j] && index4[j] != -1)
+                                {
+                                    MessageBoxWindow wdd = new MessageBoxWindow(false, "Trùng đội bóng");
+                                    wdd.ShowDialog();
+                                    return;
+                                }
+                            }
+
                         if (count4 < teamsInNockOut.Count)
                         {
                             MessageBoxWindow wdd = new MessageBoxWindow(false, "Thiếu đội bóng");
@@ -1162,6 +1199,16 @@ namespace FCM.ViewModel
                             if (i > -1)
                                 count8++;
                         }
+                        for (int i = 0; i < index8.Count; i++)
+                            for (int j = 0; j < index8.Count; j++)
+                            {
+                                if (i != j && index8[i] == index8[j] && index8[j] != -1)
+                                {
+                                    MessageBoxWindow wdd = new MessageBoxWindow(false, "Trùng đội bóng");
+                                    wdd.ShowDialog();
+                                    return;
+                                }
+                            }
                         if (count8 < teamsInNockOut.Count)
                         {
                             MessageBoxWindow wdd = new MessageBoxWindow(false, "Thiếu đội bóng");
@@ -1208,6 +1255,16 @@ namespace FCM.ViewModel
                             if (i > -1)
                                 count16++;
                         }
+                        for (int i = 0; i < index16.Count; i++)
+                            for (int j = 0; j < index16.Count; j++)
+                            {
+                                if (i != j && index16[i] == index16[j] && index16[j]!=-1)
+                                {
+                                    MessageBoxWindow wdd = new MessageBoxWindow(false, "Trùng đội bóng");
+                                    wdd.ShowDialog();
+                                    return;
+                                }
+                            }
                         if (count16 < teamsInNockOut.Count)
                         {
                             MessageBoxWindow wdd = new MessageBoxWindow(false, "Thiếu đội bóng");
@@ -1234,10 +1291,13 @@ namespace FCM.ViewModel
                 MessageBoxWindow wd = new MessageBoxWindow(true, "Tạo lịch thi đấu thành công");
                 wd.ShowDialog();
                 mainWindow.btnCreateSchedule.IsEnabled = false;
+                mainWindow.btnStanding.IsEnabled = false;
                 LoadCBXBoard(mainWindow);
                 AddItemsForCbxRound(mainWindow);
                 LoadListMatchRound(mainWindow, "Tất cả vòng", "Tất cả bảng");
+                mainWindow.btnEditLeague.IsEnabled = false;
                 mainWindow.btnStanding.IsEnabled = false;
+                mainWindow.btnShowChart.Visibility = Visibility.Visible;
                 OpenScheduleMatch(mainWindow);
             }
             catch
@@ -1264,12 +1324,24 @@ namespace FCM.ViewModel
                 return;
             }
             int size = 0;
-            if (mainWindow.league.countTeam <= 16)
-                size = 16;
-            if (mainWindow.league.countTeam <= 8)
-                size = 8;
-            if (mainWindow.league.countTeam <= 4)
-                size = 4;
+            if (mainWindow.league.typeLeague == 2)
+            {
+                if (mainWindow.setting.NumberOfTeamIn <= 16)
+                    size = 16;
+                if (mainWindow.setting.NumberOfTeamIn <= 8)
+                    size = 8;
+                if (mainWindow.setting.NumberOfTeamIn <= 4)
+                    size = 4;
+            }
+            else
+            {
+                if (mainWindow.league.countTeam <= 16)
+                    size = 16;
+                if (mainWindow.league.countTeam <= 8)
+                    size = 8;
+                if (mainWindow.league.countTeam <= 4)
+                    size = 4;
+            }
             comboBoxes.Clear();
             textBlockes.Clear();
             switch (size)
@@ -1435,12 +1507,26 @@ namespace FCM.ViewModel
             mainWindow.btnCancelCreateScheduleChart.Visibility = Visibility.Visible;
             mainWindow.btnCancelCreateScheduleChart.Content = "Hủy";
             int size = 0;
-            if (mainWindow.league.countTeam <= 16)
-                size = 16;
-            if (mainWindow.league.countTeam <= 8)
-                size = 8;
-            if (mainWindow.league.countTeam <= 4)
-                size = 4;
+            if (mainWindow.league.typeLeague == 2)
+            {
+                if (mainWindow.setting.NumberOfTeamIn <= 16)
+                    size = 16;
+                if (mainWindow.setting.NumberOfTeamIn <= 8)
+                    size = 8;
+                if (mainWindow.setting.NumberOfTeamIn <= 4)
+                    size = 4;
+            }
+            else
+            {
+                if (mainWindow.league.countTeam <= 16)
+                    size = 16;
+                if (mainWindow.league.countTeam <= 8)
+                    size = 8;
+                if (mainWindow.league.countTeam <= 4)
+                    size = 4;
+            }
+            comboBoxes.Clear();
+            textBlockes.Clear();
             switch (size)
             {
                 case 4:
@@ -1696,6 +1782,7 @@ namespace FCM.ViewModel
                 if (mainWindow.league.typeLeague != 1 && !BoardDAO.Instance.HaveNockOutBoard(mainWindow.league.id))
                 {
                     MessageBoxWindow wd = new MessageBoxWindow(true, "Tạo lịch thi đấu thành công");
+                    mainWindow.btnEditLeague.IsEnabled = false;
                     wd.ShowDialog();
                     mainWindow.btnCreateSchedule.IsEnabled = false;
                 }
@@ -1704,6 +1791,88 @@ namespace FCM.ViewModel
             }
         }
 
+        static List<Match> CreateListMatch(MainWindow mainWindow, List<Team> Teams, string nameBoard)
+        {
+            List<Match> matches = new List<Match>();
+
+            List<Team> Team1 = new List<Team>();
+            List<Team> Team2 = new List<Team>();
+            int countOfTeam = Teams.Count;
+            int countOfMatch = (countOfTeam * (countOfTeam - 1)) / 2;
+
+            if (countOfTeam <= 1)
+            {
+                MessageBox.Show("Số lượng đội bóng không đủ đê tạo lịch", "Lỗi");
+                return matches;
+            }
+
+            int[] arr = new int[200];
+            bool check = true; // check = true neu n chan va nguoc lai
+
+            if (countOfTeam % 2 == 1)
+            {
+                countOfTeam++;
+                check = false;
+            }
+
+            int center = countOfTeam - 1;
+            for (int i = 0; i < center * 3; i++)
+            {
+                arr[i] = i % center;
+            }
+
+            for (int i = center; i < center * 2; i++)
+            {
+                if (check == true)
+                {
+                    Team1.Add(Teams[center]);
+                    Team2.Add(Teams[arr[i]]);
+                }
+
+                int l = i - 1;
+                int r = i + 1;
+
+                for (int j = 0; j < countOfTeam / 2 - 1; j++)
+                {
+                    Team1.Add(Teams[arr[l]]);
+                    Team2.Add(Teams[arr[r]]);
+                    l--;
+                    r++;
+                }
+            }
+
+            int round = 0;
+            if (check == false) countOfTeam--;
+
+            // Luot di
+            for (int i = 0; i < countOfMatch; i++)
+            {
+                if (i % (countOfTeam / 2) == 0) round++;
+
+                Match match = new Match(mainWindow.league.id, Team1[i].id, Team2[i].id, round, Team1[i].stadium, nameBoard);
+                match.allowDraw = true;
+                match.date = DateTime.Now;
+                match.time = DateTime.Now;
+
+                matches.Add(match);
+            }
+            // Luot ve
+            for (int i = 0; i < countOfMatch; i++)
+            {
+                if (i % (countOfTeam / 2) == 0) round++;
+
+                Match match = new Match(mainWindow.league.id, Team2[i].id, Team1[i].id, round, Team2[i].stadium, nameBoard);
+                match.allowDraw = true;
+                match.date = DateTime.Now;
+                match.time = DateTime.Now;
+
+                matches.Add(match);
+            }
+
+
+
+            return matches;
+        }
         // Tạo lịch thi đấu vòng tròn tại mỗi bảng đấu (Cho trường hợp giải đấu chia bảng)
         public void CreateScheduleWithBoard(MainWindow mainWindow)
         {
@@ -1715,228 +1884,66 @@ namespace FCM.ViewModel
             for (int iBoard = 0; iBoard < nBoard; iBoard++)
             {
                 List<Team> teams = TeamDAO.Instance.GetListTeam(boards[iBoard].nameBoard, mainWindow.league.id);
-                int nTeams = teams.Count;
 
-                bool[,] haveMet = new bool[nTeams, nTeams];
-                // lưu trữ xem đội i đã từng đá với đội j (sân nhà đội i) hay chưa. have[i,j] = true : đã gặp nhau trên sân của i
-                for (int i = 0; i < nTeams; i++) for (int j = 0; j < nTeams; j++) haveMet[i, j] = false;
+                string nameBoard = boards[iBoard].nameBoard;
 
-                int nRound = nTeams % 2 == 0 ? (nTeams - 1) * 2 : nTeams * 2;
+                List<Match> matches = CreateListMatch(mainWindow, teams, nameBoard);
 
-                bool[] isAttended = new bool[nTeams + 1];
-                // Tại 1 vòng đấu nào đóm đội i nếu đã tham gia thì isAttended[i] = true;
-
-                // Danh sách trận đấu
-                Match[] matches = new Match[nRound * (nTeams / 2) + 1];
-                int nMatch = 0;
-
-                // Duyệt qua mỗi vòng đấu và tạo lịch
-                for (int iRound = 1; iRound <= nRound / 2; iRound++)
+                for (int i = 0; i < matches.Count; i++)
                 {
-                    // Đánh dấu rằng: tại vòng đấu thứ round, tất cả các đội bóng đều chưa tham gia
-                    for (int attended = 0; attended <= nTeams; attended++)
-                    {
-                        isAttended[attended] = false;
-                    }
-
-                    for (int iTeam1 = 0; iTeam1 < nTeams; iTeam1++)
-                    {
-                        if (!isAttended[iTeam1])        //  Nếu đội iTeam1 chưa tham gia trong vòng đấu này
-                        {
-                            for (int iTeam2 = 0; iTeam2 < nTeams; iTeam2++)
-                            {
-                                if (!isAttended[iTeam2] && iTeam1 != iTeam2)    // Nếu đội iTeam2 chưa tham gia vòng đấu này
-                                {
-                                    if (!haveMet[iTeam1, iTeam2])
-                                    {
-                                        Match match = new Match(mainWindow.league.id, teams[iTeam1].id, teams[iTeam2].id, iRound, teams[iTeam1].stadium, boards[iBoard].nameBoard);
-
-                                        matches[nMatch] = match;
-
-                                        nMatch++;
-
-                                        // đánh dấu lại iTeam1 và iTeam2 đã tham gia vòng đấu thứ iRound và lưu lại trận iTeam1 vs iTeam2 đã diễn ra
-                                        // đồng thời thoát khỏi vòng lặp
-                                        isAttended[iTeam1] = true;
-                                        isAttended[iTeam2] = true;
-                                        haveMet[iTeam1, iTeam2] = true;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    MatchDAO.Instance.AddMatch(matches[i]);
                 }
 
-                // Thêm vào database danh sách trận đấu (lượt đi)
-                for (int iMatch = 0; iMatch < nMatch; iMatch++)
-                {
-                    Match match = matches[iMatch];
-                    match.date = DateTime.Now;
-                    match.time = DateTime.Now;
-                    match.allowDraw = true;
-                    match.allowDraw = true;
-                    MatchDAO.Instance.AddMatch(match);
-                }
-
-                // Thêm vào database danh sách trận đấu (lượt về)
-                for (int iMatch = 0; iMatch < nMatch; iMatch++)
-                {
-                    // Đổi ngược lại vị trí idTeam1 và idTeam2, đồng thời đổi cả sân đấu
-                    string stadium = TeamDAO.Instance.GetTeamById(matches[iMatch].idTeam02).stadium;
-                    Match match = new Match(mainWindow.league.id, matches[iMatch].idTeam02, matches[iMatch].idTeam01, matches[iMatch].round + nRound / 2, stadium, boards[iBoard].nameBoard);
-                    match.date = DateTime.Now;
-                    match.time = DateTime.Now;
-                    match.allowDraw = true;
-                    MatchDAO.Instance.AddMatch(match);
-                }
             }
         }
 
         // Tạo lịch thi đấu với cách vòng tròn tính điểm (Cho trường hợp giải đấu vòng tròn tính điểm)
         public void CreateScheduleWithCircle(MainWindow mainWindow)
         {
-            // Lưu ý: số lượng đội bóng BẮT BUỘC PHẢI là số CHẴN
             List<Team> teams = TeamDAO.Instance.GetListTeamInLeague(mainWindow.league.id);
 
-            // Số lượng đội bóng
-            int nTeams = teams.Count;
+            List<Match> matches = CreateListMatch(mainWindow, teams, "Bảng đấu vòng");
 
-            bool[,] homeStadium = new bool[nTeams + 1, nTeams + 1];
-            // homeStadium[i,j] = true  : đã có 1 trận đấu đội i vs j và sân là sân nhà của đội i, = false : chưa diễn ra trận đấu giữa đội i và j
-            for (int i = 0; i <= nTeams; i++) for (int j = 0; j <= nTeams; j++) homeStadium[i, j] = false;
-
-            bool[] isAttended = new bool[nTeams + 1];
-            // Tại 1 vòng đấu nào đóm đội i nếu đã tham gia thì isAttended[i] = true;
-
-            Match[] matches = new Match[(nTeams - 1) * nTeams + 1];
-            int nTrandau = 0;
-
-            // Tạo lịch
-            for (int vongdau = 1; vongdau <= (nTeams - 1) * 2; vongdau++)
+            for (int i = 0; i < matches.Count; i++)
             {
-                // Đánh dấu rằng: tại vòng đấu thứ vongdau, tất cả các đội bóng đều chưa tham gia
-                for (int attended = 0; attended <= nTeams; attended++)
-                {
-                    isAttended[attended] = false;
-                }
-
-                int nAttended = 0; // Số đội bóng đã tham gia vòng đấu hiện tại
-
-                Random rdTeam01 = new Random();
-                Random rdTeam02 = new Random();
-
-                while (nAttended < nTeams / 2) // Số trận đấu tối đa trong một vòng đấu = số đội bóng/2
-                {
-                    int team01 = rdTeam01.Next(1, nTeams + 1);
-                    int team02 = rdTeam02.Next(1, nTeams + 1);
-
-                    while (isAttended[team01] || isAttended[team02] || homeStadium[team01, team02] || team01 == team02)
-                    {
-                        team01 = rdTeam01.Next(1, nTeams + 1);
-                        team02 = rdTeam02.Next(1, nTeams + 1);
-                    }
-
-                    isAttended[team01] = true;
-                    isAttended[team02] = true;
-                    homeStadium[team01, team02] = true;
-
-                    nTrandau++;
-                    matches[nTrandau] = new Match(mainWindow.league.id, teams[team01 - 1].id, teams[team02 - 1].id, vongdau, teams[team01 - 1].stadium, "Bảng đấu vòng");
-
-                    nAttended++;
-                }
-            }
-
-            for (int i = 1; i <= nTrandau; i++)
-            {
-                //matches[i].date = DateTime.Now.Date;
-                //matches[i].date = DateTime.Now;
-                //matches[i].time = DateTime.Now;
-                matches[i].allowDraw = true;
                 MatchDAO.Instance.AddMatch(matches[i]);
             }
         }
-
-        // Thêm dữ liệu vào thanh lọc Vòng đấu
         public void AddItemsForCbxRound(MainWindow mainWindow)
         {
             mainWindow.cbxRound.Items.Clear();
             mainWindow.cbxRound.Items.Add("Tất cả vòng");
-            switch (mainWindow.league.typeLeague)
+            List<string> rounds = MatchDAO.Instance.GetListRoundInLeague(mainWindow.league.id);
+            for (int i = 0; i < rounds.Count; i++)
             {
-                case 0:
-                    for (int i = 1; i <= (mainWindow.league.countTeam - 1) * 2; i++)
-                    {
-                        string item = "Vòng " + i.ToString();
-                        mainWindow.cbxRound.Items.Add(item);
-                    }
-                    break;
-                case 1:
-                    TreeMatch tree = TreeMatchDAO.Instance.GetTree(mainWindow.league.id);
-                    if (tree == null)
-                        return;
-                    else
-                    {
-                        switch (tree.size)
-                        {
-                            case 4:
-                                mainWindow.cbxRound.Items.Add("Vòng bán kết");
-                                mainWindow.cbxRound.Items.Add("Vòng chung kết");
-
-                                break;
-                            case 8:
-                                mainWindow.cbxRound.Items.Add("Vòng tứ kết");
-                                mainWindow.cbxRound.Items.Add("Vòng bán kết");
-                                mainWindow.cbxRound.Items.Add("Vòng chung kết");
-                                break;
-                            case 16:
-                                mainWindow.cbxRound.Items.Add("Vòng 1/8");
-                                mainWindow.cbxRound.Items.Add("Vòng tứ kết");
-                                mainWindow.cbxRound.Items.Add("Vòng bán kết");
-                                mainWindow.cbxRound.Items.Add("Vòng chung kết");
-                                break;
-                        }
-                    }
-                    break;
-                case 2:
-                    int n = mainWindow.league.countTeam / mainWindow.league.countBoard;
-                    if (mainWindow.league.countTeam % mainWindow.league.countBoard > 0)
-                        n++;
-                    for (int i = 1; i <= (n - 1) * 2; i++)
-                    {
-                        string item = "Vòng " + i.ToString();
-                        mainWindow.cbxRound.Items.Add(item);
-                    }
-                    tree = null;
-                    tree = TreeMatchDAO.Instance.GetTree(mainWindow.league.id);
-                    if (tree == null)
-                        return;
-                    else
-                    {
-                        switch (tree.size)
-                        {
-                            case 4:
-                                mainWindow.cbxRound.Items.Add("Vòng bán kết");
-                                mainWindow.cbxRound.Items.Add("Vòng chung kết");
-
-                                break;
-                            case 8:
-                                mainWindow.cbxRound.Items.Add("Vòng tứ kết");
-                                mainWindow.cbxRound.Items.Add("Vòng bán kết");
-                                mainWindow.cbxRound.Items.Add("Vòng chung kết");
-                                break;
-                            case 16:
-                                mainWindow.cbxRound.Items.Add("Vòng 1/8");
-                                mainWindow.cbxRound.Items.Add("Vòng tứ kết");
-                                mainWindow.cbxRound.Items.Add("Vòng bán kết");
-                                mainWindow.cbxRound.Items.Add("Vòng chung kết");
-                                break;
-                        }
-                    }
-                    break;
-
+                int tmp = int.Parse(rounds[i]);
+                if (tmp > 0)
+                    mainWindow.cbxRound.Items.Add("Vòng " + tmp.ToString());
             }
+            //
+            for (int i = 0; i < rounds.Count; i++)
+            {
+                int tmp = int.Parse(rounds[i]);
+                if (tmp < 0)
+                    switch (-tmp)
+                    {
+                        case 1:
+                            mainWindow.cbxRound.Items.Add("Vòng Chung kết");
+                            break;
+                        case 2:
+                            mainWindow.cbxRound.Items.Add("Vòng Bán kết");
+                            break;
+                        case 3:
+                            mainWindow.cbxRound.Items.Add("Vòng Tứ kết");
+                            break;
+                        case 4:
+                            mainWindow.cbxRound.Items.Add("Vòng 1/8");
+                            break;
+                    }
+                else
+                    break;
+            }
+            mainWindow.cbxRound.SelectedIndex = 0;
         }
 
         // Hủy kết quả trận đấu
@@ -2019,6 +2026,12 @@ namespace FCM.ViewModel
             try
             {
                 int r = Int32.Parse(round[round.Length - 1].ToString());
+                if (round[round.Length - 2] != ' ')
+                {
+                    int a = Int32.Parse(round[round.Length - 2].ToString());
+                    r = a * 10 + r;
+                }
+
                 LoadListMatch(mainWindow, r, board);
             }
             catch

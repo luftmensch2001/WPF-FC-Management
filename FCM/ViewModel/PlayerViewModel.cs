@@ -22,7 +22,7 @@ namespace FCM.ViewModel
         }
         void DeletePlayer(ucPlayer parameter)
         {
-            ConfirmDialogWindow wdd = new ConfirmDialogWindow("Xác nhận xóa cầu thủ : "+parameter.Name +" ?");
+            ConfirmDialogWindow wdd = new ConfirmDialogWindow("Xác nhận xóa cầu thủ : "+parameter.tblName.Text +" ?");
             wdd.ShowDialog();
             if (wdd.confirm == false)
             {

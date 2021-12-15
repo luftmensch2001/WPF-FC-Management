@@ -264,9 +264,23 @@ namespace FCM.DAO
                 if (date.Date.ToString("d") == match.date.Date.ToString("d"))
                 {
                     DateTime time = (DateTime)dataRow["time"];
-                    time.AddHours(hour);
+
                     time.AddMinutes(minute);
-                    if (match.time.TimeOfDay >= time.TimeOfDay && match.time.TimeOfDay <= time.TimeOfDay)
+
+                    DateTime datetime2 = time.AddHours(hour);
+                    datetime2 = datetime2.AddMinutes(minute);
+
+                    if (match.time.TimeOfDay >= time.TimeOfDay && match.time.TimeOfDay <= datetime2.TimeOfDay)
+                    {
+                        return true;
+                    }
+
+
+
+                    DateTime datetime3 = time.AddHours(-hour);
+                    datetime3 = datetime3.AddMinutes(-minute);
+
+                    if (match.time.TimeOfDay <= time.TimeOfDay && match.time.TimeOfDay >= datetime3.TimeOfDay)
                     {
                         return true;
                     }

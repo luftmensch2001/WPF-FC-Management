@@ -73,7 +73,7 @@ namespace FCM.DAO
                             "Set " +
                             " Honors = " + "N'" + league.nameSpender + "' ," +
                             " Displayname = " + "N'" + league.nameLeague + "' ," +
-                            " Time = " + "'" + league.dateTime + "' ," +
+                            " Time = " + "'" + league.dateTime.ToString("M/d/yyyy") + "' ," +
                             " Status = " + "N'" + league.status + "' ," +
                             " countTeam =" + league.countTeam + "," +
                             " typeLeague =" + league.typeLeague + "," +

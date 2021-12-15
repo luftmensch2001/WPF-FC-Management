@@ -927,7 +927,7 @@
                                         <TextBlock Text="TG" Foreground="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" FontWeight="Medium"/>
                                     </Grid>
                                     <Grid Grid.Column="3">
-                                        <TextBlock Text="Sửa" Foreground="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" FontWeight="Medium"/>
+                                        <TextBlock Text="Xoá" Foreground="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" FontWeight="Medium"/>
                                     </Grid>
                                 </Grid>
                                 <Rectangle Height="1" Width="320" Fill="#fff" />

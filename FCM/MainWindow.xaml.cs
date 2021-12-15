@@ -43,9 +43,18 @@ namespace FCM
             MainViewModel mainViewModel = new MainViewModel();
             if (currentAccount.idLastLeague != -1)
             {
-                league =  LeagueDAO.Instance.GetLeagueById(currentAccount.idLastLeague);
-                this.mainViewModel = mainViewModel;
-                mainViewModel.LoadDetailLeague(league, this);
+                try
+                {
+                    league = LeagueDAO.Instance.GetLeagueById(currentAccount.idLastLeague);
+                    this.mainViewModel = mainViewModel;
+                    mainViewModel.LoadDetailLeague(league, this);
+                }
+                catch
+                {
+                    league = null;
+                    currentAccount.idLastLeague = -1;
+                    AccountDAO.Instance.UpdateIdLastLeague(currentAccount.userName,-1);
+                }
             }
             mainViewModel.LoadScreenHomeWithLeague(this);
             mainViewModel = new MainViewModel();
