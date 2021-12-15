@@ -268,7 +268,7 @@ namespace FCM.DAO
                     time.AddMinutes(minute);
 
                     DateTime datetime2 = time.AddHours(hour);
-                    datetime2 = time.AddHours(hour);
+                    datetime2 = datetime2.AddMinutes(minute);
 
                     if (match.time.TimeOfDay >= time.TimeOfDay && match.time.TimeOfDay <= datetime2.TimeOfDay)
                     {
@@ -277,8 +277,8 @@ namespace FCM.DAO
 
 
 
-                    DateTime datetime3 = time.AddHours(hour);
-                    datetime3 = time.AddMinutes(minute);
+                    DateTime datetime3 = time.AddHours(-hour);
+                    datetime3 = datetime3.AddMinutes(-minute);
 
                     if (match.time.TimeOfDay <= time.TimeOfDay && match.time.TimeOfDay >= datetime3.TimeOfDay)
                     {
