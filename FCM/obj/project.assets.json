@@ -4981,19 +4981,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\vuduc\\.nuget\\packages\\": {}
+    "C:\\Users\\DELL\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vuduc\\Documents\\GitHub\\WPF-FC-Management\\FCM\\FCM.csproj",
+      "projectUniqueName": "F:\\Clone\\WPF-FC-Management\\FCM\\FCM.csproj",
       "projectName": "FCM",
-      "projectPath": "C:\\Users\\vuduc\\Documents\\GitHub\\WPF-FC-Management\\FCM\\FCM.csproj",
-      "packagesPath": "C:\\Users\\vuduc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vuduc\\Documents\\GitHub\\WPF-FC-Management\\FCM\\obj\\",
+      "projectPath": "F:\\Clone\\WPF-FC-Management\\FCM\\FCM.csproj",
+      "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+      "outputPath": "F:\\Clone\\WPF-FC-Management\\FCM\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\vuduc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5058,6 +5063,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[3.1.18, 3.1.18]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
@@ -5066,7 +5077,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
       }
     }
   },

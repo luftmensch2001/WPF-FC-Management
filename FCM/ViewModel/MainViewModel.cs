@@ -1297,6 +1297,7 @@ namespace FCM.ViewModel
                 LoadListMatchRound(mainWindow, "Tất cả vòng", "Tất cả bảng");
                 mainWindow.btnEditLeague.IsEnabled = false;
                 mainWindow.btnStanding.IsEnabled = false;
+                mainWindow.btnShowChart.Visibility = Visibility.Visible;
                 OpenScheduleMatch(mainWindow);
             }
             catch
@@ -1912,80 +1913,37 @@ namespace FCM.ViewModel
         {
             mainWindow.cbxRound.Items.Clear();
             mainWindow.cbxRound.Items.Add("Tất cả vòng");
-            switch (mainWindow.league.typeLeague)
+            List<string> rounds = MatchDAO.Instance.GetListRoundInLeague(mainWindow.league.id);
+            for (int i = 0; i < rounds.Count; i++)
             {
-                case 0:
-                    for (int i = 1; i <= (mainWindow.league.countTeam - 1) * 2; i++)
-                    {
-                        string item = "Vòng " + i.ToString();
-                        mainWindow.cbxRound.Items.Add(item);
-                    }
-                    break;
-                case 1:
-                    TreeMatch tree = TreeMatchDAO.Instance.GetTree(mainWindow.league.id);
-                    if (tree == null)
-                        return;
-                    else
-                    {
-                        switch (tree.size)
-                        {
-                            case 4:
-                                mainWindow.cbxRound.Items.Add("Vòng bán kết");
-                                mainWindow.cbxRound.Items.Add("Vòng chung kết");
-
-                                break;
-                            case 8:
-                                mainWindow.cbxRound.Items.Add("Vòng tứ kết");
-                                mainWindow.cbxRound.Items.Add("Vòng bán kết");
-                                mainWindow.cbxRound.Items.Add("Vòng chung kết");
-                                break;
-                            case 16:
-                                mainWindow.cbxRound.Items.Add("Vòng 1/8");
-                                mainWindow.cbxRound.Items.Add("Vòng tứ kết");
-                                mainWindow.cbxRound.Items.Add("Vòng bán kết");
-                                mainWindow.cbxRound.Items.Add("Vòng chung kết");
-                                break;
-                        }
-                    }
-                    break;
-                case 2:
-                    int n = mainWindow.league.countTeam / mainWindow.league.countBoard;
-                    if (mainWindow.league.countTeam % mainWindow.league.countBoard > 0)
-                        n++;
-                    for (int i = 1; i <= (n - 1) * 2; i++)
-                    {
-                        string item = "Vòng " + i.ToString();
-                        mainWindow.cbxRound.Items.Add(item);
-                    }
-                    tree = null;
-                    tree = TreeMatchDAO.Instance.GetTree(mainWindow.league.id);
-                    if (tree == null)
-                        return;
-                    else
-                    {
-                        switch (tree.size)
-                        {
-                            case 4:
-                                mainWindow.cbxRound.Items.Add("Vòng bán kết");
-                                mainWindow.cbxRound.Items.Add("Vòng chung kết");
-
-                                break;
-                            case 8:
-                                mainWindow.cbxRound.Items.Add("Vòng tứ kết");
-                                mainWindow.cbxRound.Items.Add("Vòng bán kết");
-                                mainWindow.cbxRound.Items.Add("Vòng chung kết");
-                                break;
-                            case 16:
-                                mainWindow.cbxRound.Items.Add("Vòng 1/8");
-                                mainWindow.cbxRound.Items.Add("Vòng tứ kết");
-                                mainWindow.cbxRound.Items.Add("Vòng bán kết");
-                                mainWindow.cbxRound.Items.Add("Vòng chung kết");
-                                break;
-                        }
-                    }
-                    break;
-
+                int tmp = int.Parse(rounds[i]);
+                if (tmp > 0)
+                    mainWindow.cbxRound.Items.Add("Vòng " + tmp.ToString());
             }
+            //
+            for (int i = 0; i < rounds.Count; i++)
+            {
+                int tmp = int.Parse(rounds[i]);
+                if (tmp < 0)
+                    switch (-tmp)
+                    {
+                        case 1:
+                            mainWindow.cbxRound.Items.Add("Vòng Chung kết");
+                            break;
+                        case 2:
+                            mainWindow.cbxRound.Items.Add("Vòng Bán kết");
+                            break;
+                        case 3:
+                            mainWindow.cbxRound.Items.Add("Vòng Tứ kết");
+                            break;
+                        case 4:
+                            mainWindow.cbxRound.Items.Add("Vòng 1/8");
+                            break;
+                    }
+                else
+                    break;
+            }
+            mainWindow.cbxRound.SelectedIndex = 0;
         }
 
         // Hủy kết quả trận đấu
