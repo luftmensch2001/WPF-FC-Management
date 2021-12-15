@@ -3297,6 +3297,12 @@
                         Kind="BookOpenVariant" Width="30" Height="30" Margin="0 0 10 0"/>
                     <TextBlock Text="Hướng dẫn sử dụng phần mềm" VerticalAlignment="Center"/>
                 </StackPanel>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding HowToUseCommand}"
+                                                           CommandParameter="{Binding ElementName=wdHome}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
             </Button>
             <StackPanel Orientation="Horizontal" Width="360" Height="45"
                         VerticalAlignment="Bottom" Margin="0 0 0 90">
@@ -3309,6 +3315,12 @@
                         Kind="Alert" Width="30" Height="30" Margin="0 0 10 0"/>
                         <TextBlock Text="Báo lỗi" VerticalAlignment="Center"/>
                     </StackPanel>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding SendErrorCommand}"
+                                                           CommandParameter="{Binding ElementName=wdHome}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
 
                 <Button
@@ -3320,6 +3332,12 @@
                         Kind="MessageAlertOutline" Width="30" Height="30" Margin="0 0 10 0"/>
                         <TextBlock Text="Liên hệ với chúng tôi" VerticalAlignment="Center"/>
                     </StackPanel>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding ContactToDeveloperCommand}"
+                                                           CommandParameter="{Binding ElementName=wdHome}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
             </StackPanel>
 

@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Drawing;
 using System.IO;
 using System.Windows.Controls;
+using System.Diagnostics;
 
 namespace FCM.ViewModel
 {
@@ -22,7 +23,7 @@ namespace FCM.ViewModel
         public ICommand SwitchTabStatisticsCommand { get; set; }
         public ICommand GetUidCommand { get; set; }
         public ICommand GetIdSettingCommand { get; set; }
-
+        
         public ICommand OpenAddLeagueWindowCommand { get; set; }
 
         public ICommand OpenEditLeagueWindowCommand { get; set; }
@@ -56,7 +57,10 @@ namespace FCM.ViewModel
         public ICommand FilterStatisticCommand { get; set; }
         public ICommand DeleteAccountCommand { get; set; }
 
-
+        public ICommand HowToUseCommand { get; set; }
+        public ICommand SendErrorCommand { get; set; }
+        public ICommand ContactToDeveloperCommand { get; set; }
+        
         //public ICommand OpenEditMatchWindowCommand { get; set; }
         //public ICommand OpenResultRecordWindowCommand { get; set; }
 
@@ -113,8 +117,9 @@ namespace FCM.ViewModel
             FilterStatisticCommand = new RelayCommand<MainWindow>((mainWindow) => true, (mainWindow) => FilterStatisticClick(mainWindow));
 
             DeleteAccountCommand = new RelayCommand<MainWindow>((mainWindow) => true, (mainWindow) => DeleteAccount(mainWindow));
-
-
+            HowToUseCommand = new RelayCommand<MainWindow>((mainWindow) => true, (mainWindow) => HowToUse());
+            SendErrorCommand = new RelayCommand<MainWindow>((mainWindow) => true, (mainWindow) => SendError());
+            ContactToDeveloperCommand = new RelayCommand<MainWindow>((mainWindow) => true, (mainWindow) => ContactToDeveloper());
             //OpenEditMatchWindowCommand = new RelayCommand<MainWindow>((mainWindow) => true, (mainWindow) => OpenEditMatchInfoWindow(mainWindow));
             //OpenResultRecordWindowCommand = new RelayCommand<MainWindow>((mainWindow) => true, (mainWindow) => OpenResultRecordingWindow(mainWindow));
         }
@@ -2177,6 +2182,37 @@ namespace FCM.ViewModel
                 LoadTypesOfGoal(mainWindow);
             }
         }
+        #endregion
+
+        #region Trợ giúp
+        public void HowToUse()
+        {
+            var ps = new ProcessStartInfo("https://github.com/luftmensch2001/WPF-FC-Management")
+            {
+                UseShellExecute = true,
+                Verb = "open"
+            };
+            Process.Start(ps);
+        }
+        public void SendError()
+        {
+            var ps = new ProcessStartInfo("https://github.com/luftmensch2001/WPF-FC-Management")
+            {
+                UseShellExecute = true,
+                Verb = "open"
+            };
+            Process.Start(ps);
+        }
+        public void ContactToDeveloper()
+        {
+            var ps = new ProcessStartInfo("https://github.com/luftmensch2001/WPF-FC-Management")
+            {
+                UseShellExecute = true,
+                Verb = "open"
+            };
+            Process.Start(ps);
+        }
+        
         #endregion
 
         #region Ranking
